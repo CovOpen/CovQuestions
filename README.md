@@ -1,7 +1,14 @@
+Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIvbIJmsb08GLVQt8iE?usp=sharing)
 # CovQuestions
+
 A webservice where users can interactively try existing SARS-CoV-2 related questionnaires, upload their own questionnaires and an API to provide questions and logic for frontends 
 
+### You are intereted to collaborate? 
+Write us an email: @DanielHabenicht or @authory
 
+
+
+## First Ideas: 
 
 Possible candidates to built on:
 JSON Logic http://jsonlogic.com/
