@@ -3,7 +3,7 @@ Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIv
 
 A webservice where users can interactively try existing SARS-CoV-2 related questionnaires, upload their own questionnaires and an API to provide questions and logic for frontends 
 
-### You are intereted to collaborate? 
+### You are interested to collaborate? 
 Write us an email: @DanielHabenicht or @authory
 
 
