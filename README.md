@@ -46,8 +46,8 @@ MUST:
 		- can enable/disable questions by unique id or category
 		- can write to interpretation variable (append, clear)
 	
-- interpretation
-	- array of strings
+- [Evaluation Logic] interpretation -> Risc groups 
+	- array of strings ("Stay home", "please visit the local health..."]
 
 IMPORTANT:
 - multi lingual
