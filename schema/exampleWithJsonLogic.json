@@ -1,0 +1,123 @@
+{
+  "author": "John Doe",
+  "version": 42,
+  "questions": [
+    {
+      "id": "question1",
+      "category": "Contact",
+      "tags": [
+        "important"
+      ],
+      "type": "RadioSelect",
+      "question": "Did you have contact with an infected person?",
+      "possibleAnswers": [
+        {
+          "label": "Yes",
+          "value": "question1-yes",
+          "score": 1
+        },
+        {
+          "label": "No",
+          "value": "question1-no",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "id": "question2",
+      "category": "Symptoms",
+      "tags": [
+        "important"
+      ],
+      "type": "RadioSelect",
+      "question": "Do you show symptoms?",
+      "possibleAnswers": [
+        {
+          "label": "Yes",
+          "value": "question2-yes",
+          "score": 1
+        },
+        {
+          "label": "No",
+          "value": "question2-no",
+          "score": 0
+        }
+      ],
+      "visibleIf": {
+        "var": "variables.shouldShowSymptomsCategory"
+      }
+    },
+    {
+      "id": "question3",
+      "category": "Symptoms",
+      "tags": [
+        "important"
+      ],
+      "type": "Date",
+      "question": "Since when do you show the symptoms mentioned in the last step?",
+      "visibleIf": {
+        "and": [
+          {
+            "var": "variables.shouldShowSymptomsCategory"
+          },
+          {
+            "===": [
+              {
+                "var": "questions.question2.selectedAnswer"
+              },
+              "question2-yes"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "variables": [
+    {
+      "id": "shouldShowSymptomsCategory",
+      "type": "boolean",
+      "value": {
+        ">=": [
+          {
+            "var": "categories.Contact.score.sum"
+          },
+          1
+        ]
+      }
+    }
+  ],
+  "interpretation": [
+    {
+      "id": "interpretation1",
+      "text": "Please go see a doctor",
+      "visibleIf": {
+        "and": [
+          {
+            "===": [
+              {
+                "var": "questions.question1.selectedAnswer"
+              },
+              "question1-yes"
+            ]
+          },
+          {
+            ">=": [
+              {
+                "var": "categories.Symptoms.score.sum"
+              },
+              1
+            ]
+          },
+          {
+            "<": [
+              {
+                "var": "questions.question3.selectedDate"
+              },
+              "2020-04-01T00:00:00.000Z"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
