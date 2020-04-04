@@ -45,7 +45,6 @@
  "triggers": [
   {
    "type": "skip",
-   "expression": "{Did you have contact with an infected person?} = ['item1']",
    "gotoName": "question3"
   }
  ]
