@@ -1,6 +1,6 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
-import { DateInput } from "./DateInput";
+import { TemperatureInput } from "./TemperatureInput";
 import { Question } from "../App";
 
 export const QuestionForm: React.FC<{
@@ -18,7 +18,7 @@ export const QuestionForm: React.FC<{
       );
     case "Date":
       return (
-        <DateInput
+        <TemperatureInput
           key={currentQuestion.id}
           currentQuestion={currentQuestion}
           onChange={onChange}

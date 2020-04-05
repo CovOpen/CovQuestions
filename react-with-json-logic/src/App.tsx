@@ -1,5 +1,6 @@
 import React, { Reducer, useReducer, useState } from "react";
 import jsonLogic from "json-logic-js";
+import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
 import "./App.css";
 import questionnaire from "./exampleWithJsonLogic.json";
 import { QuestionForm } from "./components/QuestionForm";
@@ -69,7 +70,6 @@ function findNextStep(state, currentStep: number) {
 
 const App = () => {
   const [step, setStep] = useState(0);
-  const [complete, setComplete] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialAppState);
   const [result, setResult] = useState(undefined);
 
@@ -80,7 +80,6 @@ const App = () => {
     if (nextStep) {
       setStep(nextStep);
     } else {
-      setComplete(true);
       showResult();
     }
   };
@@ -101,35 +100,59 @@ const App = () => {
 
   const resetApp = () => {
     setStep(0);
-    setComplete(false);
     setResult(undefined);
     dispatch({ type: "reset" });
   };
 
   return (
-    <div className="App">
-      <div>
-        <button onClick={resetApp}>Reset Questionnaire</button>
-      </div>
-      {complete ? (
-        <div> Done </div>
-      ) : (
-        <div>
-          <QuestionForm
-            currentQuestion={currentQuestion}
-            onChange={handleChangeInForm}
-          />
-          <div>
-            <button onClick={handleNextClick}>Next</button>
+    <Container maxWidth="sm">
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        spacing={3}
+      >
+        <Grid item xs={6}>
+          <Button onClick={resetApp} variant="contained" color="secondary">
+            Reset Questionnaire
+          </Button>
+        </Grid>
+        <Grid item xs={9}>
+          {!result ? (
+            <Paper style={{ padding: "20px" }}>
+              <Grid container direction="column" alignItems="center">
+                <Grid item>
+                  <QuestionForm
+                    currentQuestion={currentQuestion}
+                    onChange={handleChangeInForm}
+                  />
+                </Grid>
+                <Grid item>
+                  <Button
+                    onClick={handleNextClick}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Next
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          ) : (
+            <Paper style={{ color: "red", padding: "20px" }}>
+              <Typography>{result}</Typography>
+            </Paper>
+          )}
+        </Grid>
+        <Grid item xs={9}>
+          <div>Current internal state:</div>
+          <div style={{ whiteSpace: "pre-wrap" }}>
+            {JSON.stringify(state, null, 2)}
           </div>
-        </div>
-      )}
-      {result ? <div style={{ color: "red" }}>Result: {result}</div> : null}
-      <div>Current internal state:</div>
-      <div style={{ whiteSpace: "pre-wrap" }}>
-        {JSON.stringify(state, null, 2)}
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

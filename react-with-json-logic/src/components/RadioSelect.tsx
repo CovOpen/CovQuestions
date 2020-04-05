@@ -1,5 +1,12 @@
 import React from "react";
 import { QuestionWithValues } from "../App";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 
 export const RadioSelect: React.FC<{
   currentQuestion: QuestionWithValues;
@@ -11,21 +18,17 @@ export const RadioSelect: React.FC<{
   };
 
   return (
-    <>
-      <div>{currentQuestion.question}</div>
-      <div>
+    <FormControl component="fieldset">
+      <FormLabel component="legend">{currentQuestion.question}</FormLabel>
+      <RadioGroup name={currentQuestion.id} onChange={handleChange}>
         {currentQuestion.possibleAnswers.map((answer) => (
-          <>
-            <input
-              value={answer.value}
-              name={currentQuestion.id}
-              type="radio"
-              onChange={handleChange}
-            />
-            <label htmlFor={answer.value}>{answer.label}</label>
-          </>
+          <FormControlLabel
+            value={answer.value}
+            control={<Radio />}
+            label={answer.label}
+          />
         ))}
-      </div>
-    </>
+      </RadioGroup>
+    </FormControl>
   );
 };
