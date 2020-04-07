@@ -1,11 +1,11 @@
 type JSONLogicExpression = any;
 
 interface IVariable<T> {
-	id: string;
-	name: string;
+	id?: string;
+	name?: string;
 	default: T;
 	value: T;
-	type: 'question' | 'computed';
+	type?: 'question' | 'computed';
 }
 
 interface IComputedVariable<T> extends IVariable<T> {
@@ -29,26 +29,28 @@ interface IComputedVariable<T> extends IVariable<T> {
 
 */
 
-enum IQuestionType {
+export enum QuestionType {
 	SELECT = 1,
 	MULTISELECT = 2,
-	NUMBER = 4
+	NUMBER = 4,
+	BOOLEAN = 5,
+	DATE = 6
 }
 
 
-interface IQuestionAnswer {
-	id: string,
+export interface IQuestionAnswer {
+	id?: string,
 	answer: string,
-	value: number;
+	value: string;
 }
 
-interface IQuestion {
+export interface IQuestion {
 	id: string
-	type: IQuestionType,
+	type: QuestionType,
 	question: string,
-	answers: IQuestionAnswer[],
+	options?: IQuestionAnswer[],
 	defaultAnswer?: string;  // use as default in JSONLogicExpression
-	guard: JSONLogicExpression
+	guard?: JSONLogicExpression
 }
 
 
@@ -61,14 +63,14 @@ interface IQuestion {
 
 */
 
-interface IQuestionnaireMeta {
+export interface IQuestionnaireMeta {
 	name: string,
 	version: string,
 	author: string,
 	languages: string[]
 }
 
-interface IQuestionnaire {
+export interface IQuestionnaire {
 	meta: IQuestionnaireMeta
 	questions: IQuestion[];
 	variables: {
