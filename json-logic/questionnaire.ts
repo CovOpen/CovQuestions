@@ -1,5 +1,7 @@
-declare var jsonLogic : any;
+// This file showcases a basic reference implementation.
+// TODO: It is currently not up to date with the questionaire draft.
 
+declare var jsonLogic : any;
 
 abstract class Question implements IQuestion {
 	id: string

@@ -1,68 +1,120 @@
-type JSONLogicExpression = any;
-
-interface IVariable<T> {
-	id?: string;
-	name?: string;
-	default: T;
-	value: T;
-	type?: 'question' | 'computed';
-}
-
-interface IComputedVariable<T> extends IVariable<T> {
-	// TODO: the computed variables can not depend on each other!
-	type: 'computed';
-	expression: JSONLogicExpression;
-}
-
-
-
+// LogicExpression refers to the JSONLogic standard.
+import { LogicExpression } from "./logic";
 
 /*
-
-
-	Questions
-	---
-	There are three question types: Select (single), Multi (multiple) and number
-	Each question comes with a set of QuestionGuards. They refer to previous questions and only if all guards
-	evaluate to true, the question is considered (logical and). The Guard values is compared to the value of the chosen answer.
-	Each answer holds a set of ScoreModification objects. The chosen answers modify the scores with this.
-
+* This module defines a schema for questionaire and result calulation logic.
 */
 
+/**
+ * Type of a question, essentially defines the result type.
+ */
 export enum QuestionType {
-	SELECT = 1,
-	MULTISELECT = 2,
-	NUMBER = 4,
-	BOOLEAN = 5,
-	DATE = 6
+	Select = "Select",
+	Multiselect = "Multiselect",
+	Number = "Number",
+	Boolean = "Boolean",
+	Date = "Date",
+	Text = "Text"
 }
 
-
-export interface IQuestionAnswer {
-	id?: string,
-	answer: string,
+/**
+ * Option for multi-select questions.
+ */
+export interface IOption {
+	/**
+	 * Human-Readable answer, can be localized.
+	 */
+	text: string,
+	/**
+	 * Value used for evaluating logic expressions.
+	 */
 	value: string;
 }
 
+/**
+ * Represents a question.
+ */
 export interface IQuestion {
+	/**
+	 * Unique id for referring this question in logic expressions.
+	 */
 	id: string
+	/**
+	 * Type of the question.
+	 */
 	type: QuestionType,
-	question: string,
-	options?: IQuestionAnswer[],
-	defaultAnswer?: string;  // use as default in JSONLogicExpression
-	guard?: JSONLogicExpression
+	/**
+	 * Human-readable question text, can be localized.
+	 */
+	text: string,
+	/**
+	 * Answer options for Select/Multiselect questions.
+	 */
+	options?: IOption[],
+	/**
+	 * Boolean indicating whether the question is optional or not.
+	 */
+	optional?: boolean
+	/**
+	 * Logic expression to decide whether the question should be displayed or not.
+	 */
+	skipIf?: LogicExpression
 }
 
+/**
+ * Represents a variable which is computed from the given answers or other variables.
+ */
+export interface IVariable {
+	/**
+	 * Unique id for referring this variable in logic expressions.
+	 */
+	id: string
+	/**
+	 * Logic expression used to compute this variable.
+	 */
+	value: LogicExpression;
+}
 
+/**
+ * Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.
+ */
+export interface IResultCategory {
+	/**
+	 * A unique identifier for this result category.
+	 */
+	id: string
+	/**
+	 * A human readable description for the result category. Can be localized.
+	 */
+	text: string
+	/**
+	 * A logic expression for computing the result. Either yields the ID of one of the results
+	 * in this category. If the expression yields a result that does not correspond to a result ID, no result should be shown.
+	 */
+	value: LogicExpression
+	/**
+	 * A list of results for this category.
+	 */
+	results: IResult[]	
+}
 
-/*
+/**
+ * Represents a single result.
+ */
+export interface IResult {
+	/**
+	 * A unique identifier for this result.
+	 */
+	id: string
+	/**
+	 * A human readable text for this result. Can be localized.
+	 */
+	text: string
+}
 
-
-	Questionnaires
-
-
-*/
-
+/**
+ * Meta-Information for a questionaire.
+ */
 export interface IQuestionnaireMeta {
 	name: string,
 	version: string,
@@ -70,10 +122,25 @@ export interface IQuestionnaireMeta {
 	languages: string[]
 }
 
+/**
+ * The questionaire.
+ */
 export interface IQuestionnaire {
+	/**
+	 * Meta-Information.
+	 */
 	meta: IQuestionnaireMeta
-	questions: IQuestion[];
-	variables: {
-		[varId: string]: IVariable<any>;
-	}
+	/**
+	 * All questions, shown one after another, in order.
+	 */
+	questions: IQuestion[]
+	/**
+	 * All variables, refreshed after each update to any answer.
+	 */
+	variables: IVariable[]
+	/**
+	 * All result categories. When all questions are answered, 
+	 * the result for each result category is computed.
+	 */
+	resultCategories: IResultCategory[]
 }
