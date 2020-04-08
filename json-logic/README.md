@@ -29,6 +29,12 @@ Two possible options:
 
 We favor option 2 - it gives the user one less thing to worry about.
 
+#### Structuring Expressions
+
+JSON Logic is powerful, but messy to read/write. There are multiple ways to express the same logic.
+Once we have a better understanding of the task at hand, we should come up with some basic guidelines for
+formatting and structuring.
+
 ### Dependencies between variables
 
 We favor a relatively simple logic and no automatic dependency resolution/re-ordering of questions or variables. 
