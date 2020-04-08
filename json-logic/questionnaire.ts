@@ -1,19 +1,25 @@
 // This file showcases a basic reference implementation.
-// TODO: It is currently not up to date with the questionaire draft.
 
-declare var jsonLogic : any;
+import { IQuestion, QuestionType, IQuestionnaire, IQuestionnaireMeta, IVariable } from "./schema"
+import { LogicConstant, LogicExpression, jsonLogic } from "./logic";
+
+declare var jsonLogic: jsonLogic;
 
 abstract class Question implements IQuestion {
-	id: string
-	abstract type: IQuestionType
-	question: string
-	answers: IQuestionAnswer[]
-	guard: JSONLogicExpression
+	id: string;
+	type: QuestionType;
+	text: string;
+	skipIf?: LogicExpression;
 
-	abstract ask() : IQuestionAnswer;
+	abstract ask() : LogicConstant;
 
-	public checkGuard(state: IQuestionnaire) : boolean {
-		return jsonLogic.apply(this.guard, state.variables);
+	public check(state: IQuestionnaire) : boolean {
+		if(this.skipIf) {
+			return !jsonLogic.apply(this.skipIf, state.variables);
+		}
+		else {
+			return true;
+		}
 	}
 }
 
@@ -22,10 +28,9 @@ abstract class Question implements IQuestion {
 class Questionnaire implements IQuestionnaire {
 	meta: IQuestionnaireMeta;
 	questions: Question[];
-	variables: {
-		[varId: string]: IVariable<any>;
-	}
+	variables: IVariable[];
 	answeredQuestions: string[] = [];
+	resultCategories: [];
 
 	public nextQuestion() {
 		// start always from first question, because the guard might evaluate to true
@@ -37,7 +42,7 @@ class Questionnaire implements IQuestionnaire {
 			}
 
 			// ask only if should be asked
-			const guardCheck = question.checkGuard(this);
+			const guardCheck = question.check(this);
 			if(!guardCheck) {
 				continue;
 			}
@@ -48,9 +53,11 @@ class Questionnaire implements IQuestionnaire {
 	}
 
 
-	public setAnswer(questionId: string, answer: IQuestionAnswer) {
+	public setAnswer(questionId: string, answer: LogicConstant) {
+		// TODO: use this.variables as map and access data by question id
 		// update non-computable variable
-		this.variables[questionId].value = answer.value;
+		const v = this.variables.filter(va => va.id == questionId)[0];
+		v.value = answer;
 		// update all computable variables
 		this.updateComputableVariables();
 	}
@@ -63,7 +70,7 @@ class Questionnaire implements IQuestionnaire {
 			if(variable.type == 'computed') {
 				try {
 					variable.value = jsonLogic.apply(
-						(variable as IComputedVariable<any>).expression, 
+						(variable as IVariable).value, 
 						this.variables
 					);
 				}

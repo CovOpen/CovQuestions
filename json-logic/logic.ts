@@ -24,3 +24,6 @@ export type LogicOr = { "or": LogicExpression[] }
 export type LogicGreaterEqual = { ">=": [LogicExpression, LogicExpression] }
 export type LogicLessThen = { "<=": [LogicExpression, LogicExpression] }
 
+export interface jsonLogic {
+	apply: (exp: LogicExpression, data: any) => LogicConstant;
+}
