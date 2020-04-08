@@ -202,4 +202,4 @@ const example: IQuestionnaire = {
 
 // To generate the example JSON.
 import { writeFileSync } from 'fs'
-writeFileSync(JSON.stringify(example, undefined, 2), 'example.json')
+writeFileSync('example.json', JSON.stringify(example, undefined, 2))
