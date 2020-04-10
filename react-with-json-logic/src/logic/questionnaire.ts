@@ -28,7 +28,7 @@ class Question implements IQuestion {
   }
 
   public check(data: {}): boolean {
-    if (this.enableWhen) {
+    if (this.enableWhen !== undefined) {
       return jsonLogic.apply(this.enableWhen, data);
     } else {
       return true;
@@ -70,12 +70,10 @@ export class Questionnaire implements IQuestionnaire {
       }
 
       // ask only if should be asked
-      const guardCheck = question.check(this.data);
-      if (!guardCheck) {
-        continue;
+      const questionIsEnabled = question.check(this.data);
+      if (questionIsEnabled) {
+        return question;
       }
-
-      return question;
     }
     return null;
   }
