@@ -80,7 +80,7 @@ const App = () => {
             allQuestionnaires={allQuestionnaires}
           />
         </Grid>
-        <Grid container direction="row" xs={12}>
+        <Grid container direction="row">
           <Grid item xs={6}>
             {currentQuestionnaire !== undefined ? (
               <QuestionnaireExecution

@@ -40,13 +40,13 @@ export function QuestionnaireExecution({
         {!result ? (
           <Paper style={{ padding: "20px" }}>
             <Grid container direction="column" alignItems="center">
-              <Grid item>
+              <Grid item xs>
                 <QuestionForm
                   currentQuestion={currentQuestion}
                   onChange={handleChangeInForm}
                 />
               </Grid>
-              <Grid item>
+              <Grid item xs>
                 <Button
                   onClick={handleNextClick}
                   variant="contained"

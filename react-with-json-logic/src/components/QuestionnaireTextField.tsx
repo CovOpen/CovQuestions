@@ -7,7 +7,7 @@ export function QuestionnaireTextField(props: {
   resetQuestionnaire: (e) => void;
 }) {
   return (
-    <Grid container direction="column" xs={12}>
+    <Grid container direction="column">
       <Grid item xs={12}>
         <Button
           onClick={props.resetQuestionnaire}

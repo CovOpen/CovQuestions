@@ -14,6 +14,7 @@ export const QuestionnaireSelectionDropdown: React.FC<{
         labelId="questionnaire-select-label"
         id="questionnaire-select"
         onChange={handleChange}
+        defaultValue=""
       >
         {allQuestionnaires.map((it) => (
           <MenuItem key={it.path} value={it.path}>
