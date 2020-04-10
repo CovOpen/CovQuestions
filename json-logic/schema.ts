@@ -101,11 +101,6 @@ export interface IResultCategory {
 	 */
 	description: string
 	/**
-	 * A logic expression for computing the result. Either yields the ID of one of the results
-	 * in this category. If the expression yields a result that does not correspond to a result ID, no result should be shown.
-	 */
-	value: LogicExpression
-	/**
 	 * A list of results for this category.
 	 */
 	results: IResult[]	
@@ -123,6 +118,11 @@ export interface IResult {
 	 * A human readable text for this result. Can be localized.
 	 */
 	text: string
+	/**
+	 * A logic expression yielding true or false. The first result in the result category yielding true will be
+	 * used as result. If no result evaluates to true, no result is shown for this category.
+	 */
+	value: LogicExpression // TODO: Maybe we can come up with a better name than value.
 }
 
 /**

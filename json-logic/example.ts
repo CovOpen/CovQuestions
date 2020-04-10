@@ -132,19 +132,6 @@ const example: IQuestionnaire = {
           ]}
         ]
       }
-    },
-    {
-      id: 'v2_needs_medical_advisory',
-      // This is enough, since the question is only shown when we have risk anyway.
-      value: { "var": "q6_medical_staff.value" }
-    },
-    {
-      id: 'v3_contact_irrelevant_notice',
-      // 
-      value: { "and": [
-        { "var": "q0_contact.value" },
-        { "!": { "var": "v_contact_relevant" }}
-      ]}
     }
   ],
   // Texts can be omitted - just for illustration here.
@@ -156,19 +143,23 @@ const example: IQuestionnaire = {
       results: [
         {
           id: 'MEDIUM_RISK_A',
-          text: 'Mittleres Risiko'
+          text: 'Mittleres Risiko',
+          // Tie result to variable from above.
+          value: { "==": [{ "var": "v0_risk" }, 'MEDIUM_RISK_A'] }
         },
         {
           id: 'MEDIUM_RISK_B',
-          text: 'Mittleres Risiko'
+          text: 'Mittleres Risiko',
+          // Tie result to variable from above.
+          value: { "==": [{ "var": "v0_risk" }, 'MEDIUM_RISK_B'] }
         },
         {
           id: 'HIGH_RISK',
-          text: 'Hohes Risiko'
+          text: 'Hohes Risiko',
+          // Tie result to variable from above.
+          value: { "==": [{ "var": "v0_risk" }, 'HIGH_RISK'] }
         }
-      ],
-      // Tie result to variable from above.
-      value: { "var": "v0_risk" }
+      ]
     },
     // Result category for medical staff advisory.
     {
@@ -177,13 +168,10 @@ const example: IQuestionnaire = {
       // Just one (or none) result
       results: [{
         id: 'SHOW_MEDICAL_ADVISORY',
-        text: 'Hilfreiche Information.'
+        text: 'Hilfreiche Information.',
+        // This is enough, since the question is only shown when we have risk anyway.
+        value: { "var": "q6_medical_staff.value" }
       }],
-      value: { "if": [
-        { "var": "v2_needs_medical_advisory" },
-        'SHOW_MEDICAL_ADVISORY',
-        'NONE'
-      ]}
     },
     // Result category for contact advisory.
     {
@@ -192,13 +180,12 @@ const example: IQuestionnaire = {
       // Just one (or none) result
       results: [{
         id: 'SHOW_CONTACT_ADVISORY',
-        text: 'Der Kontakt war irrellevant.'
+        text: 'Der Kontakt war irrellevant.',
+        value: { "and": [
+          { "var": "q0_contact.value" },
+          { "!": { "var": "v_contact_relevant" }}
+        ]}
       }],
-      value: { "if": [
-        { "var": "v3_contact_irrelevant_notice" },
-        'SHOW_CONTACT_ADVISORY',
-        'NONE'
-      ]}
     }
   ]
 }
