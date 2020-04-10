@@ -11,7 +11,8 @@ import { LogicExpression } from "./logic";
 export enum QuestionType {
 	Select = "select",
 	Multiselect = "multiselect",
-	Number = "number",
+	Integer = "integer",
+	Decimal = "decimal",
 	Boolean = "boolean",
 	Date = "date",
 	Text = "text"
