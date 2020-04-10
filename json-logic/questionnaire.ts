@@ -1,9 +1,9 @@
 // This file showcases a basic reference implementation.
 
 import { IQuestion, QuestionType, IQuestionnaire, IQuestionnaireMeta, IVariable } from "./schema"
-import { LogicConstant, LogicExpression, jsonLogic } from "./logic";
+import { LogicConstant, LogicExpression } from "./logic";
+import * as jsonLogic from 'json-logic-js';
 
-declare var jsonLogic: jsonLogic;
 
 abstract class Question implements IQuestion {
 	id: string;
@@ -24,13 +24,16 @@ abstract class Question implements IQuestion {
 }
 
 
-
 class Questionnaire implements IQuestionnaire {
 	meta: IQuestionnaireMeta;
 	questions: Question[];
 	variables: IVariable[];
 	answeredQuestions: string[] = [];
 	resultCategories: [];
+
+	public static fromURL() {
+		// TODO: fetch Questionnaire from URL and construct object
+	}
 
 	public nextQuestion() {
 		// start always from first question, because the guard might evaluate to true

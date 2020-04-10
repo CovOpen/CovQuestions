@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var jsonLogic = require("json-logic-js");
 function findClosingBracketMatchIndex(str, pos) {
     // credits to https://codereview.stackexchange.com/questions/179471/find-the-corresponding-closing-parenthesis
     if (str[pos] != '(') {
@@ -178,3 +179,12 @@ var Expression = /** @class */ (function () {
     return Expression;
 }());
 exports.Expression = Expression;
+function evaluateExpression(expr) {
+    var expr1 = new Expression(expr);
+    return expr1.toJSONLogic();
+}
+exports.evaluateExpression = evaluateExpression;
+function evaluateJSONLogic(logic, data) {
+    return jsonLogic.apply(logic, data);
+}
+exports.evaluateJSONLogic = evaluateJSONLogic;
