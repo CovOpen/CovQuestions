@@ -62,3 +62,15 @@ question_id.option.option_id.selected // True or false, indicating if option_id 
 For date-specific questions, `value` is the date difference to the current date in days. Current date always refers to the moment when the questionaire was conducted. 
 If the answers and results are to be saved, it needs to be stored with the given answers to allow reproducible results.
 
+### Internationalization
+
+Instead of using human readable text inside the questionaire file, we allow providing a resource file JSON format:
+
+```
+{
+    "question_id.text": "Text of the question",
+    "question_id.option_id.text": Text of the option",
+    "name": "Name of the questionaire",
+    "etc": "etc"
+}
+```
