@@ -64,7 +64,7 @@ If the answers and results are to be saved, it needs to be stored with the given
 
 ### Internationalization
 
-Instead of using human readable text inside the questionaire file, we allow providing a resource file JSON format:
+Instead of using human readable text inside the questionaire file, we allow providing a resource file in JSON format:
 
 ```
 {

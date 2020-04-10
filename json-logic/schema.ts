@@ -9,12 +9,12 @@ import { LogicExpression } from "./logic";
  * Type of a question, essentially defines the result type.
  */
 export enum QuestionType {
-	Select = "Select",
-	Multiselect = "Multiselect",
-	Number = "Number",
-	Boolean = "Boolean",
-	Date = "Date",
-	Text = "Text"
+	Select = "select",
+	Multiselect = "multiselect",
+	Number = "number",
+	Boolean = "boolean",
+	Date = "date",
+	Text = "text"
 }
 
 /**

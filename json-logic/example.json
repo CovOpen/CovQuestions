@@ -11,22 +11,20 @@
     {
       "id": "q1_contact",
       "text": "Gab es Kontakt zu bestätigten Fällen?",
-      "type": "Boolean"
+      "type": "boolean"
     },
     {
       "id": "q2_contact_when",
       "text": "Wann trat der Kontakt auf?",
-      "type": "Date",
-      "skipIf": {
-        "!": {
-          "var": "q1_contact.value"
-        }
+      "type": "date",
+      "enableWhen": {
+        "var": "q1_contact.value"
       }
     },
     {
       "id": "q3_symptoms",
       "text": "Symptome?",
-      "type": "Multiselect",
+      "type": "multiselect",
       "options": [
         {
           "text": "Husten",
@@ -45,40 +43,36 @@
     {
       "id": "q4_symptoms_when",
       "text": "Ab wann gab es Symptome?",
-      "type": "Date",
-      "skipIf": {
-        "!": {
-          "var": "q3_symptoms.value"
-        }
+      "type": "date",
+      "enableWhen": {
+        "var": "q3_symptoms.value"
       }
     },
     {
       "id": "q5_risk_factors",
       "text": "Gibt es Risikofaktoren?",
-      "type": "Boolean"
+      "type": "boolean"
     },
     {
       "id": "q6_chronic_afflictions",
       "text": "Gibt es Chronische Beschwerden?",
-      "type": "Boolean"
+      "type": "boolean"
     },
     {
       "id": "q6_medical_staff",
       "text": "Medizinisches Personal?",
-      "type": "Boolean",
-      "skipIf": {
-        "!": {
-          "in": [
-            {
-              "var": "v1_risk.value"
-            },
-            [
-              "HIGH_RISK",
-              "MEDIUM_RISK_A",
-              "MEDIUM_RISK_B"
-            ]
+      "type": "boolean",
+      "enableWhen": {
+        "in": [
+          {
+            "var": "v1_risk.value"
+          },
+          [
+            "HIGH_RISK",
+            "MEDIUM_RISK_A",
+            "MEDIUM_RISK_B"
           ]
-        }
+        ]
       }
     }
   ],
