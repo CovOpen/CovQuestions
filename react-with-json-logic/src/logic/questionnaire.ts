@@ -5,7 +5,6 @@ import {
   IOption,
   IQuestion,
   IQuestionnaire,
-  IQuestionnaireMeta,
   IResultCategory,
   IVariable,
   QuestionType,
@@ -36,45 +35,33 @@ class Question implements IQuestion {
   }
 }
 
-export class Questionnaire implements IQuestionnaire {
-  id: string;
-  schemaVersion: string;
-  version: string;
-  meta: IQuestionnaireMeta;
-  questions: Question[] = [];
-  variables: IVariable[] = [];
-  answeredQuestions: string[] = [];
-  resultCategories: IResultCategory[] = [];
-  data: {} = {};
+export class Questionnaire {
+  private readonly questions: Question[] = [];
+  private variables: IVariable[] = [];
+  private answeredQuestions: string[] = [];
+  private resultCategories: IResultCategory[] = [];
+  private data: {} = {};
+  private currentQuestionIndex = -1;
 
-  public setQuestionnaire(newQuestionnaire: IQuestionnaire) {
-    this.id = newQuestionnaire.id;
-    this.schemaVersion = newQuestionnaire.schemaVersion;
-    this.version = newQuestionnaire.version;
-    this.meta = newQuestionnaire.meta;
+  constructor(newQuestionnaire: IQuestionnaire) {
     this.questions = newQuestionnaire.questions.map(
       (question) => new Question(question)
     );
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;
-    this.answeredQuestions = [];
   }
 
   public nextQuestion(): null | Question {
-    // start always from first question, because the guard might evaluate to true
-    // if later questions were answered.
-    for (const question of this.questions) {
-      // skip if question was answered previously
-      if (this.answeredQuestions.indexOf(question.id) > -1) {
-        continue;
-      }
+    const indexOfNextQuestion = this.questions.findIndex(
+      (question, index) =>
+        index > this.currentQuestionIndex && question.check(this.data)
+    );
 
-      // ask only if should be asked
-      const questionIsEnabled = question.check(this.data);
-      if (questionIsEnabled) {
-        return question;
-      }
+    if (indexOfNextQuestion > -1) {
+      this.currentQuestionIndex = indexOfNextQuestion;
+      return this.questions[indexOfNextQuestion];
     }
+
     return null;
   }
 

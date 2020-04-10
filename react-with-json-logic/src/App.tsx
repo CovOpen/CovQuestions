@@ -7,7 +7,7 @@ import { QuestionnaireTextField } from "./components/QuestionnaireTextField";
 import { Questionnaire } from "./logic/questionnaire";
 import { IQuestionnaire } from "./logic/schema";
 
-let questionnaireLogic = new Questionnaire();
+let questionnaireLogic: Questionnaire = undefined;
 
 const App = () => {
   const [allQuestionnaires, setAllQuestionnaires] = useState([]);
@@ -29,8 +29,7 @@ const App = () => {
   }
 
   function restartQuestionnaire(questionnaire: IQuestionnaire) {
-    questionnaireLogic = new Questionnaire();
-    questionnaireLogic.setQuestionnaire(questionnaire);
+    questionnaireLogic = new Questionnaire(questionnaire);
     setCurrentQuestion(questionnaireLogic.nextQuestion());
     setResult(undefined);
   }
@@ -48,9 +47,8 @@ const App = () => {
       fetch(currentQuestionnairePath).then((response) => {
         if (response.ok) {
           response.json().then((value) => {
-            overwriteCurrentQuestionnaire(value);
             setOriginalCurrentQuestionnaire(value);
-            setCurrentQuestion(questionnaireLogic.nextQuestion());
+            overwriteCurrentQuestionnaire(value);
           });
         }
       });
