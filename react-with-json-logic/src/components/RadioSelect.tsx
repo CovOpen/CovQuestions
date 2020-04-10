@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@material-ui/core";
-import { QuestionWithValues } from "./QuestionnaireExecution";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, } from "@material-ui/core";
+import { IQuestion } from "../logic/schema";
 
 export const RadioSelect: React.FC<{
-  currentQuestion: QuestionWithValues;
+  currentQuestion: IQuestion;
   onChange: React.Dispatch<React.SetStateAction<{}>>;
 }> = ({ currentQuestion, onChange }) => {
   const handleChange = (e: any) => {
@@ -17,15 +11,21 @@ export const RadioSelect: React.FC<{
     onChange(currentTargetValue);
   };
 
+  const options: any[] = currentQuestion.options ?? [
+    { value: true, text: "yes" },
+    { value: false, text: "no" },
+  ];
+
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">{currentQuestion.question}</FormLabel>
+      <FormLabel component="legend">{currentQuestion.text}</FormLabel>
       <RadioGroup name={currentQuestion.id} onChange={handleChange}>
-        {currentQuestion.possibleAnswers.map((answer) => (
+        {options.map((answer) => (
           <FormControlLabel
+            key={answer.value}
             value={answer.value}
             control={<Radio />}
-            label={answer.label}
+            label={answer.text}
           />
         ))}
       </RadioGroup>

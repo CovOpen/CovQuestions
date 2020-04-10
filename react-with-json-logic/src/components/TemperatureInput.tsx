@@ -1,9 +1,9 @@
 import React from "react";
 import { Slider, Typography } from "@material-ui/core";
-import { Question } from "./QuestionnaireExecution";
+import { IQuestion } from "../logic/schema";
 
 export const TemperatureInput: React.FC<{
-  currentQuestion: Question;
+  currentQuestion: IQuestion;
   onChange: React.Dispatch<React.SetStateAction<{}>>;
 }> = ({ currentQuestion, onChange }) => {
   const handleChange = (_e: any, value: number) => {
@@ -13,7 +13,7 @@ export const TemperatureInput: React.FC<{
   return (
     <>
       <Typography id="discrete-slider-always" gutterBottom>
-        {currentQuestion.question}
+        {currentQuestion.text}
       </Typography>
       <Slider
         defaultValue={37}

@@ -1,22 +1,24 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
 import { TemperatureInput } from "./TemperatureInput";
-import { Question } from "./QuestionnaireExecution";
+import { IQuestion } from "../logic/schema";
 
 export const QuestionForm: React.FC<{
-  currentQuestion: Question;
+  currentQuestion: IQuestion;
   onChange: any;
 }> = ({ currentQuestion, onChange }) => {
   switch (currentQuestion.type) {
-    case "RadioSelect":
+    case "Select":
+    case "Boolean":
+    case "Multiselect":
       return (
         <RadioSelect
           key={currentQuestion.id}
-          currentQuestion={currentQuestion as any}
+          currentQuestion={currentQuestion}
           onChange={onChange}
         />
       );
-    case "Date":
+    case "Number":
       return (
         <TemperatureInput
           key={currentQuestion.id}

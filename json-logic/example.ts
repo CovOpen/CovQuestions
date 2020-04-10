@@ -1,15 +1,15 @@
-import { QuestionType, IQuestionnaire  } from './schema'
+import { QuestionType, IQuestionnaire  } from '../react-with-json-logic/src/logic/schema'
 
 /**
  * This is a declaration of Alex's sample questionaire as typescript.
- * 
- * It is roughly equivalent to a JSON representation, 
+ *
+ * It is roughly equivalent to a JSON representation,
  * but easier and faster to write during this drafting process AND we can use inline comments.
- *  
+ *
  * For the JSON version, please see example.json.
  */
 const example: IQuestionnaire = {
-  meta: { 
+  meta: {
     author: 'Alexander',
     languages: ['DE'],
     name: 'Example',
@@ -27,7 +27,7 @@ const example: IQuestionnaire = {
       text: 'Wann trat der Kontakt auf?',
       type: QuestionType.Date,
       // Skip that depends on the previous question.
-      skipIf: { 
+      skipIf: {
         "!": { "var": "q1_contact.value" }
       }
     },
@@ -46,7 +46,7 @@ const example: IQuestionnaire = {
       text: 'Ab wann gab es Symptome?',
       type: QuestionType.Date,
       // Skip that depends on the previous question.
-      skipIf: { 
+      skipIf: {
         "!": { "var": "q3_symptoms.value" }
       }
     },
@@ -65,7 +65,7 @@ const example: IQuestionnaire = {
       text: 'Medizinisches Personal?',
       type: QuestionType.Boolean,
       // Skip that depends on a variable.
-      skipIf: { 
+      skipIf: {
         "!": { "in": [{ "var": "v1_risk.value" }, ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"]] }
       }
     }
@@ -137,7 +137,7 @@ const example: IQuestionnaire = {
     },
     {
       id: 'v3_contact_irrelevant_notice',
-      // 
+      //
       value: { "and": [
         { "var": "q0_contact.value" },
         { "!": { "var": "v_contact_relevant" }}
