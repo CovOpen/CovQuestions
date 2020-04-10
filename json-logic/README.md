@@ -42,13 +42,23 @@ If things are ordered incorrectly (e.g. the skipIf in a question refers a future
 
 ### Answer Representation
 
-For each answered question, we multiple JSON-Logic variables prefixed with the question id:
+For each answered question, we expose multiple JSON-Logic variables prefixed with the question id:
 
 ```
-question_id.value // string, array of string, number, boolean, date, depending on type
-question_id.count // number
-question_id.answered // boolean
+question_id.answered // Indicates if question was answered  (true) or skipped (false), boolean.
+question_id.value // Value of the answer, string, number, boolean, date, depending on type
 ```
+
+For making multi-select questions easier to evaluate, we additionally expose the following properties.
+
+```
+question_id.value // Array of string, 
+question_id.selectedCount // Count of selected options
+question_id.count // Count of all (selected/unselected) options
+question_id.unselectedCount // Count of not-selected options
+question_id.option.option_id.selected // True or false, indicating if option_id was selected
+```
+
 
 ### Special Variables
 
