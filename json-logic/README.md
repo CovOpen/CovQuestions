@@ -42,21 +42,42 @@ If things are ordered incorrectly (e.g. the skipIf in a question refers a future
 
 ### Answer Representation
 
-For each answered question, we multiple JSON-Logic variables prefixed with the question id:
+For each answered question, we expose multiple JSON-Logic variables prefixed with the question id:
 
 ```
-question_id.value // string, array of string, number, boolean, date, depending on type
-question_id.count // number
-question_id.answered // boolean
+question_id.answered // Indicates if question was answered  (true) or skipped (false), boolean.
+question_id.value // Value of the answer, string, number, boolean, depending on type
 ```
 
-### Special Variables
+For making multi-select questions easier to evaluate, we additionally expose the following properties:
 
-We need to introduce a set of special meta variables:
-* the date when the survey was conducted
-* tbd.
+```
+question_id.value // Array of string, containing selected items.
+question_id.selectedCount // Count of selected options
+question_id.count // Count of all (selected/unselected) options
+question_id.unselectedCount // Count of not-selected options
+question_id.option.option_id.selected // True or false, indicating if option_id was selected
+```
 
-### Working with dates
+For date-specific questions, `value` is the date as unix timestamp.
+The `value` for timespans is the duration as seconds.
 
-This is a nasty TODO. 
-A simplified representation would be better for integrating with JSON-Logic, for example using the amount of Days since 1.1.1970 or otherwise unix timestamps.
+Additionally, date answers expose `question_id.daysToNow` which gives the time difference to now as days.
+
+### Special variables
+
+The following variables are pre-defined and need are available in all logic expressions:
+* `NOW` current time as unix timestamp
+
+### Internationalization
+
+Instead of using human readable text inside the questionaire file, we allow providing a resource file in JSON format:
+
+```
+{
+    "question_id.text": "Text of the question",
+    "question_id.option_id.text": Text of the option",
+    "name": "Name of the questionaire",
+    "etc": "etc"
+}
+```

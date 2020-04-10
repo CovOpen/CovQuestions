@@ -9,12 +9,14 @@ import { LogicExpression } from "./logic";
  * Type of a question, essentially defines the result type.
  */
 export enum QuestionType {
-	Select = "Select",
-	Multiselect = "Multiselect",
-	Number = "Number",
-	Boolean = "Boolean",
-	Date = "Date",
-	Text = "Text"
+	Select = "select",
+	Multiselect = "multiselect",
+	Integer = "integer",
+	Decimal = "decimal",
+	Boolean = "boolean",
+	Date = "date",
+	Timspan = "timespan",
+	Text = "text"
 }
 
 /**
@@ -29,6 +31,12 @@ export interface IOption {
 	 * Value used for evaluating logic expressions.
 	 */
 	value: string;
+	/**
+	 * Human-Readable formulation of this option as yes/no question.
+	 * This is for use-cases where multi-selects are not possible in the UI, 
+	 * for example telephone hotlines.
+	 */
+	asQuestion?: string
 }
 
 /**
@@ -48,6 +56,10 @@ export interface IQuestion {
 	 */
 	text: string,
 	/**
+	 * Optional human-readable details or clarifiation about this question.
+	 */
+	details?: string,
+	/**
 	 * Answer options for Select/Multiselect questions.
 	 */
 	options?: IOption[],
@@ -57,8 +69,9 @@ export interface IQuestion {
 	optional?: boolean
 	/**
 	 * Logic expression to decide whether the question should be displayed or not.
+	 * Defaults to true.
 	 */
-	skipIf?: LogicExpression
+	enableWhen?: LogicExpression
 }
 
 /**
@@ -86,12 +99,7 @@ export interface IResultCategory {
 	/**
 	 * A human readable description for the result category. Can be localized.
 	 */
-	text: string
-	/**
-	 * A logic expression for computing the result. Either yields the ID of one of the results
-	 * in this category. If the expression yields a result that does not correspond to a result ID, no result should be shown.
-	 */
-	value: LogicExpression
+	description: string
 	/**
 	 * A list of results for this category.
 	 */
@@ -110,22 +118,56 @@ export interface IResult {
 	 * A human readable text for this result. Can be localized.
 	 */
 	text: string
+	/**
+	 * A logic expression yielding true or false. The first result in the result category yielding true will be
+	 * used as result. If no result evaluates to true, no result is shown for this category.
+	 */
+	value: LogicExpression // TODO: Maybe we can come up with a better name than value.
 }
 
 /**
  * Meta-Information for a questionaire.
  */
 export interface IQuestionnaireMeta {
-	name: string,
-	version: string,
+	title: string,
+	description?: string
 	author: string,
-	languages: string[]
+	publisher?: string
+	/**
+	 * Language of this questionaire, as ISO 639-1 code.
+	 * Note that further languages can be defined in external lookup files.
+	 */
+	language: string,
+	/**
+	 * Creation date as ISO 8601 string
+	 */
+	creationDate: string,
+	/**
+	 * Expiration date as ISO 8601 string
+	 */
+	experiationDate?: string,
+	/**
+	 * Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.
+	 */
+	regions?: string[]
 }
 
 /**
  * The questionaire.
  */
 export interface IQuestionnaire {
+	/**
+	 * Unique, assigned identifier. Machine friendly.
+	 */
+	id: string
+	/**
+	 * File format/api version in semver.
+	 */
+	schemaVersion: string
+	/**
+	 * Version of this question in semver.
+	 */
+	version: string
 	/**
 	 * Meta-Information.
 	 */

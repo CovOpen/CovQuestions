@@ -9,13 +9,13 @@ abstract class Question implements IQuestion {
 	id: string;
 	type: QuestionType;
 	text: string;
-	skipIf?: LogicExpression;
+	enableWhen?: LogicExpression;
 
 	abstract ask() : LogicConstant;
 
 	public check(state: IQuestionnaire) : boolean {
-		if(this.skipIf) {
-			return !jsonLogic.apply(this.skipIf, state.variables);
+		if(this.enableWhen) {
+			return jsonLogic.apply(this.enableWhen, state.variables) as any as boolean; // Fix me
 		}
 		else {
 			return true;
