@@ -62,7 +62,3 @@ question_id.option.option_id.selected // True or false, indicating if option_id 
 For date-specific questions, `value` is the date difference to the current date in days. Current date always refers to the moment when the questionaire was conducted. 
 If the answers and results are to be saved, it needs to be stored with the given answers to allow reproducible results.
 
-### Working with dates
-
-This is a nasty TODO. 
-A simplified representation would be better for integrating with JSON-Logic, for example using the amount of Days since 1.1.1970 or otherwise unix timestamps.
