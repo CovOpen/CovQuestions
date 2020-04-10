@@ -92,7 +92,7 @@ export interface IResultCategory {
 	/**
 	 * A human readable description for the result category. Can be localized.
 	 */
-	text: string
+	description: string
 	/**
 	 * A logic expression for computing the result. Either yields the ID of one of the results
 	 * in this category. If the expression yields a result that does not correspond to a result ID, no result should be shown.

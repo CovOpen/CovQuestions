@@ -152,7 +152,7 @@ const example: IQuestionnaire = {
     // Result category for risk estimation.
     {
       id: 'rc_risk',
-      text: 'Risikoeinschätzung',
+      description: 'Risikoeinschätzung',
       results: [
         {
           id: 'MEDIUM_RISK_A',
@@ -173,7 +173,7 @@ const example: IQuestionnaire = {
     // Result category for medical staff advisory.
     {
       id: 'rc_medical_advisory',
-      text: 'Medizinischer Leitfaden',
+      description: 'Medizinischer Leitfaden',
       // Just one (or none) result
       results: [{
         id: 'SHOW_MEDICAL_ADVISORY',
@@ -188,7 +188,7 @@ const example: IQuestionnaire = {
     // Result category for contact advisory.
     {
       id: 'rc_contact_irrelevant',
-      text: 'Kontakt',
+      description: 'Kontakt',
       // Just one (or none) result
       results: [{
         id: 'SHOW_CONTACT_ADVISORY',
