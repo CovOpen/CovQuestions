@@ -49,10 +49,10 @@ question_id.answered // Indicates if question was answered  (true) or skipped (f
 question_id.value // Value of the answer, string, number, boolean, depending on type
 ```
 
-For making multi-select questions easier to evaluate, we additionally expose the following properties.
+For making multi-select questions easier to evaluate, we additionally expose the following properties:
 
 ```
-question_id.value // Array of string, 
+question_id.value // Array of string, containing selected items.
 question_id.selectedCount // Count of selected options
 question_id.count // Count of all (selected/unselected) options
 question_id.unselectedCount // Count of not-selected options
