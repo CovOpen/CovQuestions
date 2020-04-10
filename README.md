@@ -3,16 +3,11 @@ Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIv
 
 A webservice where users can interactively try existing SARS-CoV-2 related questionnaires, upload their own questionnaires and an API to provide questions and logic for frontends 
 
-### You are interested to collaborate? 
-Write us an email: @DanielHabenicht or [@ejoebstl](mailto:emanuel.joebstl@gmail.com)
-
-
-
-## First Ideas: 
-
 Possible candidates to built on:
 JSON Logic http://jsonlogic.com/
 JSL https://www.npmjs.com/package/lib-jsl
+
+Requirements:
 
 MUST:
 - Website with user interface to select a questionnaire, see questions and rules and try it
@@ -51,8 +46,8 @@ MUST:
 		- can enable/disable questions by unique id or category
 		- can write to interpretation variable (append, clear)
 	
-- interpretation
-	- array of strings
+- [Evaluation Logic] interpretation -> Risc groups 
+	- array of strings ("Stay home", "please visit the local health..."]
 
 IMPORTANT:
 - multi lingual
