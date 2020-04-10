@@ -1,13 +1,5 @@
 [
   {
-    "name": "Questionnaire 1",
-    "path": "api/questionnaire1.json"
-  },
-  {
-    "name": "Questionnaire 2",
-    "path": "api/questionnaire2.json"
-  },
-  {
     "name": "Example 1",
     "path": "api/example1.json"
   },
