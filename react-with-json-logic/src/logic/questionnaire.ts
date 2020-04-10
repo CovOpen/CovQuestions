@@ -8,6 +8,7 @@ import {
   IQuestionnaireMeta,
   IVariable,
   IResultCategory,
+  IOption,
 } from "./schema";
 import { LogicConstant, LogicExpression } from "./logic";
 
@@ -15,12 +16,14 @@ class Question implements IQuestion {
   id: string;
   type: QuestionType;
   text: string;
+  options?: IOption[];
   skipIf?: LogicExpression;
 
   constructor(question: IQuestion) {
     this.id = question.id;
     this.type = question.type;
     this.text = question.text;
+    this.options = question.options;
     this.skipIf = question.skipIf;
   }
 
