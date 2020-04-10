@@ -27,8 +27,8 @@ const example: IQuestionnaire = {
       text: 'Wann trat der Kontakt auf?',
       type: QuestionType.Date,
       // Skip that depends on the previous question.
-      skipIf: { 
-        "!": { "var": "q1_contact.value" }
+      enableWhen: { 
+        "var": "q1_contact.value" 
       }
     },
     {
@@ -46,8 +46,8 @@ const example: IQuestionnaire = {
       text: 'Ab wann gab es Symptome?',
       type: QuestionType.Date,
       // Skip that depends on the previous question.
-      skipIf: { 
-        "!": { "var": "q3_symptoms.value" }
+      enableWhen: { 
+        "var": "q3_symptoms.value"
       }
     },
     {
@@ -65,8 +65,8 @@ const example: IQuestionnaire = {
       text: 'Medizinisches Personal?',
       type: QuestionType.Boolean,
       // Skip that depends on a variable.
-      skipIf: { 
-        "!": { "in": [{ "var": "v1_risk.value" }, ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"]] }
+      enableWhen: { 
+        "in": [{ "var": "v1_risk.value" }, ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"]]
       }
     }
   ],

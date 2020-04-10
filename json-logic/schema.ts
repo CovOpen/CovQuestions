@@ -57,8 +57,9 @@ export interface IQuestion {
 	optional?: boolean
 	/**
 	 * Logic expression to decide whether the question should be displayed or not.
+	 * Defaults to true.
 	 */
-	skipIf?: LogicExpression
+	enableWhen?: LogicExpression
 }
 
 /**
