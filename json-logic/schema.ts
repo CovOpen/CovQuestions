@@ -48,6 +48,10 @@ export interface IQuestion {
 	 */
 	text: string,
 	/**
+	 * Optional human-readable details or clarifiation about this question.
+	 */
+	details?: string,
+	/**
 	 * Answer options for Select/Multiselect questions.
 	 */
 	options?: IOption[],
