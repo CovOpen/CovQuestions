@@ -122,9 +122,8 @@ export interface IResult {
  * Meta-Information for a questionaire.
  */
 export interface IQuestionnaireMeta {
-	tile: string,
+	title: string,
 	description?: string
-	version: string,
 	author: string,
 	/**
 	 * Language of this questionaire, as ISO 639-1 code.
@@ -138,7 +137,7 @@ export interface IQuestionnaireMeta {
 	/**
 	 * Expiration date as ISO 8601 string
 	 */
-	experiationDate: string,
+	experiationDate?: string,
 	/**
 	 * Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.
 	 */

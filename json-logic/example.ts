@@ -9,11 +9,14 @@ import { QuestionType, IQuestionnaire  } from './schema'
  * For the JSON version, please see example.json.
  */
 const example: IQuestionnaire = {
+  id: 'aa43ae11-2b3c-46dd-ac01-c901c3d36a3e',
+  schemaVersion: '0.0.0.1',
+  version: '0.0.0.1',
   meta: { 
     author: 'Alexander',
-    languages: ['DE'],
-    name: 'Example',
-    version: '0.1'
+    language: 'DE',
+    title: 'Example',
+    creationDate: '2020-04-10T18:48:48+0000'
   },
   // Here go all our questions.
   questions: [

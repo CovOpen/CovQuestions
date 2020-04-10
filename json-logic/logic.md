@@ -8,7 +8,7 @@ This files summarizes how logic operations can be mapped to JSON-Logic.
 ## Logical operations
 - `<questionId> == <value>`: `{"==", [{"var": <questionId>.value}, <value>]}`
 - `<questionId1> == <questionId2>`: `{"==", [{"var": <questionId1>.value}, {"var": <questionId2>.value}]}`
-- `<condition1> OR <condition2>`: `{"and": [<condition1>, <condition2>]}`
+- `<condition1> OR <condition2>`: `{"or": [<condition1>, <condition2>]}`
 - `x < <value> < y`: `{"<", [x, y, <value>]}`
 
 ## Numerical Operations
