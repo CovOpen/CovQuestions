@@ -16,7 +16,7 @@ export const MultiSelect: React.FC<{
       selectedValues = selectedValues.filter(value => value !== current);
     }
     if (selectedValues.length > 0) {
-      onChange(selectedValues.join());
+      onChange(selectedValues);
     } else {
       onChange(undefined);
     }
