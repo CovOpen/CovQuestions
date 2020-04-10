@@ -23,6 +23,12 @@ function toJSONDatatype(val) {
 	if(val == 'null') {
 		return null;
 	}
+	if(val == 'true') {
+		return true;
+	}
+	if(val == 'false') {
+		return false;
+	}
 	try {
 		const pVal = parseFloat(val);
 		if(!(<any>Number).isNaN(pVal)) {
@@ -36,7 +42,7 @@ function toJSONDatatype(val) {
 }
 
 
-class Expression {
+export class Expression {
 
 	// raw input text
 	public raw: string;
@@ -95,9 +101,15 @@ class Expression {
 	public toJSONLogic() {
 		// sanitze parsed string by adding space around operators
 		// note the space after - to avoid casting -1*x wrong!
-		const sanitizedRaw = this.parsed.replace('+', ' + ').replace('- ', ' - ').replace('*', ' * ').replace('/', ' / ').replace('%', ' % ').replace('<', ' < ').replace('>', ' > ').replace('< =', '<=').replace('> =', '>=').replace('==', ' == ').replace('!=', ' != ');
+		const sanitizedRaw = this.parsed.replace(/\+/g, ' + ').replace(/\-\s/g, ' - ').replace(/\*/g, ' * ').replace(/\//g, ' / ').replace(/\%/g, ' % ').replace(/\</g, ' < ').replace(/\>/g, ' > ').replace(/\<\s\=/g, '<=').replace(/\>\s\=/g, '>=').replace(/\=\=/g, ' == ').replace(/\!\=/g, ' != ').replace(/\,\s/g, ',').replace(/\s\,/g, ',');
 		// split string and filter empty strings
-		const elements = sanitizedRaw.split(' ').filter(e => e.length > 0);
+		const elements = sanitizedRaw.split(' ').filter(e => e.length > 0).map(e => {
+			if(e.indexOf('.') == -1 && e.indexOf('#') == -1) {
+				return e.toLowerCase();
+			} else {
+				return e;
+			}
+		})
 		// concatenate everything --> recursive
 		const c = this.chain(elements);
 		return c;
@@ -106,49 +118,74 @@ class Expression {
 
 	public checkExpression(item: any) {
 		let nItem = item;
+		if(typeof(nItem) == 'string' && item.startsWith('[') && item.endsWith(']')) {
+			return nItem.slice(1, -1).split(',').filter(e => e.length > 0).map(e => this.checkExpression(e));
+		}
 		// check if it is a subexpression. If so, convert it to JSON Logic
 		if(typeof(nItem) == 'string' && item.startsWith('(#') && item.endsWith('#)')) {
-			nItem = this.subExpressions[item.slice(1, -1)].expr.toJSONLogic();
-		}
-		// check if is referencing a variable. If so, put in JSON Logic syntax
-		if(typeof(nItem) == 'string' && nItem.indexOf('.') > 0) {
-			let defaultValue = null;
-			let varName = nItem;
-			if(nItem.indexOf(':') > 0) {
-				const varSplit = nItem.split(':');
-				varName = varSplit[0];
-				defaultValue = toJSONDatatype(varSplit[1]);
-			}
-			nItem = {'var': [varName, defaultValue]}
+			return this.subExpressions[item.slice(1, -1)].expr.toJSONLogic();
 		}
 		// check if unary operator
 		if(typeof(nItem) == 'string' && (<any>nItem).startsWith('!')) {
-			nItem = {
+			return {
 				"!": this.checkExpression(nItem.slice(1))
+			}
+		}
+		if(typeof(nItem) == 'string' && (<any>nItem).startsWith('-')) {
+			return {
+				"-": this.checkExpression(nItem.slice(1))
+			}
+		}
+		// check if is referencing a variable. If so, put in JSON Logic syntax
+		if(typeof(nItem) == 'string' && nItem.indexOf('.') > 0) {
+
+			const nItemDotIndex = nItem.indexOf('.');
+			if((<any>Number).isNaN(parseFloat(nItem[nItemDotIndex + 1]))) {
+				let defaultValue = null;
+				let varName = nItem;
+				if(nItem.indexOf(':') > 0) {
+					const varSplit = nItem.split(':');
+					varName = varSplit[0];
+					defaultValue = toJSONDatatype(varSplit[1]);
+				}
+				return {'var': [varName, defaultValue]}
 			}
 		}
 		// try to convert numbers/null/...
 		if(typeof(nItem) == 'string') {
-			nItem = toJSONDatatype(nItem);
+			return toJSONDatatype(nItem);
 		}
 		return nItem;
 	}
 
 
 	public chain(items: any[]) {
-
 		// if only one item, just return it
 		if(items.length == 1) {
 			return this.checkExpression(items[0]);
+		}
+		if(items.length == 2 && (items[0] == 'max' || items[0] == 'min' || items[0] == '+' || items[0] == '*')) {
+			const mItems = this.checkExpression(items[1])
+			return {
+				[items[0]]: mItems
+			}
 		}
 		if(items.length == 3) {
 			const item0 = this.checkExpression(items[0]);
 			const item2 = this.checkExpression(items[2]);
 			return {
-				[items[1].toLowerCase()]: [item0, item2]
+				[items[1]]: [item0, item2]
 			}
 		}
-		if(items.length == 6 && items[0].toLowerCase() == 'if' && items[2].toLowerCase() == 'then' && items[4].toLowerCase() == 'else') {
+		if(items.length == 5 && (items[1] == '<' || items[1] == '<=' || items[1] == '>' || items[1] == '>=') && ((items[3] == '<' || items[3] == '<=' || items[1] == '>' || items[1] == '>='))) {
+			const item0 = this.checkExpression(items[0]);
+			const item2 = this.checkExpression(items[2]);
+			const item4 = this.checkExpression(items[4]);
+			return {
+				[items[1]]: [item0, item2, item4]
+			}
+		}
+		if(items.length == 6 && items[0] == 'if' && items[2] == 'then' && items[4] == 'else') {
 			const Cond = this.checkExpression(items[1]);
 			const Then = this.checkExpression(items[3]);
 			const Else = this.checkExpression(items[5]);
@@ -158,13 +195,10 @@ class Expression {
 		}
 		// else recursively chain them
 		return {
-			[items[1].toLowerCase()]: [this.checkExpression(items[0]), this.chain(items.slice(2))]
+			[items[1]]: [this.checkExpression(items[0]), this.chain(items.slice(2))]
 		}
 	}
 }
 
 
 
-const expr1 = "IF (question1.value:0) THEN (question1.value OR question2.value) ELSE !((question1.value:string + 4) > 5)"
-const expr1M = new Expression(expr1);
-console.log(JSON.stringify(expr1M.toJSONLogic(), null, 2))
