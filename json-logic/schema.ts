@@ -125,6 +125,7 @@ export interface IQuestionnaireMeta {
 	title: string,
 	description?: string
 	author: string,
+	publisher?: string
 	/**
 	 * Language of this questionaire, as ISO 639-1 code.
 	 * Note that further languages can be defined in external lookup files.
@@ -149,7 +150,7 @@ export interface IQuestionnaireMeta {
  */
 export interface IQuestionnaire {
 	/**
-	 * Unique, assigned identifier.
+	 * Unique, assigned identifier. Machine friendly.
 	 */
 	id: string
 	/**
