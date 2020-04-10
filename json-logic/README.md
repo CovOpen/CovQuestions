@@ -46,7 +46,7 @@ For each answered question, we expose multiple JSON-Logic variables prefixed wit
 
 ```
 question_id.answered // Indicates if question was answered  (true) or skipped (false), boolean.
-question_id.value // Value of the answer, string, number, boolean, date, depending on type
+question_id.value // Value of the answer, string, number, boolean, depending on type
 ```
 
 For making multi-select questions easier to evaluate, we additionally expose the following properties.
@@ -58,6 +58,8 @@ question_id.count // Count of all (selected/unselected) options
 question_id.unselectedCount // Count of not-selected options
 question_id.option.option_id.selected // True or false, indicating if option_id was selected
 ```
+
+For date-specific questions, `value` is the date difference to the current date in days.
 
 
 ### Special Variables
