@@ -17,19 +17,19 @@ class Question implements IQuestion {
   type: QuestionType;
   text: string;
   options?: IOption[];
-  skipIf?: LogicExpression;
+  enableWhen?: LogicExpression;
 
   constructor(question: IQuestion) {
     this.id = question.id;
     this.type = question.type;
     this.text = question.text;
     this.options = question.options;
-    this.skipIf = question.skipIf;
+    this.enableWhen = question.enableWhen;
   }
 
   public check(data: {}): boolean {
-    if (this.skipIf) {
-      return !jsonLogic.apply(this.skipIf, data);
+    if (this.enableWhen) {
+      return jsonLogic.apply(this.enableWhen, data);
     } else {
       return true;
     }
@@ -37,6 +37,9 @@ class Question implements IQuestion {
 }
 
 export class Questionnaire implements IQuestionnaire {
+  id: string;
+  schemaVersion: string;
+  version: string;
   meta: IQuestionnaireMeta;
   questions: Question[] = [];
   variables: IVariable[] = [];
@@ -45,6 +48,9 @@ export class Questionnaire implements IQuestionnaire {
   data: {} = {};
 
   public setQuestionnaire(newQuestionnaire: IQuestionnaire) {
+    this.id = newQuestionnaire.id;
+    this.schemaVersion = newQuestionnaire.schemaVersion;
+    this.version = newQuestionnaire.version;
     this.meta = newQuestionnaire.meta;
     this.questions = newQuestionnaire.questions.map(
       (question) => new Question(question)

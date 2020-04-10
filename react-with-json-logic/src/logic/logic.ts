@@ -10,7 +10,7 @@ export type LogicOperator =
   | LogicEquals
   | LogicGreaterEqual
   | LogicNot
-  | LogicLessThen
+  | LogicLessEqual
   | LogicPlus
   | LogicMinus
   | LogicAnd
@@ -36,7 +36,7 @@ export type LogicEquals = { "==": [LogicExpression, LogicExpression] };
 export type LogicAnd = { and: LogicExpression[] };
 export type LogicOr = { or: LogicExpression[] };
 export type LogicGreaterEqual = { ">=": [LogicExpression, LogicExpression] };
-export type LogicLessThen = { "<=": [LogicExpression, LogicExpression] };
+export type LogicLessEqual = { "<=": [LogicExpression, LogicExpression] };
 
 export interface jsonLogic {
   apply: (exp: LogicExpression, data: any) => LogicConstant;

@@ -1,5 +1,11 @@
 import React from "react";
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, } from "@material-ui/core";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 import { IQuestion, IOption } from "../logic/schema";
 
 export const RadioSelect: React.FC<{

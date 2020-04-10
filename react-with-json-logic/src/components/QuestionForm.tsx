@@ -9,8 +9,8 @@ export const QuestionForm: React.FC<{
   onChange: any;
 }> = ({ currentQuestion, onChange }) => {
   switch (currentQuestion.type) {
-    case "Select":
-    case "Boolean":
+    case "select":
+    case "boolean":
       return (
         <RadioSelect
           key={currentQuestion.id}
@@ -18,13 +18,11 @@ export const QuestionForm: React.FC<{
           onChange={onChange}
         />
       );
-    case "Multiselect":
+    case "multiselect":
       return (
-        <MultiSelect
-          currentQuestion={currentQuestion}
-          onChange={onChange}
-        />);
-    case "Number":
+        <MultiSelect currentQuestion={currentQuestion} onChange={onChange} />
+      );
+    case "decimal":
       return (
         <TemperatureInput
           key={currentQuestion.id}

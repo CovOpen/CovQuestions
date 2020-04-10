@@ -1,19 +1,24 @@
 import React from "react";
-import { FormControlLabel, FormLabel, Checkbox, FormGroup, } from "@material-ui/core";
+import {
+  FormControlLabel,
+  FormLabel,
+  Checkbox,
+  FormGroup,
+} from "@material-ui/core";
 import { IQuestion } from "../logic/schema";
 
 export const MultiSelect: React.FC<{
   currentQuestion: IQuestion;
   onChange: React.Dispatch<React.SetStateAction<{}>>;
 }> = ({ currentQuestion, onChange }) => {
-  let selectedValues: string[] = []
+  let selectedValues: string[] = [];
 
   const handleChange = (e: any) => {
     const current = e.target.value;
     if (e.target.checked) {
-      selectedValues.push(current)
+      selectedValues.push(current);
     } else {
-      selectedValues = selectedValues.filter(value => value !== current);
+      selectedValues = selectedValues.filter((value) => value !== current);
     }
     if (selectedValues.length > 0) {
       onChange(selectedValues);
@@ -30,7 +35,8 @@ export const MultiSelect: React.FC<{
           key={answer.value}
           value={answer.value}
           control={<Checkbox name="checkedC" onChange={handleChange} />}
-          label={answer.text} />
+          label={answer.text}
+        />
       ))}
     </FormGroup>
   );
