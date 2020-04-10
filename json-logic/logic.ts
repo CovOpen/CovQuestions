@@ -4,7 +4,7 @@ export type LogicExpression = LogicOperator | LogicVariable | LogicConstant
 export type LogicVariable = { "var": string }
 export type LogicConstant = number | string
 export type LogicOperator = LogicIf | LogicReduce | LogicSome | LogicEquals | 
-LogicGreaterEqual | LogicNot | LogicLessThen | LogicPlus | LogicMinus |
+LogicGreaterEqual | LogicNot | LogicLessEqual | LogicPlus | LogicMinus |
 LogicAnd | LogicOr | LogicIn
 
 export type LogicIf = { "if": [LogicExpression, LogicExpression, LogicExpression] }
@@ -22,7 +22,7 @@ export type LogicEquals = { "==": [LogicExpression, LogicExpression] }
 export type LogicAnd = { "and": LogicExpression[] }
 export type LogicOr = { "or": LogicExpression[] }
 export type LogicGreaterEqual = { ">=": [LogicExpression, LogicExpression] }
-export type LogicLessThen = { "<=": [LogicExpression, LogicExpression] }
+export type LogicLessEqual = { "<=": [LogicExpression, LogicExpression] }
 
 export interface jsonLogic {
 	apply: (exp: LogicExpression, data: any) => LogicConstant;
