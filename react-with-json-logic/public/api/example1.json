@@ -1,30 +1,31 @@
 {
+  "id": "aa43ae11-2b3c-46dd-ac01-c901c3d36a3e",
+  "schemaVersion": "0.0.0.1",
+  "version": "0.0.0.1",
   "meta": {
     "author": "Alexander",
-    "languages": ["DE"],
-    "name": "Example",
-    "version": "0.1"
+    "language": "DE",
+    "title": "Example",
+    "creationDate": "2020-04-10T18:48:48+0000"
   },
   "questions": [
     {
       "id": "q1_contact",
-      "text": "Example 1 Gab es Kontakt zu bestätigten Fällen?",
-      "type": "Boolean"
+      "text": "Gab es Kontakt zu bestätigten Fällen?",
+      "type": "boolean"
     },
     {
       "id": "q2_contact_when",
       "text": "Wann trat der Kontakt auf?",
-      "type": "Date",
-      "skipIf": {
-        "!": {
-          "var": "q1_contact"
-        }
+      "type": "date",
+      "enableWhen": {
+        "var": "q1_contact.value"
       }
     },
     {
       "id": "q3_symptoms",
       "text": "Symptome?",
-      "type": "Multiselect",
+      "type": "multiselect",
       "options": [
         {
           "text": "Husten",
@@ -43,36 +44,36 @@
     {
       "id": "q4_symptoms_when",
       "text": "Ab wann gab es Symptome?",
-      "type": "Date",
-      "skipIf": {
-        "!": {
-          "var": "q3_symptoms"
-        }
+      "type": "date",
+      "enableWhen": {
+        "var": "q3_symptoms.value"
       }
     },
     {
       "id": "q5_risk_factors",
       "text": "Gibt es Risikofaktoren?",
-      "type": "Boolean"
+      "type": "boolean"
     },
     {
       "id": "q6_chronic_afflictions",
       "text": "Gibt es Chronische Beschwerden?",
-      "type": "Boolean"
+      "type": "boolean"
     },
     {
       "id": "q6_medical_staff",
       "text": "Medizinisches Personal?",
-      "type": "Boolean",
-      "skipIf": {
-        "!": {
-          "in": [
-            {
-              "var": "v1_risk"
-            },
-            ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"]
+      "type": "boolean",
+      "enableWhen": {
+        "in": [
+          {
+            "var": "v1_risk.value"
+          },
+          [
+            "HIGH_RISK",
+            "MEDIUM_RISK_A",
+            "MEDIUM_RISK_B"
           ]
-        }
+        ]
       }
     }
   ],
@@ -84,10 +85,10 @@
           {
             "-": [
               {
-                "var": "q2_contact_when"
+                "var": "q2_contact_when.value"
               },
               {
-                "var": "g_now"
+                "var": "g_now.value"
               }
             ]
           },
@@ -111,7 +112,7 @@
       "value": {
         "if": [
           {
-            "var": "q0_contact"
+            "var": "q0_contact.value"
           },
           {
             "if": [
@@ -125,10 +126,10 @@
                       {
                         "-": [
                           {
-                            "var": "q2_contact_when"
+                            "var": "q2_contact_when.value"
                           },
                           {
-                            "var": "q4_symptoms_when"
+                            "var": "q4_symptoms_when.value"
                           }
                         ]
                       },
@@ -143,7 +144,7 @@
                           {
                             "some": [
                               {
-                                "var": "q2_symptoms"
+                                "var": "q2_symptoms.value"
                               },
                               {
                                 "==": [
@@ -158,7 +159,7 @@
                           {
                             "some": [
                               {
-                                "var": "q2_symptoms"
+                                "var": "q2_symptoms.value"
                               },
                               {
                                 "==": [
@@ -173,10 +174,10 @@
                           {
                             "or": [
                               {
-                                "var": "q5_risk_factors"
+                                "var": "q5_risk_factors.value"
                               },
                               {
-                                "var": "q6_chronic_afflictions"
+                                "var": "q6_chronic_afflictions.value"
                               }
                             ]
                           }
@@ -209,9 +210,11 @@
                   {
                     "in": [
                       {
-                        "var": "q2_symptoms"
+                        "var": "q2_symptoms.value"
                       },
-                      ["respiratory"]
+                      [
+                        "respiratory"
+                      ]
                     ]
                   },
                   "MEDIUM_RISK_B",
@@ -223,88 +226,85 @@
           }
         ]
       }
-    },
-    {
-      "id": "v2_needs_medical_advisory",
-      "value": {
-        "var": "q6_medical_staff"
-      }
-    },
-    {
-      "id": "v3_contact_irrelevant_notice",
-      "value": {
-        "and": [
-          {
-            "var": "q0_contact"
-          },
-          {
-            "!": {
-              "var": "v_contact_relevant"
-            }
-          }
-        ]
-      }
     }
   ],
   "resultCategories": [
     {
       "id": "rc_risk",
-      "text": "Risikoeinschätzung",
+      "description": "Risikoeinschätzung",
       "results": [
         {
           "id": "MEDIUM_RISK_A",
-          "text": "Mittleres Risiko"
+          "text": "Mittleres Risiko",
+          "value": {
+            "==": [
+              {
+                "var": "v0_risk"
+              },
+              "MEDIUM_RISK_A"
+            ]
+          }
         },
         {
           "id": "MEDIUM_RISK_B",
-          "text": "Mittleres Risiko"
+          "text": "Mittleres Risiko",
+          "value": {
+            "==": [
+              {
+                "var": "v0_risk"
+              },
+              "MEDIUM_RISK_B"
+            ]
+          }
         },
         {
           "id": "HIGH_RISK",
-          "text": "Hohes Risiko"
+          "text": "Hohes Risiko",
+          "value": {
+            "==": [
+              {
+                "var": "v0_risk"
+              },
+              "HIGH_RISK"
+            ]
+          }
         }
-      ],
-      "value": {
-        "var": "v0_risk"
-      }
+      ]
     },
     {
       "id": "rc_medical_advisory",
-      "text": "Medizinischer Leitfaden",
+      "description": "Medizinischer Leitfaden",
       "results": [
         {
           "id": "SHOW_MEDICAL_ADVISORY",
-          "text": "Hilfreiche Information."
+          "text": "Hilfreiche Information.",
+          "value": {
+            "var": "q6_medical_staff.value"
+          }
         }
-      ],
-      "value": {
-        "if": [
-          {
-            "var": "v2_needs_medical_advisory"
-          },
-          "SHOW_MEDICAL_ADVISORY",
-          "NONE"
-        ]
-      }
+      ]
     },
     {
       "id": "rc_contact_irrelevant",
-      "text": "Kontakt",
+      "description": "Kontakt",
       "results": [
         {
           "id": "SHOW_CONTACT_ADVISORY",
-          "text": "Der Kontakt wahr irrellevant."
+          "text": "Der Kontakt war irrellevant.",
+          "value": {
+            "and": [
+              {
+                "var": "q0_contact.value"
+              },
+              {
+                "!": {
+                  "var": "v_contact_relevant"
+                }
+              }
+            ]
+          }
         }
-      ],
-      "value": {
-        "if": [
-          {
-            "var": "v3_contact_irrelevant_notice"
-          },
-          "SHOW_CONTACT_ADVISORY",
-          "NONE"
-        ]
-      }
+      ]
     }
   ]
 }
