@@ -31,6 +31,12 @@ export interface IOption {
 	 * Value used for evaluating logic expressions.
 	 */
 	value: string;
+	/**
+	 * Human-Readable formulation of this option as yes/no question.
+	 * This is for use-cases where multi-selects are not possible in the UI, 
+	 * for example telephone hotlines.
+	 */
+	asQuestion?: string
 }
 
 /**
