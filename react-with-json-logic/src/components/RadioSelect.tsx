@@ -1,6 +1,6 @@
 import React from "react";
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, } from "@material-ui/core";
-import { IQuestion } from "../logic/schema";
+import { IQuestion, IOption } from "../logic/schema";
 
 export const RadioSelect: React.FC<{
   currentQuestion: IQuestion;
@@ -11,9 +11,9 @@ export const RadioSelect: React.FC<{
     onChange(currentTargetValue);
   };
 
-  const options: any[] = currentQuestion.options ?? [
-    { value: true, text: "yes" },
-    { value: false, text: "no" },
+  const options: IOption[] = currentQuestion.options ?? [
+    { value: "true", text: "yes" },
+    { value: "false", text: "no" },
   ];
 
   return (
