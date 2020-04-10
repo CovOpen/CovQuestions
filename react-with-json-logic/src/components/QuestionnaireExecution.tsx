@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { QuestionForm } from "./QuestionForm";
 import { IQuestion } from "../logic/schema";
 import { Questionnaire } from "../logic/questionnaire";
@@ -27,7 +27,7 @@ export function QuestionnaireExecution({
 
   return (
     <>
-      <Grid item xs={6}>
+      <Grid item xs={9}>
         <Button
           onClick={restartQuestionnaire}
           variant="contained"
@@ -62,6 +62,18 @@ export function QuestionnaireExecution({
             <Typography>{result}</Typography>
           </Paper>
         )}
+      </Grid>
+      <Grid item xs={9}>
+        <Typography>Current internal state:</Typography>
+        <Paper>
+          <Box style={{ whiteSpace: "pre-wrap" }}>
+            {JSON.stringify(
+              questionnaireLogic.getDataObjectForDeveloping(),
+              null,
+              2
+            )}
+          </Box>
+        </Paper>
       </Grid>
     </>
   );

@@ -32,6 +32,7 @@ const App = () => {
     questionnaireLogic = new Questionnaire();
     questionnaireLogic.setQuestionnaire(questionnaire);
     setCurrentQuestion(questionnaireLogic.nextQuestion());
+    setResult(undefined);
   }
 
   useEffect(() => {

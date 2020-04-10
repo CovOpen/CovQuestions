@@ -2,13 +2,13 @@
 import jsonLogic from "json-logic-js";
 
 import {
+  IOption,
   IQuestion,
-  QuestionType,
   IQuestionnaire,
   IQuestionnaireMeta,
-  IVariable,
   IResultCategory,
-  IOption,
+  IVariable,
+  QuestionType,
 } from "./schema";
 import { LogicConstant, LogicExpression } from "./logic";
 
@@ -70,7 +70,7 @@ export class Questionnaire implements IQuestionnaire {
       }
 
       // ask only if should be asked
-      const guardCheck = question.check(this);
+      const guardCheck = question.check(this.data);
       if (!guardCheck) {
         continue;
       }
@@ -82,17 +82,27 @@ export class Questionnaire implements IQuestionnaire {
 
   public setAnswer(questionId: string, answer: LogicConstant) {
     this.answeredQuestions.push(questionId);
-    this.data[questionId] = answer;
+    this.data[questionId] = {};
+    this.data[questionId].value = answer;
     this.updateComputableVariables();
   }
 
   public updateComputableVariables() {
-    this.data["g_now"] = new Date().getDay();
+    this.data["g_now"] = {};
+    this.data["g_now"].value = Math.round(Date.now() / 1000);
 
     this.variables.forEach((variable) => {
       try {
-        this.data[variable.id] = jsonLogic.apply(variable.value, this.data);
+        this.data[variable.id] = {};
+        this.data[variable.id].value = jsonLogic.apply(
+          variable.value,
+          this.data
+        );
       } catch (e) {}
     });
+  }
+
+  public getDataObjectForDeveloping(): {} {
+    return this.data;
   }
 }
