@@ -192,7 +192,7 @@ const example: IQuestionnaire = {
       // Just one (or none) result
       results: [{
         id: 'SHOW_CONTACT_ADVISORY',
-        text: 'Der Kontakt wahr irrellevant.'
+        text: 'Der Kontakt war irrellevant.'
       }],
       value: { "if": [
         { "var": "v3_contact_irrelevant_notice" },
