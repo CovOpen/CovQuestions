@@ -122,16 +122,45 @@ export interface IResult {
  * Meta-Information for a questionaire.
  */
 export interface IQuestionnaireMeta {
-	name: string,
+	tile: string,
+	description?: string
 	version: string,
 	author: string,
-	languages: string[]
+	/**
+	 * Language of this questionaire, as ISO 639-1 code.
+	 * Note that further languages can be defined in external lookup files.
+	 */
+	language: string,
+	/**
+	 * Creation date as ISO 8601 string
+	 */
+	creationDate: string,
+	/**
+	 * Expiration date as ISO 8601 string
+	 */
+	experiationDate: string,
+	/**
+	 * Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.
+	 */
+	regions?: string[]
 }
 
 /**
  * The questionaire.
  */
 export interface IQuestionnaire {
+	/**
+	 * Unique, assigned identifier.
+	 */
+	id: string
+	/**
+	 * File format/api version in semver.
+	 */
+	schemaVersion: string
+	/**
+	 * Version of this question in semver.
+	 */
+	version: string
 	/**
 	 * Meta-Information.
 	 */
