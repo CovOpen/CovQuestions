@@ -59,8 +59,15 @@ question_id.unselectedCount // Count of not-selected options
 question_id.option.option_id.selected // True or false, indicating if option_id was selected
 ```
 
-For date-specific questions, `value` is the date difference to the current date in days. Current date always refers to the moment when the questionaire was conducted. 
-If the answers and results are to be saved, it needs to be stored with the given answers to allow reproducible results.
+For date-specific questions, `value` is the date as unix timestamp.
+The `value` for timespans is the duration as seconds.
+
+Additionally, date answers expose `question_id.daysToNow` which gives the time difference to now as days.
+
+### Special variables
+
+The following variables are pre-defined and need are available in all logic expressions:
+* `NOW` current time as unix timestamp
 
 ### Internationalization
 
