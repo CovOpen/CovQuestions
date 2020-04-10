@@ -59,14 +59,8 @@ question_id.unselectedCount // Count of not-selected options
 question_id.option.option_id.selected // True or false, indicating if option_id was selected
 ```
 
-For date-specific questions, `value` is the date difference to the current date in days.
-
-
-### Special Variables
-
-We need to introduce a set of special meta variables:
-* the date when the survey was conducted
-* tbd.
+For date-specific questions, `value` is the date difference to the current date in days. Current date always refers to the moment when the questionaire was conducted. 
+If the answers and results are to be saved, it needs to be stored with the given answers to allow reproducible results.
 
 ### Working with dates
 
