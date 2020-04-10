@@ -108,7 +108,7 @@ export function QuestionnaireExecution({
     <>
       <Grid item xs={6}>
         <Button onClick={resetApp} variant="contained" color="secondary">
-          Reset Questionnaire
+          Restart Questionnaire
         </Button>
       </Grid>
       <Grid item xs={9}>
