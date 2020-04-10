@@ -1,5 +1,4 @@
 import React from "react";
-import { QuestionWithValues } from "../App";
 import {
   FormControl,
   FormControlLabel,
@@ -7,6 +6,7 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
+import { QuestionWithValues } from "./QuestionnaireExecution";
 
 export const RadioSelect: React.FC<{
   currentQuestion: QuestionWithValues;

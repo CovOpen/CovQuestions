@@ -1,7 +1,7 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
 import { TemperatureInput } from "./TemperatureInput";
-import { Question } from "../App";
+import { Question } from "./QuestionnaireExecution";
 
 export const QuestionForm: React.FC<{
   currentQuestion: Question;

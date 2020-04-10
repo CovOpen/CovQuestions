@@ -1,6 +1,6 @@
 import React from "react";
-import { Question } from "../App";
 import { Slider, Typography } from "@material-ui/core";
+import { Question } from "./QuestionnaireExecution";
 
 export const TemperatureInput: React.FC<{
   currentQuestion: Question;
