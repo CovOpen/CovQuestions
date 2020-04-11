@@ -3,14 +3,19 @@ import React, { useState, useEffect } from "react";
 
 export function QuestionnaireTextField(props: {
   value: unknown;
-  onChange: (e) => void;
+  onChange: () => void;
   resetQuestionnaire: (e) => void;
   loadQuestionnaire: (e) => void;
 }) {
-  const [questionnaire, setQuestionnaire] = useState(undefined);
+  const [questionnaireAsString, setQuestionnaireAsString] = useState(undefined);
+
+  const updateQuestionnaire = () => {
+      var json = JSON.parse(questionnaireAsString);
+      props.loadQuestionnaire(json);
+  };
 
   useEffect(() => {
-    setQuestionnaire(props.value);
+    setQuestionnaireAsString(props.value);
   }, [props.value]);
 
   return (
@@ -18,7 +23,7 @@ export function QuestionnaireTextField(props: {
       <Grid container>
         <Grid item xs={6}>
           <Button
-            onClick={() => props.loadQuestionnaire(questionnaire)}
+            onClick={updateQuestionnaire}
             variant="contained"
             color="secondary"
           >
@@ -42,10 +47,10 @@ export function QuestionnaireTextField(props: {
           rows="20"
           variant="outlined"
           fullWidth={true}
-          value={JSON.stringify(questionnaire, null, 2)}
+          value={questionnaireAsString}
           onChange={(e) => {
-            setQuestionnaire(JSON.parse(e.target.value));
-            props.onChange(e);
+            setQuestionnaireAsString(e.target.value);
+            props.onChange();
           }}
         />
       </Grid>

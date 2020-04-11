@@ -98,7 +98,7 @@ const App = () => {
           </Grid>
           <Grid item xs={6}>
             <QuestionnaireTextField
-              value={currentQuestionnaire}
+              value={JSON.stringify(currentQuestionnaire, null, 2)}
               onChange={() => setIsQuestionnaireInSync(false)}
               resetQuestionnaire={() =>
                 overwriteCurrentQuestionnaire(originalCurrentQuestionnaire)
