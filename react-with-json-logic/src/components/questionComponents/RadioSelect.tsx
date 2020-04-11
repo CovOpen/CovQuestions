@@ -6,12 +6,13 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { IOption, IQuestion, QuestionType } from "../logic/schema";
+import { IOption, QuestionType } from "../../logic/schema";
+import { QuestionComponentProps } from "./QuestionComponent";
 
-export const RadioSelect: React.FC<{
-  currentQuestion: IQuestion;
-  onChange: React.Dispatch<React.SetStateAction<{}>>;
-}> = ({ currentQuestion, onChange }) => {
+export const RadioSelect: React.FC<QuestionComponentProps> = ({
+  currentQuestion,
+  onChange,
+}) => {
   const handleChange = (e: any) => {
     if (currentQuestion.type === QuestionType.Boolean) {
       onChange(e.currentTarget.value === "true");

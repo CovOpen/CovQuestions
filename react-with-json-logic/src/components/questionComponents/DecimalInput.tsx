@@ -1,11 +1,11 @@
 import React from "react";
 import { Slider, Typography } from "@material-ui/core";
-import { IQuestion } from "../logic/schema";
+import { QuestionComponentProps } from "./QuestionComponent";
 
-export const TemperatureInput: React.FC<{
-  currentQuestion: IQuestion;
-  onChange: React.Dispatch<React.SetStateAction<{}>>;
-}> = ({ currentQuestion, onChange }) => {
+export const DecimalInput: React.FC<QuestionComponentProps> = ({
+  currentQuestion,
+  onChange,
+}) => {
   const handleChange = (_e: any, value: number) => {
     onChange(value);
   };

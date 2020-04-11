@@ -67,7 +67,7 @@ export class Questionnaire {
     this.resultCategories = newQuestionnaire.resultCategories;
   }
 
-  public nextQuestion(): null | Question {
+  public nextQuestion(): Question | undefined {
     const indexOfNextQuestion = this.questions.findIndex(
       (question, index) =>
         index > this.currentQuestionIndex && question.check(this.data)
@@ -78,7 +78,7 @@ export class Questionnaire {
       return this.questions[indexOfNextQuestion];
     }
 
-    return null;
+    return undefined;
   }
 
   public setAnswer(questionId: string, answer: LogicConstant) {

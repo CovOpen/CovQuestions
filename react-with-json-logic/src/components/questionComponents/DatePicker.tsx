@@ -1,11 +1,11 @@
 import React from "react";
 import { TextField, Typography } from "@material-ui/core";
-import { IQuestion } from "../logic/schema";
+import { QuestionComponentProps } from "./QuestionComponent";
 
-export const DatePicker: React.FC<{
-  currentQuestion: IQuestion;
-  onChange: React.Dispatch<React.SetStateAction<{}>>;
-}> = ({ currentQuestion, onChange }) => {
+export const DatePicker: React.FC<QuestionComponentProps> = ({
+  currentQuestion,
+  onChange,
+}) => {
   const handleChange = (e: any) => {
     onChange(Math.round(Date.parse(e.target.value) / 1000));
   };

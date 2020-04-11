@@ -4,27 +4,35 @@ import "./App.css";
 import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelectionDropdown";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireTextField } from "./components/QuestionnaireTextField";
-import { Questionnaire } from "./logic/questionnaire";
+import { Question, Questionnaire, Result } from "./logic/questionnaire";
 import { IQuestionnaire } from "./logic/schema";
 
-let questionnaireLogic: Questionnaire = undefined;
+type QuestionnairesList = Array<{ name: string; path: string }>;
 
-const App = () => {
-  const [allQuestionnaires, setAllQuestionnaires] = useState([]);
-  const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState(
-    undefined
-  );
+let questionnaireLogic: Questionnaire | undefined = undefined;
+
+export const App: React.FC = () => {
+  const [allQuestionnaires, setAllQuestionnaires] = useState<
+    QuestionnairesList
+  >([]);
+  const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<
+    string | undefined
+  >(undefined);
   const [
     originalCurrentQuestionnaire,
     setOriginalCurrentQuestionnaire,
   ] = useState(undefined);
-  const [currentQuestionnaire, setCurrentQuestionnaire] = useState(undefined);
+  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<
+    IQuestionnaire | undefined
+  >(undefined);
 
-  const [currentQuestion, setCurrentQuestion] = useState(undefined);
-  const [result, setResult] = useState(undefined);
+  const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(
+    undefined
+  );
+  const [result, setResult] = useState<Result[] | undefined>(undefined);
   const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
 
-  function overwriteCurrentQuestionnaire(newQuestionnaire) {
+  function overwriteCurrentQuestionnaire(newQuestionnaire: IQuestionnaire) {
     setCurrentQuestionnaire(newQuestionnaire);
     restartQuestionnaire(newQuestionnaire);
     setIsQuestionnaireInSync(true);
@@ -55,10 +63,13 @@ const App = () => {
         }
       });
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [currentQuestionnairePath]);
 
   function handleNextClick() {
+    if (questionnaireLogic === undefined) {
+      return;
+    }
     const nextQuestion = questionnaireLogic.nextQuestion();
     if (nextQuestion) {
       setCurrentQuestion(nextQuestion);
@@ -78,7 +89,7 @@ const App = () => {
       >
         <Grid item xs={12}>
           <QuestionnaireSelectionDropdown
-            handleChange={(e) => setCurrentQuestionnairePath(e.target.value)}
+            handleChange={setCurrentQuestionnairePath}
             allQuestionnaires={allQuestionnaires}
           />
         </Grid>
@@ -112,5 +123,3 @@ const App = () => {
     </Container>
   );
 };
-
-export default App;

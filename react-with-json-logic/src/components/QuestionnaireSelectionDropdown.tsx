@@ -1,10 +1,17 @@
 import React from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 
-export const QuestionnaireSelectionDropdown: React.FC<{
-  handleChange: any;
+type QuestionnaireSelectionProps = {
+  handleChange: React.Dispatch<React.SetStateAction<string>>;
   allQuestionnaires: any[];
-}> = ({ handleChange, allQuestionnaires }) => {
+};
+
+export const QuestionnaireSelectionDropdown: React.FC<QuestionnaireSelectionProps> = ({
+  handleChange,
+  allQuestionnaires,
+}) => {
+  const onChange = (e) => handleChange(e.target.value);
+
   return (
     <FormControl>
       <InputLabel id="questionnaire-select-label">
@@ -13,7 +20,7 @@ export const QuestionnaireSelectionDropdown: React.FC<{
       <Select
         labelId="questionnaire-select-label"
         id="questionnaire-select"
-        onChange={handleChange}
+        onChange={onChange}
         defaultValue=""
       >
         {allQuestionnaires.map((it) => (

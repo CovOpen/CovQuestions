@@ -1,14 +1,23 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
-import { TemperatureInput } from "./TemperatureInput";
-import { IQuestion, QuestionType } from "../logic/schema";
+import { DecimalInput } from "./DecimalInput";
+import { IQuestion, QuestionType } from "../../logic/schema";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 
-export const QuestionForm: React.FC<{
+export type QuestionComponentProps = {
   currentQuestion: IQuestion;
-  onChange: any;
-}> = ({ currentQuestion, onChange }) => {
+  onChange: React.Dispatch<
+    React.SetStateAction<
+      string | boolean | number | Array<string | boolean | number>
+    >
+  >;
+};
+
+export const QuestionComponent: React.FC<QuestionComponentProps> = ({
+  currentQuestion,
+  onChange,
+}) => {
   switch (currentQuestion.type) {
     case QuestionType.Select:
     case QuestionType.Boolean:
@@ -21,15 +30,23 @@ export const QuestionForm: React.FC<{
       );
     case QuestionType.Multiselect:
       return (
-        <MultiSelect currentQuestion={currentQuestion} onChange={onChange} />
+        <MultiSelect
+          key={currentQuestion.id}
+          currentQuestion={currentQuestion}
+          onChange={onChange}
+        />
       );
     case QuestionType.Date:
       return (
-        <DatePicker currentQuestion={currentQuestion} onChange={onChange} />
+        <DatePicker
+          key={currentQuestion.id}
+          currentQuestion={currentQuestion}
+          onChange={onChange}
+        />
       );
     case QuestionType.Decimal:
       return (
-        <TemperatureInput
+        <DecimalInput
           key={currentQuestion.id}
           currentQuestion={currentQuestion}
           onChange={onChange}

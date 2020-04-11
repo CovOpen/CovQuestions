@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { QuestionForm } from "./QuestionForm";
-import { Questionnaire, Question, Result } from "../logic/questionnaire";
+import { QuestionComponent } from "./questionComponents/QuestionComponent";
+import { Question, Questionnaire, Result } from "../logic/questionnaire";
 
-export function QuestionnaireExecution({
-  currentQuestion,
-  questionnaireLogic,
-  handleNextClick,
-  result,
-  restartQuestionnaire,
-  isInSync,
-}: {
+type QuestionnaireExecutionProps = {
   currentQuestion: Question;
   questionnaireLogic: Questionnaire;
   handleNextClick: () => void;
   result?: Result[];
   restartQuestionnaire: () => void;
   isInSync: boolean;
-}) {
+};
+
+export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
+  currentQuestion,
+  questionnaireLogic,
+  handleNextClick,
+  result,
+  restartQuestionnaire,
+  isInSync,
+}) => {
   const [showAnswerIsRequired, setShowAnswerIsRequired] = useState(undefined);
 
   const handleChangeInForm = (value: any) => {
@@ -72,7 +74,7 @@ export function QuestionnaireExecution({
           <Paper style={{ padding: "20px" }}>
             <Grid container direction="column" alignItems="center">
               <Grid item xs>
-                <QuestionForm
+                <QuestionComponent
                   currentQuestion={currentQuestion}
                   onChange={handleChangeInForm}
                 />
@@ -117,4 +119,4 @@ export function QuestionnaireExecution({
       </Grid>
     </>
   );
-}
+};

@@ -2,7 +2,7 @@ import React from "react";
 import nock from "nock";
 import { render, RenderResult, within } from "@testing-library/react";
 import UserEvent from "@testing-library/user-event";
-import App from "../../App";
+import { App } from "../../App";
 import { IQuestionnaire } from "../../logic/schema";
 import { DropDownElement } from "./DropDownElement";
 

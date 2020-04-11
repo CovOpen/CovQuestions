@@ -2,18 +2,20 @@ import { Button, Grid, TextField, Snackbar } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { Alert } from "@material-ui/lab";
 
-export function QuestionnaireTextField(props: {
+type QuestionnaireTextFieldProps = {
   value: unknown;
   onChange: () => void;
   resetQuestionnaire: (e) => void;
   loadQuestionnaire: (e) => void;
-}) {
+};
+
+export function QuestionnaireTextField(props: QuestionnaireTextFieldProps) {
   const [questionnaireAsString, setQuestionnaireAsString] = useState(undefined);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
 
   const updateQuestionnaire = () => {
     try {
-      var json = JSON.parse(questionnaireAsString);
+      const json = JSON.parse(questionnaireAsString);
       props.loadQuestionnaire(json);
     } catch (e) {
       setShowJsonInvalidMessage(true);
