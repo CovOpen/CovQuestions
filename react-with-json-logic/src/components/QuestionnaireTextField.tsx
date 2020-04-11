@@ -1,5 +1,6 @@
-import { Button, Grid, TextField } from "@material-ui/core";
+import { Button, Grid, TextField, Snackbar } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
+import { Alert } from "@material-ui/lab";
 
 export function QuestionnaireTextField(props: {
   value: unknown;
@@ -8,10 +9,26 @@ export function QuestionnaireTextField(props: {
   loadQuestionnaire: (e) => void;
 }) {
   const [questionnaireAsString, setQuestionnaireAsString] = useState(undefined);
+  const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
 
   const updateQuestionnaire = () => {
+    try {
       var json = JSON.parse(questionnaireAsString);
       props.loadQuestionnaire(json);
+    } catch (e) {
+      setShowJsonInvalidMessage(true);
+    }
+  };
+
+  const handleSnackbarClose = (
+    event?: React.SyntheticEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setShowJsonInvalidMessage(false);
   };
 
   useEffect(() => {
@@ -54,6 +71,17 @@ export function QuestionnaireTextField(props: {
           }}
         />
       </Grid>
+
+      <Snackbar
+        open={showJsonInvalidMessage}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        onClose={handleSnackbarClose}
+      >
+        <Alert onClose={handleSnackbarClose} severity="error">
+          Cannot load questionnaire. JSON is invalid!
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 }
