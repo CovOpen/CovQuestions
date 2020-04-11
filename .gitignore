@@ -119,3 +119,4 @@ temp/
 .history
 
 # End of https://www.gitignore.io/api/web,node,visualstudiocode
+react-with-json-logic/.vscode/launch.json
