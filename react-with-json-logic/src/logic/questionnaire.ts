@@ -22,6 +22,7 @@ class Question implements IQuestion {
   text: string;
   options?: IOption[];
   enableWhen?: LogicExpression;
+  optional?: boolean;
 
   constructor(question: IQuestion) {
     this.id = question.id;
@@ -29,6 +30,7 @@ class Question implements IQuestion {
     this.text = question.text;
     this.options = question.options;
     this.enableWhen = question.enableWhen;
+    this.optional = question.optional;
   }
 
   public check(data: {}): boolean {
