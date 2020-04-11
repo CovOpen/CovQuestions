@@ -13,11 +13,6 @@ export function QuestionnaireTextField(props: {
     setQuestionnaire(props.value);
   }, [props.value]);
 
-  function changeQuestionnaire(e: any) {
-    setQuestionnaire(JSON.parse(e.target.value));
-    props.onChange(e);
-  }
-
   return (
     <Grid container direction="column">
       <Grid container>
