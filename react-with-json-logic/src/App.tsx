@@ -27,13 +27,13 @@ const App = () => {
   function overwriteCurrentQuestionnaire(newQuestionnaire) {
     setCurrentQuestionnaire(newQuestionnaire);
     restartQuestionnaire(newQuestionnaire);
+    setIsQuestionnaireInSync(true);
   }
 
   function restartQuestionnaire(questionnaire: IQuestionnaire) {
     questionnaireLogic = new Questionnaire(questionnaire);
     setCurrentQuestion(questionnaireLogic.nextQuestion());
     setResult(undefined);
-    setIsQuestionnaireInSync(true);
   }
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const App = () => {
           <Grid item xs={6}>
             <QuestionnaireTextField
               value={currentQuestionnaire}
-              onChange={overwriteCurrentQuestionnaire}
+              onChange={() => setIsQuestionnaireInSync(false)}
               resetQuestionnaire={() =>
                 overwriteCurrentQuestionnaire(originalCurrentQuestionnaire)
               }

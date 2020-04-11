@@ -13,6 +13,11 @@ export function QuestionnaireTextField(props: {
     setQuestionnaire(props.value);
   }, [props.value]);
 
+  function changeQuestionnaire(e: any) {
+    setQuestionnaire(JSON.parse(e.target.value));
+    props.onChange(e);
+  }
+
   return (
     <Grid container direction="column">
       <Grid container>
@@ -43,7 +48,10 @@ export function QuestionnaireTextField(props: {
           variant="outlined"
           fullWidth={true}
           value={JSON.stringify(questionnaire, null, 2)}
-          onChange={(e) => setQuestionnaire(JSON.parse(e.target.value))}
+          onChange={(e) => {
+            setQuestionnaire(JSON.parse(e.target.value));
+            props.onChange(e);
+          }}
         />
       </Grid>
     </Grid>

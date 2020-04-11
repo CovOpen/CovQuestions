@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { QuestionForm } from "./QuestionForm";
 import { IQuestion } from "../logic/schema";
 import { Questionnaire, Result } from "../logic/questionnaire";
@@ -38,6 +39,13 @@ export function QuestionnaireExecution({
           Restart Questionnaire
         </Button>
       </Grid>
+      {!isInSync ? (
+        <Grid item xs={9}>
+          <Alert severity="warning">
+            This questionnaire is out of sync. Please reload.
+          </Alert>
+        </Grid>
+      ) : null}
       <Grid item xs={9}>
         {result === undefined ? (
           <Paper style={{ padding: "20px" }}>
