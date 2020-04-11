@@ -10,12 +10,14 @@ export function QuestionnaireExecution({
   handleNextClick,
   result,
   restartQuestionnaire,
+  isInSync,
 }: {
   currentQuestion: IQuestion;
   questionnaireLogic: Questionnaire;
   handleNextClick: () => void;
   result: any;
   restartQuestionnaire: () => void;
+  isInSync: boolean;
 }) {
   const handleChangeInForm = (value: any) => {
     questionnaireLogic.setAnswer(currentQuestion.id, value);

@@ -22,6 +22,7 @@ const App = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState(undefined);
   const [result, setResult] = useState(undefined);
+  const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
 
   function overwriteCurrentQuestionnaire(newQuestionnaire) {
     setCurrentQuestionnaire(newQuestionnaire);
@@ -32,6 +33,7 @@ const App = () => {
     questionnaireLogic = new Questionnaire(questionnaire);
     setCurrentQuestion(questionnaireLogic.nextQuestion());
     setResult(undefined);
+    setIsQuestionnaireInSync(true);
   }
 
   useEffect(() => {
@@ -86,6 +88,7 @@ const App = () => {
                 result={result}
                 currentQuestion={currentQuestion}
                 questionnaireLogic={questionnaireLogic}
+                isInSync={isQuestionnaireInSync}
                 handleNextClick={handleNextClick}
                 restartQuestionnaire={() =>
                   restartQuestionnaire(currentQuestionnaire)
@@ -100,6 +103,7 @@ const App = () => {
               resetQuestionnaire={() =>
                 overwriteCurrentQuestionnaire(originalCurrentQuestionnaire)
               }
+              loadQuestionnaire={overwriteCurrentQuestionnaire}
             />
           </Grid>
         </Grid>
