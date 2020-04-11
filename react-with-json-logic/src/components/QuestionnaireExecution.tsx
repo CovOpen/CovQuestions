@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { QuestionForm } from "./QuestionForm";
 import { IQuestion } from "../logic/schema";
-import { Questionnaire } from "../logic/questionnaire";
+import { Questionnaire, Result } from "../logic/questionnaire";
 
 export function QuestionnaireExecution({
   currentQuestion,
@@ -14,7 +14,7 @@ export function QuestionnaireExecution({
   currentQuestion: IQuestion;
   questionnaireLogic: Questionnaire;
   handleNextClick: () => void;
-  result: any;
+  result?: Result[];
   restartQuestionnaire: () => void;
 }) {
   const handleChangeInForm = (value: any) => {
@@ -37,7 +37,7 @@ export function QuestionnaireExecution({
         </Button>
       </Grid>
       <Grid item xs={9}>
-        {!result ? (
+        {result === undefined ? (
           <Paper style={{ padding: "20px" }}>
             <Grid container direction="column" alignItems="center">
               <Grid item xs>
@@ -59,7 +59,15 @@ export function QuestionnaireExecution({
           </Paper>
         ) : (
           <Paper style={{ color: "red", padding: "20px" }}>
-            <Typography>{result}</Typography>
+            {result.length > 0 ? (
+              result.map((it) => (
+                <Typography>
+                  {it.resultCategory.description}: {it.result.text}
+                </Typography>
+              ))
+            ) : (
+              <Typography>No result applies</Typography>
+            )}
           </Paper>
         )}
       </Grid>

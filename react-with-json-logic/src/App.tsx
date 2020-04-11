@@ -60,7 +60,7 @@ const App = () => {
     if (nextQuestion) {
       setCurrentQuestion(nextQuestion);
     } else {
-      setResult("Result (not implemented)");
+      setResult(questionnaireLogic.getResults());
     }
   }
 
