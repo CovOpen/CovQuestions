@@ -5,9 +5,9 @@ import {
   FormGroup,
   FormLabel,
 } from "@material-ui/core";
-import { QuestionComponentProps } from "./QuestionComponent";
+import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const MultiSelect: React.FC<QuestionComponentProps> = ({
+export const MultiSelect: React.FC<QuestionFormComponentProps> = ({
   currentQuestion,
   onChange,
 }) => {

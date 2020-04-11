@@ -7,9 +7,9 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 import { IOption, QuestionType } from "../../logic/schema";
-import { QuestionComponentProps } from "./QuestionComponent";
+import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const RadioSelect: React.FC<QuestionComponentProps> = ({
+export const RadioSelect: React.FC<QuestionFormComponentProps> = ({
   currentQuestion,
   onChange,
 }) => {

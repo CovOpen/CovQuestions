@@ -5,7 +5,7 @@ import { IQuestion, QuestionType } from "../../logic/schema";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 
-export type QuestionComponentProps = {
+export type QuestionFormComponentProps = {
   currentQuestion: IQuestion;
   onChange: React.Dispatch<
     React.SetStateAction<
@@ -14,7 +14,7 @@ export type QuestionComponentProps = {
   >;
 };
 
-export const QuestionComponent: React.FC<QuestionComponentProps> = ({
+export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({
   currentQuestion,
   onChange,
 }) => {

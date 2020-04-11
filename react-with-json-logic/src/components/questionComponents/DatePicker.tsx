@@ -1,8 +1,8 @@
 import React from "react";
 import { TextField, Typography } from "@material-ui/core";
-import { QuestionComponentProps } from "./QuestionComponent";
+import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const DatePicker: React.FC<QuestionComponentProps> = ({
+export const DatePicker: React.FC<QuestionFormComponentProps> = ({
   currentQuestion,
   onChange,
 }) => {

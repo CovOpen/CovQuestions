@@ -1,8 +1,8 @@
 import React from "react";
 import { Slider, Typography } from "@material-ui/core";
-import { QuestionComponentProps } from "./QuestionComponent";
+import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const DecimalInput: React.FC<QuestionComponentProps> = ({
+export const DecimalInput: React.FC<QuestionFormComponentProps> = ({
   currentQuestion,
   onChange,
 }) => {

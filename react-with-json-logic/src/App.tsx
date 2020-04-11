@@ -16,12 +16,12 @@ export const App: React.FC = () => {
     QuestionnairesList
   >([]);
   const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<
-    string | undefined
-  >(undefined);
+    string
+  >("");
   const [
     originalCurrentQuestionnaire,
     setOriginalCurrentQuestionnaire,
-  ] = useState(undefined);
+  ] = useState<IQuestionnaire | undefined>(undefined);
   const [currentQuestionnaire, setCurrentQuestionnaire] = useState<
     IQuestionnaire | undefined
   >(undefined);
@@ -53,7 +53,7 @@ export const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (currentQuestionnairePath !== undefined) {
+    if (currentQuestionnairePath !== "") {
       fetch(currentQuestionnairePath).then((response) => {
         if (response.ok) {
           response.json().then((value) => {
@@ -95,7 +95,8 @@ export const App: React.FC = () => {
         </Grid>
         <Grid container direction="row">
           <Grid item xs={6} data-testid="QuestionnaireExecution">
-            {currentQuestionnaire !== undefined ? (
+            {currentQuestionnaire !== undefined &&
+            questionnaireLogic !== undefined ? (
               <QuestionnaireExecution
                 result={result}
                 currentQuestion={currentQuestion}
@@ -112,9 +113,11 @@ export const App: React.FC = () => {
             <QuestionnaireTextField
               value={JSON.stringify(currentQuestionnaire, null, 2)}
               onChange={() => setIsQuestionnaireInSync(false)}
-              resetQuestionnaire={() =>
-                overwriteCurrentQuestionnaire(originalCurrentQuestionnaire)
-              }
+              resetQuestionnaire={() => {
+                if (originalCurrentQuestionnaire) {
+                  overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
+                }
+              }}
               loadQuestionnaire={overwriteCurrentQuestionnaire}
             />
           </Grid>
