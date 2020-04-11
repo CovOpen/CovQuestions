@@ -16,7 +16,7 @@ export type Result = {
   result: { id: string; text: string };
 };
 
-class Question implements IQuestion {
+export class Question implements IQuestion {
   id: string;
   type: QuestionType;
   text: string;
