@@ -29,6 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --config .prettierrc --ignore-path .gitignore --write '**/*.{ts,tsx,json}'",
+    "lint": "prettier --config .prettierrc --ignore-path .gitignore --check '**/*.{ts,tsx,json}'",
     "copyfiles": "copyfiles -u 2 ../json-logic/logic.ts ../json-logic/schema.ts ./src/logic"
   },
   "eslintConfig": {
