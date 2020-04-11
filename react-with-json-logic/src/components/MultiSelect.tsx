@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FormControlLabel,
   FormLabel,
@@ -11,17 +11,20 @@ export const MultiSelect: React.FC<{
   currentQuestion: IQuestion;
   onChange: React.Dispatch<React.SetStateAction<{}>>;
 }> = ({ currentQuestion, onChange }) => {
-  let selectedValues: string[] = [];
+
+  const [selectedValues, setSelectedValues] = useState([]);
 
   const handleChange = (e: any) => {
     const current = e.target.value;
+    let values = selectedValues;
     if (e.target.checked) {
-      selectedValues.push(current);
+      values.push(current);
     } else {
-      selectedValues = selectedValues.filter((value) => value !== current);
+      values = values.filter((value) => value !== current);
     }
-    if (selectedValues.length > 0) {
-      onChange(selectedValues);
+    setSelectedValues(values);
+    if (values.length > 0) {
+      onChange(values);
     } else {
       onChange(undefined);
     }
