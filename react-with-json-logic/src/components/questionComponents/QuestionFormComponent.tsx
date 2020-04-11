@@ -23,12 +23,12 @@ export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({ cu
     case QuestionType.Decimal:
       return <DecimalInput key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
     default:
-      // TODO enable exhaustiveCheck
+      // TODO enable exhaustiveCheck (see below)
       // exhaustiveCheck(currentQuestion.type);
       return null;
   }
 };
 
-const exhaustiveCheck = (_: never): void => {
-  return;
-};
+// const exhaustiveCheck = (_: never): void => {
+//   return;
+// };
