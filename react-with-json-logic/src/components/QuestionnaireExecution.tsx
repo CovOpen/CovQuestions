@@ -71,7 +71,7 @@ export function QuestionnaireExecution({
           <Paper style={{ color: "red", padding: "20px" }}>
             {result.length > 0 ? (
               result.map((it) => (
-                <Typography>
+                <Typography key={it.resultCategory.id}>
                   {it.resultCategory.description}: {it.result.text}
                 </Typography>
               ))
