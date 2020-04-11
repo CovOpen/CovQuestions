@@ -87,6 +87,10 @@ export class Questionnaire {
     this.updateComputableVariables();
   }
 
+  public hasAnswer(questionId: string): boolean {
+    return this.data[questionId] != null && this.data[questionId].value != null;
+  }
+
   private updateComputableVariables() {
     this.data["g_now"] = {};
     this.data["g_now"].value = Math.round(Date.now() / 1000);
