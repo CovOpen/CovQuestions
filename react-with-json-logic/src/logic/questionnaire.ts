@@ -40,6 +40,16 @@ class Question implements IQuestion {
       return true;
     }
   }
+
+  public isOptional(): boolean {
+    if (this.optional != null) {
+      return this.optional;
+    }
+    if (this.type === QuestionType.Multiselect) {
+      return true;
+    }
+    return false;
+  }
 }
 
 export class Questionnaire {
