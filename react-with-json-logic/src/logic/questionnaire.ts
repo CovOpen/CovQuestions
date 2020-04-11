@@ -1,8 +1,9 @@
-// This file showcases a basic reference implementation.
+// @ts-ignore
 import jsonLogic from "json-logic-js";
 
 import { IOption, IQuestion, IQuestionnaire, IResultCategory, IVariable, QuestionType } from "./schema";
 import { LogicConstant, LogicExpression } from "./logic";
+import { Primitive } from "../Primitive";
 
 export type Result = {
   resultCategory: { id: string; description: string };
@@ -49,7 +50,7 @@ export class Questionnaire {
   private readonly questions: Question[] = [];
   private variables: IVariable[] = [];
   private resultCategories: IResultCategory[] = [];
-  private data: {} = {};
+  private data: { [key: string]: { value: Primitive } } = {};
   private currentQuestionIndex = -1;
 
   constructor(newQuestionnaire: IQuestionnaire) {
@@ -72,8 +73,7 @@ export class Questionnaire {
   }
 
   public setAnswer(questionId: string, answer: LogicConstant) {
-    this.data[questionId] = {};
-    this.data[questionId].value = answer;
+    this.data[questionId] = { value: answer };
     this.updateComputableVariables();
   }
 
@@ -82,13 +82,11 @@ export class Questionnaire {
   }
 
   private updateComputableVariables() {
-    this.data["g_now"] = {};
-    this.data["g_now"].value = Math.round(Date.now() / 1000);
+    this.data["g_now"] = { value: Math.round(Date.now() / 1000) };
 
     this.variables.forEach((variable) => {
       try {
-        this.data[variable.id] = {};
-        this.data[variable.id].value = jsonLogic.apply(variable.value, this.data);
+        this.data[variable.id] = { value: jsonLogic.apply(variable.value, this.data) };
       } catch (e) {}
     });
   }

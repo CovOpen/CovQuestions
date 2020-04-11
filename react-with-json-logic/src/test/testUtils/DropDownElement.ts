@@ -8,16 +8,16 @@ export class DropDownElement {
   ) {}
 
   public async select(optionText: string | RegExp) {
-    const htmlElement = await this.elementProvider(this.elementText);
+    const htmlElement: HTMLElement = await this.elementProvider(this.elementText);
     await selectMaterialUiSelectOption(htmlElement, optionText);
   }
 }
 
-const selectMaterialUiSelectOption = async (element, optionText) => {
+const selectMaterialUiSelectOption = async (element: HTMLElement, optionText: string | RegExp) => {
   // Similar to https://github.com/testing-library/react-testing-library/issues/322#issuecomment-581650108
 
-  const selectButton = element.parentNode.querySelector("[role=button]");
-  UserEvent.click(selectButton);
+  const selectButton = element.parentNode!.querySelector("[role=button]");
+  UserEvent.click(selectButton!);
 
   const listbox = document.body.querySelector("ul[role=listbox]");
   const listItem = await within(listbox as any).findByText(optionText);

@@ -10,7 +10,12 @@ export const QuestionnaireSelectionDropdown: React.FC<QuestionnaireSelectionProp
   handleChange,
   allQuestionnaires,
 }) => {
-  const onChange = (e) => handleChange(e.target.value);
+  const onChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const value = e.target.value;
+    if (typeof value === "string") {
+      handleChange(value);
+    }
+  };
 
   return (
     <FormControl>

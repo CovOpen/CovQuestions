@@ -4,10 +4,11 @@ import { DecimalInput } from "./DecimalInput";
 import { IQuestion, QuestionType } from "../../logic/schema";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
+import { Primitive } from "../../Primitive";
 
 export type QuestionFormComponentProps = {
   currentQuestion: IQuestion;
-  onChange: React.Dispatch<React.SetStateAction<string | boolean | number | Array<string | boolean | number>>>;
+  onChange: React.Dispatch<React.SetStateAction<Primitive | Array<Primitive> | undefined>>;
 };
 
 export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
@@ -22,6 +23,12 @@ export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({ cu
     case QuestionType.Decimal:
       return <DecimalInput key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
     default:
+      // TODO enable exhaustiveCheck
+      // exhaustiveCheck(currentQuestion.type);
       return null;
   }
+};
+
+const exhaustiveCheck = (_: never): void => {
+  return;
 };
