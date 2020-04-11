@@ -1,7 +1,7 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
 import { TemperatureInput } from "./TemperatureInput";
-import { IQuestion } from "../logic/schema";
+import { IQuestion, QuestionType } from "../logic/schema";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 
@@ -10,8 +10,8 @@ export const QuestionForm: React.FC<{
   onChange: any;
 }> = ({ currentQuestion, onChange }) => {
   switch (currentQuestion.type) {
-    case "select":
-    case "boolean":
+    case QuestionType.Select:
+    case QuestionType.Boolean:
       return (
         <RadioSelect
           key={currentQuestion.id}
@@ -19,15 +19,15 @@ export const QuestionForm: React.FC<{
           onChange={onChange}
         />
       );
-    case "multiselect":
+    case QuestionType.Multiselect:
       return (
         <MultiSelect currentQuestion={currentQuestion} onChange={onChange} />
       );
-    case "date":
+    case QuestionType.Date:
       return (
         <DatePicker currentQuestion={currentQuestion} onChange={onChange} />
       );
-    case "decimal":
+    case QuestionType.Decimal:
       return (
         <TemperatureInput
           key={currentQuestion.id}
