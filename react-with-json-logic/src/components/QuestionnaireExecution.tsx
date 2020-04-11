@@ -1,27 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Question, Questionnaire, Result } from "../logic/questionnaire";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
+import { IQuestionnaire } from "../logic/schema";
 
 type QuestionnaireExecutionProps = {
-  currentQuestion: Question | undefined;
-  questionnaireLogic: Questionnaire;
-  handleNextClick: () => void;
-  result?: Result[];
-  restartQuestionnaire: () => void;
   isInSync: boolean;
+  currentQuestionnaire: { questionnaire: IQuestionnaire; updatedAt: number };
 };
 
-export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
-  currentQuestion,
-  questionnaireLogic,
-  handleNextClick,
-  result,
-  restartQuestionnaire,
-  isInSync,
-}) => {
+export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ isInSync, currentQuestionnaire }) => {
+  const [questionnaireEngine, setQuestionnaireEngine] = useState(new Questionnaire(currentQuestionnaire.questionnaire));
+  const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
+  const [result, setResult] = useState<Result[] | undefined>(undefined);
+
+  function restartQuestionnaire() {
+    setResult(undefined);
+    setQuestionnaireEngine(new Questionnaire(currentQuestionnaire.questionnaire));
+  }
+
+  function handleNextClick() {
+    const nextQuestion = questionnaireEngine.nextQuestion();
+    if (nextQuestion) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setCurrentQuestion(undefined);
+      setResult(questionnaireEngine.getResults());
+    }
+  }
+
+  useEffect(restartQuestionnaire, [currentQuestionnaire]);
+  useEffect(handleNextClick, [questionnaireEngine]);
+
   return (
     <>
       <Grid item xs={9}>
@@ -35,22 +47,26 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
         </Grid>
       ) : null}
       <Grid item xs={9}>
-        {result === undefined && currentQuestion !== undefined ? (
+        {result === undefined && currentQuestion ? (
           <QuestionComponent
             currentQuestion={currentQuestion}
-            questionnaireLogic={questionnaireLogic}
+            questionnaireLogic={questionnaireEngine}
             handleNextClick={handleNextClick}
           />
         ) : null}
         {result !== undefined ? <ResultComponent result={result} /> : null}
       </Grid>
       <Grid item xs={9}>
-        <Typography>Current internal state:</Typography>
-        <Paper>
-          <Box style={{ whiteSpace: "pre-wrap" }}>
-            {JSON.stringify(questionnaireLogic.getDataObjectForDeveloping(), null, 2)}
-          </Box>
-        </Paper>
+        {questionnaireEngine ? (
+          <>
+            <Typography>Current internal state:</Typography>
+            <Paper>
+              <Box style={{ whiteSpace: "pre-wrap" }}>
+                {JSON.stringify(questionnaireEngine.getDataObjectForDeveloping(), null, 2)}
+              </Box>
+            </Paper>
+          </>
+        ) : null}
       </Grid>
     </>
   );

@@ -4,12 +4,9 @@ import "./App.css";
 import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelectionDropdown";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireTextField } from "./components/QuestionnaireTextField";
-import { Question, Questionnaire, Result } from "./logic/questionnaire";
 import { IQuestionnaire } from "./logic/schema";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
-
-let questionnaireLogic: Questionnaire | undefined = undefined;
 
 export const App: React.FC = () => {
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
@@ -17,22 +14,15 @@ export const App: React.FC = () => {
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<IQuestionnaire | undefined>(
     undefined
   );
-  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<IQuestionnaire | undefined>(undefined);
+  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<
+    { questionnaire: IQuestionnaire; updatedAt: number } | undefined
+  >(undefined);
 
-  const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
-  const [result, setResult] = useState<Result[] | undefined>(undefined);
   const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
 
   function overwriteCurrentQuestionnaire(newQuestionnaire: IQuestionnaire) {
-    setCurrentQuestionnaire(newQuestionnaire);
-    restartQuestionnaire(newQuestionnaire);
+    setCurrentQuestionnaire({ questionnaire: newQuestionnaire, updatedAt: Date.now() });
     setIsQuestionnaireInSync(true);
-  }
-
-  function restartQuestionnaire(questionnaire: IQuestionnaire) {
-    questionnaireLogic = new Questionnaire(questionnaire);
-    setCurrentQuestion(questionnaireLogic.nextQuestion());
-    setResult(undefined);
   }
 
   useEffect(() => {
@@ -57,18 +47,6 @@ export const App: React.FC = () => {
     // eslint-disable-next-line
   }, [currentQuestionnairePath]);
 
-  function handleNextClick() {
-    if (questionnaireLogic === undefined) {
-      return;
-    }
-    const nextQuestion = questionnaireLogic.nextQuestion();
-    if (nextQuestion) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setResult(questionnaireLogic.getResults());
-    }
-  }
-
   return (
     <Container>
       <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
@@ -80,20 +58,13 @@ export const App: React.FC = () => {
         </Grid>
         <Grid container direction="row">
           <Grid item xs={6} data-testid="QuestionnaireExecution">
-            {currentQuestionnaire !== undefined && questionnaireLogic !== undefined ? (
-              <QuestionnaireExecution
-                result={result}
-                currentQuestion={currentQuestion}
-                questionnaireLogic={questionnaireLogic}
-                isInSync={isQuestionnaireInSync}
-                handleNextClick={handleNextClick}
-                restartQuestionnaire={() => restartQuestionnaire(currentQuestionnaire)}
-              />
+            {currentQuestionnaire !== undefined ? (
+              <QuestionnaireExecution isInSync={isQuestionnaireInSync} currentQuestionnaire={currentQuestionnaire} />
             ) : null}
           </Grid>
           <Grid item xs={6}>
             <QuestionnaireTextField
-              value={JSON.stringify(currentQuestionnaire, null, 2)}
+              value={JSON.stringify(currentQuestionnaire?.questionnaire, null, 2)}
               onChange={() => setIsQuestionnaireInSync(false)}
               resetQuestionnaire={() => {
                 if (originalCurrentQuestionnaire) {
