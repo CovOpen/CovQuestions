@@ -11,6 +11,11 @@ import {
 } from "./schema";
 import { LogicConstant, LogicExpression } from "./logic";
 
+export type Result = {
+  resultCategory: { id: string; description: string };
+  result: { id: string; text: string };
+};
+
 class Question implements IQuestion {
   id: string;
   type: QuestionType;
@@ -38,7 +43,6 @@ class Question implements IQuestion {
 export class Questionnaire {
   private readonly questions: Question[] = [];
   private variables: IVariable[] = [];
-  private answeredQuestions: string[] = [];
   private resultCategories: IResultCategory[] = [];
   private data: {} = {};
   private currentQuestionIndex = -1;
@@ -66,13 +70,12 @@ export class Questionnaire {
   }
 
   public setAnswer(questionId: string, answer: LogicConstant) {
-    this.answeredQuestions.push(questionId);
     this.data[questionId] = {};
     this.data[questionId].value = answer;
     this.updateComputableVariables();
   }
 
-  public updateComputableVariables() {
+  private updateComputableVariables() {
     this.data["g_now"] = {};
     this.data["g_now"].value = Math.round(Date.now() / 1000);
 
@@ -90,4 +93,28 @@ export class Questionnaire {
   public getDataObjectForDeveloping(): {} {
     return this.data;
   }
+
+  public getResults(): Result[] {
+    const results = this.resultCategories.map((resultCategory) => {
+      const resultInCategory = resultCategory.results.find((possibleResult) =>
+        jsonLogic.apply(possibleResult.value, this.data)
+      );
+      if (resultInCategory !== undefined) {
+        return {
+          resultCategory: {
+            id: resultCategory.id,
+            description: resultCategory.description,
+          },
+          result: { id: resultInCategory.id, text: resultInCategory.text },
+        };
+      } else {
+        return undefined;
+      }
+    });
+    return results.filter(notUndefined);
+  }
+}
+
+function notUndefined<T>(x: T | undefined): x is T {
+  return x !== undefined;
 }
