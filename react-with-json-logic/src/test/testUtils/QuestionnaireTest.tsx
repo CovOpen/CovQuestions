@@ -29,25 +29,18 @@ export class QuestionnaireTest {
   }
 
   public async start() {
-    const questionnaireSelection = new DropDownElement(
-      this.renderedApp.findByText,
-      /Which questionnaire/i
-    );
+    const questionnaireSelection = new DropDownElement(this.renderedApp.findByText, /Which questionnaire/i);
     await questionnaireSelection.select(/Test Questionnaire/i);
   }
 
   public async clickOnAnswer(text: string | RegExp) {
-    const questionnaireExecution = await this.renderedApp.findByTestId(
-      "QuestionnaireExecution"
-    );
+    const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
     const option = await within(questionnaireExecution).findByText(text);
     UserEvent.click(option);
   }
 
   public async clickNext() {
-    const questionnaireExecution = await this.renderedApp.findByTestId(
-      "QuestionnaireExecution"
-    );
+    const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
     const nextButton = await within(questionnaireExecution).findByText(/next/i);
     UserEvent.click(nextButton);
   }

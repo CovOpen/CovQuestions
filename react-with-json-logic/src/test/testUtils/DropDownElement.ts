@@ -3,9 +3,7 @@ import { waitForElementToBeRemoved, within } from "@testing-library/react";
 
 export class DropDownElement {
   constructor(
-    private readonly elementProvider: (
-      text: string | RegExp
-    ) => Promise<HTMLElement>,
+    private readonly elementProvider: (text: string | RegExp) => Promise<HTMLElement>,
     private readonly elementText: string | RegExp
   ) {}
 
@@ -25,7 +23,5 @@ const selectMaterialUiSelectOption = async (element, optionText) => {
   const listItem = await within(listbox as any).findByText(optionText);
   UserEvent.click(listItem);
 
-  return waitForElementToBeRemoved(() =>
-    document.body.querySelector("ul[role=listbox]")
-  );
+  return waitForElementToBeRemoved(() => document.body.querySelector("ul[role=listbox]"));
 };

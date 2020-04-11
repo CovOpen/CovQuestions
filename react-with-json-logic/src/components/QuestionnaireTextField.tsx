@@ -22,10 +22,7 @@ export function QuestionnaireTextField(props: QuestionnaireTextFieldProps) {
     }
   };
 
-  const handleSnackbarClose = (
-    event?: React.SyntheticEvent,
-    reason?: string
-  ) => {
+  const handleSnackbarClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -41,20 +38,12 @@ export function QuestionnaireTextField(props: QuestionnaireTextFieldProps) {
     <Grid container direction="column">
       <Grid container>
         <Grid item xs={6}>
-          <Button
-            onClick={updateQuestionnaire}
-            variant="contained"
-            color="secondary"
-          >
+          <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
             Load Questionnaire
           </Button>
         </Grid>
         <Grid container item xs={6} justify="flex-end">
-          <Button
-            onClick={props.resetQuestionnaire}
-            variant="contained"
-            color="secondary"
-          >
+          <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
             Reset Questionnaire
           </Button>
         </Grid>

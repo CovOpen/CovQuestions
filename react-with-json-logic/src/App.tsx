@@ -12,23 +12,14 @@ type QuestionnairesList = Array<{ name: string; path: string }>;
 let questionnaireLogic: Questionnaire | undefined = undefined;
 
 export const App: React.FC = () => {
-  const [allQuestionnaires, setAllQuestionnaires] = useState<
-    QuestionnairesList
-  >([]);
-  const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<
-    string
-  >("");
-  const [
-    originalCurrentQuestionnaire,
-    setOriginalCurrentQuestionnaire,
-  ] = useState<IQuestionnaire | undefined>(undefined);
-  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<
-    IQuestionnaire | undefined
-  >(undefined);
-
-  const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(
+  const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
+  const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
+  const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<IQuestionnaire | undefined>(
     undefined
   );
+  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<IQuestionnaire | undefined>(undefined);
+
+  const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
   const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
 
@@ -80,13 +71,7 @@ export const App: React.FC = () => {
 
   return (
     <Container>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        spacing={3}
-      >
+      <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
         <Grid item xs={12}>
           <QuestionnaireSelectionDropdown
             handleChange={setCurrentQuestionnairePath}
@@ -95,17 +80,14 @@ export const App: React.FC = () => {
         </Grid>
         <Grid container direction="row">
           <Grid item xs={6} data-testid="QuestionnaireExecution">
-            {currentQuestionnaire !== undefined &&
-            questionnaireLogic !== undefined ? (
+            {currentQuestionnaire !== undefined && questionnaireLogic !== undefined ? (
               <QuestionnaireExecution
                 result={result}
                 currentQuestion={currentQuestion}
                 questionnaireLogic={questionnaireLogic}
                 isInSync={isQuestionnaireInSync}
                 handleNextClick={handleNextClick}
-                restartQuestionnaire={() =>
-                  restartQuestionnaire(currentQuestionnaire)
-                }
+                restartQuestionnaire={() => restartQuestionnaire(currentQuestionnaire)}
               />
             ) : null}
           </Grid>

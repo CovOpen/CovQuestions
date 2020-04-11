@@ -25,19 +25,13 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
   return (
     <>
       <Grid item xs={9}>
-        <Button
-          onClick={restartQuestionnaire}
-          variant="contained"
-          color="secondary"
-        >
+        <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
           Restart Questionnaire
         </Button>
       </Grid>
       {!isInSync ? (
         <Grid item xs={9}>
-          <Alert severity="warning">
-            This questionnaire is out of sync. Please reload.
-          </Alert>
+          <Alert severity="warning">This questionnaire is out of sync. Please reload.</Alert>
         </Grid>
       ) : null}
       <Grid item xs={9}>
@@ -54,11 +48,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
         <Typography>Current internal state:</Typography>
         <Paper>
           <Box style={{ whiteSpace: "pre-wrap" }}>
-            {JSON.stringify(
-              questionnaireLogic.getDataObjectForDeveloping(),
-              null,
-              2
-            )}
+            {JSON.stringify(questionnaireLogic.getDataObjectForDeveloping(), null, 2)}
           </Box>
         </Paper>
       </Grid>

@@ -2,10 +2,7 @@ import React from "react";
 import { Slider, Typography } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const DecimalInput: React.FC<QuestionFormComponentProps> = ({
-  currentQuestion,
-  onChange,
-}) => {
+export const DecimalInput: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   const handleChange = (_e: any, value: number) => {
     onChange(value);
   };

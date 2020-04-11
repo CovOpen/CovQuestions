@@ -14,15 +14,8 @@ export const QuestionnaireSelectionDropdown: React.FC<QuestionnaireSelectionProp
 
   return (
     <FormControl>
-      <InputLabel id="questionnaire-select-label">
-        Which questionnaire
-      </InputLabel>
-      <Select
-        labelId="questionnaire-select-label"
-        id="questionnaire-select"
-        onChange={onChange}
-        defaultValue=""
-      >
+      <InputLabel id="questionnaire-select-label">Which questionnaire</InputLabel>
+      <Select labelId="questionnaire-select-label" id="questionnaire-select" onChange={onChange} defaultValue="">
         {allQuestionnaires.map((it) => (
           <MenuItem key={it.path} value={it.path}>
             {it.name}

@@ -1,14 +1,7 @@
 // This file showcases a basic reference implementation.
 import jsonLogic from "json-logic-js";
 
-import {
-  IOption,
-  IQuestion,
-  IQuestionnaire,
-  IResultCategory,
-  IVariable,
-  QuestionType,
-} from "./schema";
+import { IOption, IQuestion, IQuestionnaire, IResultCategory, IVariable, QuestionType } from "./schema";
 import { LogicConstant, LogicExpression } from "./logic";
 
 export type Result = {
@@ -60,17 +53,14 @@ export class Questionnaire {
   private currentQuestionIndex = -1;
 
   constructor(newQuestionnaire: IQuestionnaire) {
-    this.questions = newQuestionnaire.questions.map(
-      (question) => new Question(question)
-    );
+    this.questions = newQuestionnaire.questions.map((question) => new Question(question));
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;
   }
 
   public nextQuestion(): Question | undefined {
     const indexOfNextQuestion = this.questions.findIndex(
-      (question, index) =>
-        index > this.currentQuestionIndex && question.check(this.data)
+      (question, index) => index > this.currentQuestionIndex && question.check(this.data)
     );
 
     if (indexOfNextQuestion > -1) {
@@ -98,10 +88,7 @@ export class Questionnaire {
     this.variables.forEach((variable) => {
       try {
         this.data[variable.id] = {};
-        this.data[variable.id].value = jsonLogic.apply(
-          variable.value,
-          this.data
-        );
+        this.data[variable.id].value = jsonLogic.apply(variable.value, this.data);
       } catch (e) {}
     });
   }

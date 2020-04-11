@@ -2,10 +2,7 @@ import React from "react";
 import { TextField, Typography } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const DatePicker: React.FC<QuestionFormComponentProps> = ({
-  currentQuestion,
-  onChange,
-}) => {
+export const DatePicker: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   const handleChange = (e: any) => {
     onChange(Math.round(Date.parse(e.target.value) / 1000));
   };

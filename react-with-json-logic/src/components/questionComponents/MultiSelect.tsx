@@ -1,16 +1,8 @@
 import React, { useState } from "react";
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-} from "@material-ui/core";
+import { Checkbox, FormControlLabel, FormGroup, FormLabel } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const MultiSelect: React.FC<QuestionFormComponentProps> = ({
-  currentQuestion,
-  onChange,
-}) => {
+export const MultiSelect: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   const [selectedValues, setSelectedValues] = useState([]);
 
   const handleChange = (e: any) => {

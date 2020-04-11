@@ -45,14 +45,9 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({
     <Paper style={{ padding: "20px" }}>
       <Grid container direction="column" alignItems="center">
         <Grid item xs>
-          <QuestionFormComponent
-            currentQuestion={currentQuestion}
-            onChange={handleChangeInForm}
-          />
+          <QuestionFormComponent currentQuestion={currentQuestion} onChange={handleChangeInForm} />
         </Grid>
-        {showAnswerIsRequired ? (
-          <Alert severity="error">Answer is required for this question.</Alert>
-        ) : null}
+        {showAnswerIsRequired ? <Alert severity="error">Answer is required for this question.</Alert> : null}
         <Grid item xs>
           <Button onClick={next} variant="contained" color="primary">
             Next
