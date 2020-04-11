@@ -6,18 +6,17 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { IOption, IQuestion } from "../logic/schema";
+import { IOption, IQuestion, QuestionType } from "../logic/schema";
 
 export const RadioSelect: React.FC<{
   currentQuestion: IQuestion;
   onChange: React.Dispatch<React.SetStateAction<{}>>;
 }> = ({ currentQuestion, onChange }) => {
   const handleChange = (e: any) => {
-    if (currentQuestion.options !== undefined) {
-      onChange(e.currentTarget.value);
-    } else {
-      // it is a boolean question if options are not set
+    if (currentQuestion.type === QuestionType.Boolean) {
       onChange(e.currentTarget.value === "true");
+    } else {
+      onChange(e.currentTarget.value);
     }
   };
 
