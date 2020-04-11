@@ -1469,10 +1469,10 @@
     "@testing-library/dom" "^6.15.0"
     "@types/testing-library__react" "^9.1.2"
 
-"@testing-library/user-event@^7.1.2":
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-7.2.1.tgz#2ad4e844175a3738cb9e7064be5ea070b8863a1c"
-  integrity sha512-oZ0Ib5I4Z2pUEcoo95cT1cr6slco9WY7yiPpG+RGNkj8YcYgJnM7pXmYmorNOReh8MIGcKSqXyeGjxnr8YiZbA==
+"@testing-library/user-event@^10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-10.0.1.tgz#9a02dbbc813135f25778b17f92a63933a58e8af5"
+  integrity sha512-M63ftowo1QpAGMnWyz7df0ygqnu4XyF68Sty7mivMAz2HLcY1uLoN3qcen6WMobdY0MoZUi4+BLsziSDAP62Vg==
 
 "@types/babel__core@^7.1.0":
   version "7.1.7"
@@ -6376,7 +6376,7 @@ json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@~5.0.1:
+json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
   integrity sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
@@ -7121,6 +7121,16 @@ no-case@^3.0.3:
   dependencies:
     lower-case "^2.0.1"
     tslib "^1.10.0"
+
+nock@^12.0.3:
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-12.0.3.tgz#83f25076dbc4c9aa82b5cdf54c9604c7a778d1c9"
+  integrity sha512-QNb/j8kbFnKCiyqi9C5DD0jH/FubFGj5rt9NQFONXwQm3IPB0CULECg/eS3AU1KgZb/6SwUa4/DTRKhVxkGABw==
+  dependencies:
+    debug "^4.1.0"
+    json-stringify-safe "^5.0.1"
+    lodash "^4.17.13"
+    propagate "^2.0.0"
 
 node-forge@0.9.0:
   version "0.9.0"
@@ -8605,6 +8615,11 @@ prop-types@^15.6.2, prop-types@^15.7.2:
     loose-envify "^1.4.0"
     object-assign "^4.1.1"
     react-is "^16.8.1"
+
+propagate@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/propagate/-/propagate-2.0.1.tgz#40cdedab18085c792334e64f0ac17256d38f9a45"
+  integrity sha512-vGrhOavPSTz4QVNuBNdcNXePNdNMaO1xj9yBeH1ScQPjk/rhg9sSlCXPhMkFuaNNW/syTvYqsnbIJxMBfRbbag==
 
 proxy-addr@~2.0.5:
   version "2.0.6"

@@ -82,7 +82,7 @@ const App = () => {
           />
         </Grid>
         <Grid container direction="row">
-          <Grid item xs={6}>
+          <Grid item xs={6} data-testid="QuestionnaireExecution">
             {currentQuestionnaire !== undefined ? (
               <QuestionnaireExecution
                 result={result}
