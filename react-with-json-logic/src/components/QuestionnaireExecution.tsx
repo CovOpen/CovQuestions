@@ -17,8 +17,12 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
   const [result, setResult] = useState<Result[] | undefined>(undefined);
 
   function restartQuestionnaire() {
+    const engine = new Questionnaire(currentQuestionnaire.questionnaire);
+    const nextQuestion = engine.nextQuestion();
+
     setResult(undefined);
-    setQuestionnaireEngine(new Questionnaire(currentQuestionnaire.questionnaire));
+    setQuestionnaireEngine(engine);
+    setCurrentQuestion(nextQuestion);
   }
 
   function handleNextClick() {
@@ -32,7 +36,6 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
   }
 
   useEffect(restartQuestionnaire, [currentQuestionnaire]);
-  useEffect(handleNextClick, [questionnaireEngine]);
 
   return (
     <>
