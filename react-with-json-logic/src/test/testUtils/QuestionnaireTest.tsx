@@ -47,8 +47,8 @@ export class QuestionnaireTest {
 
   public async enterNumber(number: number) {
     const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
-    const dateInputField = (await within(questionnaireExecution).findByTestId("NumericInput")).querySelector("input");
-    await UserEvent.type(dateInputField!, number.toString());
+    const numericInput = (await within(questionnaireExecution).findByTestId("NumericInput")).querySelector("input");
+    fireEvent.change(numericInput!, { target: { value: number.toString() } });
   }
 
   public async clickNext() {
