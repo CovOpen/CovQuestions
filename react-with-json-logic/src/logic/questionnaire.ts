@@ -2,7 +2,7 @@
 import jsonLogic from "json-logic-js";
 
 import { IOption, IQuestion, IQuestionnaire, IResultCategory, IVariable, QuestionType } from "./schema";
-import { LogicConstant, LogicExpression } from "./logic";
+import { LogicExpression } from "./logic";
 import { Primitive } from "../Primitive";
 
 export type Result = {
