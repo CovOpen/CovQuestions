@@ -46,11 +46,19 @@ export class Question implements IQuestion {
   }
 }
 
+type QuestionRespose = {
+  value: Primitive | Array<Primitive> | undefined;
+  selectedCount?: number;
+  count?: number;
+  unselectedCount?: number;
+  option?: { [optionId: string]: { selected: boolean } };
+};
+
 export class Questionnaire {
   private readonly questions: Question[] = [];
   private variables: IVariable[] = [];
   private resultCategories: IResultCategory[] = [];
-  private data: { [key: string]: { value: Primitive } } = {};
+  private data: { [key: string]: QuestionRespose } = {};
   private currentQuestionIndex = -1;
 
   constructor(newQuestionnaire: IQuestionnaire) {
@@ -72,9 +80,36 @@ export class Questionnaire {
     return undefined;
   }
 
-  public setAnswer(questionId: string, answer: LogicConstant) {
-    this.data[questionId] = { value: answer };
+  public setAnswer(questionId: string, value: Primitive | Array<Primitive> | undefined) {
+    let answer: QuestionRespose = { value };
+    let question = this.getQuestionById(questionId);
+    if (question !== undefined) {
+      switch (question.type) {
+        case QuestionType.Multiselect:
+          let array = value as Array<Primitive>;
+          answer.selectedCount = array !== undefined ? array.length : 0;
+          answer.count = question.options?.length ?? 0;
+          answer.unselectedCount = answer.count - answer.selectedCount;
+          answer.option = {};
+          for (const option of question.options ?? []) {
+            answer.option[option.value] = {
+              selected: array !== undefined ? array.indexOf(option.value) > -1 : false,
+            };
+          }
+          break;
+      }
+    }
+    this.data[questionId] = answer;
     this.updateComputableVariables();
+  }
+
+  private getQuestionById(questionId: string): Question | undefined {
+    const filtered = this.questions.filter((question) => question.id === questionId);
+    if (filtered.length > 0) {
+      return filtered[0];
+    }
+
+    return undefined;
   }
 
   public hasAnswer(questionId: string): boolean {
