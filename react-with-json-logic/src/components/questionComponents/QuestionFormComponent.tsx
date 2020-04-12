@@ -5,6 +5,7 @@ import { IQuestion, QuestionType } from "../../logic/schema";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 import { Primitive } from "../../Primitive";
+import { TextInput } from "./TextInput";
 
 export type QuestionFormComponentProps = {
   currentQuestion: IQuestion;
@@ -44,6 +45,8 @@ export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({ cu
           step={1}
         />
       );
+    case QuestionType.Text:
+      return <TextInput key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
     default:
       // TODO enable exhaustiveCheck (see below)
       // exhaustiveCheck(currentQuestion.type);
