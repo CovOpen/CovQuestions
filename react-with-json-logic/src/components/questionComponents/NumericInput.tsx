@@ -2,7 +2,21 @@ import React from "react";
 import { Slider, Typography } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const DecimalInput: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
+export type NumericInputComponentProps = QuestionFormComponentProps & {
+  defaultValue: number;
+  min: number;
+  max: number;
+  step: number;
+};
+
+export const NumericInput: React.FC<NumericInputComponentProps> = ({
+  currentQuestion,
+  onChange,
+  defaultValue,
+  min,
+  max,
+  step,
+}) => {
   const handleChange = (_e: React.ChangeEvent<{}>, value: number | number[]) => {
     onChange(value);
   };
@@ -13,10 +27,10 @@ export const DecimalInput: React.FC<QuestionFormComponentProps> = ({ currentQues
         {currentQuestion.text}
       </Typography>
       <Slider
-        defaultValue={37}
-        min={35}
-        max={45}
-        step={0.1}
+        defaultValue={defaultValue}
+        min={min}
+        max={max}
+        step={step}
         key={currentQuestion.id}
         name={currentQuestion.id}
         onChange={handleChange}
