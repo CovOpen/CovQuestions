@@ -19,7 +19,7 @@ describe("Contact question with date variable and skipping a question", () => {
   });
 
   test("Contact, but longer than two weeks ago, should lead to CONTACT_NOT_RELEVANT result", async () => {
-    jestDateMock.advanceTo(new Date(2020, 3, 18));
+    jestDateMock.advanceTo(new Date(Date.parse("2020-03-18")));
 
     await t.findByText("Gab es Kontakt zu bestätigten Fällen?");
     await t.clickOnAnswer("yes");
