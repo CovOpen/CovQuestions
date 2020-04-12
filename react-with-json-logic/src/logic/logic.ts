@@ -2,7 +2,7 @@
 // Feel free to extend according to the JSON Logic doc: http://jsonlogic.com/operations.html
 export type LogicExpression = LogicOperator | LogicVariable | LogicConstant;
 export type LogicVariable = { var: string };
-export type LogicConstant = number | string;
+export type LogicConstant = number | string | boolean;
 export type LogicOperator =
   | LogicIf
   | LogicReduce

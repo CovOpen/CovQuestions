@@ -1,10 +1,14 @@
 [
   {
-    "name": "Example 1",
+    "name": "Contact question with date variable and skipping a question",
+    "path": "api/contactQuestionWithDateVariableAndSkippingQuestion.json"
+  },
+  {
+    "name": "Example",
     "path": "api/example1.json"
   },
   {
-    "name": "Example 2",
-    "path": "api/example2.json"
+    "name": "Simple boolean contact question",
+    "path": "api/simpleBooleanContactQuestion.json"
   }
 ]

@@ -11,7 +11,7 @@
   "questions": [
     {
       "id": "q1_contact",
-      "text": "Example 1: Gab es Kontakt zu bestätigten Fällen?",
+      "text": "Gab es Kontakt zu bestätigten Fällen?",
       "type": "boolean"
     },
     {

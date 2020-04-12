@@ -1,6 +1,6 @@
 import React from "react";
 import nock from "nock";
-import { render, RenderResult, within } from "@testing-library/react";
+import { render, RenderResult, within, fireEvent } from "@testing-library/react";
 import UserEvent from "@testing-library/user-event";
 import { App } from "../../App";
 import { IQuestionnaire } from "../../logic/schema";
@@ -37,6 +37,12 @@ export class QuestionnaireTest {
     const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
     const option = await within(questionnaireExecution).findByText(text);
     UserEvent.click(option);
+  }
+
+  public async enterDate(date: string) {
+    const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
+    const dateInputField = questionnaireExecution.querySelector("input[id=date]");
+    fireEvent.change(dateInputField!, { target: { value: date } });
   }
 
   public async clickNext() {
