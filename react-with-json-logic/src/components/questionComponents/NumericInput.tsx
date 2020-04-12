@@ -36,7 +36,7 @@ export const NumericInput: React.FC<NumericInputComponentProps> = ({
     }
   };
 
-  useEffect(() => onChange(value), [value]);
+  useEffect(() => onChange(value), [value, onChange]);
 
   return (
     <>

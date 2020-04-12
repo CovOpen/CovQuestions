@@ -44,7 +44,6 @@ export const App: React.FC = () => {
         }
       });
     }
-    // eslint-disable-next-line
   }, [currentQuestionnairePath]);
 
   return (
