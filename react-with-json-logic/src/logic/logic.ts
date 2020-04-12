@@ -15,14 +15,12 @@ export type LogicOperator =
   | LogicMinus
   | LogicAnd
   | LogicOr
-  | LogicIn;
+  | LogicIn
+  | LogicGreater
+  | LogicLess;
 
-export type LogicIf = {
-  if: [LogicExpression, LogicExpression, LogicExpression];
-};
-export type LogicReduce = {
-  reduce: [LogicExpression, LogicExpression, LogicExpression];
-};
+export type LogicIf = { if: [LogicExpression, LogicExpression, LogicExpression] };
+export type LogicReduce = { reduce: [LogicExpression, LogicExpression, LogicExpression] };
 export type LogicSome = { some: [LogicExpression, LogicExpression] };
 export type LogicIn = { in: [LogicExpression, LogicExpression[]] };
 
@@ -36,7 +34,9 @@ export type LogicEquals = { "==": [LogicExpression, LogicExpression] };
 export type LogicAnd = { and: LogicExpression[] };
 export type LogicOr = { or: LogicExpression[] };
 export type LogicGreaterEqual = { ">=": [LogicExpression, LogicExpression] };
+export type LogicGreater = { ">": [LogicExpression, LogicExpression] };
 export type LogicLessEqual = { "<=": [LogicExpression, LogicExpression] };
+export type LogicLess = { "<": [LogicExpression, LogicExpression] };
 
 export interface jsonLogic {
   apply: (exp: LogicExpression, data: any) => LogicConstant;

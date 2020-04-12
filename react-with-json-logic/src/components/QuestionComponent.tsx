@@ -43,15 +43,17 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({
 
   return (
     <Paper style={{ padding: "20px" }}>
-      <Grid container direction="column" alignItems="center">
-        <Grid item xs>
+      <Grid container direction="column" alignItems="stretch">
+        <Grid item xs={12}>
           <QuestionFormComponent currentQuestion={currentQuestion} onChange={handleChangeInForm} />
         </Grid>
         {showAnswerIsRequired ? <Alert severity="error">Answer is required for this question.</Alert> : null}
-        <Grid item xs>
-          <Button onClick={next} variant="contained" color="primary">
-            Next
-          </Button>
+        <Grid container item xs={12} justify="flex-end">
+          <Grid item>
+            <Button onClick={next} variant="contained" color="primary">
+              Next
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </Paper>

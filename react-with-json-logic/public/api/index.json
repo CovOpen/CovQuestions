@@ -10,5 +10,9 @@
   {
     "name": "Simple boolean contact question",
     "path": "api/simpleBooleanContactQuestion.json"
+  },
+  {
+    "name": "Simple numeric age question",
+    "path": "api/simpleNumericAgeQuestion.json"
   }
 ]
