@@ -1,5 +1,5 @@
-import { Button, Grid, TextField, Snackbar, ListItemText } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import { Button, Grid, ListItemText, Snackbar, TextField } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
 import { IQuestionnaire } from "../logic/schema";
 // @ts-ignore
@@ -45,6 +45,16 @@ export function QuestionnaireTextField(props: QuestionnaireTextFieldProps) {
     setShowJsonInvalidMessage(false);
   };
 
+  const downloadJson = () => {
+    // after https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react/44661948
+    const linkElement = document.createElement("a");
+    const jsonFile = new Blob([questionnaireAsString], { type: "text/plain" });
+    linkElement.href = URL.createObjectURL(jsonFile);
+    linkElement.download = JSON.parse(questionnaireAsString).id + ".json";
+    document.body.appendChild(linkElement);
+    linkElement.click();
+  };
+
   useEffect(() => {
     setQuestionnaireAsString(props.value);
   }, [props.value]);
@@ -76,6 +86,11 @@ export function QuestionnaireTextField(props: QuestionnaireTextFieldProps) {
             props.onChange();
           }}
         />
+      </Grid>
+      <Grid container item xs={12} justify="flex-end">
+        <Button onClick={downloadJson} variant="contained" color="primary">
+          Download Questionnaire
+        </Button>
       </Grid>
 
       {schemaValidationErrors.length > 0 ? (
