@@ -15,7 +15,6 @@ export enum QuestionType {
 	Decimal = "decimal",
 	Boolean = "boolean",
 	Date = "date",
-	Timspan = "timespan",
 	Text = "text"
 }
 
@@ -33,7 +32,7 @@ export interface IOption {
 	value: string;
 	/**
 	 * Human-Readable formulation of this option as yes/no question.
-	 * This is for use-cases where multi-selects are not possible in the UI, 
+	 * This is for use-cases where multi-selects are not possible in the UI,
 	 * for example telephone hotlines.
 	 */
 	asQuestion?: string
@@ -103,7 +102,7 @@ export interface IResultCategory {
 	/**
 	 * A list of results for this category.
 	 */
-	results: IResult[]	
+	results: IResult[]
 }
 
 /**
@@ -181,7 +180,7 @@ export interface IQuestionnaire {
 	 */
 	variables: IVariable[]
 	/**
-	 * All result categories. When all questions are answered, 
+	 * All result categories. When all questions are answered,
 	 * the result for each result category is computed.
 	 */
 	resultCategories: IResultCategory[]

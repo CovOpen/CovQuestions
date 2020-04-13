@@ -15,7 +15,6 @@ export enum QuestionType {
   Decimal = "decimal",
   Boolean = "boolean",
   Date = "date",
-  Timspan = "timespan",
   Text = "text",
 }
 
