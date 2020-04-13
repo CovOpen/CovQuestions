@@ -19,10 +19,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "text",
-        "value"
-      ],
+      "required": ["text", "value"],
       "type": "object"
     },
     "IQuestion": {
@@ -61,11 +58,7 @@
           "description": "Type of the question."
         }
       },
-      "required": [
-        "id",
-        "type",
-        "text"
-      ],
+      "required": ["id", "type", "text"],
       "type": "object"
     },
     "IQuestionnaire": {
@@ -110,15 +103,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "schemaVersion",
-        "version",
-        "meta",
-        "questions",
-        "variables",
-        "resultCategories"
-      ],
+      "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],
       "type": "object"
     },
     "IQuestionnaireMeta": {
@@ -157,12 +142,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "author",
-        "language",
-        "creationDate"
-      ],
+      "required": ["title", "author", "language", "creationDate"],
       "type": "object"
     },
     "IResult": {
@@ -182,11 +162,7 @@
           "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
         }
       },
-      "required": [
-        "id",
-        "text",
-        "value"
-      ],
+      "required": ["id", "text", "value"],
       "type": "object"
     },
     "IResultCategory": {
@@ -209,11 +185,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "id",
-        "description",
-        "results"
-      ],
+      "required": ["id", "description", "results"],
       "type": "object"
     },
     "IVariable": {
@@ -229,10 +201,7 @@
           "description": "Logic expression used to compute this variable."
         }
       },
-      "required": [
-        "id",
-        "value"
-      ],
+      "required": ["id", "value"],
       "type": "object"
     },
     "LogicAnd": {
@@ -245,17 +214,11 @@
           "type": "array"
         }
       },
-      "required": [
-        "and"
-      ],
+      "required": ["and"],
       "type": "object"
     },
     "LogicConstant": {
-      "type": [
-        "number",
-        "string",
-        "boolean"
-      ]
+      "type": ["number", "string", "boolean"]
     },
     "LogicEquals": {
       "additionalProperties": false,
@@ -274,9 +237,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "=="
-      ],
+      "required": ["=="],
       "type": "object"
     },
     "LogicExpression": {
@@ -309,9 +270,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">"
-      ],
+      "required": [">"],
       "type": "object"
     },
     "LogicGreaterEqual": {
@@ -331,9 +290,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">="
-      ],
+      "required": [">="],
       "type": "object"
     },
     "LogicIf": {
@@ -356,9 +313,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "if"
-      ],
+      "required": ["if"],
       "type": "object"
     },
     "LogicIn": {
@@ -381,9 +336,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "in"
-      ],
+      "required": ["in"],
       "type": "object"
     },
     "LogicLess": {
@@ -403,9 +356,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<"
-      ],
+      "required": ["<"],
       "type": "object"
     },
     "LogicLessEqual": {
@@ -425,9 +376,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<="
-      ],
+      "required": ["<="],
       "type": "object"
     },
     "LogicMinus": {
@@ -447,9 +396,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "-"
-      ],
+      "required": ["-"],
       "type": "object"
     },
     "LogicNot": {
@@ -469,9 +416,7 @@
           ]
         }
       },
-      "required": [
-        "!"
-      ],
+      "required": ["!"],
       "type": "object"
     },
     "LogicOperator": {
@@ -530,9 +475,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "or"
-      ],
+      "required": ["or"],
       "type": "object"
     },
     "LogicPlus": {
@@ -552,9 +495,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "+"
-      ],
+      "required": ["+"],
       "type": "object"
     },
     "LogicReduce": {
@@ -577,9 +518,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "reduce"
-      ],
+      "required": ["reduce"],
       "type": "object"
     },
     "LogicSome": {
@@ -599,9 +538,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "some"
-      ],
+      "required": ["some"],
       "type": "object"
     },
     "LogicVariable": {
@@ -611,23 +548,12 @@
           "type": "string"
         }
       },
-      "required": [
-        "var"
-      ],
+      "required": ["var"],
       "type": "object"
     },
     "QuestionType": {
       "description": "Type of a question, essentially defines the result type.",
-      "enum": [
-        "select",
-        "multiselect",
-        "integer",
-        "decimal",
-        "boolean",
-        "date",
-        "timespan",
-        "text"
-      ],
+      "enum": ["select", "multiselect", "integer", "decimal", "boolean", "date", "timespan", "text"],
       "type": "string"
     }
   }
