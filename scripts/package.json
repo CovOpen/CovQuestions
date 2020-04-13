@@ -6,7 +6,8 @@
   "scripts": {
     "format": "prettier --ignore-path .gitignore --write **/*.{ts,tsx,json}",
     "copyTestCases": "ts-node src/copyTestCasesToApi.ts",
-    "createApiIndex": "ts-node src/createApiIndex.ts"
+    "createApiIndex": "ts-node src/createApiIndex.ts",
+    "generateJsonSchema": "./node_modules/.bin/ts-json-schema-generator --path ../react-with-json-logic/src/logic/schema.ts --type IQuestionnaire --out ../react-with-json-logic/public/api/schema/questionnaire.json"
   },
   "author": "",
   "license": "ISC",
