@@ -5,6 +5,8 @@ import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelect
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireTextField } from "./components/QuestionnaireTextField";
 import { IQuestionnaire } from "./logic/schema";
+// @ts-ignore
+import jsonschema from "jsonschema";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -20,6 +22,8 @@ export const App: React.FC = () => {
 
   const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
 
+  const [questionnaireSchema, setQuestionnaireSchema] = useState<jsonschema.Schema | undefined>(undefined);
+
   function overwriteCurrentQuestionnaire(newQuestionnaire: IQuestionnaire) {
     setCurrentQuestionnaire({ questionnaire: newQuestionnaire, updatedAt: Date.now() });
     setIsQuestionnaireInSync(true);
@@ -29,6 +33,11 @@ export const App: React.FC = () => {
     fetch("/api/index.json").then((response) => {
       if (response.ok) {
         response.json().then((value) => setAllQuestionnaires(value));
+      }
+    });
+    fetch("api/schema/questionnaire.json").then((response) => {
+      if (response.ok) {
+        response.json().then((value: jsonschema.Schema) => setQuestionnaireSchema(value));
       }
     });
   }, []);
