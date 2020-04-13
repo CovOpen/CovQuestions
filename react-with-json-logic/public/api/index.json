@@ -12,6 +12,10 @@
     "path": "api/simpleBooleanContactQuestion.json"
   },
   {
+    "name": "Simple multiselect symptoms question",
+    "path": "api/simpleMultiselectSymptomsQuestion.json"
+  },
+  {
     "name": "Simple numeric age question",
     "path": "api/simpleNumericAgeQuestion.json"
   },
