@@ -1,10 +1,13 @@
-import { Button, Grid, TextField, Snackbar } from "@material-ui/core";
+import { Button, Grid, TextField, Snackbar, ListItemText } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { Alert } from "@material-ui/lab";
 import { IQuestionnaire } from "../logic/schema";
+// @ts-ignore
+import jsonschema from "jsonschema";
 
 type QuestionnaireTextFieldProps = {
   value: string;
+  schema: jsonschema.Schema | undefined;
   onChange: () => void;
   resetQuestionnaire: () => void;
   loadQuestionnaire: (newQuestionnaire: IQuestionnaire) => void;
@@ -13,10 +16,21 @@ type QuestionnaireTextFieldProps = {
 export function QuestionnaireTextField(props: QuestionnaireTextFieldProps) {
   const [questionnaireAsString, setQuestionnaireAsString] = useState("");
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
+  const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
 
   const updateQuestionnaire = () => {
+    setSchemaValidationErrors([]);
     try {
       const json = JSON.parse(questionnaireAsString);
+      if (props.schema !== undefined) {
+        const validator = new jsonschema.Validator();
+        const validationResult = validator.validate(json, props.schema as jsonschema.Schema);
+        if (validationResult.errors.length > 0) {
+          setSchemaValidationErrors(validationResult.errors);
+          setShowJsonInvalidMessage(true);
+          return;
+        }
+      }
       props.loadQuestionnaire(json);
     } catch (e) {
       setShowJsonInvalidMessage(true);
@@ -63,6 +77,17 @@ export function QuestionnaireTextField(props: QuestionnaireTextFieldProps) {
           }}
         />
       </Grid>
+
+      {schemaValidationErrors.length > 0 ? (
+        <Grid item xs={12}>
+          <Alert severity="error">
+            Errors while validating JSON schema.
+            {schemaValidationErrors.map((error, index) => (
+              <ListItemText key={index} primary={error.message} />
+            ))}
+          </Alert>
+        </Grid>
+      ) : null}
 
       <Snackbar
         open={showJsonInvalidMessage}

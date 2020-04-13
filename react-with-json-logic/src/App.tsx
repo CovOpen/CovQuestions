@@ -73,6 +73,7 @@ export const App: React.FC = () => {
           <Grid item xs={6}>
             <QuestionnaireTextField
               value={JSON.stringify(currentQuestionnaire?.questionnaire, null, 2)}
+              schema={questionnaireSchema}
               onChange={() => setIsQuestionnaireInSync(false)}
               resetQuestionnaire={() => {
                 if (originalCurrentQuestionnaire) {
