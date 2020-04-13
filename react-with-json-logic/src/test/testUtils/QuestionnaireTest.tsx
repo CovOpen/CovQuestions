@@ -14,8 +14,10 @@ function nockQuestionnaire(questionnaire: IQuestionnaire) {
       path: "api/test.json",
     },
   ];
+  const emptySchema = {};
   nock(basePath).get("/index.json").reply(200, JSON.stringify(indexJson));
   nock(basePath).get("/test.json").reply(200, JSON.stringify(questionnaire));
+  nock(basePath).get("/schema/questionnaire.json").reply(200, JSON.stringify(emptySchema));
 }
 
 export class QuestionnaireTest {
