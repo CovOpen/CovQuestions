@@ -7,15 +7,10 @@ import { Primitive } from "../Primitive";
 
 type QuestionComponentProps = {
   currentQuestion: Question;
-  questionnaireLogic: Questionnaire;
-  handleNextClick: () => void;
+  handleNextClick: (value: Primitive | Array<Primitive> | undefined) => void;
 };
 
-export const QuestionComponent: React.FC<QuestionComponentProps> = ({
-  questionnaireLogic,
-  currentQuestion,
-  handleNextClick,
-}) => {
+export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQuestion, handleNextClick }) => {
   const [currentValue, setCurrentValue] = useState<Primitive | Array<Primitive> | undefined>(undefined);
   const [showAnswerIsRequired, setShowAnswerIsRequired] = useState(false);
 
@@ -33,8 +28,7 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({
       setShowAnswerIsRequired(true);
       return;
     }
-    questionnaireLogic.setAnswer(currentQuestion.id, currentValue);
-    handleNextClick();
+    handleNextClick(currentValue);
   };
 
   useEffect(() => {
