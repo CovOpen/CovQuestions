@@ -3,38 +3,32 @@ import { Question, Questionnaire } from "../logic/questionnaire";
 import { Button, Grid, Paper } from "@material-ui/core";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
 import { Alert } from "@material-ui/lab";
+import { Primitive } from "../Primitive";
 
 type QuestionComponentProps = {
   currentQuestion: Question;
-  questionnaireLogic: Questionnaire;
-  handleNextClick: () => void;
+  handleNextClick: (value: Primitive | Array<Primitive> | undefined) => void;
 };
 
-export const QuestionComponent: React.FC<QuestionComponentProps> = ({
-  questionnaireLogic,
-  currentQuestion,
-  handleNextClick,
-}) => {
+export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQuestion, handleNextClick }) => {
+  const [currentValue, setCurrentValue] = useState<Primitive | Array<Primitive> | undefined>(undefined);
   const [showAnswerIsRequired, setShowAnswerIsRequired] = useState(false);
 
   const handleChangeInForm = (value: any) => {
-    questionnaireLogic.setAnswer(currentQuestion.id, value);
-    const hasAnswer = questionnaireLogic.hasAnswer(currentQuestion.id);
-    if (hasAnswer) {
-      setShowAnswerIsRequired(false);
-    }
-    if (!hasAnswer && !currentQuestion.isOptional()) {
-      setShowAnswerIsRequired(true);
-    }
-  };
-
-  const next = () => {
-    const hasAnswer = questionnaireLogic.hasAnswer(currentQuestion.id);
-    if (!hasAnswer && !currentQuestion.isOptional()) {
+    setCurrentValue(value);
+    if (value === undefined && !currentQuestion.isOptional()) {
       setShowAnswerIsRequired(true);
       return;
     }
-    handleNextClick();
+    setShowAnswerIsRequired(false);
+  };
+
+  const next = () => {
+    if (currentValue === undefined && !currentQuestion.isOptional()) {
+      setShowAnswerIsRequired(true);
+      return;
+    }
+    handleNextClick(currentValue);
   };
 
   useEffect(() => {

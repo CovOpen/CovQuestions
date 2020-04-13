@@ -5,6 +5,7 @@ import { Question, Questionnaire, Result } from "../logic/questionnaire";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
 import { IQuestionnaire } from "../logic/schema";
+import { Primitive } from "../Primitive";
 
 type QuestionnaireExecutionProps = {
   isInSync: boolean;
@@ -25,7 +26,9 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
     setCurrentQuestion(nextQuestion);
   }
 
-  function handleNextClick() {
+  function handleNextClick(value: Primitive | Array<Primitive> | undefined) {
+    questionnaireEngine.setAnswer(currentQuestion!.id, value);
+
     const nextQuestion = questionnaireEngine.nextQuestion();
     if (nextQuestion) {
       setCurrentQuestion(nextQuestion);
@@ -51,11 +54,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
       ) : null}
       <Grid item xs={9}>
         {result === undefined && currentQuestion ? (
-          <QuestionComponent
-            currentQuestion={currentQuestion}
-            questionnaireLogic={questionnaireEngine}
-            handleNextClick={handleNextClick}
-          />
+          <QuestionComponent currentQuestion={currentQuestion} handleNextClick={handleNextClick} />
         ) : null}
         {result !== undefined ? <ResultComponent result={result} /> : null}
       </Grid>

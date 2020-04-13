@@ -51,6 +51,12 @@ export class QuestionnaireTest {
     fireEvent.change(numericInput!, { target: { value: number.toString() } });
   }
 
+  public async enterText(text: string) {
+    const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
+    const numericInput = (await within(questionnaireExecution).findByTestId("TextInput")).querySelector("input");
+    fireEvent.change(numericInput!, { target: { value: text } });
+  }
+
   public async clickNext() {
     const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
     const nextButton = await within(questionnaireExecution).findByText(/next/i);

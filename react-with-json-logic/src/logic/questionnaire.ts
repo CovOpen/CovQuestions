@@ -110,10 +110,6 @@ export class Questionnaire {
     return this.questions.find((question) => question.id === questionId);
   }
 
-  public hasAnswer(questionId: string): boolean {
-    return this.data[questionId] != null && this.data[questionId].value != null;
-  }
-
   private updateComputableVariables() {
     this.data["g_now"] = { value: Math.round(Date.now() / 1000) };
 
@@ -129,6 +125,7 @@ export class Questionnaire {
   }
 
   public getResults(): Result[] {
+    this.updateComputableVariables();
     const results = this.resultCategories.map((resultCategory) => {
       const resultInCategory = resultCategory.results.find((possibleResult) =>
         jsonLogic.apply(possibleResult.value, this.data)
