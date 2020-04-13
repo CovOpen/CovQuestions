@@ -22,5 +22,9 @@
   {
     "name": "Simple select gender question",
     "path": "api/simpleSelectGenderQuestion.json"
+  },
+  {
+    "name": "Simple text question",
+    "path": "api/simpleTextQuestion.json"
   }
 ]
