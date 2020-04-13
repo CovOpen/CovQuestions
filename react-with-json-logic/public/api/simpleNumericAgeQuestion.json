@@ -12,7 +12,12 @@
     {
       "id": "q1_age",
       "text": "Wie alt sind Sie?",
-      "type": "integer"
+      "type": "number",
+      "numericOptions": {
+        "min": 0,
+        "max": 150,
+        "step": 1
+      }
     }
   ],
   "variables": [],

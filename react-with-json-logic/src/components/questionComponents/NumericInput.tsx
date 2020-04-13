@@ -2,21 +2,8 @@ import React, { useEffect } from "react";
 import { Grid, Input, Slider, Typography } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export type NumericInputComponentProps = QuestionFormComponentProps & {
-  defaultValue?: number;
-  min?: number;
-  max?: number;
-  step?: number;
-};
-
-export const NumericInput: React.FC<NumericInputComponentProps> = ({
-  currentQuestion,
-  onChange,
-  defaultValue,
-  min,
-  max,
-  step,
-}) => {
+export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
+  const { min, max, step, defaultValue } = currentQuestion.numericOption || {};
   const fallbackValue = defaultValue ?? min ?? max ?? 0;
   const [value, setValue] = React.useState<number>(fallbackValue);
 

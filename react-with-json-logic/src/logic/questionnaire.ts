@@ -1,7 +1,7 @@
 // @ts-ignore
 import jsonLogic from "json-logic-js";
 
-import { IOption, IQuestion, IQuestionnaire, IResultCategory, IVariable, QuestionType } from "./schema";
+import { INumericOption, IOption, IQuestion, IQuestionnaire, IResultCategory, IVariable, QuestionType } from "./schema";
 import { LogicExpression } from "./logic";
 import { Primitive } from "../Primitive";
 
@@ -10,11 +10,12 @@ export type Result = {
   result: { id: string; text: string };
 };
 
-export class Question implements IQuestion {
+export class Question {
   id: string;
   type: QuestionType;
   text: string;
   options?: IOption[];
+  numericOption?: INumericOption;
   enableWhen?: LogicExpression;
   optional?: boolean;
 
@@ -22,9 +23,14 @@ export class Question implements IQuestion {
     this.id = question.id;
     this.type = question.type;
     this.text = question.text;
-    this.options = question.options;
     this.enableWhen = question.enableWhen;
     this.optional = question.optional;
+    if (question.type === QuestionType.Select || question.type === QuestionType.Multiselect) {
+      this.options = question.options;
+    }
+    if (question.type === QuestionType.Number) {
+      this.numericOption = question.numericOptions;
+    }
   }
 
   public check(data: {}): boolean {
@@ -39,10 +45,7 @@ export class Question implements IQuestion {
     if (this.optional != null) {
       return this.optional;
     }
-    if (this.type === QuestionType.Multiselect) {
-      return true;
-    }
-    return false;
+    return this.type === QuestionType.Multiselect;
   }
 }
 
@@ -104,12 +107,7 @@ export class Questionnaire {
   }
 
   private getQuestionById(questionId: string): Question | undefined {
-    const filtered = this.questions.filter((question) => question.id === questionId);
-    if (filtered.length > 0) {
-      return filtered[0];
-    }
-
-    return undefined;
+    return this.questions.find((question) => question.id === questionId);
   }
 
   public hasAnswer(questionId: string): boolean {

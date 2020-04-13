@@ -14,7 +14,12 @@ const testQuestionnaire: IQuestionnaire = {
     {
       id: "q1_age",
       text: "Wie alt sind Sie?",
-      type: QuestionType.Integer,
+      type: QuestionType.Number,
+      numericOptions: {
+        min: 0,
+        max: 150,
+        step: 1,
+      },
     },
   ],
   variables: [],

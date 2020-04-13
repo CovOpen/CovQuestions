@@ -11,8 +11,7 @@ import { LogicExpression } from "./logic";
 export enum QuestionType {
   Select = "select",
   Multiselect = "multiselect",
-  Integer = "integer",
-  Decimal = "decimal",
+  Number = "number",
   Boolean = "boolean",
   Date = "date",
   Text = "text",
@@ -39,17 +38,35 @@ export interface IOption {
 }
 
 /**
+ * Option for numeric questions.
+ */
+export interface INumericOption {
+  /**
+   * Minimal value
+   */
+  min?: number;
+  /**
+   * maximal value
+   */
+  max?: number;
+  /**
+   * Step size
+   */
+  step?: number;
+  /**
+   * Default value
+   */
+  defaultValue?: number;
+}
+
+/**
  * Represents a question.
  */
-export interface IQuestion {
+interface IQuestionBase {
   /**
    * Unique id for referring this question in logic expressions.
    */
   id: string;
-  /**
-   * Type of the question.
-   */
-  type: QuestionType;
   /**
    * Human-readable question text, can be localized.
    */
@@ -58,10 +75,6 @@ export interface IQuestion {
    * Optional human-readable details or clarifiation about this question.
    */
   details?: string;
-  /**
-   * Answer options for Select/Multiselect questions.
-   */
-  options?: IOption[];
   /**
    * Boolean indicating whether the question is optional or not.
    */
@@ -72,6 +85,37 @@ export interface IQuestion {
    */
   enableWhen?: LogicExpression;
 }
+
+export type IQuestionWithoutOptions = IQuestionBase & {
+  /**
+   * Type of the question.
+   */
+  type: QuestionType.Boolean | QuestionType.Date | QuestionType.Text;
+};
+
+export type IQuestionWithOptions = IQuestionBase & {
+  /**
+   * Type of the question.
+   */
+  type: QuestionType.Select | QuestionType.Multiselect;
+  /**
+   * Answer options for Select/Multiselect questions.
+   */
+  options?: IOption[];
+};
+
+export type INumericQuestion = IQuestionBase & {
+  /**
+   * Type of the question.
+   */
+  type: QuestionType.Number;
+  /**
+   * Answer options for Select/Multiselect questions.
+   */
+  numericOptions?: INumericOption;
+};
+
+export type IQuestion = IQuestionWithoutOptions | IQuestionWithOptions | INumericQuestion;
 
 /**
  * Represents a variable which is computed from the given answers or other variables.
