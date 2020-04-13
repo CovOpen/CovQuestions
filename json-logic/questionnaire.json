@@ -2,12 +2,71 @@
   "$ref": "#/definitions/IQuestionnaire",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "INumericOption": {
+      "additionalProperties": false,
+      "description": "Option for numeric questions.",
+      "properties": {
+        "defaultValue": {
+          "description": "Default value",
+          "type": "number"
+        },
+        "max": {
+          "description": "maximal value",
+          "type": "number"
+        },
+        "min": {
+          "description": "Minimal value",
+          "type": "number"
+        },
+        "step": {
+          "description": "Step size",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "INumericQuestion": {
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarifiation about this question.",
+          "type": "string"
+        },
+        "enableWhen": {
+          "$ref": "#/definitions/LogicExpression",
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true."
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "numericOptions": {
+          "$ref": "#/definitions/INumericOption",
+          "description": "Answer options for Select/Multiselect questions."
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type of the question.",
+          "enum": ["number"],
+          "type": "string"
+        }
+      },
+      "required": ["id", "text", "type"],
+      "type": "object"
+    },
     "IOption": {
       "additionalProperties": false,
       "description": "Option for multi-select questions.",
       "properties": {
         "asQuestion": {
-          "description": "Human-Readable formulation of this option as yes/no question.\r\nThis is for use-cases where multi-selects are not possible in the UI,\r\nfor example telephone hotlines.",
+          "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
           "type": "string"
         },
         "text": {
@@ -19,15 +78,24 @@
           "type": "string"
         }
       },
-      "required": [
-        "text",
-        "value"
-      ],
+      "required": ["text", "value"],
       "type": "object"
     },
     "IQuestion": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/IQuestionWithoutOptions"
+        },
+        {
+          "$ref": "#/definitions/IQuestionWithOptions"
+        },
+        {
+          "$ref": "#/definitions/INumericQuestion"
+        }
+      ]
+    },
+    "IQuestionWithOptions": {
       "additionalProperties": false,
-      "description": "Represents a question.",
       "properties": {
         "details": {
           "description": "Optional human-readable details or clarifiation about this question.",
@@ -35,7 +103,7 @@
         },
         "enableWhen": {
           "$ref": "#/definitions/LogicExpression",
-          "description": "Logic expression to decide whether the question should be displayed or not.\r\nDefaults to true."
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true."
         },
         "id": {
           "description": "Unique id for referring this question in logic expressions.",
@@ -57,15 +125,64 @@
           "type": "string"
         },
         "type": {
-          "$ref": "#/definitions/QuestionType",
+          "anyOf": [
+            {
+              "enum": ["select"],
+              "type": "string"
+            },
+            {
+              "enum": ["multiselect"],
+              "type": "string"
+            }
+          ],
           "description": "Type of the question."
         }
       },
-      "required": [
-        "id",
-        "type",
-        "text"
-      ],
+      "required": ["id", "text", "type"],
+      "type": "object"
+    },
+    "IQuestionWithoutOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarifiation about this question.",
+          "type": "string"
+        },
+        "enableWhen": {
+          "$ref": "#/definitions/LogicExpression",
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true."
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "enum": ["boolean"],
+              "type": "string"
+            },
+            {
+              "enum": ["date"],
+              "type": "string"
+            },
+            {
+              "enum": ["text"],
+              "type": "string"
+            }
+          ],
+          "description": "Type of the question."
+        }
+      },
+      "required": ["id", "text", "type"],
       "type": "object"
     },
     "IQuestionnaire": {
@@ -88,7 +205,7 @@
           "type": "array"
         },
         "resultCategories": {
-          "description": "All result categories. When all questions are answered,\r\nthe result for each result category is computed.",
+          "description": "All result categories. When all questions are answered,\nthe result for each result category is computed.",
           "items": {
             "$ref": "#/definitions/IResultCategory"
           },
@@ -110,15 +227,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "schemaVersion",
-        "version",
-        "meta",
-        "questions",
-        "variables",
-        "resultCategories"
-      ],
+      "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],
       "type": "object"
     },
     "IQuestionnaireMeta": {
@@ -140,7 +249,7 @@
           "type": "string"
         },
         "language": {
-          "description": "Language of this questionaire, as ISO 639-1 code.\r\nNote that further languages can be defined in external lookup files.",
+          "description": "Language of this questionaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
           "type": "string"
         },
         "publisher": {
@@ -157,12 +266,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "author",
-        "language",
-        "creationDate"
-      ],
+      "required": ["title", "author", "language", "creationDate"],
       "type": "object"
     },
     "IResult": {
@@ -179,14 +283,10 @@
         },
         "value": {
           "$ref": "#/definitions/LogicExpression",
-          "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
+          "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\nused as result. If no result evaluates to true, no result is shown for this category."
         }
       },
-      "required": [
-        "id",
-        "text",
-        "value"
-      ],
+      "required": ["id", "text", "value"],
       "type": "object"
     },
     "IResultCategory": {
@@ -209,11 +309,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "id",
-        "description",
-        "results"
-      ],
+      "required": ["id", "description", "results"],
       "type": "object"
     },
     "IVariable": {
@@ -229,10 +325,7 @@
           "description": "Logic expression used to compute this variable."
         }
       },
-      "required": [
-        "id",
-        "value"
-      ],
+      "required": ["id", "value"],
       "type": "object"
     },
     "LogicAnd": {
@@ -245,17 +338,11 @@
           "type": "array"
         }
       },
-      "required": [
-        "and"
-      ],
+      "required": ["and"],
       "type": "object"
     },
     "LogicConstant": {
-      "type": [
-        "number",
-        "string",
-        "boolean"
-      ]
+      "type": ["number", "string", "boolean"]
     },
     "LogicEquals": {
       "additionalProperties": false,
@@ -274,9 +361,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "=="
-      ],
+      "required": ["=="],
       "type": "object"
     },
     "LogicExpression": {
@@ -309,9 +394,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">"
-      ],
+      "required": [">"],
       "type": "object"
     },
     "LogicGreaterEqual": {
@@ -331,9 +414,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">="
-      ],
+      "required": [">="],
       "type": "object"
     },
     "LogicIf": {
@@ -356,9 +437,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "if"
-      ],
+      "required": ["if"],
       "type": "object"
     },
     "LogicIn": {
@@ -381,9 +460,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "in"
-      ],
+      "required": ["in"],
       "type": "object"
     },
     "LogicLess": {
@@ -403,9 +480,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<"
-      ],
+      "required": ["<"],
       "type": "object"
     },
     "LogicLessEqual": {
@@ -425,9 +500,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<="
-      ],
+      "required": ["<="],
       "type": "object"
     },
     "LogicMinus": {
@@ -447,9 +520,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "-"
-      ],
+      "required": ["-"],
       "type": "object"
     },
     "LogicNot": {
@@ -469,9 +540,7 @@
           ]
         }
       },
-      "required": [
-        "!"
-      ],
+      "required": ["!"],
       "type": "object"
     },
     "LogicOperator": {
@@ -530,9 +599,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "or"
-      ],
+      "required": ["or"],
       "type": "object"
     },
     "LogicPlus": {
@@ -552,9 +619,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "+"
-      ],
+      "required": ["+"],
       "type": "object"
     },
     "LogicReduce": {
@@ -577,9 +642,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "reduce"
-      ],
+      "required": ["reduce"],
       "type": "object"
     },
     "LogicSome": {
@@ -599,9 +662,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "some"
-      ],
+      "required": ["some"],
       "type": "object"
     },
     "LogicVariable": {
@@ -611,24 +672,8 @@
           "type": "string"
         }
       },
-      "required": [
-        "var"
-      ],
+      "required": ["var"],
       "type": "object"
-    },
-    "QuestionType": {
-      "description": "Type of a question, essentially defines the result type.",
-      "enum": [
-        "select",
-        "multiselect",
-        "integer",
-        "decimal",
-        "boolean",
-        "date",
-        "timespan",
-        "text"
-      ],
-      "type": "string"
     }
   }
 }
