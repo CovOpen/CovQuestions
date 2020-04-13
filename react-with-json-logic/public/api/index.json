@@ -14,5 +14,9 @@
   {
     "name": "Simple numeric age question",
     "path": "api/simpleNumericAgeQuestion.json"
+  },
+  {
+    "name": "Simple select gender question",
+    "path": "api/simpleSelectGenderQuestion.json"
   }
 ]
