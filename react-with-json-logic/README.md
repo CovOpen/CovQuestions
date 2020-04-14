@@ -1,3 +1,4 @@
+### Quick Start
 To try the app run:
 
 `npm install`
