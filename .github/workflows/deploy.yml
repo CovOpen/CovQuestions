@@ -31,8 +31,8 @@ jobs:
         path: react-with-json-logic/build/
     - name: Publish to blob storage
       uses: bacongobbler/azure-blob-storage-upload@v1.0.0
-        with:
-          source_dir: react-with-json-logic/build/
-          container_name: www
-          connection_string: ${{ secrets.ConnectionString }}
-          extra_args: ''
+      with:
+        source_dir: react-with-json-logic/build/
+        container_name: www
+        connection_string: ${{ secrets.ConnectionString }}
+        extra_args: ''
