@@ -1,9 +1,10 @@
 ### Quick Start
-To try the app run:
 
-1. `npm install`
+1. `npm install` (install dependecies)
 
-2. `npm start`
+2. `npm start` (start the app)
+
+3. Access [http://localhost:3000](http://localhost:3000)
 
 To run the tests, use:
 
