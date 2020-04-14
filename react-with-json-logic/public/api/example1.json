@@ -68,11 +68,7 @@
           {
             "var": "v1_risk.value"
           },
-          [
-            "HIGH_RISK",
-            "MEDIUM_RISK_A",
-            "MEDIUM_RISK_B"
-          ]
+          ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"]
         ]
       }
     }
@@ -85,14 +81,14 @@
           {
             "-": [
               {
-                "var": "q2_contact_when.value"
+                "var": "g_now.value"
               },
               {
-                "var": "g_now.value"
+                "var": "q2_contact_when.value"
               }
             ]
           },
-          14
+          1209600
         ]
       }
     },
@@ -133,7 +129,7 @@
                           }
                         ]
                       },
-                      14
+                      1209600
                     ]
                   },
                   "HIGH_RISK",
@@ -212,9 +208,7 @@
                       {
                         "var": "q2_symptoms.value"
                       },
-                      [
-                        "respiratory"
-                      ]
+                      ["respiratory"]
                     ]
                   },
                   "MEDIUM_RISK_B",
@@ -289,16 +283,16 @@
       "description": "Kontakt",
       "results": [
         {
-          "id": "SHOW_CONTACT_ADVISORY",
+          "id": "SHOW_CONTACT_IRRELEVANT_ADVISORY",
           "text": "Der Kontakt war irrellevant.",
           "value": {
             "and": [
               {
-                "var": "q0_contact.value"
+                "var": "q1_contact.value"
               },
               {
                 "!": {
-                  "var": "v_contact_relevant"
+                  "var": "v_contact_relevant.value"
                 }
               }
             ]

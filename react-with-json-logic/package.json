@@ -1,0 +1,54 @@
+{
+  "name": "react-with-json-logic",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.9.9",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.48",
+    "@testing-library/dom": "^7.2.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^10.0.1",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.12.35",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "copyfiles": "^2.2.0",
+    "jest-date-mock": "^1.0.8",
+    "json-logic-js": "^1.2.2",
+    "jsonschema": "^1.2.6",
+    "nock": "^12.0.3",
+    "prettier": "^2.0.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier --config .prettierrc --ignore-path .gitignore --write **/*.{ts,tsx,json}",
+    "lint": "prettier --config .prettierrc --ignore-path .gitignore --check **/*.{ts,tsx,json}",
+    "copyTsFiles": "copyfiles -u 2 ./src/logic/logic.ts ./src/logic/schema.ts ../json-logic",
+    "copyJsonSchema": "copyfiles -u 3 ./public/api/schema/questionnaire.json ../json-logic",
+    "copyfiles": "npm run copyTsFiles & npm run copyJsonSchema"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

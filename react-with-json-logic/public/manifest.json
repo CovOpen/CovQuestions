@@ -1,0 +1,9 @@
+{
+  "short_name": "CovQuestions",
+  "name": "Create Questionnaires and test them",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

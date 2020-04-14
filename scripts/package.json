@@ -1,0 +1,21 @@
+{
+  "name": "cov-questions-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "format": "prettier --ignore-path .gitignore --write **/*.{ts,tsx,json}",
+    "copyTestCases": "ts-node src/copyTestCasesToApi.ts",
+    "createApiIndex": "ts-node src/createApiIndex.ts",
+    "generateJsonSchema": "./node_modules/.bin/ts-json-schema-generator --path ../react-with-json-logic/src/logic/schema.ts --type IQuestionnaire --out ../react-with-json-logic/public/api/schema/questionnaire.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.11.1",
+    "prettier": "^2.0.4",
+    "ts-json-schema-generator": "^0.65.0",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  }
+}

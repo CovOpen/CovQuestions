@@ -18,6 +18,12 @@ jobs:
     - name: Install Packages
       run: npm install
       working-directory: react-with-json-logic/
+    - name: Check format
+      run: npm run lint
+      working-directory: react-with-json-logic/
+    - name: Run tests
+      run: CI=true npm run test
+      working-directory: react-with-json-logic/
     - name: Build App
       run: npm run build
       working-directory: react-with-json-logic/
