@@ -1,9 +1,9 @@
 ### Quick Start
 To try the app run:
 
-`npm install`
+1. `npm install`
 
-`npm start`
+2. `npm start`
 
 To run the tests, use:
 
