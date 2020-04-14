@@ -89,7 +89,7 @@ export class Questionnaire {
     if (question !== undefined) {
       switch (question.type) {
         case QuestionType.Multiselect:
-          let array = value as Array<Primitive>;
+          let array = (value || []) as Array<Primitive>;
           answer.selectedCount = array !== undefined ? array.length : 0;
           answer.count = question.options?.length ?? 0;
           answer.unselectedCount = answer.count - answer.selectedCount;
