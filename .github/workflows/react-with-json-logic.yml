@@ -27,3 +27,11 @@ jobs:
     - name: Build App
       run: npm run build
       working-directory: react-with-json-logic/
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: react-app
+        # Directory containing files to upload
+        path: react-with-json-logic/build/
+      
