@@ -3,7 +3,7 @@ import hashlib
 import xml.etree.ElementTree as ET
 import os
 import logging
-
+import argparse
 
 STRING_KEYS = ('title', 'text', 'asQuestion', 'details', 'description')
 
@@ -37,7 +37,7 @@ def build_string_index(path_questionnaire):
 	return questionnaire, string_index
 
 
-def load_string_index(path_xliff_file):
+def load_string_index(path_xliff_file, warn=True):
 	"""
 	Load a string index from xliff file.
 	"""
@@ -59,7 +59,8 @@ def load_string_index(path_xliff_file):
 		}
 
 		if state != 'ready':
-			logging.warn("String '{:s}' ({:s}) has no translation in {:s}".format(source.text, unit_id, path_xliff_file))
+			if warn:
+				logging.warn("String '{:s}' ({:s}) has no translation in {:s}".format(source.text, unit_id, path_xliff_file))
 		else:
 			counter_translated += 1
 
@@ -84,7 +85,7 @@ def write_string_index(string_index, path_xliff_file, base_language, language):
 
 	# if file exists, join translations
 	if os.path.isfile(path_xliff_file):
-		translation = load_string_index(path_xliff_file)
+		translation = load_string_index(path_xliff_file, warn=False)
 		string_index = join_string_indices(string_index, translation)
 
 	xml_root = ET.Element('xliff', {'version': "1.2"}) #, 'xmlns': "urn:oasis:names:tc:xliff:document:1.2"})
@@ -104,9 +105,10 @@ def write_string_index(string_index, path_xliff_file, base_language, language):
 	xml.write(path_xliff_file, encoding="UTF-8", xml_declaration=True)
 
 
-def translate_questionnaire(path_questionnaire, path_xliff_file, output_path):
+def translate_questionnaire(path_questionnaire, path_xliff_file, output_path, language):
 	"""
 	Extract all strings from a questionnaire that should be translated.
+	Save the translated questionnaire as new json.
 	"""
 	string_index = load_string_index(path_xliff_file)
 
@@ -118,7 +120,7 @@ def translate_questionnaire(path_questionnaire, path_xliff_file, output_path):
 				string = obj[key].strip()
 				string_hash = hashlib.md5(string.encode()).hexdigest()
 				if string_hash in string_index:
-					obj[key] = string_index[string_hash]
+					obj[key] = string_index[string_hash]['target']
 				else:
 					logging.warn("Could not find translation for '{:s}' ({:s}) in {:s}".format(string, string_hash, path_xliff_file))
 		return obj
@@ -127,42 +129,96 @@ def translate_questionnaire(path_questionnaire, path_xliff_file, output_path):
 	with open(path_questionnaire) as f:
 		questionnaire = json.load(f, object_hook=obj_hook_string_replacement)
 
+	questionnaire['meta']['language'] = language
+
 	# save questionnaire as new file
 	with open(output_path, 'w') as f:
-		json.dump(questionnaire, f)
+		json.dump(questionnaire, f, ensure_ascii=False)
 
 	return questionnaire
 
 
-def process_questionnaire(path_questionnaire, path_translations, languages=None):
+def get_languages(path_translations, additional_languages=[]):
+	languages = []
+	# get all translation files in the folder
+	language_files = os.listdir(path_translations)
+	# push changes to them
+	for language_file in language_files:
+		if language_file[:12] != 'translation.' and language_file[-4:] != '.xlf':
+			continue
+		languages.append(language_file.replace('translation.', '').replace('.xlf', ''))
+	
+	languages += additional_languages
+	return set(languages)
+
+
+def translate(path_questionnaire, path_translations, api_questionnaire_folder):
+	# load questionnaire and its string index
+	questionnaire, string_index = build_string_index(path_questionnaire)
+
+	# get base language
+	base_language = questionnaire['meta']['language'].lower()
+	version = questionnaire['version'].split('.')[0]  # take only major version
+	# create version folder
+	version_folder = os.path.join(api_questionnaire_folder, 'v'+str(version))
+	if not os.path.isdir(version_folder):
+		os.makedirs(version_folder)
+
+	# create an array of translations to consider
+	languages = get_languages(path_translations, [base_language])
+	
+	# loop languages, create a translation file and translate questionnaire
+	for language in set(languages):
+		# create translation file
+		path_translation = os.path.join(path_translations, 'translation.{:s}.xlf'.format(language))
+		write_string_index(string_index, path_translation, base_language, language)
+		# translate questionnaire
+		output_path = os.path.join(version_folder, 'questionnaire-{:s}.json'.format(language))
+		translate_questionnaire(path_questionnaire, path_translation, output_path, language)
+
+
+def extract(path_questionnaire, path_translations, languages=[]):
 
 	# load questionnaire and its string index
 	questionnaire, string_index = build_string_index(path_questionnaire)
 
 	# get base language
 	base_language = questionnaire['meta']['language'].lower()
-
-	# save translation file for base language
-	write_string_index(string_index, os.path.join(path_translations, 'translation.{:s}.xlf'.format(base_language)), base_language, base_language)
-
-
-	if languages is None:
-		languages = []
-		# get all translation files in the folder
-		language_files = os.listdir(path_translations)
-		# push changes to them
-		for language_file in language_files:
-			if language_file[:12] != 'translation.' and language_file[-4:] != '.xlf':
-				continue
-		languages.append(language_file.replace('translation.', '').replace('.xlf', ''))
-
-	for language in languages:
-		write_string_index(string_index, os.path.join(path_translations, 'translation.{:s}.xlf'.format(language)), base_language, language)
-
+	
+	# create an array of translations to consider
+	languages = get_languages(path_translations, languages + [base_language])
+	
+	# loop languages, create a translation file and translate questionnaire
+	for language in set(languages):
+		# create translation file
+		path_translation = os.path.join(path_translations, 'translation.{:s}.xlf'.format(language))
+		write_string_index(string_index, path_translation, base_language, language)
 
 
 if __name__ == "__main__":
-	process_questionnaire('/home/msimon/Documents/Programming/hackathon/covquestions/react-with-json-logic/public/api/example1.json', '.', ['en'])
-	
-	
 
+	parser = argparse.ArgumentParser()
+	parser.add_argument('action', help="One of extract or translate", choices=['extract', 'translate'])
+	parser.add_argument('questionnaire', help="Questionnaire ID")
+	parser.add_argument('-l', '--languages', help="Languages to extract", nargs='*', default=[])
+
+	args = parser.parse_args()
+
+
+	api_root_folder = os.path.abspath(
+		os.path.join(
+			os.path.dirname(__file__), '..'
+		)
+	)
+	questionnaire_root = os.path.join(api_root_folder, 'src', 'questionnaires', args.questionnaire)
+	path_questionnaire = os.path.join(questionnaire_root, 'questionnaire.json')
+	api_questionnaire_folder = os.path.join(api_root_folder, 'questionnaires', args.questionnaire)
+
+	if args.action == 'extract':
+		extract(path_questionnaire, questionnaire_root, languages=args.languages)
+	
+	elif args.action == 'translate':
+		translate(path_questionnaire, questionnaire_root, api_questionnaire_folder)
+
+	else:
+		raise RuntimeError("Invalid Action")
