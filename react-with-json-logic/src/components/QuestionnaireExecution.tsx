@@ -16,6 +16,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
   const [questionnaireEngine, setQuestionnaireEngine] = useState(new Questionnaire(currentQuestionnaire.questionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
+  const [doRerender, setDoRerender] = useState(false);
 
   function restartQuestionnaire() {
     const engine = new Questionnaire(currentQuestionnaire.questionnaire);
@@ -24,6 +25,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
     setResult(undefined);
     setQuestionnaireEngine(engine);
     setCurrentQuestion(nextQuestion);
+    setDoRerender(true);
   }
 
   function handleNextClick(value: Primitive | Array<Primitive> | undefined) {
@@ -40,7 +42,15 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
 
   useEffect(restartQuestionnaire, [currentQuestionnaire]);
 
-  return (
+  useEffect(() => {
+    if (doRerender) {
+      setDoRerender(false);
+    }
+  }, [doRerender]);
+
+  return doRerender ? (
+    <></>
+  ) : (
     <>
       <Grid item xs={9}>
         <Button onClick={restartQuestionnaire} variant="contained" color="secondary">

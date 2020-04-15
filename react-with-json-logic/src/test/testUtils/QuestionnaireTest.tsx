@@ -64,4 +64,10 @@ export class QuestionnaireTest {
     const nextButton = await within(questionnaireExecution).findByText(/next/i);
     UserEvent.click(nextButton);
   }
+
+  public async clickRestart() {
+    const questionnaireExecution = await this.renderedApp.findByTestId("QuestionnaireExecution");
+    const restartButton = await within(questionnaireExecution).findByText(/restart questionnaire/i);
+    UserEvent.click(restartButton);
+  }
 }
