@@ -1,0 +1,421 @@
+openapi: 3.0.0
+info:
+  title: CovApp
+  version: "1.0"
+  description: API for standarized Questionaires Development and Analysis
+  license:
+    name: MIT
+servers:
+  - url: "http://localhost:3000"
+    description: Development
+paths:
+  /questions:
+    get:
+      summary: Questions - List All
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Question"
+      operationId: get-questions
+      description: "Returns all single questions "
+      tags:
+        - questions
+  "/questions/{id}":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Questions - Get One
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Question"
+      operationId: get-questions-id
+      description: Returns the question with the given ID
+      tags:
+        - questions
+  /answers:
+    get:
+      summary: Answers - List all
+      operationId: get-answers
+      tags:
+        - answers
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AnswerQuestionnaire"
+      description: Get the answers from a previously filled questionnaire by id
+    post:
+      summary: Answers - Create
+      operationId: post-answers
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnswerQuestionnaire"
+      tags:
+        - answers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnswerQuestionnaire"
+      description: "Submit a filled out questionaire. "
+    parameters: []
+  "/answers/{id}":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Answers - Get One
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnswerQuestionnaire"
+      operationId: get-answers-id
+      description: Get the answers of Questionaire
+      tags:
+        - answers
+  "/answers/{id}/test-result":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    post:
+      summary: Answers - Add test result
+      operationId: post-results-id-test-result
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnswerQuestionnaire"
+      description: Add the test Result to a questionaire
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: ""
+              properties:
+                id:
+                  type: string
+                  description: The id of the test
+                validationAuthority:
+                  type: string
+                  description: "The Backend identifier, e.g. from a Laboratory to get the result of the test Id from"
+      tags:
+        - answers
+  /questionnaire:
+    get:
+      summary: Questionnaire - List All
+      tags:
+        - questionnaire
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Questionnaire"
+      operationId: get-questionnaire
+      description: Lists all questionaires
+  "/questionnaire/{id}":
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Questionnaire - Get One
+      tags:
+        - questionnaire
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Questionnaire"
+      operationId: get-questionnaire-id
+      description: "Returns a whole questionaire containing the questions in the order they are displayed and the logic for leaps inbetween. "
+  /views/full-questionnaire:
+    get:
+      summary: Views - Questionnaire
+      tags:
+        - views
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/View_Questionnaire"
+      operationId: get-views-full-questionnaire
+      description: Get a whole Questionnaire with expanded Questions and in the right language.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: language
+        - schema:
+            type: string
+          in: query
+          name: language
+  /evaluationModel:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-evaluationModel
+      description: "The Evaluation Model mapping the answers to a score. "
+components:
+  schemas:
+    GenericResponse:
+      title: GenericResponse
+      type: object
+      description: Generic Response
+      x-tags:
+        - models
+      properties:
+        language:
+          $ref: "#/components/schemas/ENUM_Language"
+        data:
+          type: object
+        errorMessage:
+          type: string
+        errorCode:
+          type: number
+      required:
+        - language
+    Question:
+      title: Question
+      type: object
+      x-tags:
+        - models
+      properties:
+        id:
+          $ref: "#/components/schemas/API_GUID"
+        category:
+          type: string
+        comment:
+          type: string
+        text:
+          $ref: "#/components/schemas/TranslationKey"
+        inputType:
+          $ref: "#/components/schemas/InputType"
+        type:
+          $ref: "#/components/schemas/QuestionType"
+        choices:
+          type: array
+          items:
+            $ref: "#/components/schemas/Q_Choice"
+      required:
+        - id
+    QuestionType:
+      type: string
+      title: QuestionType
+      enum:
+        - checkbox
+        - radio
+        - text
+      example: text
+      x-examples:
+        example-1: text
+      x-tags:
+        - models
+    InputType:
+      type: string
+      title: InputType
+      enum:
+        - date
+        - text
+      example: date
+      x-tags:
+        - models
+    TranslationKey:
+      title: TranslationKey
+      type: string
+      description: A Translation Key that can be used to request the corresponding translation
+      x-examples:
+        example-1: application_title
+      x-tags:
+        - models
+    AnswerQuestion:
+      title: AnswerQuestion
+      type: object
+      properties:
+        questionId:
+          type: string
+        data:
+          type: string
+        dataType:
+          type: string
+      description: The Answer to one Question
+      x-tags:
+        - models
+    AnswerQuestionnaire:
+      title: QuestionnaireResult
+      description: The complete Answer to one Questionaire
+      type: object
+      x-tags:
+        - models
+      properties:
+        answers:
+          $ref: "#/components/schemas/AnswerQuestion"
+        id:
+          type: string
+        otherIdentifiers:
+          type: object
+          description: Other Identifiers which can be easily memorized by humans
+          properties:
+            threeWords:
+              type: array
+              example:
+                - blue
+                - dog
+                - house
+              items:
+                type: string
+            code:
+              type: string
+              example: '"A5HJ-2LUP"'
+        testResultPositive:
+          type: boolean
+    API_GUID:
+      title: GUID
+      type: string
+      description: Unique Identifier of the resource
+      x-tags:
+        - models
+    Q_Choice:
+      title: Q_Choice
+      type: object
+      properties:
+        value:
+          type: string
+          description: The Weight for Scoring Algorithm
+        text:
+          $ref: "#/components/schemas/TranslationKey"
+      x-tags:
+        - models
+    ENUM_Language:
+      type: string
+      title: ENUM_Language
+      enum:
+        - none
+        - de
+        - en
+        - pl
+      x-tags:
+        - models
+    Questionnaire:
+      title: Questionnaire
+      type: object
+      description: A Questionnaire object
+      x-tags:
+        - models
+      properties:
+        id:
+          type: string
+        pages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Questionnaire_Page"
+        triggers:
+          $ref: "#/components/schemas/Questionnaire_Triggers"
+    View_Questionnaire:
+      title: View_Questionnaire
+      type: object
+      description: The Questionnaire expanded to load all required data in one request
+      x-tags:
+        - models
+      properties:
+        id:
+          type: string
+        pages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Questionnaire_Page"
+        triggers:
+          $ref: "#/components/schemas/Questionnaire_Triggers"
+    API_Reference:
+      title: API_Reference
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/API_GUID"
+        $ref:
+          type: string
+          description: URL to the resource
+      description: A General Model for References to other Resources
+      x-tags:
+        - models
+    Questionnaire_Triggers:
+      title: Questionnaire_Triggers
+      type: object
+      description: Triggers as defined in SurveyJS
+      properties:
+        type:
+          type: string
+        expression:
+          type: string
+        gotoName:
+          type: string
+      x-tags:
+        - models
+    Questionnaire_Page:
+      title: Questionnaire_Page
+      type: object
+      description: Pages as defined in SurveyJS
+      x-tags:
+        - models
+      properties:
+        name:
+          type: string
+        elements:
+          oneOf:
+            - $ref: "#/components/schemas/Question"
+            - $ref: "#/components/schemas/API_Reference"
+tags:
+  - name: models
+    description: Everything about the models used in this API
+  - name: answers
+    description: The Answers Endpoint
+  - name: questions
+    description: The Questions Endpoint
+  - name: questionnaire
+    description: The Questionnaire Endpoint
+  - name: views
+    description: "The Views Endpoint, supplying custom views for easier data retrieval"
