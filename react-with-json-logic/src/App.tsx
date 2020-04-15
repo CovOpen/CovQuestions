@@ -3,7 +3,7 @@ import { Container, Grid } from "@material-ui/core";
 import "./App.css";
 import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelectionDropdown";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
-import { QuestionnaireTextField } from "./components/QuestionnaireTextField";
+import { QuestionnaireEditor } from "./components/QuestionnaireEditor";
 import { IQuestionnaire } from "./logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
@@ -71,8 +71,8 @@ export const App: React.FC = () => {
             ) : null}
           </Grid>
           <Grid item xs={6}>
-            <QuestionnaireTextField
-              value={JSON.stringify(currentQuestionnaire?.questionnaire, null, 2)}
+            <QuestionnaireEditor
+              value={currentQuestionnaire?.questionnaire}
               schema={questionnaireSchema}
               onChange={() => setIsQuestionnaireInSync(false)}
               resetQuestionnaire={() => {
