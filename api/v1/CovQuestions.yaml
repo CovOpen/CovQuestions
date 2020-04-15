@@ -207,7 +207,9 @@ components:
         - models
       properties:
         questions:
-          type: string
+          type: array
+          items:
+            $ref: ''
         '':
           type: string
     View_Questionnaire:
@@ -219,12 +221,6 @@ components:
       properties:
         id:
           type: string
-        pages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Questionnaire_Page'
-        triggers:
-          $ref: '#/components/schemas/Questionnaire_Triggers'
     API_Reference:
       title: API_Reference
       type: object
