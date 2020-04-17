@@ -50,8 +50,8 @@ jobs:
           azcliversion: 2.0.72
           inlineScript: |
             az group deployment create --resource-group covapp --template-file .github/workflows/az-storage-template.json --parameters storageAccounts_name=${{ env.STORAGE_NAME }} --subscription ${{ SECRETS.AZURE_SUBSCRIPTION_ID }}
-            az storage blob service-properties update --account-name ${{ env.STORAGE_NAME }} --static-website  --index-document index.html --subscription ${{ SECRETS.AZURE_SUBSCRIPTION_ID }}
-            az storage blob upload-batch -d ${{ env.STORAGE_NAME }} -s ./react-with-json-logic/build/
+            az storage blob service-properties update --account-name ${{ env.STORAGE_NAME }} --static-website  --index-document index.html --subscription ${{ SECRETS.AZURE_SUBSCRIPTION_ID }} --auth-mode login
+            az storage blob upload-batch -d ${{ env.STORAGE_NAME }} -s ./react-with-json-logic/build/ --auth-mode login
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v1
