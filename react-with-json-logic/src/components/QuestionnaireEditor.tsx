@@ -20,8 +20,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
 
   const style = `
-  .my-sample-class {
-    font-weight: bold;
+  .rjsf > .MuiFormControl-root  {
+    height: 600px;
+    overflow: auto;
   }
   `
 
