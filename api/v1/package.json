@@ -1,11 +1,22 @@
 {
-  "name": "v1",
+  "name": "cov-question-api-v1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "i18n-extract": "ts-node scripts/i18n_extract.ts",
+    "build": "rimraf dist && ts-node ./src/index.ts"
   },
   "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/node": "^13.11.1",
+    "ajv": "^6.12.0",
+    "fast-glob": "^3.2.2",
+    "fs-extra": "^9.0.0",
+    "prettier": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3",
+    "xmlbuilder2": "^2.1.2"
+  }
 }

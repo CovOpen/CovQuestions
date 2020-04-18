@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<xliff version="1.2">
+    <file datatype="plaintext" source-language="en">
+        <body>
+            <trans-unit id="f466fd3cd7a871d2350804553dd577b4">
+                <source>Contact question with date variable and skipping a question</source>
+                <target state="translated">Contact question with date variable and skipping a question</target>
+            </trans-unit>
+            <trans-unit id="42b487bc2c32ca69db790fcb37877265">
+                <source>Gab es Kontakt zu bestätigten Fällen?</source>
+                <target state="translated">Gab es Kontakt zu bestätigten Fällen?</target>
+            </trans-unit>
+            <trans-unit id="3a3d0a867242c0c1da466a7fd37fabaf">
+                <source>Wann trat der Kontakt auf?</source>
+                <target state="translated">Wann trat der Kontakt auf?</target>
+            </trans-unit>
+            <trans-unit id="92316d41c56daf9140fc04509aecaaca">
+                <source>Kontakt</source>
+                <target state="translated">Kontakt</target>
+            </trans-unit>
+            <trans-unit id="bb24deaa4e1f824888b86ac69b38fb8c">
+                <source>Sie hatten einen relevanten Kontakt.</source>
+                <target state="translated">Sie hatten einen relevanten Kontakt.</target>
+            </trans-unit>
+            <trans-unit id="1719fde0005c501c0b646fa8910de866">
+                <source>Sie hatten keinen relevanten Kontakt.</source>
+                <target state="translated">Sie hatten keinen relevanten Kontakt.</target>
+            </trans-unit>
+            <trans-unit id="a76aaf2fb552379a20d1de351f9c2597">
+                <source>Sie hatten keinen Kontakt.</source>
+                <target state="translated">Sie hatten keinen Kontakt.</target>
+            </trans-unit>
+            <trans-unit id="0a52730597fb4ffa01fc117d9e71e3a9">
+                <source>Example</source>
+                <target state="translated">The ultimate Example</target>
+            </trans-unit>
+            <trans-unit id="c3f36df43456059bb28444dd12a3057d">
+                <source>Symptome?</source>
+                <target state="translated">Symptome?</target>
+            </trans-unit>
+            <trans-unit id="c3a3ead2592f7c4c1822e80179cd350b">
+                <source>Husten</source>
+                <target state="translated">Husten</target>
+            </trans-unit>
+            <trans-unit id="bd65a17170e2b44d8ca0f4da4d5db28e">
+                <source>Fieber</source>
+                <target state="translated">Fieber</target>
+            </trans-unit>
+            <trans-unit id="cc7f571fed2751d136690978d7527d1c">
+                <source>Atembeschwerden</source>
+                <target state="translated">Atembeschwerden</target>
+            </trans-unit>
+            <trans-unit id="4eab126a3dcf863c2223630f2ea8825b">
+                <source>Ab wann gab es Symptome?</source>
+                <target state="translated">Ab wann gab es Symptome?</target>
+            </trans-unit>
+            <trans-unit id="da128f1127c0e5ee24095e6da4427c7b">
+                <source>Gibt es Risikofaktoren?</source>
+                <target state="translated">Gibt es Risikofaktoren?</target>
+            </trans-unit>
+            <trans-unit id="e60c8c5949c6e92731b4805173230534">
+                <source>Gibt es Chronische Beschwerden?</source>
+                <target state="translated">Gibt es Chronische Beschwerden?</target>
+            </trans-unit>
+            <trans-unit id="cd8706e92efbdec02c055461e5e4368e">
+                <source>Medizinisches Personal?</source>
+                <target state="translated">Medizinisches Personal?</target>
+            </trans-unit>
+            <trans-unit id="81e41d56677fcb3a90f34bcf7425437e">
+                <source>Risikoeinschätzung</source>
+                <target state="translated">Risikoeinschätzung</target>
+            </trans-unit>
+            <trans-unit id="2e5842607be9f9c45c6531a4b251e722">
+                <source>Mittleres Risiko</source>
+                <target state="translated">Mittleres Risiko</target>
+            </trans-unit>
+            <trans-unit id="6b369c359beee9b52d05a3e37915c7b2">
+                <source>Hohes Risiko</source>
+                <target state="translated">Hohes Risiko</target>
+            </trans-unit>
+            <trans-unit id="3a7f5d3ab9c7a0b7f14e8a54c5a90276">
+                <source>Kein Risiko</source>
+                <target state="translated">Kein Risiko</target>
+            </trans-unit>
+            <trans-unit id="aca13989152df1c345bbed21845bc5d1">
+                <source>Medizinischer Leitfaden</source>
+                <target state="translated">Medizinischer Leitfaden</target>
+            </trans-unit>
+            <trans-unit id="64b4e7cbe46a4419482088d2ba939f48">
+                <source>Hilfreiche Information.</source>
+                <target state="translated">Hilfreiche Information.</target>
+            </trans-unit>
+            <trans-unit id="55019e320da25b30111dc05911b8bb85">
+                <source>Der Kontakt war irrellevant.</source>
+                <target state="translated">Der Kontakt war irrellevant.</target>
+            </trans-unit>
+            <trans-unit id="30211dceba4c367f52b72f7e0e67168e">
+                <source>Simple text question</source>
+                <target state="translated">Simple text question</target>
+            </trans-unit>
+            <trans-unit id="21da7bdd24e6de18e902c38d91b0380d">
+                <source>Geben Sie bitte 'test' ein um ein Resultat zu sehen.</source>
+                <target state="translated">Geben Sie bitte 'test' ein um ein Resultat zu sehen.</target>
+            </trans-unit>
+            <trans-unit id="9dffbf69ffba8bc38bc4e01abf4b1675">
+                <source>Text</source>
+                <target state="translated">Text</target>
+            </trans-unit>
+            <trans-unit id="7052760b30546d656f6a612e150123b8">
+                <source>Sie können simple Anweisungen befolgen.</source>
+                <target state="translated">Sie können simple Anweisungen befolgen.</target>
+            </trans-unit>
+            <trans-unit id="c87e9aa62ee01b399b919f6689f30931">
+                <source>Simple boolean contact question</source>
+                <target state="translated">Simple boolean contact question</target>
+            </trans-unit>
+            <trans-unit id="8008c4eafdbbaaa020331dd026d32f76">
+                <source>Sie hatten Kontakt.</source>
+                <target state="translated">Sie hatten Kontakt.</target>
+            </trans-unit>
+            <trans-unit id="acd9d100421cdf6e99140933f11691df">
+                <source>Simple multiselect symptoms question</source>
+                <target state="translated">Simple multiselect symptoms question</target>
+            </trans-unit>
+            <trans-unit id="4a8253c8d3524a7e1158ba1970c6af66">
+                <source>Welche der folgenden Symptome haben Sie?</source>
+                <target state="translated">Welche der folgenden Symptome haben Sie?</target>
+            </trans-unit>
+            <trans-unit id="f6421dc2626aafc375cb93db548b44d6">
+                <source>Schnupfen</source>
+                <target state="translated">Schnupfen</target>
+            </trans-unit>
+            <trans-unit id="a3da6c5e72b73b5f7bce5acd55d9940e">
+                <source>Atemnot</source>
+                <target state="translated">Atemnot</target>
+            </trans-unit>
+            <trans-unit id="69fab1f311cb7512d129cf4f49537a94">
+                <source>Symptome</source>
+                <target state="translated">Symptome</target>
+            </trans-unit>
+            <trans-unit id="3731b135b26b5592723849229e482507">
+                <source>Sie haben drei oder mehr Symptome.</source>
+                <target state="translated">Sie haben drei oder mehr Symptome.</target>
+            </trans-unit>
+            <trans-unit id="f250047662fa5bfacfdc0e6163cb98cf">
+                <source>Sie haben ein oder zwei Symptome.</source>
+                <target state="translated">Sie haben ein oder zwei Symptome.</target>
+            </trans-unit>
+            <trans-unit id="a41f0e35c9663afd5d6274a1542fbb9d">
+                <source>Sie haben keine Symptome.</source>
+                <target state="translated">Sie haben keine Symptome.</target>
+            </trans-unit>
+            <trans-unit id="d0f1b97f3d3d98fa5c956fd6fc9f195d">
+                <source>Simple numeric age question</source>
+                <target state="translated">Simple numeric age question</target>
+            </trans-unit>
+            <trans-unit id="d71a7b691a6211c9e9fd02fcd6eaa3a7">
+                <source>Wie alt sind Sie?</source>
+                <target state="translated">Wie alt sind Sie?</target>
+            </trans-unit>
+            <trans-unit id="b85145adbca4dc969d89cf96e9546a8b">
+                <source>Alter</source>
+                <target state="translated">Alter</target>
+            </trans-unit>
+            <trans-unit id="15de3a57d4ed4d9f04f3b01103e4a442">
+                <source>Du bist ja noch ein Kind.</source>
+                <target state="translated">Du bist ja noch ein Kind.</target>
+            </trans-unit>
+            <trans-unit id="b693ca24c344a6e631ca7e2eb7f2c0f4">
+                <source>Sie scheinen erwachsen zu sein.</source>
+                <target state="translated">Sie scheinen erwachsen zu sein.</target>
+            </trans-unit>
+            <trans-unit id="5993c2bd8b0a5222286dcd6b7c55eac8">
+                <source>Simple select gender question</source>
+                <target state="translated">Simple select gender question</target>
+            </trans-unit>
+            <trans-unit id="a4658654cdf4f4eee32f77532ac8edcc">
+                <source>Geben Sie bitte ihr Geschlecht an?</source>
+                <target state="translated">Geben Sie bitte ihr Geschlecht an?</target>
+            </trans-unit>
+            <trans-unit id="91bc98ea3c1cd8975eef25240ec8fad0">
+                <source>weiblich</source>
+                <target state="translated">weiblich</target>
+            </trans-unit>
+            <trans-unit id="e171e6b8e060060d0ef1263c077d9a41">
+                <source>männlich</source>
+                <target state="translated">männlich</target>
+            </trans-unit>
+            <trans-unit id="ca3f3547eb8b2510be5759bac98388f6">
+                <source>divers</source>
+                <target state="translated">divers</target>
+            </trans-unit>
+            <trans-unit id="b33509e4101693a82829fd320a7394ef">
+                <source>Geschlecht</source>
+                <target state="translated">Geschlecht</target>
+            </trans-unit>
+            <trans-unit id="ec3453325932579ff735daf14ad15d4f">
+                <source>Sie haben als Geschlecht 'weiblich' angegeben.</source>
+                <target state="translated">Sie haben als Geschlecht 'weiblich' angegeben.</target>
+            </trans-unit>
+            <trans-unit id="db1bdff75276add5b1224ed322c111f1">
+                <source>Sie haben als Geschlecht 'männlich' angegeben.</source>
+                <target state="translated">Sie haben als Geschlecht 'männlich' angegeben.</target>
+            </trans-unit>
+            <trans-unit id="3682c4a892a41ca9f4d77633306d1244">
+                <source>Sie haben als Geschlecht 'divers' angegeben.</source>
+                <target state="translated">Sie haben als Geschlecht 'divers' angegeben.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
