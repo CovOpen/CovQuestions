@@ -86,6 +86,10 @@ interface IQuestionBase {
   enableWhen?: LogicExpression;
 }
 
+/**
+ * Represents a question. The answer is a choice of yes/no, text or date.
+ * @title Yes/No, Text or Date question
+ */
 export type IQuestionWithoutOptions = IQuestionBase & {
   /**
    * Type of the question.
@@ -93,6 +97,10 @@ export type IQuestionWithoutOptions = IQuestionBase & {
   type: QuestionType.Boolean | QuestionType.Date | QuestionType.Text;
 };
 
+/**
+ * Represents a question with predefined answers to select.
+ * @title Question with options
+ */
 export type IQuestionWithOptions = IQuestionBase & {
   /**
    * Type of the question.
@@ -104,6 +112,10 @@ export type IQuestionWithOptions = IQuestionBase & {
   options?: IOption[];
 };
 
+/**
+ * Represents a question with numeric answer.
+ * @title Numeric question
+ */
 export type INumericQuestion = IQuestionBase & {
   /**
    * Type of the question.
@@ -115,6 +127,10 @@ export type INumericQuestion = IQuestionBase & {
   numericOptions?: INumericOption;
 };
 
+/**
+ * Represents a single question of the questionnaire.
+ ** @typedef {IQuestionWithoutOptions} test123
+ */
 export type IQuestion = IQuestionWithoutOptions | IQuestionWithOptions | INumericQuestion;
 
 /**
