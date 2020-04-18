@@ -122,4 +122,3 @@ temp/
 react-with-json-logic/.vscode/launch.json
 ts-json-schema-generator/.circleci
 ts-json-schema-generator/.vscode
-ts-json-schema-generator/bin
