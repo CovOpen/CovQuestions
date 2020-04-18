@@ -39,10 +39,10 @@
     }
   ],
   "paths": {
-    "/views/questionnaire/{id}/{version}/{lang}": {
+    "/views/questionnaires/{id}/{version}/{lang}": {
       "get": {
         "summary": "Get specific Questionnaire",
-        "operationId": "get-views-questionnaire-id-version-lang",
+        "operationId": "get-views-questionnaires-id-version-lang",
         "responses": {
           "200": {
             "description": "OK",
@@ -56,7 +56,9 @@
           }
         },
         "description": "Get a questionnaire. ",
-        "tags": ["views"]
+        "tags": [
+          "views"
+        ]
       },
       "parameters": [
         {
@@ -88,7 +90,7 @@
         }
       ]
     },
-    "/question": {
+    "/questions": {
       "get": {
         "summary": "List Questions",
         "responses": {
@@ -108,7 +110,9 @@
         },
         "operationId": "get-questions",
         "description": "Get all questions that are used in the questionnaires.",
-        "tags": ["questions"]
+        "tags": [
+          "questions"
+        ]
       },
       "parameters": []
     },
@@ -142,15 +146,19 @@
             }
           }
         },
-        "operationId": "get-translation-lang",
+        "operationId": "get-translations-lang",
         "description": "Returns all Translations for the {lang}",
-        "tags": ["translations"]
+        "tags": [
+          "translations"
+        ]
       }
     },
     "/views/questionnaires": {
       "get": {
-        "summary": "List Questionnaire",
-        "tags": ["views"],
+        "summary": "List Questionnaires",
+        "tags": [
+          "views"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -194,7 +202,7 @@
             }
           }
         },
-        "operationId": "get-views-questionnaire",
+        "operationId": "get-views-questionnaires",
         "description": "Lists all Questionnaires"
       },
       "parameters": []
@@ -252,11 +260,17 @@
           },
           "type": {
             "description": "Type of the question.",
-            "enum": ["number"],
+            "enum": [
+              "number"
+            ],
             "type": "string"
           }
         },
-        "required": ["id", "text", "type"],
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
         "type": "object"
       },
       "IOption": {
@@ -276,7 +290,10 @@
             "type": "string"
           }
         },
-        "required": ["text", "value"],
+        "required": [
+          "text",
+          "value"
+        ],
         "type": "object"
       },
       "IQuestion": {
@@ -324,18 +341,26 @@
           "type": {
             "anyOf": [
               {
-                "enum": ["select"],
+                "enum": [
+                  "select"
+                ],
                 "type": "string"
               },
               {
-                "enum": ["multiselect"],
+                "enum": [
+                  "multiselect"
+                ],
                 "type": "string"
               }
             ],
             "description": "Type of the question."
           }
         },
-        "required": ["id", "text", "type"],
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
         "type": "object"
       },
       "IQuestionWithoutOptions": {
@@ -363,22 +388,32 @@
           "type": {
             "anyOf": [
               {
-                "enum": ["boolean"],
+                "enum": [
+                  "boolean"
+                ],
                 "type": "string"
               },
               {
-                "enum": ["date"],
+                "enum": [
+                  "date"
+                ],
                 "type": "string"
               },
               {
-                "enum": ["text"],
+                "enum": [
+                  "text"
+                ],
                 "type": "string"
               }
             ],
             "description": "Type of the question."
           }
         },
-        "required": ["id", "text", "type"],
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
         "type": "object"
       },
       "IQuestionnaire": {
@@ -422,7 +457,15 @@
             "type": "string"
           }
         },
-        "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],
+        "required": [
+          "id",
+          "schemaVersion",
+          "version",
+          "meta",
+          "questions",
+          "variables",
+          "resultCategories"
+        ],
         "type": "object"
       },
       "IQuestionnaireMeta": {
@@ -461,7 +504,12 @@
             "type": "string"
           }
         },
-        "required": ["title", "author", "language", "creationDate"],
+        "required": [
+          "title",
+          "author",
+          "language",
+          "creationDate"
+        ],
         "type": "object"
       },
       "IResult": {
@@ -480,7 +528,11 @@
             "$ref": "#/components/schemas/LogicExpression"
           }
         },
-        "required": ["id", "text", "value"],
+        "required": [
+          "id",
+          "text",
+          "value"
+        ],
         "type": "object"
       },
       "IResultCategory": {
@@ -503,7 +555,11 @@
             "type": "array"
           }
         },
-        "required": ["id", "description", "results"],
+        "required": [
+          "id",
+          "description",
+          "results"
+        ],
         "type": "object"
       },
       "IVariable": {
@@ -519,7 +575,9 @@
             "$ref": "#/components/schemas/LogicExpression"
           }
         },
-        "required": ["id"]
+        "required": [
+          "id"
+        ]
       },
       "LogicAnd": {
         "additionalProperties": false,
@@ -531,7 +589,9 @@
             "type": "array"
           }
         },
-        "required": ["and"],
+        "required": [
+          "and"
+        ],
         "type": "object"
       },
       "LogicConstant": {
@@ -550,7 +610,9 @@
             }
           }
         },
-        "required": ["=="]
+        "required": [
+          "=="
+        ]
       },
       "LogicExpression": {
         "anyOf": [
@@ -579,7 +641,9 @@
             }
           }
         },
-        "required": [">"]
+        "required": [
+          ">"
+        ]
       },
       "LogicGreaterEqual": {
         "additionalProperties": false,
@@ -594,7 +658,9 @@
             }
           }
         },
-        "required": [">="]
+        "required": [
+          ">="
+        ]
       },
       "LogicIf": {
         "additionalProperties": false,
@@ -607,7 +673,9 @@
             }
           }
         },
-        "required": ["if"]
+        "required": [
+          "if"
+        ]
       },
       "LogicIn": {
         "additionalProperties": false,
@@ -622,7 +690,9 @@
             }
           }
         },
-        "required": ["in"]
+        "required": [
+          "in"
+        ]
       },
       "LogicLess": {
         "additionalProperties": false,
@@ -637,7 +707,9 @@
             }
           }
         },
-        "required": ["<"]
+        "required": [
+          "<"
+        ]
       },
       "LogicLessEqual": {
         "additionalProperties": false,
@@ -652,7 +724,9 @@
             }
           }
         },
-        "required": ["<="]
+        "required": [
+          "<="
+        ]
       },
       "LogicMinus": {
         "additionalProperties": false,
@@ -667,7 +741,9 @@
             }
           }
         },
-        "required": ["-"]
+        "required": [
+          "-"
+        ]
       },
       "LogicNot": {
         "additionalProperties": false,
@@ -686,7 +762,9 @@
             ]
           }
         },
-        "required": ["!"],
+        "required": [
+          "!"
+        ],
         "type": "object"
       },
       "LogicOperator": {
@@ -745,7 +823,9 @@
             "type": "array"
           }
         },
-        "required": ["or"],
+        "required": [
+          "or"
+        ],
         "type": "object"
       },
       "LogicPlus": {
@@ -761,7 +841,9 @@
             }
           }
         },
-        "required": ["+"]
+        "required": [
+          "+"
+        ]
       },
       "LogicReduce": {
         "additionalProperties": false,
@@ -776,7 +858,9 @@
             }
           }
         },
-        "required": ["reduce"]
+        "required": [
+          "reduce"
+        ]
       },
       "LogicSome": {
         "additionalProperties": false,
@@ -791,7 +875,9 @@
             }
           }
         },
-        "required": ["some"]
+        "required": [
+          "some"
+        ]
       },
       "LogicVariable": {
         "additionalProperties": false,
@@ -800,7 +886,9 @@
             "type": "string"
           }
         },
-        "required": ["var"],
+        "required": [
+          "var"
+        ],
         "type": "object"
       }
     }
