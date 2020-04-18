@@ -107,7 +107,7 @@
           "title": "Numeric question"
         }
       ],
-      "description": "Represents a single question of the questionnaire.\r\n* @typedef {IQuestionWithoutOptions} test123"
+      "description": "Represents a single question of the questionnaire."
     },
     "IQuestionWithOptions": {
       "additionalProperties": false,
@@ -402,6 +402,7 @@
       "required": [
         "and"
       ],
+      "title": "LogicAnd",
       "type": "object"
     },
     "LogicConstant": {
@@ -431,6 +432,7 @@
       "required": [
         "=="
       ],
+      "title": "LogicEquals",
       "type": "object"
     },
     "LogicExpression": {
@@ -466,6 +468,7 @@
       "required": [
         ">"
       ],
+      "title": "LogicGreater",
       "type": "object"
     },
     "LogicGreaterEqual": {
@@ -488,6 +491,7 @@
       "required": [
         ">="
       ],
+      "title": "LogicGreaterEqual",
       "type": "object"
     },
     "LogicIf": {
@@ -513,6 +517,7 @@
       "required": [
         "if"
       ],
+      "title": "LogicIf",
       "type": "object"
     },
     "LogicIn": {
@@ -538,6 +543,7 @@
       "required": [
         "in"
       ],
+      "title": "LogicIn",
       "type": "object"
     },
     "LogicLess": {
@@ -560,6 +566,7 @@
       "required": [
         "<"
       ],
+      "title": "LogicLess",
       "type": "object"
     },
     "LogicLessEqual": {
@@ -582,6 +589,7 @@
       "required": [
         "<="
       ],
+      "title": "LogicLessEqual",
       "type": "object"
     },
     "LogicMinus": {
@@ -604,6 +612,7 @@
       "required": [
         "-"
       ],
+      "title": "LogicMinus",
       "type": "object"
     },
     "LogicNot": {
@@ -626,51 +635,66 @@
       "required": [
         "!"
       ],
+      "title": "LogicNot",
       "type": "object"
     },
     "LogicOperator": {
       "anyOf": [
         {
-          "$ref": "#/definitions/LogicIf"
+          "$ref": "#/definitions/LogicIf",
+          "title": "LogicIf"
         },
         {
-          "$ref": "#/definitions/LogicReduce"
+          "$ref": "#/definitions/LogicReduce",
+          "title": "LogicReduce"
         },
         {
-          "$ref": "#/definitions/LogicSome"
+          "$ref": "#/definitions/LogicSome",
+          "title": "LogicSome"
         },
         {
-          "$ref": "#/definitions/LogicEquals"
+          "$ref": "#/definitions/LogicEquals",
+          "title": "LogicEquals"
         },
         {
-          "$ref": "#/definitions/LogicGreaterEqual"
+          "$ref": "#/definitions/LogicGreaterEqual",
+          "title": "LogicGreaterEqual"
         },
         {
-          "$ref": "#/definitions/LogicNot"
+          "$ref": "#/definitions/LogicNot",
+          "title": "LogicNot"
         },
         {
-          "$ref": "#/definitions/LogicLessEqual"
+          "$ref": "#/definitions/LogicLessEqual",
+          "title": "LogicLessEqual"
         },
         {
-          "$ref": "#/definitions/LogicPlus"
+          "$ref": "#/definitions/LogicPlus",
+          "title": "LogicPlus"
         },
         {
-          "$ref": "#/definitions/LogicMinus"
+          "$ref": "#/definitions/LogicMinus",
+          "title": "LogicMinus"
         },
         {
-          "$ref": "#/definitions/LogicAnd"
+          "$ref": "#/definitions/LogicAnd",
+          "title": "LogicAnd"
         },
         {
-          "$ref": "#/definitions/LogicOr"
+          "$ref": "#/definitions/LogicOr",
+          "title": "LogicOr"
         },
         {
-          "$ref": "#/definitions/LogicIn"
+          "$ref": "#/definitions/LogicIn",
+          "title": "LogicIn"
         },
         {
-          "$ref": "#/definitions/LogicGreater"
+          "$ref": "#/definitions/LogicGreater",
+          "title": "LogicGreater"
         },
         {
-          "$ref": "#/definitions/LogicLess"
+          "$ref": "#/definitions/LogicLess",
+          "title": "LogicLess"
         }
       ]
     },
@@ -687,6 +711,7 @@
       "required": [
         "or"
       ],
+      "title": "LogicOr",
       "type": "object"
     },
     "LogicPlus": {
@@ -709,6 +734,7 @@
       "required": [
         "+"
       ],
+      "title": "LogicPlus",
       "type": "object"
     },
     "LogicReduce": {
@@ -734,6 +760,7 @@
       "required": [
         "reduce"
       ],
+      "title": "LogicReduce",
       "type": "object"
     },
     "LogicSome": {
@@ -756,6 +783,7 @@
       "required": [
         "some"
       ],
+      "title": "LogicSome",
       "type": "object"
     },
     "LogicVariable": {
