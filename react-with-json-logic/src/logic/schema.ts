@@ -129,7 +129,6 @@ export type INumericQuestion = IQuestionBase & {
 
 /**
  * Represents a single question of the questionnaire.
- ** @typedef {IQuestionWithoutOptions} test123
  */
 export type IQuestion = IQuestionWithoutOptions | IQuestionWithOptions | INumericQuestion;
 
