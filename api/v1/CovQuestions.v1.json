@@ -290,8 +290,7 @@
           {
             "$ref": "#/components/schemas/INumericQuestion"
           }
-        ],
-        "x-tags": ["questions"]
+        ]
       },
       "IQuestionWithOptions": {
         "additionalProperties": false,
