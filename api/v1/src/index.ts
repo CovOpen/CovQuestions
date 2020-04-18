@@ -9,6 +9,10 @@ class TranslationNotCompleteError extends Error {
   }
 }
 
+const PATHS = {
+  VIEWS_QUESTIONNAIRES: '/views/questionnaires',
+};
+
 /**
  * Validates and generates the static API
  */
@@ -47,7 +51,7 @@ export function build(paths: string[], outputPath: string) {
         const translatedQuestionnaire = translateQuestionnaire(questionnaire, lang);
         index.push(translatedQuestionnaire);
         fs.outputFileSync(
-          `${outputPath}/views/questionnaires/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
+          `${outputPath}${PATHS.VIEWS_QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
           JSON.stringify(translatedQuestionnaire)
         );
       } catch (e) {
@@ -69,12 +73,14 @@ export function build(paths: string[], outputPath: string) {
         id: current.id,
         availableLanguages: [current.meta.language],
         meta: { ...current.meta, language: undefined },
+        version: current.version,
+        path: `${PATHS.VIEWS_QUESTIONNAIRES}/${current.id}/${current.version}`,
       };
     }
     return accumulator;
   }, {} as { [key: string]: QuestionIndexEntry });
   fs.outputFileSync(
-    `${outputPath}/views/questionnaires.json`,
+    `${outputPath}${PATHS.VIEWS_QUESTIONNAIRES}.json`,
     JSON.stringify(Object.keys(indexMap).map((key) => indexMap[key]))
   );
 
@@ -122,6 +128,8 @@ interface Language {
 
 interface QuestionIndexEntry {
   id: string;
-  meta: IQuestionnaireMeta;
+  version: string;
   availableLanguages: string[];
+  meta: IQuestionnaireMeta;
+  path: string;
 }
