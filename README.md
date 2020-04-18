@@ -8,7 +8,7 @@ A webservice where users can interactively try existing SARS-CoV-2 related quest
 
 Use the current master build as demo: https://covquestions.z16.web.core.windows.net/
 
-Explore the api:
+Explore the api: https://stoplight.io/p/docs/gh/covopen/covquestions/api/v1/CovQuestions.v1.json
 
 ## Planning
 
