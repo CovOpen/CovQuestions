@@ -2,7 +2,7 @@ import { Button, Grid, ListItemText, Snackbar } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
 import { IQuestionnaire } from "../logic/schema";
-import MuiForm from 'rjsf-material-ui';
+import MuiForm from "rjsf-material-ui";
 // @ts-ignore
 import jsonschema from "jsonschema";
 
@@ -30,7 +30,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   .rjsf .form-group, .rjsf .panel-body {
     margin: 0;
   }
-  `
+  `;
 
   const updateQuestionnaire = () => {
     setSchemaValidationErrors([]);
@@ -38,7 +38,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       return;
     }
     if (props.schema === undefined) {
-      return
+      return;
     }
     try {
       const validator = new jsonschema.Validator();
@@ -80,14 +80,12 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   }, [props.value]);
 
   if (props.schema === undefined || props.value === undefined) {
-    return null
+    return null;
   }
 
   return (
     <Grid container direction="column">
-      <style>
-        {style}
-      </style>
+      <style>{style}</style>
       <Grid container>
         <Grid container item xs={12} justify="flex-end">
           <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
@@ -96,23 +94,25 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <MuiForm schema={props.schema}
+        <MuiForm
+          schema={props.schema}
           formData={questionnaire}
           onChange={(value: any) => {
-            console.log('new value', value);
+            console.log("new value", value);
             setQuestionnaire(value.formData);
             props.onChange();
           }}
           onSubmit={() => {
             updateQuestionnaire();
-          }}>
+          }}
+        >
           <div>
             <Button type="submit" variant="contained" color="secondary">
               Use as Questionnaire
-          </Button>
+            </Button>
             <Button onClick={downloadJson} variant="contained" color="primary">
               Download Questionnaire
-        </Button>
+            </Button>
           </div>
         </MuiForm>
       </Grid>
@@ -122,8 +122,8 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
           <Alert severity="error">
             Errors while validating JSON schema.
             {schemaValidationErrors.map((error, index) => (
-            <ListItemText key={index} primary={error.message} />
-          ))}
+              <ListItemText key={index} primary={error.message} />
+            ))}
           </Alert>
         </Grid>
       ) : null}
