@@ -1,7 +1,5 @@
 # API
 
-## Documentation
-
 ## Development
 
 Edit the spec here: https://stoplight.io/p/studio/gh/CovOpen/CovQuestions

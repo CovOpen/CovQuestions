@@ -47,7 +47,7 @@ export function build(paths: string[], outputPath: string) {
         const translatedQuestionnaire = translateQuestionnaire(questionnaire, lang);
         index.push(translatedQuestionnaire);
         fs.outputFileSync(
-          `${outputPath}/views/questionnaire/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
+          `${outputPath}/views/questionnaires/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
           JSON.stringify(translatedQuestionnaire)
         );
       } catch (e) {
@@ -61,22 +61,21 @@ export function build(paths: string[], outputPath: string) {
   });
 
   // Index Document
+  let indexMap = index.reduce((accumulator, current, index, array) => {
+    if (accumulator[current.id] != null) {
+      accumulator[current.id].availableLanguages.push(current.meta.language);
+    } else {
+      accumulator[current.id] = {
+        id: current.id,
+        availableLanguages: [current.meta.language],
+        meta: { ...current.meta, language: undefined },
+      };
+    }
+    return accumulator;
+  }, {} as { [key: string]: QuestionIndexEntry });
   fs.outputFileSync(
-    `${outputPath}/views/questionnaire.json`,
-    JSON.stringify(
-      index.reduce((accumulator, current, index, array) => {
-        if (accumulator[current.id] != null) {
-          accumulator[current.id].availableLanguages.push(current.meta.language);
-        } else {
-          accumulator[current.id] = {
-            id: current.id,
-            availableLanguages: [current.meta.language],
-            meta: { ...current.meta, language: undefined },
-          };
-        }
-        return accumulator;
-      }, {} as { [key: string]: QuestionIndexEntry })
-    )
+    `${outputPath}/views/questionnaires.json`,
+    JSON.stringify(Object.keys(indexMap).map((key) => indexMap[key]))
   );
 
   /**

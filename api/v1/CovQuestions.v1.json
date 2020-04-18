@@ -4,25 +4,44 @@
     "title": "CovQuestionsAPI",
     "version": "1.0",
     "contact": {
-      "name": "CovQuestions-Team"
+      "name": "CovQuestions-Team",
+      "url": "https://github.com/CovOpen/CovQuestions/issues"
     },
-    "description": "API for retrieving standarized Questionnaires"
+    "description": "API for retrieving standarized Questionnaires",
+    "termsOfService": "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE",
+    "license": {
+      "url": "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE",
+      "name": "Apache License 2.0"
+    }
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:80",
+      "description": "Local"
+    },
+    {
+      "url": "https://v1.covquestions.aquiver.de/api",
+      "description": "Test"
     }
   ],
   "tags": [
     {
       "name": "views",
       "description": "All special views of the API"
+    },
+    {
+      "name": "translations",
+      "description": "Translations for questions and questionaires"
+    },
+    {
+      "name": "questions",
+      "description": "Questions"
     }
   ],
   "paths": {
     "/views/questionnaire/{id}/{version}/{lang}": {
       "get": {
-        "summary": "Your GET endpoint",
+        "summary": "Get specific Questionnaire",
         "operationId": "get-views-questionnaire-id-version-lang",
         "responses": {
           "200": {
@@ -68,6 +87,117 @@
           "description": "The language the questionnaire should be in"
         }
       ]
+    },
+    "/question": {
+      "get": {
+        "summary": "List Questions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IQuestion"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-questions",
+        "description": "Get all questions that are used in the questionnaires.",
+        "tags": ["questions"]
+      },
+      "parameters": []
+    },
+    "/translations/{lang}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lang",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get Translation",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "translationId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-translation-lang",
+        "description": "Returns all Translations for the {lang}",
+        "tags": ["translations"]
+      }
+    },
+    "/views/questionnaires": {
+      "get": {
+        "summary": "List Questionnaire",
+        "tags": ["views"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "availableLanguages": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "meta": {
+                        "type": "object",
+                        "properties": {
+                          "author": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "creationDate": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "path": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-views-questionnaire",
+        "description": "Lists all Questionnaires"
+      },
+      "parameters": []
     }
   },
   "components": {
@@ -160,7 +290,8 @@
           {
             "$ref": "#/components/schemas/INumericQuestion"
           }
-        ]
+        ],
+        "x-tags": ["questions"]
       },
       "IQuestionWithOptions": {
         "additionalProperties": false,
