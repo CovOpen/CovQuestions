@@ -1,5 +1,14 @@
 # ts-json-schema-generator
 
+## Generate JSON Schema for CovQuestions
+
+Run following command in this folder
+```
+bin/ts-json-schema-generator --path ../react-with-json-logic/src/logic/schema.ts --type IQuestionnaire --out ../react-with-json-logic/public/api/schema/questionnaire.json
+```
+
+## General
+
 [![CircleCI](https://circleci.com/gh/vega/ts-json-schema-generator.svg?style=shield)](https://circleci.com/gh/vega/ts-json-schema-generator)
 [![codecov](https://codecov.io/gh/vega/ts-json-schema-generator/branch/master/graph/badge.svg)](https://codecov.io/gh/vega/ts-json-schema-generator)
 [![npm dependencies](https://david-dm.org/vega/ts-json-schema-generator.svg)](https://www.npmjs.com/package/ts-json-schema-generator)
