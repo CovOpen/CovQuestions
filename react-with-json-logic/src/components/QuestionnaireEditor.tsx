@@ -24,6 +24,12 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     height: 600px;
     overflow: auto;
   }
+  .rjsf .MuiBox-root {
+    padding: 0;
+  }
+  .rjsf .form-group, .rjsf .panel-body {
+    margin: 0;
+  }
   `
 
   const updateQuestionnaire = () => {
