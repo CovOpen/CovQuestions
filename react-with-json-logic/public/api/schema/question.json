@@ -1,0 +1,635 @@
+{
+  "$ref": "#/definitions/IQuestion",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "INumericOption": {
+      "additionalProperties": false,
+      "description": "Option for numeric questions.",
+      "properties": {
+        "defaultValue": {
+          "description": "Default value",
+          "type": "number"
+        },
+        "max": {
+          "description": "maximal value",
+          "type": "number"
+        },
+        "min": {
+          "description": "Minimal value",
+          "type": "number"
+        },
+        "step": {
+          "description": "Step size",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "INumericQuestion": {
+      "additionalProperties": false,
+      "description": "Represents a question with numeric answer.",
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarifiation about this question.",
+          "type": "string"
+        },
+        "enableWhen": {
+          "$ref": "#/definitions/LogicExpression",
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true."
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "numericOptions": {
+          "$ref": "#/definitions/INumericOption",
+          "description": "Answer options for Select/Multiselect questions."
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type of the question.",
+          "enum": [
+            "number"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "type"
+      ],
+      "title": "Numeric question",
+      "type": "object"
+    },
+    "IOption": {
+      "additionalProperties": false,
+      "description": "Option for multi-select questions.",
+      "properties": {
+        "asQuestion": {
+          "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+          "type": "string"
+        },
+        "text": {
+          "description": "Human-Readable answer, can be localized.",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value used for evaluating logic expressions.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "value"
+      ],
+      "type": "object"
+    },
+    "IQuestion": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/IQuestionWithoutOptions",
+          "title": "Yes/No, Text or Date question"
+        },
+        {
+          "$ref": "#/definitions/IQuestionWithOptions",
+          "title": "Question with options"
+        },
+        {
+          "$ref": "#/definitions/INumericQuestion",
+          "title": "Numeric question"
+        }
+      ],
+      "description": "Represents a single question of the questionnaire."
+    },
+    "IQuestionWithOptions": {
+      "additionalProperties": false,
+      "description": "Represents a question with predefined answers to select.",
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarifiation about this question.",
+          "type": "string"
+        },
+        "enableWhen": {
+          "$ref": "#/definitions/LogicExpression",
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true."
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "options": {
+          "description": "Answer options for Select/Multiselect questions.",
+          "items": {
+            "$ref": "#/definitions/IOption"
+          },
+          "type": "array"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "select"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "multiselect"
+              ],
+              "type": "string"
+            }
+          ],
+          "description": "Type of the question."
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "type"
+      ],
+      "title": "Question with options",
+      "type": "object"
+    },
+    "IQuestionWithoutOptions": {
+      "additionalProperties": false,
+      "description": "Represents a question. The answer is a choice of yes/no, text or date.",
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarifiation about this question.",
+          "type": "string"
+        },
+        "enableWhen": {
+          "$ref": "#/definitions/LogicExpression",
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true."
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "boolean"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "date"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "text"
+              ],
+              "type": "string"
+            }
+          ],
+          "description": "Type of the question."
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "type"
+      ],
+      "title": "Yes/No, Text or Date question",
+      "type": "object"
+    },
+    "LogicAnd": {
+      "additionalProperties": false,
+      "properties": {
+        "and": {
+          "items": {
+            "$ref": "#/definitions/LogicExpression"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "and"
+      ],
+      "title": "LogicAnd",
+      "type": "object"
+    },
+    "LogicConstant": {
+      "type": [
+        "number",
+        "string",
+        "boolean"
+      ]
+    },
+    "LogicEquals": {
+      "additionalProperties": false,
+      "properties": {
+        "==": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "=="
+      ],
+      "title": "LogicEquals",
+      "type": "object"
+    },
+    "LogicExpression": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/LogicOperator"
+        },
+        {
+          "$ref": "#/definitions/LogicVariable"
+        },
+        {
+          "$ref": "#/definitions/LogicConstant"
+        }
+      ]
+    },
+    "LogicGreater": {
+      "additionalProperties": false,
+      "properties": {
+        ">": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        ">"
+      ],
+      "title": "LogicGreater",
+      "type": "object"
+    },
+    "LogicGreaterEqual": {
+      "additionalProperties": false,
+      "properties": {
+        ">=": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        ">="
+      ],
+      "title": "LogicGreaterEqual",
+      "type": "object"
+    },
+    "LogicIf": {
+      "additionalProperties": false,
+      "properties": {
+        "if": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        }
+      },
+      "required": [
+        "if"
+      ],
+      "title": "LogicIf",
+      "type": "object"
+    },
+    "LogicIn": {
+      "additionalProperties": false,
+      "properties": {
+        "in": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "items": {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              "type": "array"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "in"
+      ],
+      "title": "LogicIn",
+      "type": "object"
+    },
+    "LogicLess": {
+      "additionalProperties": false,
+      "properties": {
+        "<": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "<"
+      ],
+      "title": "LogicLess",
+      "type": "object"
+    },
+    "LogicLessEqual": {
+      "additionalProperties": false,
+      "properties": {
+        "<=": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "<="
+      ],
+      "title": "LogicLessEqual",
+      "type": "object"
+    },
+    "LogicMinus": {
+      "additionalProperties": false,
+      "properties": {
+        "-": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "-"
+      ],
+      "title": "LogicMinus",
+      "type": "object"
+    },
+    "LogicNot": {
+      "additionalProperties": false,
+      "properties": {
+        "!": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "items": {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              "type": "array"
+            }
+          ]
+        }
+      },
+      "required": [
+        "!"
+      ],
+      "title": "LogicNot",
+      "type": "object"
+    },
+    "LogicOperator": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/LogicIf",
+          "title": "LogicIf"
+        },
+        {
+          "$ref": "#/definitions/LogicReduce",
+          "title": "LogicReduce"
+        },
+        {
+          "$ref": "#/definitions/LogicSome",
+          "title": "LogicSome"
+        },
+        {
+          "$ref": "#/definitions/LogicEquals",
+          "title": "LogicEquals"
+        },
+        {
+          "$ref": "#/definitions/LogicGreaterEqual",
+          "title": "LogicGreaterEqual"
+        },
+        {
+          "$ref": "#/definitions/LogicNot",
+          "title": "LogicNot"
+        },
+        {
+          "$ref": "#/definitions/LogicLessEqual",
+          "title": "LogicLessEqual"
+        },
+        {
+          "$ref": "#/definitions/LogicPlus",
+          "title": "LogicPlus"
+        },
+        {
+          "$ref": "#/definitions/LogicMinus",
+          "title": "LogicMinus"
+        },
+        {
+          "$ref": "#/definitions/LogicAnd",
+          "title": "LogicAnd"
+        },
+        {
+          "$ref": "#/definitions/LogicOr",
+          "title": "LogicOr"
+        },
+        {
+          "$ref": "#/definitions/LogicIn",
+          "title": "LogicIn"
+        },
+        {
+          "$ref": "#/definitions/LogicGreater",
+          "title": "LogicGreater"
+        },
+        {
+          "$ref": "#/definitions/LogicLess",
+          "title": "LogicLess"
+        }
+      ]
+    },
+    "LogicOr": {
+      "additionalProperties": false,
+      "properties": {
+        "or": {
+          "items": {
+            "$ref": "#/definitions/LogicExpression"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "or"
+      ],
+      "title": "LogicOr",
+      "type": "object"
+    },
+    "LogicPlus": {
+      "additionalProperties": false,
+      "properties": {
+        "+": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "+"
+      ],
+      "title": "LogicPlus",
+      "type": "object"
+    },
+    "LogicReduce": {
+      "additionalProperties": false,
+      "properties": {
+        "reduce": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        }
+      },
+      "required": [
+        "reduce"
+      ],
+      "title": "LogicReduce",
+      "type": "object"
+    },
+    "LogicSome": {
+      "additionalProperties": false,
+      "properties": {
+        "some": {
+          "items": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicExpression"
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "some"
+      ],
+      "title": "LogicSome",
+      "type": "object"
+    },
+    "LogicVariable": {
+      "additionalProperties": false,
+      "properties": {
+        "var": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "var"
+      ],
+      "type": "object"
+    }
+  }
+}
