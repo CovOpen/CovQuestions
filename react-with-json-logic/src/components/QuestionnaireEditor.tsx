@@ -2,7 +2,7 @@ import { Button, Grid, ListItemText, Snackbar } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
 import { IQuestionnaire } from "../logic/schema";
-import MuiForm from "rjsf-material-ui";
+import { MuiForm } from "rjsf-material-ui";
 // @ts-ignore
 import jsonschema from "jsonschema";
 
