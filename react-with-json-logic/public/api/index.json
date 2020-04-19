@@ -26,5 +26,9 @@
   {
     "name": "Simple text question",
     "path": "api/simpleTextQuestion.json"
+  },
+  {
+    "name": "Covapp Example",
+    "path": "api/covapp_original.json"
   }
 ]
