@@ -83,10 +83,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     }
   }, [props.value]);
 
-  if (props.schema === undefined || props.value === undefined) {
-    return null;
-  }
-
   return (
     <Grid container direction="column">
       <style>{style}</style>
@@ -98,27 +94,29 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <MuiForm
-          schema={props.schema}
-          formData={questionnaire}
-          onChange={(value: any) => {
-            console.log("new value", value);
-            setQuestionnaire(value.formData);
-            props.onChange();
-          }}
-          onSubmit={() => {
-            updateQuestionnaire();
-          }}
-        >
-          <div>
-            <Button type="submit" variant="contained" color="secondary">
-              Use as Questionnaire
-            </Button>
-            <Button onClick={downloadJson} variant="contained" color="primary">
-              Download Questionnaire
-            </Button>
-          </div>
-        </MuiForm>
+        {props.schema !== undefined ? (
+          <MuiForm
+            schema={props.schema}
+            formData={questionnaire}
+            onChange={(value: any) => {
+              console.log("new value", value);
+              setQuestionnaire(value.formData);
+              props.onChange();
+            }}
+            onSubmit={() => {
+              updateQuestionnaire();
+            }}
+          >
+            <div>
+              <Button type="submit" variant="contained" color="secondary">
+                Use as Questionnaire
+              </Button>
+              <Button onClick={downloadJson} variant="contained" color="primary">
+                Download Questionnaire
+              </Button>
+            </div>
+          </MuiForm>
+        ) : null}
       </Grid>
 
       {schemaValidationErrors.length > 0 ? (
