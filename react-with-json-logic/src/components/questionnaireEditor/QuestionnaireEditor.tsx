@@ -86,11 +86,11 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
 
   const handleQuestionnaireMetaChanged = (value: IQuestionnaireMeta) => {
     questionnaire.meta = value;
-  }
+  };
 
   const handleQuestionChanged = (index: number, value: IQuestion) => {
     questionnaire.questions[index] = value;
-  }
+  };
 
   useEffect(() => {
     if (props.value === undefined) {
@@ -130,11 +130,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
             aria-label="scrollable auto tabs example"
           >
             <Tab label="Meta" />
-            {questionnaire.questions !== undefined ? (
-              questionnaire.questions.map((item, index) => (
-                <Tab key={index} label={item.text}></Tab>
-              ))
-            ) : null}
+            {questionnaire.questions !== undefined
+              ? questionnaire.questions.map((item, index) => <Tab key={index} label={item.text}></Tab>)
+              : null}
           </Tabs>
         </AppBar>
         <Typography
@@ -144,38 +142,45 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
           id={`scrollable-auto-tabpanel-0`}
           aria-labelledby={`scrollable-auto-tab-0`}
         >
-          {activeTab === 0 && <QuestionnaireMetaEditor value={questionnaire.meta || {} as IQuestionnaireMeta} onChange={handleQuestionnaireMetaChanged} />}
+          {activeTab === 0 && (
+            <QuestionnaireMetaEditor
+              value={questionnaire.meta || ({} as IQuestionnaireMeta)}
+              onChange={handleQuestionnaireMetaChanged}
+            />
+          )}
         </Typography>
-        {questionnaire.questions !== undefined ? (
-          questionnaire.questions.map((item, index) => (
-            <Typography
-              component="div"
-              role="tabpanel"
-              hidden={activeTab !== (index + 1)}
-              id={`scrollable-auto-tabpanel-${(index + 1)}`}
-              aria-labelledby={`scrollable-auto-tab-${(index + 1)}`}
-              key={index}
-            >
-              {activeTab === (index + 1) && <QuestionEditor value={item} onChange={(value) => handleQuestionChanged(index, value)} />}
-            </Typography>
-          ))
-        ) : null}
+        {questionnaire.questions !== undefined
+          ? questionnaire.questions.map((item, index) => (
+              <Typography
+                component="div"
+                role="tabpanel"
+                hidden={activeTab !== index + 1}
+                id={`scrollable-auto-tabpanel-${index + 1}`}
+                aria-labelledby={`scrollable-auto-tab-${index + 1}`}
+                key={index}
+              >
+                {activeTab === index + 1 && (
+                  <QuestionEditor value={item} onChange={(value) => handleQuestionChanged(index, value)} />
+                )}
+              </Typography>
+            ))
+          : null}
       </Grid>
       <Grid item xs={12}>
         <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
           Use as Questionnaire
-              </Button>
+        </Button>
         <Button onClick={downloadJson} variant="contained" color="primary">
           Download Questionnaire
-              </Button>
+        </Button>
       </Grid>
       {schemaValidationErrors.length > 0 ? (
         <Grid item xs={12}>
           <Alert severity="error">
             Errors while validating JSON schema.
             {schemaValidationErrors.map((error, index) => (
-            <ListItemText key={index} primary={error.message} />
-          ))}
+              <ListItemText key={index} primary={error.message} />
+            ))}
           </Alert>
         </Grid>
       ) : null}

@@ -38,12 +38,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "author",
-        "language",
-        "creationDate"
-      ],
+      "required": ["title", "author", "language", "creationDate"],
       "type": "object"
     }
   }
