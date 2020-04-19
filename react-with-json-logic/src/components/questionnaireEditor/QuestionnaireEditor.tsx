@@ -1,10 +1,11 @@
-import { Button, Grid, ListItemText, Snackbar, AppBar, Tabs, Tab, Typography, Box } from "@material-ui/core";
+import { Button, Grid, ListItemText, Snackbar, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
 import React, { useEffect, useState, ChangeEvent } from "react";
 import { Alert } from "@material-ui/lab";
-import { IQuestionnaire, IQuestionnaireMeta } from "../../logic/schema";
+import { IQuestionnaire, IQuestionnaireMeta, IQuestion } from "../../logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import { QuestionnaireMetaEditor } from "./QuestionnaireMetaEditor";
+import { QuestionEditor } from "./QuestionEditor";
 
 type QuestionnaireEditorProps = {
   value: IQuestionnaire | undefined;
@@ -87,6 +88,10 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     questionnaire.meta = value;
   }
 
+  const handleQuestionChanged = (index: number, value: IQuestion) => {
+    questionnaire.questions[index] = value;
+  }
+
   useEffect(() => {
     if (props.value === undefined) {
       setQuestionnaire({} as IQuestionnaire);
@@ -125,7 +130,11 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
             aria-label="scrollable auto tabs example"
           >
             <Tab label="Meta" />
-            <Tab label="Item Two" />
+            {questionnaire.questions !== undefined ? (
+              questionnaire.questions.map((item, index) => (
+                <Tab key={index} label={item.text}></Tab>
+              ))
+            ) : null}
           </Tabs>
         </AppBar>
         <Typography
@@ -137,15 +146,20 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         >
           {activeTab === 0 && <QuestionnaireMetaEditor value={questionnaire.meta || {} as IQuestionnaireMeta} onChange={handleQuestionnaireMetaChanged} />}
         </Typography>
-        <Typography
-          component="div"
-          role="tabpanel"
-          hidden={activeTab !== 1}
-          id={`scrollable-auto-tabpanel-1`}
-          aria-labelledby={`scrollable-auto-tab-1`}
-        >
-          {activeTab === 1 && <Box p={3}>Hallo Welt 1</Box>}
-        </Typography>
+        {questionnaire.questions !== undefined ? (
+          questionnaire.questions.map((item, index) => (
+            <Typography
+              component="div"
+              role="tabpanel"
+              hidden={activeTab !== (index + 1)}
+              id={`scrollable-auto-tabpanel-${(index + 1)}`}
+              aria-labelledby={`scrollable-auto-tab-${(index + 1)}`}
+              key={index}
+            >
+              {activeTab === (index + 1) && <QuestionEditor value={item} onChange={(value) => handleQuestionChanged(index, value)} />}
+            </Typography>
+          ))
+        ) : null}
       </Grid>
       <Grid item xs={12}>
         <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
