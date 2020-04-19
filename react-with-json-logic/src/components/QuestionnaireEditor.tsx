@@ -15,7 +15,7 @@ type QuestionnaireEditorProps = {
 };
 
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
-  const [questionnaire, setQuestionnaire] = useState<IQuestionnaire | undefined>(undefined);
+  const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
 
@@ -76,7 +76,11 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   };
 
   useEffect(() => {
-    setQuestionnaire(props.value);
+    if (props.value === undefined) {
+      setQuestionnaire({} as IQuestionnaire);
+    } else {
+      setQuestionnaire(props.value);
+    }
   }, [props.value]);
 
   if (props.schema === undefined || props.value === undefined) {
