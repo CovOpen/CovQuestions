@@ -1,8 +1,7 @@
-import { Button, Grid, ListItemText, Snackbar } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import { Button, Grid, ListItemText, Snackbar, AppBar, Tabs, Tab, Typography, Box } from "@material-ui/core";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import { Alert } from "@material-ui/lab";
 import { IQuestionnaire, IQuestionnaireMeta } from "../../logic/schema";
-import { MuiForm } from "rjsf-material-ui";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import { QuestionnaireMetaEditor } from "./QuestionnaireMetaEditor";
@@ -15,12 +14,16 @@ type QuestionnaireEditorProps = {
 };
 
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
+  const [activeTab, setActiveTab] = useState(0);
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
   const [questionnaireSchema, setQuestionnaireSchema] = useState<jsonschema.Schema | undefined>(undefined);
 
   const style = `
+  .MuiTabs-root, .MuiTabs-scroller, .MuiTabs-flexContainer {
+    margin: 0;
+  }
   .rjsf > .MuiFormControl-root  {
     height: 600px;
     overflow: auto;
@@ -61,6 +64,10 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     }
 
     setShowJsonInvalidMessage(false);
+  };
+
+  const handleTabChanged = (event: ChangeEvent<{}>, newValue: number) => {
+    setActiveTab(newValue);
   };
 
   const downloadJson = () => {
@@ -107,10 +114,41 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <QuestionnaireMetaEditor value={questionnaire.meta || {} as IQuestionnaireMeta} onChange={handleQuestionnaireMetaChanged} />
+        <AppBar position="static" color="default">
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChanged}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+          >
+            <Tab label="Meta" />
+            <Tab label="Item Two" />
+          </Tabs>
+        </AppBar>
+        <Typography
+          component="div"
+          role="tabpanel"
+          hidden={activeTab !== 0}
+          id={`scrollable-auto-tabpanel-0`}
+          aria-labelledby={`scrollable-auto-tab-0`}
+        >
+          {activeTab === 0 && <QuestionnaireMetaEditor value={questionnaire.meta || {} as IQuestionnaireMeta} onChange={handleQuestionnaireMetaChanged} />}
+        </Typography>
+        <Typography
+          component="div"
+          role="tabpanel"
+          hidden={activeTab !== 1}
+          id={`scrollable-auto-tabpanel-1`}
+          aria-labelledby={`scrollable-auto-tab-1`}
+        >
+          {activeTab === 1 && <Box p={3}>Hallo Welt 1</Box>}
+        </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Button type="submit" variant="contained" color="secondary">
+        <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
           Use as Questionnaire
               </Button>
         <Button onClick={downloadJson} variant="contained" color="primary">
