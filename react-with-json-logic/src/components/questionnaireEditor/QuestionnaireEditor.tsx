@@ -1,14 +1,14 @@
 import { Button, Grid, ListItemText, Snackbar } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { IQuestionnaire } from "../logic/schema";
+import { IQuestionnaire, IQuestionnaireMeta } from "../../logic/schema";
 import { MuiForm } from "rjsf-material-ui";
 // @ts-ignore
 import jsonschema from "jsonschema";
+import { QuestionnaireMetaEditor } from "./QuestionnaireMetaEditor";
 
 type QuestionnaireEditorProps = {
   value: IQuestionnaire | undefined;
-  schema: jsonschema.Schema | undefined;
   onChange: () => void;
   resetQuestionnaire: () => void;
   loadQuestionnaire: (newQuestionnaire: IQuestionnaire) => void;
@@ -18,6 +18,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
+  const [questionnaireSchema, setQuestionnaireSchema] = useState<jsonschema.Schema | undefined>(undefined);
 
   const style = `
   .rjsf > .MuiFormControl-root  {
@@ -37,12 +38,12 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     if (questionnaire === undefined) {
       return;
     }
-    if (props.schema === undefined) {
+    if (questionnaireSchema === undefined) {
       return;
     }
     try {
       const validator = new jsonschema.Validator();
-      const validationResult = validator.validate(questionnaire, props.schema);
+      const validationResult = validator.validate(questionnaire, questionnaireSchema);
       if (validationResult.errors.length > 0) {
         setSchemaValidationErrors(validationResult.errors);
         setShowJsonInvalidMessage(true);
@@ -75,6 +76,10 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     linkElement.click();
   };
 
+  const handleQuestionnaireMetaChanged = (value: IQuestionnaireMeta) => {
+    questionnaire.meta = value;
+  }
+
   useEffect(() => {
     if (props.value === undefined) {
       setQuestionnaire({} as IQuestionnaire);
@@ -82,6 +87,14 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       setQuestionnaire(props.value);
     }
   }, [props.value]);
+
+  useEffect(() => {
+    fetch("api/schema/questionnaire.json").then((response) => {
+      if (response.ok) {
+        response.json().then((value: jsonschema.Schema) => setQuestionnaireSchema(value));
+      }
+    });
+  }, []);
 
   return (
     <Grid container direction="column">
@@ -94,38 +107,23 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {props.schema !== undefined ? (
-          <MuiForm
-            schema={props.schema}
-            formData={questionnaire}
-            onChange={(value: any) => {
-              console.log("new value", value);
-              setQuestionnaire(value.formData);
-              props.onChange();
-            }}
-            onSubmit={() => {
-              updateQuestionnaire();
-            }}
-          >
-            <div>
-              <Button type="submit" variant="contained" color="secondary">
-                Use as Questionnaire
-              </Button>
-              <Button onClick={downloadJson} variant="contained" color="primary">
-                Download Questionnaire
-              </Button>
-            </div>
-          </MuiForm>
-        ) : null}
+        <QuestionnaireMetaEditor value={questionnaire.meta || {} as IQuestionnaireMeta} onChange={handleQuestionnaireMetaChanged} />
       </Grid>
-
+      <Grid item xs={12}>
+        <Button type="submit" variant="contained" color="secondary">
+          Use as Questionnaire
+              </Button>
+        <Button onClick={downloadJson} variant="contained" color="primary">
+          Download Questionnaire
+              </Button>
+      </Grid>
       {schemaValidationErrors.length > 0 ? (
         <Grid item xs={12}>
           <Alert severity="error">
             Errors while validating JSON schema.
             {schemaValidationErrors.map((error, index) => (
-              <ListItemText key={index} primary={error.message} />
-            ))}
+            <ListItemText key={index} primary={error.message} />
+          ))}
           </Alert>
         </Grid>
       ) : null}
