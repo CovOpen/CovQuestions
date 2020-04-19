@@ -18,16 +18,18 @@ function nockQuestionnaire(questionnaire: IQuestionnaire) {
   nock(basePath).get("/index.json").reply(200, JSON.stringify(indexJson));
   nock(basePath).get("/test.json").reply(200, JSON.stringify(questionnaire));
   nock(basePath).get("/schema/questionnaire.json").reply(200, JSON.stringify(emptySchema));
+  nock(basePath).get("/schema/questionnaireMeta.json").reply(200, JSON.stringify(emptySchema));
+  nock(basePath).get("/schema/question.json").reply(200, JSON.stringify(emptySchema));
 }
 
 export class QuestionnaireTest {
-  public findByText: (text: string | RegExp) => Promise<HTMLElement>;
+  public findByText: (text: string | RegExp, selector?: string) => Promise<HTMLElement>;
   private readonly renderedApp: RenderResult;
 
   constructor(questionnaire: IQuestionnaire) {
     nockQuestionnaire(questionnaire);
     this.renderedApp = render(<App />);
-    this.findByText = this.renderedApp.findByText;
+    this.findByText = (text: string | RegExp, selector: string | undefined) => this.renderedApp.findByText(text, selector !== undefined ? {selector} : undefined);
   }
 
   public async start() {

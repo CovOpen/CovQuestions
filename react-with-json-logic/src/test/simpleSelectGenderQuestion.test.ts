@@ -10,7 +10,7 @@ describe("Simple select gender question", () => {
   });
 
   test("The answer female should lead to female", async () => {
-    await t.findByText("Geben Sie bitte ihr Geschlecht an?");
+    await t.findByText("Geben Sie bitte ihr Geschlecht an?", "legend");
     await t.clickOnAnswer("weiblich");
     await t.clickNext();
 
@@ -18,7 +18,7 @@ describe("Simple select gender question", () => {
   });
 
   test("The answer male should lead to male", async () => {
-    await t.findByText("Geben Sie bitte ihr Geschlecht an?");
+    await t.findByText("Geben Sie bitte ihr Geschlecht an?", "legend");
     await t.clickOnAnswer("männlich");
     await t.clickNext();
 
@@ -26,7 +26,7 @@ describe("Simple select gender question", () => {
   });
 
   test("The answer diverse should lead to diverse", async () => {
-    await t.findByText("Geben Sie bitte ihr Geschlecht an?");
+    await t.findByText("Geben Sie bitte ihr Geschlecht an?", "legend");
     await t.clickOnAnswer("divers");
     await t.clickNext();
 
