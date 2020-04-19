@@ -29,7 +29,8 @@ export class QuestionnaireTest {
   constructor(questionnaire: IQuestionnaire) {
     nockQuestionnaire(questionnaire);
     this.renderedApp = render(<App />);
-    this.findByText = (text: string | RegExp, selector: string | undefined) => this.renderedApp.findByText(text, selector !== undefined ? {selector} : undefined);
+    this.findByText = (text: string | RegExp, selector: string | undefined) =>
+      this.renderedApp.findByText(text, selector !== undefined ? { selector } : undefined);
   }
 
   public async start() {
