@@ -292,13 +292,17 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
-          Use as Questionnaire
-        </Button>
-        <Button onClick={downloadJson} variant="contained" color="primary">
-          Download Questionnaire
-        </Button>
+      <Grid container className={classes.wrapper}>
+        <Grid container item xs={6}>
+          <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
+            Use as Questionnaire
+          </Button>
+        </Grid>
+        <Grid container item xs={6} justify="flex-end">
+          <Button onClick={downloadJson} variant="contained" color="primary">
+            Download Questionnaire
+          </Button>
+        </Grid>
       </Grid>
       {schemaValidationErrors.length > 0 ? (
         <Grid item xs={12}>
