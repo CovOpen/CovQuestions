@@ -56,12 +56,12 @@ export const App: React.FC = () => {
           />
         </Grid>
         <Grid container direction="row">
-          <Grid item xs={6} data-testid="QuestionnaireExecution">
+          <Grid item xs={4} data-testid="QuestionnaireExecution">
             {currentQuestionnaire !== undefined ? (
               <QuestionnaireExecution isInSync={isQuestionnaireInSync} currentQuestionnaire={currentQuestionnaire} />
             ) : null}
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <QuestionnaireEditor
               value={currentQuestionnaire?.questionnaire}
               onChange={() => setIsQuestionnaireInSync(false)}
