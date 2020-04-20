@@ -81,6 +81,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   .rjsf .MuiBox-root {
     padding: 0;
   }
+  .rjsf .MuiGrid-item {
+    padding: 0px 8px 0px 8px;
+  }
   .rjsf .form-group, .rjsf .panel-body {
     margin: 0;
   }
