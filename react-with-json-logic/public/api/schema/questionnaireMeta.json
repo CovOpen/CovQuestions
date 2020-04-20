@@ -6,6 +6,9 @@
       "additionalProperties": false,
       "description": "Meta-Information for a questionaire.",
       "properties": {
+        "title": {
+          "type": "string"
+        },
         "author": {
           "type": "string"
         },
@@ -33,9 +36,6 @@
             "type": "string"
           },
           "type": "array"
-        },
-        "title": {
-          "type": "string"
         }
       },
       "required": ["title", "author", "language", "creationDate"],
