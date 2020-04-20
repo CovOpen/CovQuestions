@@ -120,5 +120,3 @@ temp/
 
 # End of https://www.gitignore.io/api/web,node,visualstudiocode
 react-with-json-logic/.vscode/launch.json
-ts-json-schema-generator/.circleci
-ts-json-schema-generator/.vscode
