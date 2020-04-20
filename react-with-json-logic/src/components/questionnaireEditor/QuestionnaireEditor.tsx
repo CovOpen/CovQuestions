@@ -29,7 +29,6 @@ type Selection = {
   index?: number;
 };
 
-const drawerWidth = 240;
 const formHeight = "calc(100vh - 230px)";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: 0,
       paddingTop: "2px",
       paddingBottom: "2px",
-    }
+    },
   })
 );
 
