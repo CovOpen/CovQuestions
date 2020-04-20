@@ -3,19 +3,19 @@ import {
   Grid,
   ListItemText,
   Snackbar,
-  Divider,
-  ListItem,
-  List,
   makeStyles,
   Theme,
   createStyles,
+  FormControlLabel,
+  Switch,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { IQuestionnaire, IQuestionnaireMeta, IQuestion, IResultCategory, IVariable } from "../../logic/schema";
+import { IQuestionnaire } from "../../logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
-import { ElementEditor } from "./ElementEditor";
+import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
+import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 
 type QuestionnaireEditorProps = {
   value: IQuestionnaire | undefined;
@@ -24,20 +24,9 @@ type QuestionnaireEditorProps = {
   loadQuestionnaire: (newQuestionnaire: IQuestionnaire) => void;
 };
 
-type Selection = {
-  type: string;
-  index?: number;
-};
-
 const formHeight = "calc(100vh - 230px)";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    selectionList: {
-      width: "100%",
-    },
-    selectionListDivider: {
-      width: "100%",
-    },
     formContainer: {
       paddingLeft: "10px",
       height: formHeight,
@@ -62,11 +51,11 @@ const useStyles = makeStyles((theme: Theme) =>
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const classes = useStyles();
 
-  const [activeSelection, setActiveSelection] = useState<Selection>({ type: "meta" });
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
   const [questionnaireSchema, setQuestionnaireSchema] = useState<jsonschema.Schema | undefined>(undefined);
+  const [developerMode, setDeveloperMode] = useState(false);
 
   const style = `
   .MuiTabs-root, .MuiTabs-scroller, .MuiTabs-flexContainer {
@@ -131,20 +120,8 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     linkElement.click();
   };
 
-  const handleQuestionnaireMetaChanged = (value: IQuestionnaireMeta) => {
-    questionnaire.meta = value;
-  };
-
-  const handleQuestionChanged = (index: number, value: IQuestion) => {
-    questionnaire.questions[index] = value;
-  };
-
-  const handleResultCategoryChanged = (index: number, value: IResultCategory) => {
-    questionnaire.resultCategories[index] = value;
-  };
-
-  const handleVariableChanged = (index: number, value: IVariable) => {
-    questionnaire.variables[index] = value;
+  const handleDeveloperModeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDeveloperMode(event.target.checked);
   };
 
   useEffect(() => {
@@ -167,130 +144,37 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     <Grid container direction="column" className={classes.wrapper}>
       <style>{style}</style>
       <Grid container className={classes.wrapper}>
-        <Grid container item xs={12} justify="flex-end">
+        <Grid container item xs={6}>
           <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
             Reset Questionnaire
           </Button>
         </Grid>
+        <Grid container item xs={6} justify="flex-end">
+          <FormControlLabel
+            control={
+              <Switch
+                checked={developerMode}
+                onChange={handleDeveloperModeChanged}
+                name="developerMode"
+                color="primary"
+              />
+            }
+            label="Developer Mode"
+          />
+        </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Grid container direction="column">
-          <Grid container>
-            <Grid container item xs={3} className={classes.selection}>
-              <List className={classes.selectionList}>
-                <ListItem
-                  className={classes.listItem}
-                  button
-                  selected={activeSelection.type === "meta"}
-                  onClick={() => setActiveSelection({ type: "meta", index: 0 })}
-                >
-                  <ListItemText primary="Meta" />
-                </ListItem>
-              </List>
-              <Divider className={classes.selectionListDivider} />
-              <List className={classes.selectionList}>
-                {questionnaire.questions !== undefined
-                  ? questionnaire.questions.map((item, index) => (
-                      <ListItem
-                        button
-                        className={classes.listItem}
-                        selected={activeSelection.type === "question" && activeSelection.index === index}
-                        onClick={() => setActiveSelection({ type: "question", index })}
-                        key={index}
-                      >
-                        <ListItemText primary={item.text} />
-                      </ListItem>
-                    ))
-                  : null}
-                <ListItem className={classes.listItem}>
-                  <Button variant="contained" color="secondary">
-                    Add Question
-                  </Button>
-                </ListItem>
-              </List>
-              <Divider className={classes.selectionListDivider} />
-              <List className={classes.selectionList}>
-                {questionnaire.resultCategories !== undefined
-                  ? questionnaire.resultCategories.map((item, index) => (
-                      <ListItem
-                        button
-                        className={classes.listItem}
-                        selected={activeSelection.type === "resultCategory" && activeSelection.index === index}
-                        onClick={() => setActiveSelection({ type: "resultCategory", index })}
-                        key={index}
-                      >
-                        <ListItemText primary={item.id} />
-                      </ListItem>
-                    ))
-                  : null}
-                <ListItem className={classes.listItem}>
-                  <Button variant="contained" color="secondary">
-                    Add Result
-                  </Button>
-                </ListItem>
-              </List>
-              <Divider className={classes.selectionListDivider} />
-              <List className={classes.selectionList}>
-                {questionnaire.variables !== undefined
-                  ? questionnaire.variables.map((item, index) => (
-                      <ListItem
-                        button
-                        className={classes.listItem}
-                        selected={activeSelection.type === "variable" && activeSelection.index === index}
-                        onClick={() => setActiveSelection({ type: "variable", index })}
-                        key={index}
-                      >
-                        <ListItemText primary={item.id} />
-                      </ListItem>
-                    ))
-                  : null}
-                <ListItem className={classes.listItem}>
-                  <Button variant="contained" color="secondary">
-                    Add Variable
-                  </Button>
-                </ListItem>
-              </List>
-            </Grid>
-            <Grid container item xs={9} className={classes.formContainer}>
-              {activeSelection.type === "meta" ? (
-                <ElementEditor
-                  schemaUrl="api/schema/questionnaireMeta.json"
-                  value={questionnaire.meta || ({} as IQuestionnaireMeta)}
-                  onChange={(value) => handleQuestionnaireMetaChanged(value as IQuestionnaireMeta)}
-                />
-              ) : null}
-              {activeSelection.type === "question" &&
-              activeSelection.index !== undefined &&
-              questionnaire.questions !== undefined ? (
-                <ElementEditor
-                  schemaUrl="api/schema/question.json"
-                  value={questionnaire.questions[activeSelection.index]}
-                  onChange={(value) => handleQuestionChanged(activeSelection.index || -1, value as IQuestion)}
-                />
-              ) : null}
-              {activeSelection.type === "resultCategory" &&
-              activeSelection.index !== undefined &&
-              questionnaire.resultCategories !== undefined ? (
-                <ElementEditor
-                  schemaUrl="api/schema/resultCategory.json"
-                  value={questionnaire.resultCategories[activeSelection.index]}
-                  onChange={(value) =>
-                    handleResultCategoryChanged(activeSelection.index || -1, value as IResultCategory)
-                  }
-                />
-              ) : null}
-              {activeSelection.type === "variable" &&
-              activeSelection.index !== undefined &&
-              questionnaire.variables !== undefined ? (
-                <ElementEditor
-                  schemaUrl="api/schema/variable.json"
-                  value={questionnaire.variables[activeSelection.index]}
-                  onChange={(value) => handleVariableChanged(activeSelection.index || -1, value as IVariable)}
-                />
-              ) : null}
-            </Grid>
-          </Grid>
-        </Grid>
+        {developerMode ? (
+          <QuestionnaireJsonEditor />
+        ) : (
+          <QuestionnaireFormEditor
+            value={questionnaire}
+            formHeight={formHeight}
+            onChange={(value) => {
+              setQuestionnaire(value);
+            }}
+          />
+        )}
       </Grid>
       <Grid container className={classes.wrapper}>
         <Grid container item xs={6}>
