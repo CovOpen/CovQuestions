@@ -1,11 +1,21 @@
-import { Button, Grid, ListItemText, Snackbar, AppBar, Tabs, Tab, Typography } from "@material-ui/core";
-import React, { useEffect, useState, ChangeEvent } from "react";
+import {
+  Button,
+  Grid,
+  ListItemText,
+  Snackbar,
+  Divider,
+  ListItem,
+  List,
+  makeStyles,
+  Theme,
+  createStyles,
+} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { IQuestionnaire, IQuestionnaireMeta, IQuestion } from "../../logic/schema";
+import { IQuestionnaire, IQuestionnaireMeta, IQuestion, IResultCategory, IVariable } from "../../logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
-import { QuestionnaireMetaEditor } from "./QuestionnaireMetaEditor";
-import { QuestionEditor } from "./QuestionEditor";
+import { ElementEditor } from "./ElementEditor";
 
 type QuestionnaireEditorProps = {
   value: IQuestionnaire | undefined;
@@ -14,8 +24,67 @@ type QuestionnaireEditorProps = {
   loadQuestionnaire: (newQuestionnaire: IQuestionnaire) => void;
 };
 
+type Selection = {
+  type: string;
+  index?: number;
+};
+
+const drawerWidth = 240;
+const formHeight = "calc(100vh - 230px)";
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    selectionList: {
+      width: "100%",
+    },
+    selectionListDivider: {
+      width: "100%",
+    },
+    formContainer: {
+      paddingLeft: "10px",
+      height: formHeight,
+    },
+    wrapper: {
+      margin: 0,
+    },
+    selection: {
+      height: formHeight,
+      overflowY: "auto",
+      overflowX: "hidden",
+    },
+    listItem: {
+      paddingLeft: 0,
+      paddingRight: 0,
+      paddingTop: "2px",
+      paddingBottom: "2px",
+    },
+    root: {
+      display: "flex",
+    },
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing(3),
+    },
+  })
+);
+
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
-  const [activeTab, setActiveTab] = useState(0);
+  const classes = useStyles();
+
+  const [activeSelection, setActiveSelection] = useState<Selection>({ type: "meta" });
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
@@ -25,9 +94,10 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   .MuiTabs-root, .MuiTabs-scroller, .MuiTabs-flexContainer {
     margin: 0;
   }
-  .rjsf > .MuiFormControl-root  {
-    height: 600px;
-    overflow: auto;
+  .rjsf > .MuiFormControl-root {
+    height: ${formHeight};
+    overflow-x: hidden !important;
+    overflow-x: auto;
   }
   .rjsf .MuiBox-root {
     padding: 0;
@@ -67,10 +137,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     setShowJsonInvalidMessage(false);
   };
 
-  const handleTabChanged = (event: ChangeEvent<{}>, newValue: number) => {
-    setActiveTab(newValue);
-  };
-
   const downloadJson = () => {
     if (questionnaire === undefined) {
       return;
@@ -92,6 +158,14 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     questionnaire.questions[index] = value;
   };
 
+  const handleResultCategoryChanged = (index: number, value: IResultCategory) => {
+    questionnaire.resultCategories[index] = value;
+  };
+
+  const handleVariableChanged = (index: number, value: IVariable) => {
+    questionnaire.variables[index] = value;
+  };
+
   useEffect(() => {
     if (props.value === undefined) {
       setQuestionnaire({} as IQuestionnaire);
@@ -109,9 +183,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   }, []);
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" className={classes.wrapper}>
       <style>{style}</style>
-      <Grid container>
+      <Grid container className={classes.wrapper}>
         <Grid container item xs={12} justify="flex-end">
           <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
             Reset Questionnaire
@@ -119,52 +193,123 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={activeTab}
-            onChange={handleTabChanged}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example"
-          >
-            <Tab label="Meta" />
-            {questionnaire.questions !== undefined
-              ? questionnaire.questions.map((item, index) => <Tab key={index} label={item.text}></Tab>)
-              : null}
-          </Tabs>
-        </AppBar>
-        <Typography
-          component="div"
-          role="tabpanel"
-          hidden={activeTab !== 0}
-          id={`scrollable-auto-tabpanel-0`}
-          aria-labelledby={`scrollable-auto-tab-0`}
-        >
-          {activeTab === 0 && (
-            <QuestionnaireMetaEditor
-              value={questionnaire.meta || ({} as IQuestionnaireMeta)}
-              onChange={handleQuestionnaireMetaChanged}
-            />
-          )}
-        </Typography>
-        {questionnaire.questions !== undefined
-          ? questionnaire.questions.map((item, index) => (
-              <Typography
-                component="div"
-                role="tabpanel"
-                hidden={activeTab !== index + 1}
-                id={`scrollable-auto-tabpanel-${index + 1}`}
-                aria-labelledby={`scrollable-auto-tab-${index + 1}`}
-                key={index}
-              >
-                {activeTab === index + 1 && (
-                  <QuestionEditor value={item} onChange={(value) => handleQuestionChanged(index, value)} />
-                )}
-              </Typography>
-            ))
-          : null}
+        <Grid container direction="column">
+          <Grid container>
+            <Grid container item xs={3} className={classes.selection}>
+              <List className={classes.selectionList}>
+                <ListItem
+                  className={classes.listItem}
+                  button
+                  selected={activeSelection.type === "meta"}
+                  onClick={() => setActiveSelection({ type: "meta", index: 0 })}
+                >
+                  <ListItemText primary="Meta" />
+                </ListItem>
+              </List>
+              <Divider className={classes.selectionListDivider} />
+              <List className={classes.selectionList}>
+                {questionnaire.questions !== undefined
+                  ? questionnaire.questions.map((item, index) => (
+                      <ListItem
+                        button
+                        className={classes.listItem}
+                        selected={activeSelection.type === "question" && activeSelection.index === index}
+                        onClick={() => setActiveSelection({ type: "question", index })}
+                        key={index}
+                      >
+                        <ListItemText primary={item.text} />
+                      </ListItem>
+                    ))
+                  : null}
+                <ListItem className={classes.listItem}>
+                  <Button variant="contained" color="secondary">
+                    Add Question
+                  </Button>
+                </ListItem>
+              </List>
+              <Divider className={classes.selectionListDivider} />
+              <List className={classes.selectionList}>
+                {questionnaire.resultCategories !== undefined
+                  ? questionnaire.resultCategories.map((item, index) => (
+                      <ListItem
+                        button
+                        className={classes.listItem}
+                        selected={activeSelection.type === "resultCategory" && activeSelection.index === index}
+                        onClick={() => setActiveSelection({ type: "resultCategory", index })}
+                        key={index}
+                      >
+                        <ListItemText primary={item.id} />
+                      </ListItem>
+                    ))
+                  : null}
+                <ListItem className={classes.listItem}>
+                  <Button variant="contained" color="secondary">
+                    Add Result
+                  </Button>
+                </ListItem>
+              </List>
+              <Divider className={classes.selectionListDivider} />
+              <List className={classes.selectionList}>
+                {questionnaire.variables !== undefined
+                  ? questionnaire.variables.map((item, index) => (
+                      <ListItem
+                        button
+                        className={classes.listItem}
+                        selected={activeSelection.type === "variable" && activeSelection.index === index}
+                        onClick={() => setActiveSelection({ type: "variable", index })}
+                        key={index}
+                      >
+                        <ListItemText primary={item.id} />
+                      </ListItem>
+                    ))
+                  : null}
+                <ListItem className={classes.listItem}>
+                  <Button variant="contained" color="secondary">
+                    Add Variable
+                  </Button>
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid container item xs={9} className={classes.formContainer}>
+              {activeSelection.type === "meta" ? (
+                <ElementEditor
+                  schemaUrl="api/schema/questionnaireMeta.json"
+                  value={questionnaire.meta || ({} as IQuestionnaireMeta)}
+                  onChange={(value) => handleQuestionnaireMetaChanged(value as IQuestionnaireMeta)}
+                />
+              ) : null}
+              {activeSelection.type === "question" &&
+              activeSelection.index !== undefined &&
+              questionnaire.questions !== undefined ? (
+                <ElementEditor
+                  schemaUrl="api/schema/question.json"
+                  value={questionnaire.questions[activeSelection.index]}
+                  onChange={(value) => handleQuestionChanged(activeSelection.index || -1, value as IQuestion)}
+                />
+              ) : null}
+              {activeSelection.type === "resultCategory" &&
+              activeSelection.index !== undefined &&
+              questionnaire.resultCategories !== undefined ? (
+                <ElementEditor
+                  schemaUrl="api/schema/resultCategory.json"
+                  value={questionnaire.resultCategories[activeSelection.index]}
+                  onChange={(value) =>
+                    handleResultCategoryChanged(activeSelection.index || -1, value as IResultCategory)
+                  }
+                />
+              ) : null}
+              {activeSelection.type === "variable" &&
+              activeSelection.index !== undefined &&
+              questionnaire.variables !== undefined ? (
+                <ElementEditor
+                  schemaUrl="api/schema/variable.json"
+                  value={questionnaire.variables[activeSelection.index]}
+                  onChange={(value) => handleVariableChanged(activeSelection.index || -1, value as IVariable)}
+                />
+              ) : null}
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12}>
         <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
