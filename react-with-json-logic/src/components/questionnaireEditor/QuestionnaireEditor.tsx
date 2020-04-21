@@ -1,13 +1,13 @@
 import {
   Button,
-  Grid,
-  ListItemText,
-  Snackbar,
-  makeStyles,
-  Theme,
   createStyles,
   FormControlLabel,
+  Grid,
+  ListItemText,
+  makeStyles,
+  Snackbar,
   Switch,
+  Theme,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
@@ -16,6 +16,7 @@ import { IQuestionnaire } from "../../logic/schema";
 import jsonschema from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
+import questionnaireSchema from "../../schemas/questionnaire.json";
 
 type QuestionnaireEditorProps = {
   value: IQuestionnaire | undefined;
@@ -54,7 +55,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
-  const [questionnaireSchema, setQuestionnaireSchema] = useState<jsonschema.Schema | undefined>(undefined);
   const [developerMode, setDeveloperMode] = useState(false);
 
   const style = `
@@ -80,9 +80,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const updateQuestionnaire = () => {
     setSchemaValidationErrors([]);
     if (questionnaire === undefined) {
-      return;
-    }
-    if (questionnaireSchema === undefined) {
       return;
     }
     try {
@@ -131,14 +128,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       setQuestionnaire(props.value);
     }
   }, [props.value]);
-
-  useEffect(() => {
-    fetch("api/schema/questionnaire.json").then((response) => {
-      if (response.ok) {
-        response.json().then((value: jsonschema.Schema) => setQuestionnaireSchema(value));
-      }
-    });
-  }, []);
 
   return (
     <Grid container direction="column" className={classes.wrapper}>

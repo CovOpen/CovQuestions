@@ -1,17 +1,21 @@
 import {
   Button,
-  Grid,
-  ListItemText,
+  createStyles,
   Divider,
-  ListItem,
+  Grid,
   List,
+  ListItem,
+  ListItemText,
   makeStyles,
   Theme,
-  createStyles,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { IQuestionnaire, IQuestionnaireMeta, IQuestion, IResultCategory, IVariable } from "../../logic/schema";
+import { IQuestion, IQuestionnaire, IQuestionnaireMeta, IResultCategory, IVariable } from "../../logic/schema";
 import { ElementEditor } from "./ElementEditor";
+import questionSchema from "../../schemas/question.json";
+import questionnaireMetaSchema from "../../schemas/questionnaireMeta.json";
+import resultCategorySchema from "../../schemas/resultCategory.json";
+import variableSchema from "../../schemas/variable.json";
 
 type QuestionnaireFormEditorProps = {
   value: IQuestionnaire | undefined;
@@ -178,7 +182,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
         <Grid container item xs={9} className={classes.formContainer}>
           {activeSelection.type === "meta" ? (
             <ElementEditor
-              schemaUrl="api/schema/questionnaireMeta.json"
+              schema={questionnaireMetaSchema}
               value={questionnaire.meta || ({} as IQuestionnaireMeta)}
               onChange={(value) => handleQuestionnaireMetaChanged(value as IQuestionnaireMeta)}
             />
@@ -187,7 +191,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           activeSelection.index !== undefined &&
           questionnaire.questions !== undefined ? (
             <ElementEditor
-              schemaUrl="api/schema/question.json"
+              schema={questionSchema}
               value={questionnaire.questions[activeSelection.index]}
               onChange={(value) =>
                 handleQuestionChanged(
@@ -201,7 +205,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           activeSelection.index !== undefined &&
           questionnaire.resultCategories !== undefined ? (
             <ElementEditor
-              schemaUrl="api/schema/resultCategory.json"
+              schema={resultCategorySchema}
               value={questionnaire.resultCategories[activeSelection.index]}
               onChange={(value) =>
                 handleResultCategoryChanged(
@@ -215,7 +219,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           activeSelection.index !== undefined &&
           questionnaire.variables !== undefined ? (
             <ElementEditor
-              schemaUrl="api/schema/variable.json"
+              schema={variableSchema}
               value={questionnaire.variables[activeSelection.index]}
               onChange={(value) =>
                 handleVariableChanged(
