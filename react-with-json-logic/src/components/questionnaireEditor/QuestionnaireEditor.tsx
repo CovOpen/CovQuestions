@@ -145,11 +145,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       <style>{style}</style>
       <Grid container className={`${classes.wrapper} grid-row`}>
         <Grid container item xs={6}>
-          <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
-            Reset Questionnaire
-          </Button>
-        </Grid>
-        <Grid container item xs={6} justify="flex-end">
           <FormControlLabel
             control={
               <Switch
@@ -161,6 +156,11 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
             }
             label="Developer Mode"
           />
+        </Grid>
+        <Grid container item xs={6} justify="flex-end">
+          <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
+            Reset Questionnaire
+          </Button>
         </Grid>
       </Grid>
       <Grid item xs={12} className="grid-row">
