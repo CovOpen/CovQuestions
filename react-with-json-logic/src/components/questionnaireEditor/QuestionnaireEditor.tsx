@@ -165,13 +165,22 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       </Grid>
       <Grid item xs={12} className="grid-row">
         {developerMode ? (
-          <QuestionnaireJsonEditor />
+          <QuestionnaireJsonEditor
+            value={questionnaire}
+            formHeight={formHeight}
+            onChange={(value) => {
+              setQuestionnaire(value);
+              props.onChange();
+            }}
+            schema={questionnaireSchema || {}}
+          />
         ) : (
           <QuestionnaireFormEditor
             value={questionnaire}
             formHeight={formHeight}
             onChange={(value) => {
               setQuestionnaire(value);
+              props.onChange();
             }}
           />
         )}
