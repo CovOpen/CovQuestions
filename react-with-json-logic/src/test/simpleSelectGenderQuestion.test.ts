@@ -6,7 +6,6 @@ describe("Simple select gender question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("The answer female should lead to female", async () => {

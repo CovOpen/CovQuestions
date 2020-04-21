@@ -6,7 +6,6 @@ describe("Simple multiselect symptoms question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("Three symptoms", async () => {

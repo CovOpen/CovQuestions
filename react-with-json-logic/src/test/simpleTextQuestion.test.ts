@@ -6,7 +6,6 @@ describe("Simple text question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("Text 'test' should lead to result", async () => {

@@ -6,7 +6,6 @@ describe("Simple boolean contact question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("The answer 'yes' should lead to the positive result", async () => {

@@ -6,7 +6,6 @@ describe("Simple numeric age question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("Age below 18 should lead to the AGE_CHILD result", async () => {

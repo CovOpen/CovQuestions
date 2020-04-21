@@ -7,7 +7,6 @@ describe("Contact question with date variable and skipping a question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("No contact should lead to NO_CONTACT result", async () => {
