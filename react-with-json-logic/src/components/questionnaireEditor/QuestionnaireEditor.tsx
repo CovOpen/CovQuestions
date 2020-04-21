@@ -24,7 +24,7 @@ type QuestionnaireEditorProps = {
   loadQuestionnaire: (newQuestionnaire: IQuestionnaire) => void;
 };
 
-const formHeight = "calc(100vh - 230px)";
+const formHeight = "calc(100vh - 210px)";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formContainer: {
@@ -143,7 +143,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   return (
     <Grid container direction="column" className={classes.wrapper}>
       <style>{style}</style>
-      <Grid container className={classes.wrapper}>
+      <Grid container className={`${classes.wrapper} grid-row`}>
         <Grid container item xs={6}>
           <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
             Reset Questionnaire
@@ -163,7 +163,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
           />
         </Grid>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} className="grid-row">
         {developerMode ? (
           <QuestionnaireJsonEditor />
         ) : (
@@ -176,7 +176,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
           />
         )}
       </Grid>
-      <Grid container className={classes.wrapper}>
+      <Grid container className={`${classes.wrapper} grid-row`}>
         <Grid container item xs={6}>
           <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
             Use as Questionnaire
@@ -189,7 +189,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         </Grid>
       </Grid>
       {schemaValidationErrors.length > 0 ? (
-        <Grid item xs={12}>
+        <Grid item xs={12} className="grid-row">
           <Alert severity="error">
             Errors while validating JSON schema.
             {schemaValidationErrors.map((error, index) => (

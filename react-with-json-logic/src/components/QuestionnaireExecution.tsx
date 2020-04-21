@@ -52,23 +52,23 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
     <></>
   ) : (
     <>
-      <Grid item xs={9}>
+      <Grid item xs={9} className="grid-row">
         <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
           Restart Questionnaire
         </Button>
       </Grid>
       {!isInSync ? (
-        <Grid item xs={9}>
+        <Grid item xs={9} className="grid-row">
           <Alert severity="warning">This questionnaire is out of sync. Please reload.</Alert>
         </Grid>
       ) : null}
-      <Grid item xs={9}>
+      <Grid item xs={9} className="grid-row">
         {result === undefined && currentQuestion ? (
           <QuestionComponent currentQuestion={currentQuestion} handleNextClick={handleNextClick} />
         ) : null}
         {result !== undefined ? <ResultComponent result={result} /> : null}
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={9} className="grid-row">
         {questionnaireEngine ? (
           <>
             <Typography>Current internal state:</Typography>

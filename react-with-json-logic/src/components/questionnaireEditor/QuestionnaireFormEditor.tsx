@@ -58,22 +58,13 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
 
   const style = `
-    .MuiTabs-root, .MuiTabs-scroller, .MuiTabs-flexContainer {
-      margin: 0;
-    }
     .rjsf > .MuiFormControl-root {
       height: ${props.formHeight};
       overflow-x: hidden !important;
       overflow-x: auto;
     }
-    .rjsf .MuiBox-root {
-      padding: 0;
-    }
     .rjsf .MuiGrid-item {
       padding: 0px 8px 0px 8px;
-    }
-    .rjsf .form-group, .rjsf .panel-body {
-      margin: 0;
     }
     `;
 
