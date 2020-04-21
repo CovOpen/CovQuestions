@@ -7,7 +7,6 @@ import {
   makeStyles,
   Snackbar,
   Switch,
-  Theme,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
@@ -26,7 +25,7 @@ type QuestionnaireEditorProps = {
 };
 
 const formHeight = "calc(100vh - 210px)";
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     formContainer: {
       paddingLeft: "10px",

@@ -1,14 +1,4 @@
-import {
-  Button,
-  createStyles,
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
+import { Button, createStyles, Divider, Grid, List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { IQuestion, IQuestionnaire, IQuestionnaireMeta, IResultCategory, IVariable } from "../../logic/schema";
 import { ElementEditor } from "./ElementEditor";
@@ -25,11 +15,11 @@ type QuestionnaireFormEditorProps = {
 
 type Selection = {
   type: string;
-  index?: number;
+  index: number;
 };
 
 export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
-  const useStyles = makeStyles((theme: Theme) =>
+  const useStyles = makeStyles(() =>
     createStyles({
       selectionList: {
         width: "100%",
@@ -58,7 +48,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const classes = useStyles();
 
-  const [activeSelection, setActiveSelection] = useState<Selection>({ type: "meta" });
+  const [activeSelection, setActiveSelection] = useState<Selection>({ type: "meta", index: 0 });
   const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
 
   const style = `
@@ -183,50 +173,29 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           {activeSelection.type === "meta" ? (
             <ElementEditor
               schema={questionnaireMetaSchema}
-              value={questionnaire.meta || ({} as IQuestionnaireMeta)}
-              onChange={(value) => handleQuestionnaireMetaChanged(value as IQuestionnaireMeta)}
+              formData={questionnaire.meta || ({} as IQuestionnaireMeta)}
+              onChange={(formData) => handleQuestionnaireMetaChanged(formData)}
             />
           ) : null}
-          {activeSelection.type === "question" &&
-          activeSelection.index !== undefined &&
-          questionnaire.questions !== undefined ? (
+          {activeSelection.type === "question" && questionnaire.questions !== undefined ? (
             <ElementEditor
               schema={questionSchema}
-              value={questionnaire.questions[activeSelection.index]}
-              onChange={(value) =>
-                handleQuestionChanged(
-                  activeSelection.index !== undefined ? activeSelection.index : -1,
-                  value as IQuestion
-                )
-              }
+              formData={questionnaire.questions[activeSelection.index]}
+              onChange={(formData) => handleQuestionChanged(activeSelection.index, formData)}
             />
           ) : null}
-          {activeSelection.type === "resultCategory" &&
-          activeSelection.index !== undefined &&
-          questionnaire.resultCategories !== undefined ? (
+          {activeSelection.type === "resultCategory" && questionnaire.resultCategories !== undefined ? (
             <ElementEditor
               schema={resultCategorySchema}
-              value={questionnaire.resultCategories[activeSelection.index]}
-              onChange={(value) =>
-                handleResultCategoryChanged(
-                  activeSelection.index !== undefined ? activeSelection.index : -1,
-                  value as IResultCategory
-                )
-              }
+              formData={questionnaire.resultCategories[activeSelection.index]}
+              onChange={(formData) => handleResultCategoryChanged(activeSelection.index, formData)}
             />
           ) : null}
-          {activeSelection.type === "variable" &&
-          activeSelection.index !== undefined &&
-          questionnaire.variables !== undefined ? (
+          {activeSelection.type === "variable" && questionnaire.variables !== undefined ? (
             <ElementEditor
               schema={variableSchema}
-              value={questionnaire.variables[activeSelection.index]}
-              onChange={(value) =>
-                handleVariableChanged(
-                  activeSelection.index !== undefined ? activeSelection.index : -1,
-                  value as IVariable
-                )
-              }
+              formData={questionnaire.variables[activeSelection.index]}
+              onChange={(formData) => handleVariableChanged(activeSelection.index, formData)}
             />
           ) : null}
         </Grid>

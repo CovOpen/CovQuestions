@@ -4,13 +4,15 @@ import jsonschema from "jsonschema";
 import React from "react";
 import { MuiForm } from "rjsf-material-ui";
 
-type ElementEditorProps = {
+type ElementEditorProps<T> = {
   schema: jsonschema.Schema;
-  value: IQuestionnaireMeta | IQuestion | IVariable | IResultCategory;
-  onChange: (value: IQuestionnaireMeta | IQuestion | IVariable | IResultCategory) => void;
+  formData: T;
+  onChange: (formData: T) => void;
 };
 
-export function ElementEditor(props: ElementEditorProps) {
+export function ElementEditor<T extends IQuestionnaireMeta | IQuestion | IVariable | IResultCategory>(
+  props: ElementEditorProps<T>
+) {
   if (props.schema === undefined) {
     return null;
   }
@@ -18,8 +20,8 @@ export function ElementEditor(props: ElementEditorProps) {
   return (
     <MuiForm
       schema={props.schema}
-      formData={props.value}
-      onChange={(value: any) => {
+      formData={props.formData}
+      onChange={(value: { formData: T }) => {
         props.onChange(value.formData);
       }}
     >
