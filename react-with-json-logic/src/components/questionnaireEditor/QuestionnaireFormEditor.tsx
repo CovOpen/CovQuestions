@@ -2,10 +2,10 @@ import { Button, createStyles, Divider, Grid, List, ListItem, ListItemText, make
 import React, { useEffect, useState } from "react";
 import { IQuestion, IQuestionnaire, IQuestionnaireMeta, IResultCategory, IVariable } from "../../logic/schema";
 import { ElementEditor } from "./ElementEditor";
-import questionSchema from "../../schemas/question.json";
 import questionnaireMetaSchema from "../../schemas/questionnaireMeta.json";
 import resultCategorySchema from "../../schemas/resultCategory.json";
 import variableSchema from "../../schemas/variable.json";
+import { QuestionElementEditor } from "./QuestionElementEditor";
 
 type QuestionnaireFormEditorProps = {
   value: IQuestionnaire | undefined;
@@ -13,7 +13,7 @@ type QuestionnaireFormEditorProps = {
   formHeight: string;
 };
 
-type Selection = {
+export type Selection = {
   type: string;
   index: number;
 };
@@ -178,8 +178,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
             />
           ) : null}
           {activeSelection.type === "question" && questionnaire.questions !== undefined ? (
-            <ElementEditor
-              schema={questionSchema}
+            <QuestionElementEditor
               formData={questionnaire.questions[activeSelection.index]}
               onChange={(formData) => handleQuestionChanged(activeSelection.index, formData)}
             />
