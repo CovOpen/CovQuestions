@@ -15,7 +15,10 @@
           "description": "Logic expression used to compute this variable."
         }
       },
-      "required": ["id", "value"],
+      "required": [
+        "id",
+        "value"
+      ],
       "type": "object"
     },
     "LogicAnd": {
@@ -28,12 +31,18 @@
           "type": "array"
         }
       },
-      "required": ["and"],
+      "required": [
+        "and"
+      ],
       "title": "LogicAnd",
       "type": "object"
     },
     "LogicConstant": {
-      "type": ["number", "string", "boolean"]
+      "type": [
+        "number",
+        "string",
+        "boolean"
+      ]
     },
     "LogicEquals": {
       "additionalProperties": false,
@@ -52,7 +61,9 @@
           "type": "array"
         }
       },
-      "required": ["=="],
+      "required": [
+        "=="
+      ],
       "title": "LogicEquals",
       "type": "object"
     },
@@ -86,7 +97,9 @@
           "type": "array"
         }
       },
-      "required": [">"],
+      "required": [
+        ">"
+      ],
       "title": "LogicGreater",
       "type": "object"
     },
@@ -107,7 +120,9 @@
           "type": "array"
         }
       },
-      "required": [">="],
+      "required": [
+        ">="
+      ],
       "title": "LogicGreaterEqual",
       "type": "object"
     },
@@ -131,7 +146,9 @@
           "type": "array"
         }
       },
-      "required": ["if"],
+      "required": [
+        "if"
+      ],
       "title": "LogicIf",
       "type": "object"
     },
@@ -155,7 +172,9 @@
           "type": "array"
         }
       },
-      "required": ["in"],
+      "required": [
+        "in"
+      ],
       "title": "LogicIn",
       "type": "object"
     },
@@ -176,7 +195,9 @@
           "type": "array"
         }
       },
-      "required": ["<"],
+      "required": [
+        "<"
+      ],
       "title": "LogicLess",
       "type": "object"
     },
@@ -197,7 +218,9 @@
           "type": "array"
         }
       },
-      "required": ["<="],
+      "required": [
+        "<="
+      ],
       "title": "LogicLessEqual",
       "type": "object"
     },
@@ -218,7 +241,9 @@
           "type": "array"
         }
       },
-      "required": ["-"],
+      "required": [
+        "-"
+      ],
       "title": "LogicMinus",
       "type": "object"
     },
@@ -239,7 +264,9 @@
           ]
         }
       },
-      "required": ["!"],
+      "required": [
+        "!"
+      ],
       "title": "LogicNot",
       "type": "object"
     },
@@ -313,7 +340,9 @@
           "type": "array"
         }
       },
-      "required": ["or"],
+      "required": [
+        "or"
+      ],
       "title": "LogicOr",
       "type": "object"
     },
@@ -334,7 +363,9 @@
           "type": "array"
         }
       },
-      "required": ["+"],
+      "required": [
+        "+"
+      ],
       "title": "LogicPlus",
       "type": "object"
     },
@@ -358,7 +389,9 @@
           "type": "array"
         }
       },
-      "required": ["reduce"],
+      "required": [
+        "reduce"
+      ],
       "title": "LogicReduce",
       "type": "object"
     },
@@ -379,7 +412,9 @@
           "type": "array"
         }
       },
-      "required": ["some"],
+      "required": [
+        "some"
+      ],
       "title": "LogicSome",
       "type": "object"
     },
@@ -390,7 +425,9 @@
           "type": "string"
         }
       },
-      "required": ["var"],
+      "required": [
+        "var"
+      ],
       "type": "object"
     }
   }
