@@ -5,7 +5,7 @@ import React from "react";
 
 export type IQuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
 
-export type QuestionElementEditorProps = {
+export type ElementEditorQuestionProps = {
   formData: AnyQuestion;
   onChange: (formData: AnyQuestion) => void;
 };
@@ -28,7 +28,7 @@ function convertToJsonRepresentation(formData: IQuestionInStringRepresentation):
   } as AnyQuestion;
 }
 
-export function QuestionElementEditor(props: QuestionElementEditorProps) {
+export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
   return (
     <ElementEditor
       schema={questionSchema as any}

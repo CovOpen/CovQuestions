@@ -3,7 +3,7 @@ import { QuestionnaireMeta, ResultCategory, Variable } from "../../logic/schema"
 import jsonschema from "jsonschema";
 import React from "react";
 import { MuiForm } from "rjsf-material-ui";
-import { IQuestionInStringRepresentation } from "./QuestionElementEditor";
+import { IQuestionInStringRepresentation } from "./ElementEditorQuestion";
 
 export type IFormSection = QuestionnaireMeta | IQuestionInStringRepresentation | Variable | ResultCategory;
 
