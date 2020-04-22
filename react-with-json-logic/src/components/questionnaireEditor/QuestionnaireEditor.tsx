@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { IQuestionnaire } from "../../logic/schema";
+import { IQuestionnaire, IQuestion, QuestionType } from "../../logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
@@ -120,6 +120,19 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     setDeveloperMode(event.target.checked);
   };
 
+  const handleAddQuestion = () => {
+    if (questionnaire.questions === undefined) {
+      questionnaire.questions = [];
+    }
+    const length = questionnaire.questions.length;
+    questionnaire.questions.push({
+      id: "newQuestionId",
+      text: "new question",
+      type: QuestionType.Text
+    } as IQuestion);
+    return length;
+  };
+
   useEffect(() => {
     if (props.value === undefined) {
       setQuestionnaire({} as IQuestionnaire);
@@ -170,6 +183,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
               setQuestionnaire(value);
               props.onChange();
             }}
+            addQuestion={handleAddQuestion}
           />
         )}
       </Grid>
