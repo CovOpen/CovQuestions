@@ -128,11 +128,11 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     questionnaire.questions.push({
       id: "newQuestionId",
       text: "new question",
-      type: QuestionType.Text
+      type: QuestionType.Text,
     } as IQuestion);
 
     props.onChange();
-    
+
     return length;
   };
 
@@ -142,13 +142,13 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     }
     const length = questionnaire.resultCategories.length;
     questionnaire.resultCategories.push({
-      id: "rc_newResultCategoryId"
+      id: "rc_newResultCategoryId",
     } as IResultCategory);
-    
+
     props.onChange();
-    
+
     return length;
-  }
+  };
 
   const handleAddVariable = () => {
     if (questionnaire.variables === undefined) {
@@ -156,13 +156,13 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     }
     const length = questionnaire.variables.length;
     questionnaire.variables.push({
-      id: 'v_newVariable'
+      id: "v_newVariable",
     } as IVariable);
-    
+
     props.onChange();
-    
+
     return length;
-  }
+  };
 
   useEffect(() => {
     if (props.value === undefined) {

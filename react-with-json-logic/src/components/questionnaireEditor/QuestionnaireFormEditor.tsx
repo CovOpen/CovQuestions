@@ -124,10 +124,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 ))
               : null}
             <ListItem className={classes.listItem}>
-              <Button variant="contained" color="secondary" onClick={() => {
-                const index = props.addQuestion();
-                setActiveSelection({type: "question", index});
-              }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  const index = props.addQuestion();
+                  setActiveSelection({ type: "question", index });
+                }}
+              >
                 Add Question
               </Button>
             </ListItem>
@@ -148,10 +152,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 ))
               : null}
             <ListItem className={classes.listItem}>
-              <Button variant="contained" color="secondary" onClick={() => {
-                const index = props.addResultCategory();
-                setActiveSelection({ type: "resultCategory", index});
-              }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  const index = props.addResultCategory();
+                  setActiveSelection({ type: "resultCategory", index });
+                }}
+              >
                 Add Result
               </Button>
             </ListItem>
@@ -172,10 +180,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 ))
               : null}
             <ListItem className={classes.listItem}>
-              <Button variant="contained" color="secondary" onClick={() => {
-                const index = props.addVariable();
-                setActiveSelection({ type: "variable", index});
-              }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  const index = props.addVariable();
+                  setActiveSelection({ type: "variable", index });
+                }}
+              >
                 Add Variable
               </Button>
             </ListItem>
