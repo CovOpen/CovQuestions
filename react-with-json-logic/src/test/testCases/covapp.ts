@@ -16,7 +16,7 @@ const example: IQuestionnaire = {
   questions: [
     {
       id: 'q1_age',
-      text: 'How old are you?', 
+      text: 'How old are you?',
       type: QuestionType.Select,
       options: [
         { text: 'Under 40', value: '40' },
@@ -69,7 +69,7 @@ const example: IQuestionnaire = {
     {
       id: 'q7_contact',
       text: 'Have you had close contact with a confirmed case?',
-      details: 
+      details:
 `Close contact with a confirmed case means:
 
 * Face-to-face contact for longer than 15 minutes
@@ -85,10 +85,10 @@ Choose "No" if you have worn adequate protective measures (mask, smock) on conta
       id: 'q8_contact_date',
       text: 'What day was the last contact?',
       type: QuestionType.Date,
-      enableWhen: { 
+      enableWhen: {
         "var": "q7_contact.value"
       }
-    }, 
+    },
     {
       id: 'q9_fever',
       text: 'Have you had a fever (over 38°C) in the past 24 hours?',
@@ -96,7 +96,7 @@ Choose "No" if you have worn adequate protective measures (mask, smock) on conta
     },
     {
       id: 'q10_fever',
-      text: 'What was the highest temperature, approx.?', 
+      text: 'What was the highest temperature, approx.?',
       type: QuestionType.Select,
       options: [
         { text: '38°C', value: '38' },
@@ -107,7 +107,7 @@ Choose "No" if you have worn adequate protective measures (mask, smock) on conta
         { text: 'More than 42°C', value: '42+' },
         { text: 'I don\'t know', value: 'dont_know' }
       ],
-      enableWhen: { 
+      enableWhen: {
         "var": "q9_fever.value"
       }
     },
@@ -163,7 +163,7 @@ If you have chronic lung disease, compare your current breathing problems with y
       text: 'With regard to all questions about symptoms: since when have you had the symptoms you specified?',
       type: QuestionType.Date,
       enableWhen: { var: "v_symptoms.value" }
-    }, 
+    },
     {
       id: 'q18_lung_disease',
       text: 'Have you been diagnosed with chronic lung disease by a doctor?',
@@ -393,4 +393,3 @@ You can find more information in the data protection declaration.`
 }
 
 export default example
-
