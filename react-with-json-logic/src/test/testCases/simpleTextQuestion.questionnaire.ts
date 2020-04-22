@@ -1,6 +1,6 @@
-import { IQuestionnaire, QuestionType } from "../../logic/schema";
+import { Questionnaire, QuestionType } from "../../logic/schema";
 
-const testQuestionnaire: IQuestionnaire = {
+const testQuestionnaire: Questionnaire = {
   id: "simpleTextQuestion",
   schemaVersion: "1",
   version: "1",

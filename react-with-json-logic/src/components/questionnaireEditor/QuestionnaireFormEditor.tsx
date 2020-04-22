@@ -1,6 +1,6 @@
 import { Button, createStyles, Divider, Grid, List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { IQuestion, IQuestionnaire, IQuestionnaireMeta, IResultCategory, IVariable } from "../../logic/schema";
+import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../logic/schema";
 import { ElementEditor } from "./ElementEditor";
 import questionnaireMetaSchema from "../../schemas/questionnaireMeta.json";
 import resultCategorySchema from "../../schemas/resultCategory.json";
@@ -8,8 +8,8 @@ import variableSchema from "../../schemas/variable.json";
 import { QuestionElementEditor } from "./QuestionElementEditor";
 
 type QuestionnaireFormEditorProps = {
-  value: IQuestionnaire | undefined;
-  onChange: (value: IQuestionnaire) => void;
+  value: Questionnaire | undefined;
+  onChange: (value: Questionnaire) => void;
   formHeight: string;
   addQuestion: () => number;
   addResultCategory: () => number;
@@ -52,7 +52,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const classes = useStyles();
 
   const [activeSelection, setActiveSelection] = useState<Selection>({ type: "meta", index: 0 });
-  const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
+  const [questionnaire, setQuestionnaire] = useState<Questionnaire>({} as Questionnaire);
 
   const style = `
     .rjsf > .MuiFormControl-root {
@@ -65,29 +65,29 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     }
     `;
 
-  const handleQuestionnaireMetaChanged = (value: IQuestionnaireMeta) => {
+  const handleQuestionnaireMetaChanged = (value: QuestionnaireMeta) => {
     questionnaire.meta = value;
     props.onChange(questionnaire);
   };
 
-  const handleQuestionChanged = (index: number, value: IQuestion) => {
+  const handleQuestionChanged = (index: number, value: AnyQuestion) => {
     questionnaire.questions[index] = value;
     props.onChange(questionnaire);
   };
 
-  const handleResultCategoryChanged = (index: number, value: IResultCategory) => {
+  const handleResultCategoryChanged = (index: number, value: ResultCategory) => {
     questionnaire.resultCategories[index] = value;
     props.onChange(questionnaire);
   };
 
-  const handleVariableChanged = (index: number, value: IVariable) => {
+  const handleVariableChanged = (index: number, value: Variable) => {
     questionnaire.variables[index] = value;
     props.onChange(questionnaire);
   };
 
   useEffect(() => {
     if (props.value === undefined) {
-      setQuestionnaire({} as IQuestionnaire);
+      setQuestionnaire({} as Questionnaire);
     } else {
       setQuestionnaire(props.value);
     }
@@ -197,7 +197,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           {activeSelection.type === "meta" ? (
             <ElementEditor
               schema={questionnaireMetaSchema}
-              formData={questionnaire.meta || ({} as IQuestionnaireMeta)}
+              formData={questionnaire.meta || ({} as QuestionnaireMeta)}
               onChange={(formData) => handleQuestionnaireMetaChanged(formData)}
             />
           ) : null}

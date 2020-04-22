@@ -1,8 +1,8 @@
 {
-  "$ref": "#/definitions/IVariable",
+  "$ref": "#/definitions/Variable",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "IVariable": {
+    "Variable": {
       "additionalProperties": false,
       "description": "Represents a variable which is computed from the given answers or other variables.",
       "properties": {

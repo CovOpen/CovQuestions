@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "jsoneditor-react/es/editor.min.css";
-import { IQuestionnaire } from "../../logic/schema";
+import { Questionnaire } from "../../logic/schema";
 import "brace";
 import "brace/mode/json";
 import "brace/theme/github";
@@ -11,8 +11,8 @@ import jsonschema from "jsonschema";
 import Ajv from "ajv";
 
 type QuestionnaireFormEditorProps = {
-  value: IQuestionnaire | undefined;
-  onChange: (value: IQuestionnaire) => void;
+  value: Questionnaire | undefined;
+  onChange: (value: Questionnaire) => void;
   formHeight: string;
   schema: jsonschema.Schema;
 };
@@ -57,7 +57,7 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
         schema={schema}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
-        onChange={(value: IQuestionnaire) => onChange(value)}
+        onChange={(value: Questionnaire) => onChange(value)}
       />
     </div>
   );

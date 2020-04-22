@@ -6,7 +6,7 @@ import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 import { Primitive } from "../../Primitive";
 import { TextInput } from "./TextInput";
-import { Question } from "../../logic/questionnaire";
+import { Question } from "../../logic/QuestionnaireEngine";
 
 export type QuestionFormComponentProps = {
   currentQuestion: Question;

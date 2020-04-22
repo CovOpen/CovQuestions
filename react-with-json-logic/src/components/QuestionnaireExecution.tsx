@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { Question, Questionnaire, Result } from "../logic/questionnaire";
+import { Question, QuestionnaireEngine, Result } from "../logic/QuestionnaireEngine";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
-import { IQuestionnaire } from "../logic/schema";
+import { Questionnaire } from "../logic/schema";
 import { Primitive } from "../Primitive";
 
 type QuestionnaireExecutionProps = {
   isInSync: boolean;
-  currentQuestionnaire: { questionnaire: IQuestionnaire; updatedAt: number };
+  currentQuestionnaire: { questionnaire: Questionnaire; updatedAt: number };
 };
 
 export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ isInSync, currentQuestionnaire }) => {
-  const [questionnaireEngine, setQuestionnaireEngine] = useState(new Questionnaire(currentQuestionnaire.questionnaire));
+  const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire.questionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
   const [doRerender, setDoRerender] = useState(false);
 
   function restartQuestionnaire() {
-    const engine = new Questionnaire(currentQuestionnaire.questionnaire);
+    const engine = new QuestionnaireEngine(currentQuestionnaire.questionnaire);
     const nextQuestion = engine.nextQuestion();
 
     setResult(undefined);

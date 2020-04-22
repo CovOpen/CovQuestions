@@ -1,13 +1,13 @@
-import { IQuestion } from "../../logic/schema";
+import { AnyQuestion } from "../../logic/schema";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "../../schemas/question.json";
 import React from "react";
 
-export type IQuestionInStringRepresentation = Omit<IQuestion, "enableWhen"> & { enableWhen: string };
+export type IQuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
 
 export type QuestionElementEditorProps = {
-  formData: IQuestion;
-  onChange: (formData: IQuestion) => void;
+  formData: AnyQuestion;
+  onChange: (formData: AnyQuestion) => void;
 };
 
 const uiSchema = {
@@ -17,12 +17,12 @@ const uiSchema = {
   },
 };
 
-function convertToStringRepresentation(formData: IQuestion): IQuestionInStringRepresentation {
+function convertToStringRepresentation(formData: AnyQuestion): IQuestionInStringRepresentation {
   return { ...formData, enableWhen: JSON.stringify(formData.enableWhen, undefined, 2) ?? "" };
 }
 
-function convertToJsonRepresentation(formData: IQuestionInStringRepresentation): IQuestion {
-  return { ...formData, enableWhen: formData.enableWhen !== "" ? JSON.parse(formData.enableWhen) : undefined } as IQuestion;
+function convertToJsonRepresentation(formData: IQuestionInStringRepresentation): AnyQuestion {
+  return { ...formData, enableWhen: formData.enableWhen !== "" ? JSON.parse(formData.enableWhen) : undefined } as AnyQuestion;
 }
 
 export function QuestionElementEditor(props: QuestionElementEditorProps) {

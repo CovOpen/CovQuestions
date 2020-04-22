@@ -1,8 +1,8 @@
 {
-  "$ref": "#/definitions/IQuestion",
+  "$ref": "#/definitions/Question",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "INumericOption": {
+    "NumericOption": {
       "additionalProperties": false,
       "description": "Option for numeric questions.",
       "properties": {
@@ -25,7 +25,7 @@
       },
       "type": "object"
     },
-    "INumericQuestion": {
+    "NumericQuestion": {
       "additionalProperties": false,
       "description": "Represents a question with numeric answer.",
       "properties": {
@@ -42,7 +42,7 @@
           "type": "string"
         },
         "numericOptions": {
-          "$ref": "#/definitions/INumericOption",
+          "$ref": "#/definitions/NumericOption",
           "description": "Answer options for Select/Multiselect questions."
         },
         "optional": {
@@ -63,7 +63,7 @@
       "title": "Numeric question",
       "type": "object"
     },
-    "IOption": {
+    "Option": {
       "additionalProperties": false,
       "description": "Option for multi-select questions.",
       "properties": {
@@ -83,24 +83,24 @@
       "required": ["text", "value"],
       "type": "object"
     },
-    "IQuestion": {
+    "Question": {
       "anyOf": [
         {
-          "$ref": "#/definitions/IQuestionWithoutOptions",
+          "$ref": "#/definitions/QuestionWithoutOptions",
           "title": "Yes/No, Text or Date question"
         },
         {
-          "$ref": "#/definitions/IQuestionWithOptions",
+          "$ref": "#/definitions/QuestionWithOptions",
           "title": "Question with options"
         },
         {
-          "$ref": "#/definitions/INumericQuestion",
+          "$ref": "#/definitions/NumericQuestion",
           "title": "Numeric question"
         }
       ],
       "description": "Represents a single question of the questionnaire."
     },
-    "IQuestionWithOptions": {
+    "QuestionWithOptions": {
       "additionalProperties": false,
       "description": "Represents a question with predefined answers to select.",
       "properties": {
@@ -123,7 +123,7 @@
         "options": {
           "description": "Answer options for Select/Multiselect questions.",
           "items": {
-            "$ref": "#/definitions/IOption"
+            "$ref": "#/definitions/Option"
           },
           "type": "array"
         },
@@ -149,7 +149,7 @@
       "title": "Question with options",
       "type": "object"
     },
-    "IQuestionWithoutOptions": {
+    "QuestionWithoutOptions": {
       "additionalProperties": false,
       "description": "Represents a question. The answer is a choice of yes/no, text or date.",
       "properties": {

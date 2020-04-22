@@ -1,8 +1,8 @@
 {
-  "$ref": "#/definitions/IResultCategory",
+  "$ref": "#/definitions/ResultCategory",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "IResult": {
+    "Result": {
       "additionalProperties": false,
       "description": "Represents a single result.",
       "properties": {
@@ -22,7 +22,7 @@
       "required": ["id", "text", "value"],
       "type": "object"
     },
-    "IResultCategory": {
+    "ResultCategory": {
       "additionalProperties": false,
       "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.",
       "properties": {
@@ -37,7 +37,7 @@
         "results": {
           "description": "A list of results for this category.",
           "items": {
-            "$ref": "#/definitions/IResult"
+            "$ref": "#/definitions/Result"
           },
           "type": "array"
         }

@@ -20,7 +20,7 @@ export enum QuestionType {
 /**
  * Option for multi-select questions.
  */
-export interface IOption {
+export interface Option {
   /**
    * Human-Readable answer, can be localized.
    */
@@ -40,7 +40,7 @@ export interface IOption {
 /**
  * Option for numeric questions.
  */
-export interface INumericOption {
+export interface NumericOption {
   /**
    * Minimal value
    */
@@ -62,7 +62,7 @@ export interface INumericOption {
 /**
  * Represents a question.
  */
-interface IQuestionBase {
+interface QuestionBase {
   /**
    * Unique id for referring this question in logic expressions.
    */
@@ -90,7 +90,7 @@ interface IQuestionBase {
  * Represents a question. The answer is a choice of yes/no, text or date.
  * @title Yes/No, Text or Date question
  */
-export type IQuestionWithoutOptions = IQuestionBase & {
+export type QuestionWithoutOptions = QuestionBase & {
   /**
    * Type of the question.
    */
@@ -101,7 +101,7 @@ export type IQuestionWithoutOptions = IQuestionBase & {
  * Represents a question with predefined answers to select.
  * @title Question with options
  */
-export type IQuestionWithOptions = IQuestionBase & {
+export type QuestionWithOptions = QuestionBase & {
   /**
    * Type of the question.
    */
@@ -109,14 +109,14 @@ export type IQuestionWithOptions = IQuestionBase & {
   /**
    * Answer options for Select/Multiselect questions.
    */
-  options?: IOption[];
+  options?: Option[];
 };
 
 /**
  * Represents a question with numeric answer.
  * @title Numeric question
  */
-export type INumericQuestion = IQuestionBase & {
+export type NumericQuestion = QuestionBase & {
   /**
    * Type of the question.
    */
@@ -124,18 +124,18 @@ export type INumericQuestion = IQuestionBase & {
   /**
    * Answer options for Select/Multiselect questions.
    */
-  numericOptions?: INumericOption;
+  numericOptions?: NumericOption;
 };
 
 /**
  * Represents a single question of the questionnaire.
  */
-export type IQuestion = IQuestionWithoutOptions | IQuestionWithOptions | INumericQuestion;
+export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
 
 /**
  * Represents a variable which is computed from the given answers or other variables.
  */
-export interface IVariable {
+export interface Variable {
   /**
    * Unique id for referring this variable in logic expressions.
    */
@@ -149,7 +149,7 @@ export interface IVariable {
 /**
  * Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.
  */
-export interface IResultCategory {
+export interface ResultCategory {
   /**
    * A unique identifier for this result category.
    */
@@ -161,13 +161,13 @@ export interface IResultCategory {
   /**
    * A list of results for this category.
    */
-  results: IResult[];
+  results: Result[];
 }
 
 /**
  * Represents a single result.
  */
-export interface IResult {
+export interface Result {
   /**
    * A unique identifier for this result.
    */
@@ -186,7 +186,7 @@ export interface IResult {
 /**
  * Meta-Information for a questionaire.
  */
-export interface IQuestionnaireMeta {
+export interface QuestionnaireMeta {
   title: string;
   description?: string;
   author: string;
@@ -213,7 +213,7 @@ export interface IQuestionnaireMeta {
 /**
  * The questionaire.
  */
-export interface IQuestionnaire {
+export interface Questionnaire {
   /**
    * Unique, assigned identifier. Machine friendly.
    */
@@ -229,18 +229,18 @@ export interface IQuestionnaire {
   /**
    * Meta-Information.
    */
-  meta: IQuestionnaireMeta;
+  meta: QuestionnaireMeta;
   /**
    * All questions, shown one after another, in order.
    */
-  questions: IQuestion[];
+  questions: AnyQuestion[];
   /**
    * All variables, refreshed after each update to any answer.
    */
-  variables: IVariable[];
+  variables: Variable[];
   /**
    * All result categories. When all questions are answered,
    * the result for each result category is computed.
    */
-  resultCategories: IResultCategory[];
+  resultCategories: ResultCategory[];
 }

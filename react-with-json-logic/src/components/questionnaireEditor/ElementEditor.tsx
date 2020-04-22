@@ -1,11 +1,11 @@
-import { IQuestionnaireMeta, IResultCategory, IVariable } from "../../logic/schema";
+import { QuestionnaireMeta, ResultCategory, Variable } from "../../logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import React from "react";
 import { MuiForm } from "rjsf-material-ui";
 import { IQuestionInStringRepresentation } from "./QuestionElementEditor";
 
-export type IFormSection = IQuestionnaireMeta | IQuestionInStringRepresentation | IVariable | IResultCategory;
+export type IFormSection = QuestionnaireMeta | IQuestionInStringRepresentation | Variable | ResultCategory;
 
 export type ElementEditorProps<T extends IFormSection> = {
   schema: jsonschema.Schema;

@@ -4,23 +4,23 @@ import "./App.css";
 import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelectionDropdown";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
-import { IQuestionnaire } from "./logic/schema";
+import { Questionnaire } from "./logic/schema";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
 export const App: React.FC = () => {
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
   const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
-  const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<IQuestionnaire | undefined>(
+  const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined
   );
   const [currentQuestionnaire, setCurrentQuestionnaire] = useState<
-    { questionnaire: IQuestionnaire; updatedAt: number } | undefined
+    { questionnaire: Questionnaire; updatedAt: number } | undefined
   >(undefined);
 
   const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
 
-  function overwriteCurrentQuestionnaire(newQuestionnaire: IQuestionnaire) {
+  function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
     setCurrentQuestionnaire({ questionnaire: newQuestionnaire, updatedAt: Date.now() });
     setIsQuestionnaireInSync(true);
   }

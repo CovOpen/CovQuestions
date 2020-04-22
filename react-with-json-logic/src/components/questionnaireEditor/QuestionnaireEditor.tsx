@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { IQuestionnaire, IQuestion, QuestionType, IResultCategory, IVariable } from "../../logic/schema";
+import { AnyQuestion, Questionnaire, QuestionType, ResultCategory, Variable } from "../../logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
@@ -18,10 +18,10 @@ import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 import questionnaireSchema from "../../schemas/questionnaire.json";
 
 type QuestionnaireEditorProps = {
-  value: IQuestionnaire | undefined;
+  value: Questionnaire | undefined;
   onChange: () => void;
   resetQuestionnaire: () => void;
-  loadQuestionnaire: (newQuestionnaire: IQuestionnaire) => void;
+  loadQuestionnaire: (newQuestionnaire: Questionnaire) => void;
 };
 
 const formHeight = "calc(100vh - 210px)";
@@ -51,7 +51,7 @@ const useStyles = makeStyles(() =>
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const classes = useStyles();
 
-  const [questionnaire, setQuestionnaire] = useState<IQuestionnaire>({} as IQuestionnaire);
+  const [questionnaire, setQuestionnaire] = useState<Questionnaire>({} as Questionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
   const [developerMode, setDeveloperMode] = useState(false);
@@ -129,7 +129,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       id: "newQuestionId",
       text: "new question",
       type: QuestionType.Text,
-    } as IQuestion);
+    } as AnyQuestion);
 
     props.onChange();
 
@@ -143,7 +143,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     const length = questionnaire.resultCategories.length;
     questionnaire.resultCategories.push({
       id: "rc_newResultCategoryId",
-    } as IResultCategory);
+    } as ResultCategory);
 
     props.onChange();
 
@@ -157,7 +157,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     const length = questionnaire.variables.length;
     questionnaire.variables.push({
       id: "v_newVariable",
-    } as IVariable);
+    } as Variable);
 
     props.onChange();
 
@@ -166,7 +166,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
 
   useEffect(() => {
     if (props.value === undefined) {
-      setQuestionnaire({} as IQuestionnaire);
+      setQuestionnaire({} as Questionnaire);
     } else {
       setQuestionnaire(props.value);
     }

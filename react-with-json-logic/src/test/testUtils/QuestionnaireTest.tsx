@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, RenderResult } from "@testing-library/react";
 import UserEvent from "@testing-library/user-event";
-import { IQuestionnaire } from "../../logic/schema";
+import { Questionnaire } from "../../logic/schema";
 import { QuestionnaireExecution } from "../../components/QuestionnaireExecution";
 
 export class QuestionnaireTest {
@@ -9,7 +9,7 @@ export class QuestionnaireTest {
 
   private readonly renderedApp: RenderResult;
 
-  constructor(questionnaire: IQuestionnaire) {
+  constructor(questionnaire: Questionnaire) {
     this.renderedApp = render(
       <QuestionnaireExecution currentQuestionnaire={{ questionnaire, updatedAt: 0 }} isInSync={true} />
     );
