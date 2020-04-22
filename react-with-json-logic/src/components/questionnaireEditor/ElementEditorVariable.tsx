@@ -2,6 +2,7 @@ import { Variable } from "../../models/Questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";
+import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
 
 type VariableInStringRepresentation = Omit<Variable, "value"> & { value: string };
 
@@ -21,13 +22,13 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: Variable): VariableInStringRepresentation {
-  return { ...formData, value: JSON.stringify(formData.value, undefined, 2) ?? "" };
+  return { ...formData, value: convertLogicExpressionToString(formData.value) };
 }
 
 function convertToJsonRepresentation(formData: VariableInStringRepresentation): Variable {
   return {
     ...formData,
-    value: formData.value !== "" ? JSON.parse(formData.value) : undefined,
+    value: convertStringToLogicExpression(formData.value),
   } as Variable;
 }
 

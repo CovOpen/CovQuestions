@@ -2,6 +2,7 @@ import { AnyQuestion } from "../../models/Questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
+import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
 
 type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
 
@@ -26,13 +27,13 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: AnyQuestion): QuestionInStringRepresentation {
-  return { ...formData, enableWhen: JSON.stringify(formData.enableWhen, undefined, 2) ?? "" };
+  return { ...formData, enableWhen: convertLogicExpressionToString(formData.enableWhen) };
 }
 
 function convertToJsonRepresentation(formData: QuestionInStringRepresentation): AnyQuestion {
   return {
     ...formData,
-    enableWhen: formData.enableWhen !== "" ? JSON.parse(formData.enableWhen) : undefined,
+    enableWhen: convertStringToLogicExpression(formData.enableWhen),
   } as AnyQuestion;
 }
 

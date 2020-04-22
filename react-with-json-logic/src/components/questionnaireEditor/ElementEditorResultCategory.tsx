@@ -2,7 +2,7 @@ import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
 import { Result, ResultCategory } from "../../models/Questionnaire";
-import { LogicExpression } from "../../models/LogicExpression";
+import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
 
 type ResultInStringRepresentation = Omit<Result, "value"> & { value: string };
 type ResultCategoryInStringRepresentation = Omit<ResultCategory, "results"> & {
@@ -32,7 +32,7 @@ function convertToStringRepresentation(formData: ResultCategory): ResultCategory
   return {
     ...formData,
     results: formData.results?.map((result) => {
-      let value = JSON.stringify(result.value, undefined, 2) ?? "";
+      let value = convertLogicExpressionToString(result.value);
       return { ...result, value };
     }),
   };
@@ -42,7 +42,7 @@ function convertToJsonRepresentation(formData: ResultCategoryInStringRepresentat
   return {
     ...formData,
     results: formData.results?.map((result) => {
-      let value = (result.value !== "" ? JSON.parse(result.value) : undefined) as LogicExpression;
+      let value = convertStringToLogicExpression(result.value);
       return { ...result, value };
     }),
   };
