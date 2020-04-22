@@ -130,6 +130,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       text: "new question",
       type: QuestionType.Text
     } as IQuestion);
+
+    props.onChange();
+    
     return length;
   };
 
@@ -141,6 +144,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     questionnaire.resultCategories.push({
       id: "rc_newResultCategoryId"
     } as IResultCategory);
+    
+    props.onChange();
+    
     return length;
   }
 
@@ -152,6 +158,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     questionnaire.variables.push({
       id: 'v_newVariable'
     } as IVariable);
+    
+    props.onChange();
+    
     return length;
   }
 
