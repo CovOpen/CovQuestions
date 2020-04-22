@@ -15,8 +15,8 @@ const uiSchema = {
   value: {
     "ui:widget": "textarea",
     "ui:options": {
-      rows: 15
-    }
+      rows: 15,
+    },
   },
 };
 

@@ -9,7 +9,7 @@ export type ElementEditorMetaProps = {
 };
 
 const uiSchema = {
-  "ui:order": ["title", "*"]
+  "ui:order": ["title", "*"],
 };
 
 export function ElementEditorMeta(props: ElementEditorMetaProps) {

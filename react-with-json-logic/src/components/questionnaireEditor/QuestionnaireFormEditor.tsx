@@ -1,11 +1,10 @@
 import { Button, createStyles, Divider, Grid, List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../logic/schema";
-import { ElementEditor } from "./ElementEditor";
-import resultCategorySchema from "../../schemas/resultCategory.json";
 import { ElementEditorQuestion } from "./ElementEditorQuestion";
 import { ElementEditorMeta } from "./ElementEditorMeta";
 import { ElementEditorVariable } from "./ElementEditorVariable";
+import { ElementEditorResultCategory } from "./ElementEditorResultCategory";
 
 type QuestionnaireFormEditorProps = {
   value: Questionnaire | undefined;
@@ -207,8 +206,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
             />
           ) : null}
           {activeSelection.type === "resultCategory" && questionnaire.resultCategories !== undefined ? (
-            <ElementEditor
-              schema={resultCategorySchema}
+            <ElementEditorResultCategory
               formData={questionnaire.resultCategories[activeSelection.index]}
               onChange={(formData) => handleResultCategoryChanged(activeSelection.index, formData)}
             />

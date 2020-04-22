@@ -13,7 +13,9 @@ type QuestionnaireExecutionProps = {
 };
 
 export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ isInSync, currentQuestionnaire }) => {
-  const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire.questionnaire));
+  const [questionnaireEngine, setQuestionnaireEngine] = useState(
+    new QuestionnaireEngine(currentQuestionnaire.questionnaire)
+  );
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
   const [doRerender, setDoRerender] = useState(false);
