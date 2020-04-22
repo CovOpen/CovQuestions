@@ -1,7 +1,7 @@
 // @ts-ignore
 function findClosingBracketMatchIndex(str, pos) {
   // credits to https://codereview.stackexchange.com/questions/179471/find-the-corresponding-closing-parenthesis
-  if (str[pos] != "(") {
+  if (str[pos] !== "(") {
     throw new Error("No '(' at index " + pos);
   }
   let depth = 1;
@@ -11,7 +11,7 @@ function findClosingBracketMatchIndex(str, pos) {
         depth++;
         break;
       case ")":
-        if (--depth == 0) {
+        if (--depth === 0) {
           return i;
         }
         break;
@@ -22,18 +22,18 @@ function findClosingBracketMatchIndex(str, pos) {
 
 // @ts-ignore
 function toJSONDatatype(val) {
-  if (val == "null") {
+  if (val === "null") {
     return null;
   }
-  if (val == "true") {
+  if (val === "true") {
     return true;
   }
-  if (val == "false") {
+  if (val === "false") {
     return false;
   }
   try {
     const pVal = parseFloat(val);
-    if (!(<any>Number).isNaN(pVal)) {
+    if (!Number.isNaN(pVal)) {
       return pVal;
     }
   } catch {
@@ -68,7 +68,7 @@ export class Expression {
     let exprCounter = 0;
     // loop over expression and look for opening parenthesis
     for (let i = 0; i < this.raw.length; i++) {
-      if (this.raw[i] == "(") {
+      if (this.raw[i] === "(") {
         // get the corresponding closing one
         const start = i;
         const end = findClosingBracketMatchIndex(this.raw, start);
@@ -107,7 +107,7 @@ export class Expression {
       .replace(/>/g, " > ")
       .replace(/<\s=/g, "<=")
       .replace(/>\s=/g, ">=")
-      .replace(/==/g, " == ")
+      .replace(/===/g, " === ")
       .replace(/!=/g, " != ")
       .replace(/,\s/g, ",")
       .replace(/\s,/g, ",");
@@ -116,7 +116,7 @@ export class Expression {
       .split(" ")
       .filter((e) => e.length > 0)
       .map((e) => {
-        if (e.indexOf(".") == -1 && e.indexOf("#") == -1) {
+        if (e.indexOf(".") === -1 && e.indexOf("#") === -1) {
           return e.toLowerCase();
         } else {
           return e;
@@ -129,7 +129,7 @@ export class Expression {
   // @ts-ignore
   public checkExpression(item: any) {
     let nItem = item;
-    if (typeof nItem == "string" && item.startsWith("[") && item.endsWith("]")) {
+    if (typeof nItem === "string" && item.startsWith("[") && item.endsWith("]")) {
       return nItem
         .slice(1, -1)
         .split(",")
@@ -137,24 +137,24 @@ export class Expression {
         .map((e) => this.checkExpression(e));
     }
     // check if it is a subexpression. If so, convert it to JSON Logic
-    if (typeof nItem == "string" && item.startsWith("(#") && item.endsWith("#)")) {
+    if (typeof nItem === "string" && item.startsWith("(#") && item.endsWith("#)")) {
       return this.subExpressions[item.slice(1, -1)].expr.toJSONLogic();
     }
     // check if unary operator
-    if (typeof nItem == "string" && (<any>nItem).startsWith("!")) {
+    if (typeof nItem === "string" && nItem.startsWith("!")) {
       return {
         "!": this.checkExpression(nItem.slice(1)),
       };
     }
-    if (typeof nItem == "string" && (<any>nItem).startsWith("-")) {
+    if (typeof nItem === "string" && nItem.startsWith("-")) {
       return {
         "-": this.checkExpression(nItem.slice(1)),
       };
     }
     // check if is referencing a variable. If so, put in JSON Logic syntax
-    if (typeof nItem == "string" && nItem.indexOf(".") > 0) {
+    if (typeof nItem === "string" && nItem.indexOf(".") > 0) {
       const nItemDotIndex = nItem.indexOf(".");
-      if ((<any>Number).isNaN(parseFloat(nItem[nItemDotIndex + 1]))) {
+      if (Number.isNaN(parseFloat(nItem[nItemDotIndex + 1]))) {
         let defaultValue = null;
         let varName = nItem;
         if (nItem.indexOf(":") > 0) {
@@ -166,7 +166,7 @@ export class Expression {
       }
     }
     // try to convert numbers/null/...
-    if (typeof nItem == "string") {
+    if (typeof nItem === "string") {
       return toJSONDatatype(nItem);
     }
     return nItem;
@@ -175,16 +175,16 @@ export class Expression {
   // @ts-ignore
   public chain(items: any[]) {
     // if only one item, just return it
-    if (items.length == 1) {
+    if (items.length === 1) {
       return this.checkExpression(items[0]);
     }
-    if (items.length == 2 && (items[0] == "max" || items[0] == "min" || items[0] == "+" || items[0] == "*")) {
+    if (items.length === 2 && (items[0] === "max" || items[0] === "min" || items[0] === "+" || items[0] === "*")) {
       const mItems = this.checkExpression(items[1]);
       return {
         [items[0]]: mItems,
       };
     }
-    if (items.length == 3) {
+    if (items.length === 3) {
       const item0 = this.checkExpression(items[0]);
       const item2 = this.checkExpression(items[2]);
       return {
@@ -192,9 +192,9 @@ export class Expression {
       };
     }
     if (
-      items.length == 5 &&
-      (items[1] == "<" || items[1] == "<=" || items[1] == ">" || items[1] == ">=") &&
-      (items[3] == "<" || items[3] == "<=" || items[1] == ">" || items[1] == ">=")
+      items.length === 5 &&
+      (items[1] === "<" || items[1] === "<=" || items[1] === ">" || items[1] === ">=") &&
+      (items[3] === "<" || items[3] === "<=" || items[1] === ">" || items[1] === ">=")
     ) {
       const item0 = this.checkExpression(items[0]);
       const item2 = this.checkExpression(items[2]);
@@ -203,7 +203,7 @@ export class Expression {
         [items[1]]: [item0, item2, item4],
       };
     }
-    if (items.length == 6 && items[0] == "if" && items[2] == "then" && items[4] == "else") {
+    if (items.length === 6 && items[0] === "if" && items[2] === "then" && items[4] === "else") {
       const Cond = this.checkExpression(items[1]);
       const Then = this.checkExpression(items[3]);
       const Else = this.checkExpression(items[5]);
