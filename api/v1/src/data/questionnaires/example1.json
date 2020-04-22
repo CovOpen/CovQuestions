@@ -68,7 +68,11 @@
           {
             "var": "v_risk.value"
           },
-          ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"]
+          [
+            "HIGH_RISK",
+            "MEDIUM_RISK_A",
+            "MEDIUM_RISK_B"
+          ]
         ]
       }
     }
@@ -212,7 +216,9 @@
                       {
                         "var": "q_symptoms.value"
                       },
-                      ["respiratory"]
+                      [
+                        "respiratory"
+                      ]
                     ]
                   },
                   "MEDIUM_RISK_B",
