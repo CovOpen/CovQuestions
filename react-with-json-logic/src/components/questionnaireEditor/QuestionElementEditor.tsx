@@ -11,7 +11,7 @@ export type QuestionElementEditorProps = {
 };
 
 const uiSchema = {
-  "ui:order": ["id", "type", "text", "details", "optional", "*"],
+  "ui:order": ["type", "text", "details", "id", "optional", "*"],
   enableWhen: {
     "ui:widget": "textarea",
   },
@@ -22,13 +22,16 @@ function convertToStringRepresentation(formData: AnyQuestion): IQuestionInString
 }
 
 function convertToJsonRepresentation(formData: IQuestionInStringRepresentation): AnyQuestion {
-  return { ...formData, enableWhen: formData.enableWhen !== "" ? JSON.parse(formData.enableWhen) : undefined } as AnyQuestion;
+  return {
+    ...formData,
+    enableWhen: formData.enableWhen !== "" ? JSON.parse(formData.enableWhen) : undefined,
+  } as AnyQuestion;
 }
 
 export function QuestionElementEditor(props: QuestionElementEditorProps) {
   return (
     <ElementEditor
-      schema={questionSchema}
+      schema={questionSchema as any}
       formData={convertToStringRepresentation(props.formData)}
       onChange={(formData) => props.onChange(convertToJsonRepresentation(formData))}
       uiSchema={uiSchema}
