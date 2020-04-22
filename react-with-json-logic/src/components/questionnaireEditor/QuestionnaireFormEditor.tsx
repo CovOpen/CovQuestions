@@ -12,6 +12,7 @@ type QuestionnaireFormEditorProps = {
   onChange: (value: IQuestionnaire) => void;
   formHeight: string;
   addQuestion: () => number;
+  addResultCategory: () => number;
 };
 
 export type Selection = {
@@ -146,7 +147,10 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 ))
               : null}
             <ListItem className={classes.listItem}>
-              <Button variant="contained" color="secondary">
+              <Button variant="contained" color="secondary" onClick={() => {
+                const index = props.addResultCategory();
+                setActiveSelection({ type: "resultCategory", index});
+              }}>
                 Add Result
               </Button>
             </ListItem>
