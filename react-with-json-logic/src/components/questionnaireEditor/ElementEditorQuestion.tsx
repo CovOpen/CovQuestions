@@ -14,6 +14,9 @@ const uiSchema = {
   "ui:order": ["type", "text", "details", "id", "optional", "*"],
   enableWhen: {
     "ui:widget": "textarea",
+    "ui:options": {
+      rows: 5
+    }
   },
 };
 

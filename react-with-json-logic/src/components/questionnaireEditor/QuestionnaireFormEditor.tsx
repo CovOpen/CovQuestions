@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../logic/schema";
 import { ElementEditor } from "./ElementEditor";
 import resultCategorySchema from "../../schemas/resultCategory.json";
-import variableSchema from "../../schemas/variable.json";
 import { ElementEditorQuestion } from "./ElementEditorQuestion";
 import { ElementEditorMeta } from "./ElementEditorMeta";
+import { ElementEditorVariable } from "./ElementEditorVariable";
 
 type QuestionnaireFormEditorProps = {
   value: Questionnaire | undefined;
@@ -214,8 +214,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
             />
           ) : null}
           {activeSelection.type === "variable" && questionnaire.variables !== undefined ? (
-            <ElementEditor
-              schema={variableSchema}
+            <ElementEditorVariable
               formData={questionnaire.variables[activeSelection.index]}
               onChange={(formData) => handleVariableChanged(activeSelection.index, formData)}
             />
