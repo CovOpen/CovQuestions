@@ -22,7 +22,7 @@ function convertToStringRepresentation(formData: IQuestion): IQuestionInStringRe
 }
 
 function convertToJsonRepresentation(formData: IQuestionInStringRepresentation): IQuestion {
-  return { ...formData, enableWhen: JSON.parse(formData.enableWhen) } as IQuestion;
+  return { ...formData, enableWhen: formData.enableWhen !== "" ? JSON.parse(formData.enableWhen) : undefined } as IQuestion;
 }
 
 export function QuestionElementEditor(props: QuestionElementEditorProps) {
