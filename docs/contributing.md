@@ -9,4 +9,5 @@
 
 ## Translate a Questionnaire
 
-Head over to https://wevsvirushack.crowdin.com/covquestions and start translating.
+Head over to https://wevsvirushack.crowdin.com/covquestions and start
+translating.

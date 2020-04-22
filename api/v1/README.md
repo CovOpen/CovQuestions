@@ -1,6 +1,7 @@
 # Localisation
 
-To extract the strings from the questionares in `src/data` run `npm run i18n-extract`.
+To extract the strings from the questionares in `src/data` run
+`npm run i18n-extract`.
 
 > To add new Localizations have a look at the docs
 
