@@ -1,7 +1,7 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
 import { NumericInput } from "./NumericInput";
-import { QuestionType } from "../../logic/schema";
+import { QuestionType } from "../../models/Questionnaire";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 import { Primitive } from "../../Primitive";

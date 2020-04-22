@@ -1,15 +1,15 @@
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
-import resultCategorySchema from "../../schemas/resultCategory.json";
-import { Result, ResultCategory } from "../../logic/schema";
-import { LogicExpression } from "../../logic/logic";
+import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
+import { Result, ResultCategory } from "../../models/Questionnaire";
+import { LogicExpression } from "../../models/LogicExpression";
 
 type ResultInStringRepresentation = Omit<Result, "value"> & { value: string };
 type ResultCategoryInStringRepresentation = Omit<ResultCategory, "results"> & {
   results: ResultInStringRepresentation[];
 };
 
-export type ElementEditorResultProps = {
+type ElementEditorResultProps = {
   formData: ResultCategory;
   onChange: (formData: ResultCategory) => void;
 };

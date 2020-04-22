@@ -1,6 +1,6 @@
 import { Button, createStyles, Divider, Grid, List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../logic/schema";
+import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../models/Questionnaire";
 import { ElementEditorQuestion } from "./ElementEditorQuestion";
 import { ElementEditorMeta } from "./ElementEditorMeta";
 import { ElementEditorVariable } from "./ElementEditorVariable";

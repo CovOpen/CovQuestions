@@ -1,9 +1,9 @@
-import { QuestionnaireMeta } from "../../logic/schema";
+import { QuestionnaireMeta } from "../../models/Questionnaire";
 import { ElementEditor } from "./ElementEditor";
-import questionnaireMetaSchema from "../../schemas/questionnaireMeta.json";
+import questionnaireMetaSchema from "./formEditorSchemas/questionnaireMeta.json";
 import React from "react";
 
-export type ElementEditorMetaProps = {
+type ElementEditorMetaProps = {
   formData: QuestionnaireMeta;
   onChange: (formData: QuestionnaireMeta) => void;
 };

@@ -4,7 +4,7 @@ import { Alert } from "@material-ui/lab";
 import { Question, QuestionnaireEngine, Result } from "../logic/QuestionnaireEngine";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
-import { Questionnaire } from "../logic/schema";
+import { Questionnaire } from "../models/Questionnaire";
 import { Primitive } from "../Primitive";
 
 type QuestionnaireExecutionProps = {

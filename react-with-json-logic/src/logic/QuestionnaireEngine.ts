@@ -1,8 +1,16 @@
 // @ts-ignore
 import jsonLogic from "json-logic-js";
 
-import { AnyQuestion, NumericOption, Option, Questionnaire, QuestionType, ResultCategory, Variable } from "./schema";
-import { LogicExpression } from "./logic";
+import {
+  AnyQuestion,
+  NumericOption,
+  Option,
+  Questionnaire,
+  QuestionType,
+  ResultCategory,
+  Variable,
+} from "../models/Questionnaire";
+import { LogicExpression } from "../models/LogicExpression";
 import { Primitive } from "../Primitive";
 
 export type Result = {

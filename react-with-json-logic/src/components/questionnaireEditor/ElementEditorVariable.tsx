@@ -1,11 +1,11 @@
-import { Variable } from "../../logic/schema";
+import { Variable } from "../../models/Questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
-import variableSchema from "../../schemas/variable.json";
+import variableSchema from "./formEditorSchemas/variable.json";
 
-export type VariableInStringRepresentation = Omit<Variable, "value"> & { value: string };
+type VariableInStringRepresentation = Omit<Variable, "value"> & { value: string };
 
-export type ElementEditorVariableProps = {
+type ElementEditorVariableProps = {
   formData: Variable;
   onChange: (formData: Variable) => void;
 };

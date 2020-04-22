@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { AnyQuestion, Questionnaire, QuestionType, ResultCategory, Variable } from "../../logic/schema";
+import { AnyQuestion, Questionnaire, QuestionType, ResultCategory, Variable } from "../../models/Questionnaire";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";

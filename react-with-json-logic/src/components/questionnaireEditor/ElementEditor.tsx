@@ -1,20 +1,16 @@
-import { QuestionnaireMeta, ResultCategory, Variable } from "../../logic/schema";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import React from "react";
 import { MuiForm } from "rjsf-material-ui";
-import { IQuestionInStringRepresentation } from "./ElementEditorQuestion";
 
-export type IFormSection = QuestionnaireMeta | IQuestionInStringRepresentation | Variable | ResultCategory;
-
-export type ElementEditorProps<T extends IFormSection> = {
+type ElementEditorProps<T> = {
   schema: jsonschema.Schema;
   formData: T;
   onChange: (formData: T) => void;
   uiSchema?: any;
 };
 
-export function ElementEditor<T extends IFormSection>(props: ElementEditorProps<T>) {
+export function ElementEditor<T>(props: ElementEditorProps<T>) {
   if (props.schema === undefined) {
     return null;
   }

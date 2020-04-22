@@ -4,7 +4,7 @@ import "./App.css";
 import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelectionDropdown";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
-import { Questionnaire } from "./logic/schema";
+import { Questionnaire } from "./models/Questionnaire";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 

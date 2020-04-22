@@ -80,6 +80,6 @@ export type LogicLessEqual = { "<=": [LogicExpression, LogicExpression] };
  */
 export type LogicLess = { "<": [LogicExpression, LogicExpression] };
 
-export interface jsonLogic {
+export interface JsonLogic {
   apply: (exp: LogicExpression, data: any) => LogicConstant;
 }

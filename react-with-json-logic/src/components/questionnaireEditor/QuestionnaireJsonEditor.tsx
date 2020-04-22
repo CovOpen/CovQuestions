@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "jsoneditor-react/es/editor.min.css";
-import { Questionnaire } from "../../logic/schema";
+import { Questionnaire } from "../../models/Questionnaire";
 import "brace";
 import "brace/mode/json";
 import "brace/theme/github";

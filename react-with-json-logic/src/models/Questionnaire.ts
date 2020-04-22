@@ -1,5 +1,5 @@
 // LogicExpression refers to the JSONLogic standard.
-import { LogicExpression } from "./logic";
+import { LogicExpression } from "./LogicExpression";
 
 /*
  * This module defines a schema for questionaire and result calulation logic.

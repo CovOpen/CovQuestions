@@ -1,4 +1,4 @@
-import { Questionnaire, QuestionType } from "../../logic/schema";
+import { Questionnaire, QuestionType } from "../../models/Questionnaire";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleMultiselectSymptomsQuestion",
