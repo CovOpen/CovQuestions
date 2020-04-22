@@ -55,11 +55,17 @@
         },
         "type": {
           "description": "Type of the question.",
-          "enum": ["number"],
+          "enum": [
+            "number"
+          ],
           "type": "string"
         }
       },
-      "required": ["id", "text", "type"],
+      "required": [
+        "id",
+        "text",
+        "type"
+      ],
       "title": "Numeric question",
       "type": "object"
     },
@@ -80,7 +86,10 @@
           "type": "string"
         }
       },
-      "required": ["text", "value"],
+      "required": [
+        "text",
+        "value"
+      ],
       "type": "object"
     },
     "IQuestion": {
@@ -134,18 +143,26 @@
         "type": {
           "anyOf": [
             {
-              "enum": ["select"],
+              "enum": [
+                "select"
+              ],
               "type": "string"
             },
             {
-              "enum": ["multiselect"],
+              "enum": [
+                "multiselect"
+              ],
               "type": "string"
             }
           ],
           "description": "Type of the question."
         }
       },
-      "required": ["id", "text", "type"],
+      "required": [
+        "id",
+        "text",
+        "type"
+      ],
       "title": "Question with options",
       "type": "object"
     },
@@ -176,22 +193,32 @@
         "type": {
           "anyOf": [
             {
-              "enum": ["boolean"],
+              "enum": [
+                "boolean"
+              ],
               "type": "string"
             },
             {
-              "enum": ["date"],
+              "enum": [
+                "date"
+              ],
               "type": "string"
             },
             {
-              "enum": ["text"],
+              "enum": [
+                "text"
+              ],
               "type": "string"
             }
           ],
           "description": "Type of the question."
         }
       },
-      "required": ["id", "text", "type"],
+      "required": [
+        "id",
+        "text",
+        "type"
+      ],
       "title": "Yes/No, Text or Date question",
       "type": "object"
     }
