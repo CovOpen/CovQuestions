@@ -21,7 +21,7 @@ export const App: React.FC = () => {
   const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
 
   function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
-    setCurrentQuestionnaire({ questionnaire: newQuestionnaire, updatedAt: Date.now() });
+    setCurrentQuestionnaire({ questionnaire: JSON.parse(JSON.stringify(newQuestionnaire)), updatedAt: Date.now() });
     setIsQuestionnaireInSync(true);
   }
 

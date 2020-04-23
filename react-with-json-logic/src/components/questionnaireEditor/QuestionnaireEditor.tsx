@@ -169,7 +169,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     if (props.value === undefined) {
       setQuestionnaire({} as Questionnaire);
     } else {
-      setQuestionnaire(props.value);
+      setQuestionnaire(JSON.parse(JSON.stringify(props.value)));
     }
   }, [props.value]);
 
@@ -202,7 +202,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
             value={questionnaire}
             heightWithoutEditor={heightWithoutEditor}
             onChange={(value) => {
-              setQuestionnaire(value);
+              setQuestionnaire(JSON.parse(JSON.stringify(value)));
               props.onChange();
             }}
             schema={questionnaireSchema || {}}
@@ -212,7 +212,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
             value={questionnaire}
             heightWithoutEditor={heightWithoutEditor}
             onChange={(value) => {
-              setQuestionnaire(value);
+              setQuestionnaire(JSON.parse(JSON.stringify(value)));
               props.onChange();
             }}
             addQuestion={handleAddQuestion}

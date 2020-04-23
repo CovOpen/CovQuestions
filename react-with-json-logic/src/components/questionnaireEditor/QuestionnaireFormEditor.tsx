@@ -3,11 +3,11 @@ import {
   createStyles,
   Divider,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemText,
   makeStyles,
-  IconButton,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../models/Questionnaire";
@@ -125,7 +125,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     currentQuestionnaire[listPropertyName][currentIndex - 1] = currentQuestionnaire[listPropertyName][currentIndex];
     currentQuestionnaire[listPropertyName][currentIndex] = elementToMoveDown;
 
-    setQuestionnaire(currentQuestionnaire as Questionnaire);
+    setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
     handleListItemClick(activeSelection.type, currentIndex - 1);
     props.onChange(questionnaire);
   };
@@ -138,7 +138,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     currentQuestionnaire[listPropertyName][currentIndex + 1] = currentQuestionnaire[listPropertyName][currentIndex];
     currentQuestionnaire[listPropertyName][currentIndex] = elementToMoveUp;
 
-    setQuestionnaire(currentQuestionnaire as Questionnaire);
+    setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
     handleListItemClick(activeSelection.type, currentIndex + 1);
     props.onChange(questionnaire);
   };
@@ -148,7 +148,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     const currentQuestionnaire: any = questionnaire;
     const currentIndex = activeSelection.index;
     currentQuestionnaire[listPropertyName].splice(currentIndex, 1);
-    setQuestionnaire(currentQuestionnaire as Questionnaire);
+    setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
 
     if (currentQuestionnaire[listPropertyName].length === 0) {
       setActiveSelection({ type: "meta", index: 0 });
@@ -163,7 +163,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     if (props.value === undefined) {
       setQuestionnaire({} as Questionnaire);
     } else {
-      setQuestionnaire(props.value);
+      setQuestionnaire(JSON.parse(JSON.stringify(props.value)));
     }
   }, [props.value]);
 
