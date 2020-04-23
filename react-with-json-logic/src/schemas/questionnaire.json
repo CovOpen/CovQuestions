@@ -55,17 +55,11 @@
         },
         "type": {
           "description": "Type of the question.",
-          "enum": [
-            "number"
-          ],
+          "enum": ["number"],
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "text",
-        "type"
-      ],
+      "required": ["id", "text", "type"],
       "title": "Numeric question",
       "type": "object"
     },
@@ -86,10 +80,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "text",
-        "value"
-      ],
+      "required": ["text", "value"],
       "type": "object"
     },
     "Question": {
@@ -143,26 +134,18 @@
         "type": {
           "anyOf": [
             {
-              "enum": [
-                "select"
-              ],
+              "enum": ["select"],
               "type": "string"
             },
             {
-              "enum": [
-                "multiselect"
-              ],
+              "enum": ["multiselect"],
               "type": "string"
             }
           ],
           "description": "Type of the question."
         }
       },
-      "required": [
-        "id",
-        "text",
-        "type"
-      ],
+      "required": ["id", "text", "type"],
       "title": "Question with options",
       "type": "object"
     },
@@ -193,32 +176,22 @@
         "type": {
           "anyOf": [
             {
-              "enum": [
-                "boolean"
-              ],
+              "enum": ["boolean"],
               "type": "string"
             },
             {
-              "enum": [
-                "date"
-              ],
+              "enum": ["date"],
               "type": "string"
             },
             {
-              "enum": [
-                "text"
-              ],
+              "enum": ["text"],
               "type": "string"
             }
           ],
           "description": "Type of the question."
         }
       },
-      "required": [
-        "id",
-        "text",
-        "type"
-      ],
+      "required": ["id", "text", "type"],
       "title": "Yes/No, Text or Date question",
       "type": "object"
     },
@@ -264,15 +237,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "schemaVersion",
-        "version",
-        "meta",
-        "questions",
-        "variables",
-        "resultCategories"
-      ],
+      "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],
       "type": "object"
     },
     "QuestionnaireMeta": {
@@ -311,12 +276,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "author",
-        "language",
-        "creationDate"
-      ],
+      "required": ["title", "author", "language", "creationDate"],
       "type": "object"
     },
     "Result": {
@@ -336,11 +296,7 @@
           "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
         }
       },
-      "required": [
-        "id",
-        "text",
-        "value"
-      ],
+      "required": ["id", "text", "value"],
       "type": "object"
     },
     "ResultCategory": {
@@ -363,11 +319,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "id",
-        "description",
-        "results"
-      ],
+      "required": ["id", "description", "results"],
       "type": "object"
     },
     "Variable": {
@@ -383,10 +335,7 @@
           "description": "Logic expression used to compute this variable."
         }
       },
-      "required": [
-        "id",
-        "value"
-      ],
+      "required": ["id", "value"],
       "type": "object"
     },
     "LogicAnd": {
@@ -399,18 +348,12 @@
           "type": "array"
         }
       },
-      "required": [
-        "and"
-      ],
+      "required": ["and"],
       "title": "LogicAnd",
       "type": "object"
     },
     "LogicConstant": {
-      "type": [
-        "number",
-        "string",
-        "boolean"
-      ]
+      "type": ["number", "string", "boolean"]
     },
     "LogicEquals": {
       "additionalProperties": false,
@@ -429,9 +372,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "=="
-      ],
+      "required": ["=="],
       "title": "LogicEquals",
       "type": "object"
     },
@@ -465,9 +406,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">"
-      ],
+      "required": [">"],
       "title": "LogicGreater",
       "type": "object"
     },
@@ -488,9 +427,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">="
-      ],
+      "required": [">="],
       "title": "LogicGreaterEqual",
       "type": "object"
     },
@@ -514,9 +451,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "if"
-      ],
+      "required": ["if"],
       "title": "LogicIf",
       "type": "object"
     },
@@ -540,9 +475,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "in"
-      ],
+      "required": ["in"],
       "title": "LogicIn",
       "type": "object"
     },
@@ -563,9 +496,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<"
-      ],
+      "required": ["<"],
       "title": "LogicLess",
       "type": "object"
     },
@@ -586,9 +517,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<="
-      ],
+      "required": ["<="],
       "title": "LogicLessEqual",
       "type": "object"
     },
@@ -609,9 +538,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "-"
-      ],
+      "required": ["-"],
       "title": "LogicMinus",
       "type": "object"
     },
@@ -632,9 +559,7 @@
           ]
         }
       },
-      "required": [
-        "!"
-      ],
+      "required": ["!"],
       "title": "LogicNot",
       "type": "object"
     },
@@ -708,9 +633,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "or"
-      ],
+      "required": ["or"],
       "title": "LogicOr",
       "type": "object"
     },
@@ -731,9 +654,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "+"
-      ],
+      "required": ["+"],
       "title": "LogicPlus",
       "type": "object"
     },
@@ -757,9 +678,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "reduce"
-      ],
+      "required": ["reduce"],
       "title": "LogicReduce",
       "type": "object"
     },
@@ -780,9 +699,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "some"
-      ],
+      "required": ["some"],
       "title": "LogicSome",
       "type": "object"
     },
@@ -793,9 +710,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "var"
-      ],
+      "required": ["var"],
       "type": "object"
     }
   }
