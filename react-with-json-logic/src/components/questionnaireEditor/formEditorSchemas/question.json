@@ -27,11 +27,22 @@
         },
         "type": {
           "type": "string",
-          "enum": ["select", "multiselect", "number", "boolean", "date", "text"],
+          "enum": [
+            "select",
+            "multiselect",
+            "number",
+            "boolean",
+            "date",
+            "text"
+          ],
           "description": "Type of the question."
         }
       },
-      "required": ["id", "text", "type"],
+      "required": [
+        "id",
+        "text",
+        "type"
+      ],
       "title": "Question",
       "type": "object",
       "dependencies": {
@@ -40,14 +51,21 @@
             {
               "properties": {
                 "type": {
-                  "enum": ["boolean", "text", "date"]
+                  "enum": [
+                    "boolean",
+                    "text",
+                    "date"
+                  ]
                 }
               }
             },
             {
               "properties": {
                 "type": {
-                  "enum": ["multiselect", "select"]
+                  "enum": [
+                    "multiselect",
+                    "select"
+                  ]
                 },
                 "options": {
                   "title": "Answer options for Select/Multiselect questions.",
@@ -61,7 +79,9 @@
             {
               "properties": {
                 "type": {
-                  "enum": ["number"]
+                  "enum": [
+                    "number"
+                  ]
                 },
                 "numericOptions": {
                   "title": "Answer options for Numeric questions.",
@@ -113,7 +133,10 @@
           "type": "string"
         }
       },
-      "required": ["text", "value"],
+      "required": [
+        "text",
+        "value"
+      ],
       "type": "object"
     }
   }

@@ -19,7 +19,11 @@
           "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
         }
       },
-      "required": ["id", "text", "value"],
+      "required": [
+        "id",
+        "text",
+        "value"
+      ],
       "type": "object"
     },
     "ResultCategory": {
@@ -43,7 +47,11 @@
           "type": "array"
         }
       },
-      "required": ["id", "description", "results"],
+      "required": [
+        "id",
+        "description",
+        "results"
+      ],
       "type": "object"
     }
   }
