@@ -13,7 +13,7 @@ import Ajv from "ajv";
 type QuestionnaireFormEditorProps = {
   value: Questionnaire | undefined;
   onChange: (value: Questionnaire) => void;
-  formHeight: string;
+  heightWithoutEditor: number;
   schema: jsonschema.Schema;
 };
 
@@ -21,7 +21,7 @@ const ajv = new Ajv({ allErrors: true, verbose: true });
 
 export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = ({
   value,
-  formHeight,
+  heightWithoutEditor,
   onChange,
   schema,
 }) => {
@@ -30,7 +30,7 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
 
   const style = `
   .jsoneditor {
-    height: ${formHeight};
+    height: calc(100vh - ${heightWithoutEditor}px);
   }
   `;
 

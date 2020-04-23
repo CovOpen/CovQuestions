@@ -24,18 +24,19 @@ type QuestionnaireEditorProps = {
   loadQuestionnaire: (newQuestionnaire: Questionnaire) => void;
 };
 
-const formHeight = "calc(100vh - 210px)";
+const heightWithoutEditor = 210;
+// const formHeight = "calc(100vh - 210px)";
 const useStyles = makeStyles(() =>
   createStyles({
     formContainer: {
       paddingLeft: "10px",
-      height: formHeight,
+      height: `calc(100vh - ${heightWithoutEditor}px)`,
     },
     wrapper: {
       margin: 0,
     },
     selection: {
-      height: formHeight,
+      height: `calc(100vh - ${heightWithoutEditor}px)`,
       overflowY: "auto",
       overflowX: "hidden",
     },
@@ -61,7 +62,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     margin: 0;
   }
   .rjsf > .MuiFormControl-root {
-    height: ${formHeight};
+    height: calc(100vh - ${heightWithoutEditor}px);
     overflow-x: hidden !important;
     overflow-x: auto;
   }
@@ -199,7 +200,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         {developerMode ? (
           <QuestionnaireJsonEditor
             value={questionnaire}
-            formHeight={formHeight}
+            heightWithoutEditor={heightWithoutEditor}
             onChange={(value) => {
               setQuestionnaire(value);
               props.onChange();
@@ -209,7 +210,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         ) : (
           <QuestionnaireFormEditor
             value={questionnaire}
-            formHeight={formHeight}
+            heightWithoutEditor={heightWithoutEditor}
             onChange={(value) => {
               setQuestionnaire(value);
               props.onChange();
