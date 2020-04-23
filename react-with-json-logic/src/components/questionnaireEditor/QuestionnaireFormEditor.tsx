@@ -26,9 +26,6 @@ type QuestionnaireFormEditorProps = {
   addQuestion: () => number;
   addResultCategory: () => number;
   addVariable: () => number;
-  // moveUp: () => void;
-  // moveDown: () => void;
-  // remove: () => void;
 };
 
 export type Selection = {
