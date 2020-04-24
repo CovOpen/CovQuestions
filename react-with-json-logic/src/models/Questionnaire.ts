@@ -147,7 +147,7 @@ export interface Variable {
   /**
    * Logic expression used to compute this variable.
    */
-  value: LogicExpression;
+  value?: LogicExpression;
   /**
    * Logic expression as string
    */
@@ -188,7 +188,7 @@ export interface Result {
    * A logic expression yielding true or false. The first result in the result category yielding true will be
    * used as result. If no result evaluates to true, no result is shown for this category.
    */
-  value: LogicExpression; // TODO: Maybe we can come up with a better name than value.
+  value?: LogicExpression; // TODO: Maybe we can come up with a better name than value.
   /**
    * Logc expression as string
    */

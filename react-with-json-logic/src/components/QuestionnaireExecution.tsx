@@ -8,11 +8,14 @@ import { Questionnaire } from "../models/Questionnaire";
 import { Primitive } from "../Primitive";
 
 type QuestionnaireExecutionProps = {
-  isInSync: boolean;
+  isJsonInvalid?: boolean;
   currentQuestionnaire: Questionnaire;
 };
 
-export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ isInSync, currentQuestionnaire }) => {
+export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
+  isJsonInvalid,
+  currentQuestionnaire,
+}) => {
   const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
@@ -57,9 +60,9 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
           Restart Questionnaire
         </Button>
       </Grid>
-      {!isInSync ? (
+      {isJsonInvalid ? (
         <Grid item xs={9} className="grid-row">
-          <Alert severity="warning">This questionnaire is out of sync. Please reload.</Alert>
+          <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert>
         </Grid>
       ) : null}
       <Grid item xs={9} className="grid-row">

@@ -1,18 +1,7 @@
-import {
-  Button,
-  createStyles,
-  FormControlLabel,
-  Grid,
-  ListItemText,
-  makeStyles,
-  Snackbar,
-  Switch,
-} from "@material-ui/core";
+import { Button, createStyles, FormControlLabel, Grid, ListItemText, makeStyles, Switch } from "@material-ui/core";
 import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { Questionnaire } from "../../models/Questionnaire";
-// @ts-ignore
-import jsonschema from "jsonschema";
+import { ValidationError } from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 import questionnaireSchema from "../../schemas/questionnaire.json";
@@ -21,7 +10,7 @@ import { questionnaireJsonSelector } from "../../store/questionnaireInEditor";
 
 type QuestionnaireEditorProps = {
   resetQuestionnaire: () => void;
-  loadQuestionnaire: (newQuestionnaire: Questionnaire) => void;
+  schemaValidationErrors: ValidationError[];
 };
 
 const heightWithoutEditor = 210;
@@ -54,8 +43,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
 
   const classes = useStyles();
 
-  const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
-  const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
   const [developerMode, setDeveloperMode] = useState(false);
 
   const style = `
@@ -77,33 +64,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     margin: 0;
   }
   `;
-
-  const updateQuestionnaire = () => {
-    setSchemaValidationErrors([]);
-    if (questionnaireJson === undefined) {
-      return;
-    }
-    try {
-      const validator = new jsonschema.Validator();
-      const validationResult = validator.validate(questionnaireJson, questionnaireSchema);
-      if (validationResult.errors.length > 0) {
-        setSchemaValidationErrors(validationResult.errors);
-        setShowJsonInvalidMessage(true);
-        return;
-      }
-      props.loadQuestionnaire(questionnaireJson);
-    } catch (e) {
-      setShowJsonInvalidMessage(true);
-    }
-  };
-
-  const handleSnackbarClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setShowJsonInvalidMessage(false);
-  };
 
   const downloadJson = () => {
     if (questionnaireJson === undefined) {
@@ -153,38 +113,22 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
         )}
       </Grid>
       <Grid container className={`${classes.wrapper} grid-row`}>
-        <Grid container item xs={6}>
-          <Button onClick={updateQuestionnaire} variant="contained" color="secondary">
-            Use as Questionnaire
-          </Button>
-        </Grid>
         <Grid container item xs={6} justify="flex-end">
           <Button onClick={downloadJson} variant="contained" color="primary">
             Download Questionnaire
           </Button>
         </Grid>
       </Grid>
-      {schemaValidationErrors.length > 0 ? (
+      {props.schemaValidationErrors.length > 0 ? (
         <Grid item xs={12} className="grid-row">
           <Alert severity="error">
             Errors while validating JSON schema.
-            {schemaValidationErrors.map((error, index) => (
+            {props.schemaValidationErrors.map((error, index) => (
               <ListItemText key={index} primary={error.message} />
             ))}
           </Alert>
         </Grid>
       ) : null}
-
-      <Snackbar
-        open={showJsonInvalidMessage}
-        autoHideDuration={5000}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        onClose={handleSnackbarClose}
-      >
-        <Alert onClose={handleSnackbarClose} severity="error">
-          Cannot load questionnaire. JSON is invalid!
-        </Alert>
-      </Snackbar>
     </Grid>
   );
 }

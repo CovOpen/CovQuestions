@@ -102,14 +102,14 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         ...changedResultCategory,
         results: changedResultCategory.results.map((result) => ({
           ...result,
-          value: convertStringToLogicExpression(result.valueString) || "",
+          value: convertStringToLogicExpression(result.valueString),
         })),
       };
     })
     .addCase(editVariable, (state, { payload: { index, changedVariable } }) => {
       state.variables[index] = {
         ...changedVariable,
-        value: convertStringToLogicExpression(changedVariable.valueString) || "",
+        value: convertStringToLogicExpression(changedVariable.valueString),
       };
     })
 );

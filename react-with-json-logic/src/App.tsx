@@ -8,7 +8,8 @@ import { Questionnaire } from "./models/Questionnaire";
 import { useAppDispatch } from "./store/store";
 import { useSelector } from "react-redux";
 import { questionnaireJsonSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
-import equal from "fast-deep-equal/es6/react";
+import jsonschema from "jsonschema";
+import questionnaireSchema from "./schemas/questionnaire.json";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -22,6 +23,9 @@ export const App: React.FC = () => {
     undefined
   );
   const [executedQuestionnaire, setExecutedQuestionnaire] = useState<Questionnaire | undefined>(undefined);
+
+  const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
+  const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
 
   function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
     setExecutedQuestionnaire(JSON.parse(JSON.stringify(newQuestionnaire)));
@@ -47,7 +51,24 @@ export const App: React.FC = () => {
         }
       });
     }
-  }, [currentQuestionnairePath]);
+  }, [dispatch, currentQuestionnairePath]);
+
+  useEffect(() => {
+    try {
+      const validator = new jsonschema.Validator();
+      const validationResult = validator.validate(questionnaireJson, questionnaireSchema);
+      if (validationResult.errors.length > 0) {
+        setSchemaValidationErrors(validationResult.errors);
+        setShowJsonInvalidMessage(true);
+        return;
+      }
+      setShowJsonInvalidMessage(false);
+      setSchemaValidationErrors([]);
+      overwriteCurrentQuestionnaire(questionnaireJson);
+    } catch (e) {
+      setShowJsonInvalidMessage(true);
+    }
+  }, [questionnaireJson]);
 
   return (
     <Container>
@@ -62,7 +83,7 @@ export const App: React.FC = () => {
           <Grid item xs={4} data-testid="QuestionnaireExecution">
             {executedQuestionnaire !== undefined ? (
               <QuestionnaireExecution
-                isInSync={equal(questionnaireJson, executedQuestionnaire)}
+                isJsonInvalid={showJsonInvalidMessage}
                 currentQuestionnaire={executedQuestionnaire}
               />
             ) : null}
@@ -75,7 +96,7 @@ export const App: React.FC = () => {
                   overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
                 }
               }}
-              loadQuestionnaire={overwriteCurrentQuestionnaire}
+              schemaValidationErrors={schemaValidationErrors}
             />
           </Grid>
         </Grid>
