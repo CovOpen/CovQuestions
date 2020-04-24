@@ -39,3 +39,7 @@ export function doOnEachTranslation<T>(obj: T, func: (key, value, currObj: T) =>
   });
   return obj;
 }
+
+export function writeJSONFile(path: string, json: Object) {
+  fs.outputFileSync(path, JSON.stringify(json, null, process.env.DEVELOPMENT === 'true' ? 2 : 0));
+}

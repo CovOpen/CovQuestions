@@ -8,12 +8,14 @@
       "name": "Index TS File",
       "type": "node",
       "request": "launch",
-      "args": ["src/index.ts"],
+      "args": ["index.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}/api/v1/",
       "protocol": "inspector",
-      ""
+      "env": {
+        "DEVELOPMENT": "true"
+      }
     },
     {
       "name": "I18n TS File",
@@ -23,8 +25,7 @@
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}/api/v1/",
-      "protocol": "inspector",
-      ""
+      "protocol": "inspector"
     }
   ]
 }

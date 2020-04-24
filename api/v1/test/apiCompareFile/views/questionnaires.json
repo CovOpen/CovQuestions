@@ -1,0 +1,16 @@
+[
+  {
+    "id": "testQuestionnaire",
+    "availableLanguages": [
+      "en",
+      "en"
+    ],
+    "meta": {
+      "author": "Someone",
+      "title": "125410ed17b62eaf46409e964c569c2d",
+      "creationDate": "2020-04-13T14:48:48+0000"
+    },
+    "version": "1",
+    "path": "/views/questionnaires/testQuestionnaire/1"
+  }
+]

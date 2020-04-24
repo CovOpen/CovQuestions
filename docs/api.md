@@ -17,3 +17,7 @@ Use Prism for Validation. (https://stoplight.io/p/docs/gh/stoplightio/prism)
 
 Testing:
 https://zellwk.com/blog/endpoint-testing/
+
+Documentation: redoc-cli bundle [spec]
+
+https://learning.postman.com/docs/postman/api-documentation/documenting-your-api/

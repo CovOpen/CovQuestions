@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import { convert } from 'xmlbuilder2';
 import * as glob from 'fast-glob';
 import { validate } from '../src/validate';
-import { md5, doOnEachTranslation, IDENTIFIER_REGEX, getStringRessource } from '../src/utility';
+import { md5, doOnEachTranslation, getStringRessource, writeJSONFile } from '../src/utility';
 
 const defaultFile = 'translation.en.xlf';
 
@@ -28,7 +28,7 @@ export async function i18n_extract(srcGlob: string = './src/data/**/*.json', out
     const newfile = doOnEachTranslation(JSON.parse(fs.readFileSync(path, { encoding: 'utf-8' })), (key, value, obj) => {
       addTranslation(obj[key], obj, key);
     });
-    fs.writeFileSync(path, JSON.stringify(newfile));
+    fs.writeFileSync(path, JSON.stringify(newfile, null, 2));
   });
 
   // Adds the translation to the xliff skeleton and writes
@@ -43,9 +43,9 @@ export async function i18n_extract(srcGlob: string = './src/data/**/*.json', out
     };
   });
 
-  console.log(`Extracted ${Object.keys(tranlationMap).length} Translation Entities.`);
+  console.log(`Extracted ${Object.keys(tranlationMap).length} Translation Entities from "${srcGlob}" to "${outDir}"`);
 
-  fs.outputFileSync(`${outDir}/${defaultFile}`, convert(xmlBase));
+  fs.outputFileSync(`${outDir}/${defaultFile}`, convert(xmlBase, { prettyPrint: true }));
 }
 
 export function addTranslation(str: string, obj: Object, key: string) {
