@@ -2,7 +2,7 @@ import { AnyQuestion } from "../../models/Questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
-import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
+import { convertLogicExpressionToString } from "./converters";
 import { editQuestion, questionInEditorSelector } from "../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -16,6 +16,13 @@ type ElementEditorQuestionProps = {
 const uiSchema = {
   "ui:order": ["type", "text", "details", "id", "optional", "*"],
   enableWhen: {
+    "ui:readonly": true,
+    "ui:widget": "textarea",
+    "ui:options": {
+      rows: 5,
+    },
+  },
+  enableWhenString: {
     "ui:widget": "textarea",
     "ui:options": {
       rows: 5,
@@ -32,20 +39,13 @@ function convertToStringRepresentation(formData: AnyQuestion): QuestionInStringR
   return { ...formData, enableWhen: convertLogicExpressionToString(formData?.enableWhen) };
 }
 
-function convertToJsonRepresentation(formData: QuestionInStringRepresentation): AnyQuestion {
-  return {
-    ...formData,
-    enableWhen: convertStringToLogicExpression(formData?.enableWhen),
-  } as AnyQuestion;
-}
-
 export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
   const dispatch = useAppDispatch();
 
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
 
   const onChange = (formData: QuestionInStringRepresentation) => {
-    dispatch(editQuestion({ index: props.index, changedQuestion: convertToJsonRepresentation(formData) }));
+    dispatch(editQuestion({ index: props.index, changedQuestion: formData }));
   };
 
   return (

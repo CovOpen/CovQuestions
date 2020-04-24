@@ -9,6 +9,11 @@ import {
   Variable,
 } from "../models/Questionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
+import {
+  addStringRepresentationToQuestionnaire,
+  convertStringToLogicExpression,
+  removeStringRepresentationFromQuestionnaire,
+} from "../components/questionnaireEditor/converters";
 
 type ArraySection = SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
 
@@ -52,7 +57,7 @@ const initialQuestionnaireInEditor: Questionnaire = {
 export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor, (builder) =>
   builder
     .addCase(setQuestionnaireInEditor, (state, action) => {
-      return action.payload;
+      return addStringRepresentationToQuestionnaire(action.payload);
     })
     .addCase(addNewQuestion, (state) => {
       state.questions.push({
@@ -86,7 +91,10 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       state.meta = payload;
     })
     .addCase(editQuestion, (state, { payload: { index, changedQuestion } }) => {
-      state.questions[index] = changedQuestion;
+      state.questions[index] = {
+        ...changedQuestion,
+        enableWhen: convertStringToLogicExpression(changedQuestion.enableWhenString),
+      };
     })
     .addCase(editResultCategory, (state, { payload: { index, changedResultCategory } }) => {
       state.resultCategories[index] = changedResultCategory;
@@ -97,6 +105,8 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
 );
 
 export const questionnaireInEditorSelector = (state: RootState) => state.questionnaireInEditor;
+export const questionnaireJsonSelector = (state: RootState) =>
+  removeStringRepresentationFromQuestionnaire(state.questionnaireInEditor);
 
 export const metaInEditorSelector = (state: RootState) => state.questionnaireInEditor.meta;
 export const questionInEditorSelector = (state: RootState, props: { index: number }) =>

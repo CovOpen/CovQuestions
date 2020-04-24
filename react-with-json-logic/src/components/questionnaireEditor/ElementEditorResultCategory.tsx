@@ -44,7 +44,7 @@ function convertToJsonRepresentation(formData: ResultCategoryInStringRepresentat
   return {
     ...formData,
     results: formData?.results?.map((result) => {
-      let value = convertStringToLogicExpression(result.value);
+      let value = convertStringToLogicExpression(result.value) || "";
       return { ...result, value };
     }),
   };

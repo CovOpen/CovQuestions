@@ -13,6 +13,10 @@
           "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true.",
           "type": "string"
         },
+        "enableWhenString": {
+          "description": "Logic expression in string representation",
+          "type": "string"
+        },
         "id": {
           "description": "Unique id for referring this question in logic expressions.",
           "type": "string"

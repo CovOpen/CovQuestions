@@ -6,26 +6,25 @@ import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { Questionnaire } from "./models/Questionnaire";
 import { useAppDispatch } from "./store/store";
-import { questionnaireInSyncSelector, setQuestionnaireInSync } from "./store/questionnaireInSync";
 import { useSelector } from "react-redux";
-import { setQuestionnaireInEditor } from "./store/questionnaireInEditor";
+import { questionnaireJsonSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
+import equal from "fast-deep-equal/es6/react";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const questionnaireInSync = useSelector(questionnaireInSyncSelector);
+  const questionnaireJson = useSelector(questionnaireJsonSelector);
 
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
   const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined
   );
-  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<Questionnaire | undefined>(undefined);
+  const [executedQuestionnaire, setExecutedQuestionnaire] = useState<Questionnaire | undefined>(undefined);
 
   function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
-    setCurrentQuestionnaire(JSON.parse(JSON.stringify(newQuestionnaire)));
-    dispatch(setQuestionnaireInSync(true));
+    setExecutedQuestionnaire(JSON.parse(JSON.stringify(newQuestionnaire)));
   }
 
   useEffect(() => {
@@ -61,8 +60,11 @@ export const App: React.FC = () => {
         </Grid>
         <Grid container direction="row">
           <Grid item xs={4} data-testid="QuestionnaireExecution">
-            {currentQuestionnaire !== undefined ? (
-              <QuestionnaireExecution isInSync={questionnaireInSync} currentQuestionnaire={currentQuestionnaire} />
+            {executedQuestionnaire !== undefined ? (
+              <QuestionnaireExecution
+                isInSync={equal(questionnaireJson, executedQuestionnaire)}
+                currentQuestionnaire={executedQuestionnaire}
+              />
             ) : null}
           </Grid>
           <Grid item xs={8}>

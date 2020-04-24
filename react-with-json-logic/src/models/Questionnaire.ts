@@ -84,6 +84,10 @@ interface QuestionBase {
    * Defaults to true.
    */
   enableWhen?: LogicExpression;
+  /**
+   * Logic expression in a string representation
+   */
+  enableWhenString?: string;
 }
 
 /**

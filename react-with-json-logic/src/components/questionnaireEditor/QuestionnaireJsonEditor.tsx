@@ -11,7 +11,7 @@ import jsonschema from "jsonschema";
 import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
-import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
+import { questionnaireJsonSelector, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
@@ -22,7 +22,7 @@ const ajv = new Ajv({ allErrors: true, verbose: true });
 
 export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = ({ heightWithoutEditor, schema }) => {
   const dispatch = useAppDispatch();
-  const questionnaireInEditor = useSelector(questionnaireInEditorSelector);
+  const questionnaireJson = useSelector(questionnaireJsonSelector);
 
   const [editorReference, setEditorReference] = useState<Editor | undefined>(undefined);
   const [hasFocus, setHasFocus] = useState(false);
@@ -41,15 +41,15 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
       return;
     }
 
-    editorReference.jsonEditor.set(questionnaireInEditor);
-  }, [questionnaireInEditor, hasFocus, editorReference]);
+    editorReference.jsonEditor.set(questionnaireJson);
+  }, [questionnaireJson, hasFocus, editorReference]);
 
   return (
     <div>
       <style>{style}</style>
       <Editor
         ref={(ref: Editor) => setEditorReference(ref)}
-        value={questionnaireInEditor}
+        value={questionnaireJson}
         ajv={ajv}
         mode="code"
         theme="ace/theme/github"

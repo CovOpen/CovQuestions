@@ -8,7 +8,7 @@ import {
   Snackbar,
   Switch,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
 import { Questionnaire } from "../../models/Questionnaire";
 // @ts-ignore
@@ -17,9 +17,7 @@ import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 import questionnaireSchema from "../../schemas/questionnaire.json";
 import { useSelector } from "react-redux";
-import { questionnaireInEditorSelector } from "../../store/questionnaireInEditor";
-import { useAppDispatch } from "../../store/store";
-import { questionnaireInSyncSelector, setQuestionnaireInSync } from "../../store/questionnaireInSync";
+import { questionnaireJsonSelector } from "../../store/questionnaireInEditor";
 
 type QuestionnaireEditorProps = {
   resetQuestionnaire: () => void;
@@ -52,9 +50,7 @@ const useStyles = makeStyles(() =>
 );
 
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
-  const dispatch = useAppDispatch();
-  const questionnaireInEditor = useSelector(questionnaireInEditorSelector);
-  const questionnaireInSync = useSelector(questionnaireInSyncSelector);
+  const questionnaireJson = useSelector(questionnaireJsonSelector);
 
   const classes = useStyles();
 
@@ -82,26 +78,20 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   }
   `;
 
-  useEffect(() => {
-    if (questionnaireInSync) {
-      dispatch(setQuestionnaireInSync(false));
-    }
-  }, [questionnaireInEditor]);
-
   const updateQuestionnaire = () => {
     setSchemaValidationErrors([]);
-    if (questionnaireInEditor === undefined) {
+    if (questionnaireJson === undefined) {
       return;
     }
     try {
       const validator = new jsonschema.Validator();
-      const validationResult = validator.validate(questionnaireInEditor, questionnaireSchema);
+      const validationResult = validator.validate(questionnaireJson, questionnaireSchema);
       if (validationResult.errors.length > 0) {
         setSchemaValidationErrors(validationResult.errors);
         setShowJsonInvalidMessage(true);
         return;
       }
-      props.loadQuestionnaire(questionnaireInEditor);
+      props.loadQuestionnaire(questionnaireJson);
     } catch (e) {
       setShowJsonInvalidMessage(true);
     }
@@ -116,14 +106,14 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   };
 
   const downloadJson = () => {
-    if (questionnaireInEditor === undefined) {
+    if (questionnaireJson === undefined) {
       return;
     }
     // after https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react/44661948
     const linkElement = document.createElement("a");
-    const jsonFile = new Blob([JSON.stringify(questionnaireInEditor, null, 2)], { type: "text/plain" });
+    const jsonFile = new Blob([JSON.stringify(questionnaireJson, null, 2)], { type: "text/plain" });
     linkElement.href = URL.createObjectURL(jsonFile);
-    linkElement.download = questionnaireInEditor.id + ".json";
+    linkElement.download = questionnaireJson.id + ".json";
     document.body.appendChild(linkElement);
     linkElement.click();
   };
