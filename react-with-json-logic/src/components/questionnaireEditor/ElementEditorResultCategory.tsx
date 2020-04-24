@@ -31,7 +31,7 @@ const uiSchema = {
 function convertToStringRepresentation(formData: ResultCategory): ResultCategoryInStringRepresentation {
   return {
     ...formData,
-    results: formData.results?.map((result) => {
+    results: formData?.results?.map((result) => {
       let value = convertLogicExpressionToString(result.value);
       return { ...result, value };
     }),
@@ -41,7 +41,7 @@ function convertToStringRepresentation(formData: ResultCategory): ResultCategory
 function convertToJsonRepresentation(formData: ResultCategoryInStringRepresentation): ResultCategory {
   return {
     ...formData,
-    results: formData.results?.map((result) => {
+    results: formData?.results?.map((result) => {
       let value = convertStringToLogicExpression(result.value);
       return { ...result, value };
     }),

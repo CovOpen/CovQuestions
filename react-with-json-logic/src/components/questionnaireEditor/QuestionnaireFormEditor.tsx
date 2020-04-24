@@ -9,7 +9,7 @@ import {
   ListItemText,
   makeStyles,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../models/Questionnaire";
 import { ElementEditorQuestion } from "./ElementEditorQuestion";
 import { ElementEditorMeta } from "./ElementEditorMeta";
@@ -25,6 +25,7 @@ import {
   addNewResultCategory,
   addNewVariable,
   questionnaireInEditorSelector,
+  removeItem,
   setQuestionnaireInEditor,
 } from "../../store/questionnaireInEditor";
 
@@ -32,8 +33,15 @@ type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
 };
 
-export type Selection = {
-  type: string;
+export enum SectionType {
+  META = "meta",
+  QUESTIONS = "questions",
+  RESULT_CATEGORIES = "resultCategories",
+  VARIABLES = "variables",
+}
+
+export type ActiveItem = {
+  section: SectionType;
   index: number;
 };
 
@@ -75,7 +83,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const classes = useStyles();
 
-  const [activeSelection, setActiveSelection] = useState<Selection>({ type: "meta", index: 0 });
+  const [activeItem, setActiveItem] = useState<ActiveItem>({ section: SectionType.META, index: 0 });
   const [enableMoveUp, setEnableMoveUp] = useState(false);
   const [enableMoveDown, setEnableMoveDown] = useState(false);
 
@@ -89,6 +97,19 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
       padding: 0px 8px 0px 8px;
     }
     `;
+
+  useEffect(() => {
+    if (activeItem.section === SectionType.META) {
+      return;
+    }
+    const lengthOfActiveSection = questionnaireInEditor[activeItem.section].length;
+    if (lengthOfActiveSection === 0) {
+      setActiveItem({ section: SectionType.META, index: 0 });
+    }
+    if (activeItem.index >= lengthOfActiveSection) {
+      setActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
+    }
+  }, [activeItem, questionnaireInEditor]);
 
   const onChange = (newQuestionnaire: Questionnaire) => {
     dispatch(setQuestionnaireInEditor(newQuestionnaire));
@@ -114,59 +135,49 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     onChange(questionnaireInEditor);
   };
 
-  const handleListItemClick = (type: "meta" | "questions" | "resultCategories" | "variables", index?: number) => {
-    if (type === "meta") {
-      setActiveSelection({ type, index: 0 });
+  const handleListItemClick = (type: SectionType, index?: number) => {
+    if (type === SectionType.META) {
+      setActiveItem({ section: type, index: 0 });
       return;
     }
     if (index === undefined) {
       return;
     }
-    setActiveSelection({ type, index });
+    setActiveItem({ section: type, index });
     setEnableMoveUp(index > 0);
     setEnableMoveDown(index < questionnaireInEditor[type].length - 1);
   };
 
   const handleMoveUp = () => {
-    // let listPropertyName = activeSelection.type;
+    // let listPropertyName = activeItem.type;
     // const currentQuestionnaire: any = questionnaire;
-    // const currentIndex = activeSelection.index;
+    // const currentIndex = activeItem.index;
     // const elementToMoveDown = currentQuestionnaire[listPropertyName][currentIndex - 1];
     // currentQuestionnaire[listPropertyName][currentIndex - 1] = currentQuestionnaire[listPropertyName][currentIndex];
     // currentQuestionnaire[listPropertyName][currentIndex] = elementToMoveDown;
     //
     // setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
-    // handleListItemClick(activeSelection.type, currentIndex - 1);
+    // handleListItemClick(activeItem.type, currentIndex - 1);
     // onChange(questionnaire);
   };
 
   const handleMoveDown = () => {
-    // let listPropertyName = activeSelection.type;
+    // let listPropertyName = activeItem.type;
     // const currentQuestionnaire: any = questionnaire;
-    // const currentIndex = activeSelection.index;
+    // const currentIndex = activeItem.index;
     // const elementToMoveUp = currentQuestionnaire[listPropertyName][currentIndex + 1];
     // currentQuestionnaire[listPropertyName][currentIndex + 1] = currentQuestionnaire[listPropertyName][currentIndex];
     // currentQuestionnaire[listPropertyName][currentIndex] = elementToMoveUp;
     //
     // setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
-    // handleListItemClick(activeSelection.type, currentIndex + 1);
+    // handleListItemClick(activeItem.type, currentIndex + 1);
     // onChange(questionnaire);
   };
 
   const handleRemove = () => {
-    // let listPropertyName = activeSelection.type;
-    // const currentQuestionnaire: any = questionnaire;
-    // const currentIndex = activeSelection.index;
-    // currentQuestionnaire[listPropertyName].splice(currentIndex, 1);
-    // setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
-    //
-    // if (currentQuestionnaire[listPropertyName].length === 0) {
-    //   setActiveSelection({ type: "meta", index: 0 });
-    // } else if (currentQuestionnaire[listPropertyName].length <= currentIndex) {
-    //   setActiveSelection({ type: listPropertyName, index: currentIndex - 1 });
-    // } else {
-    //   setActiveSelection({ type: listPropertyName, index: currentIndex });
-    // }
+    if (activeItem.section !== SectionType.META) {
+      dispatch(removeItem({ section: activeItem.section, index: activeItem.index }));
+    }
   };
 
   return (
@@ -178,8 +189,8 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
             <ListItem
               className={classes.listItem}
               button
-              selected={activeSelection.type === "meta"}
-              onClick={() => setActiveSelection({ type: "meta", index: 0 })}
+              selected={activeItem.section === SectionType.META}
+              onClick={() => setActiveItem({ section: SectionType.META, index: 0 })}
             >
               <ListItemText primary="Meta" />
             </ListItem>
@@ -191,8 +202,8 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   <ListItem
                     button
                     className={classes.listItem}
-                    selected={activeSelection.type === "questions" && activeSelection.index === index}
-                    onClick={() => handleListItemClick("questions", index)}
+                    selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
+                    onClick={() => handleListItemClick(SectionType.QUESTIONS, index)}
                     key={index}
                   >
                     <ListItemText primary={item.text} />
@@ -205,7 +216,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 color="secondary"
                 onClick={() => {
                   dispatch(addNewQuestion());
-                  handleListItemClick("questions", questionnaireInEditor.questions.length);
+                  handleListItemClick(SectionType.QUESTIONS, questionnaireInEditor.questions.length);
                 }}
               >
                 Add Question
@@ -219,8 +230,8 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   <ListItem
                     button
                     className={classes.listItem}
-                    selected={activeSelection.type === "resultCategories" && activeSelection.index === index}
-                    onClick={() => handleListItemClick("resultCategories", index)}
+                    selected={activeItem.section === SectionType.RESULT_CATEGORIES && activeItem.index === index}
+                    onClick={() => handleListItemClick(SectionType.RESULT_CATEGORIES, index)}
                     key={index}
                   >
                     <ListItemText primary={item.id} />
@@ -233,7 +244,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 color="secondary"
                 onClick={() => {
                   dispatch(addNewResultCategory());
-                  handleListItemClick("resultCategories", questionnaireInEditor.resultCategories.length);
+                  handleListItemClick(SectionType.RESULT_CATEGORIES, questionnaireInEditor.resultCategories.length);
                 }}
               >
                 Add Result
@@ -247,8 +258,8 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   <ListItem
                     button
                     className={classes.listItem}
-                    selected={activeSelection.type === "variables" && activeSelection.index === index}
-                    onClick={() => handleListItemClick("variables", index)}
+                    selected={activeItem.section === SectionType.VARIABLES && activeItem.index === index}
+                    onClick={() => handleListItemClick(SectionType.VARIABLES, index)}
                     key={index}
                   >
                     <ListItemText primary={item.id} />
@@ -261,7 +272,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 color="secondary"
                 onClick={() => {
                   dispatch(addNewVariable());
-                  handleListItemClick("variables", questionnaireInEditor.variables.length);
+                  handleListItemClick(SectionType.VARIABLES, questionnaireInEditor.variables.length);
                 }}
               >
                 Add Variable
@@ -270,7 +281,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           </List>
         </Grid>
         <Grid container item xs={9} className={classes.formContainer}>
-          {["questions", "resultCategories", "variables"].indexOf(activeSelection.type) > -1 ? (
+          {["questions", "resultCategories", "variables"].indexOf(activeItem.section) > -1 ? (
             <div className={classes.alignRight}>
               <IconButton aria-label="move-up" disabled={!enableMoveUp} onClick={handleMoveUp}>
                 <ArrowUpwardIcon />
@@ -283,28 +294,29 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
               </IconButton>
             </div>
           ) : null}
-          {activeSelection.type === "meta" ? (
+          {activeItem.section === SectionType.META ? (
             <ElementEditorMeta
               formData={questionnaireInEditor.meta || ({} as QuestionnaireMeta)}
               onChange={(formData) => handleQuestionnaireMetaChanged(formData)}
             />
           ) : null}
-          {activeSelection.type === "questions" && questionnaireInEditor.questions !== undefined ? (
+          {activeItem.section === SectionType.QUESTIONS && questionnaireInEditor.questions !== undefined ? (
             <ElementEditorQuestion
-              formData={questionnaireInEditor.questions[activeSelection.index]}
-              onChange={(formData) => handleQuestionChanged(activeSelection.index, formData)}
+              formData={questionnaireInEditor.questions[activeItem.index]}
+              onChange={(formData) => handleQuestionChanged(activeItem.index, formData)}
             />
           ) : null}
-          {activeSelection.type === "resultCategories" && questionnaireInEditor.resultCategories !== undefined ? (
+          {activeItem.section === SectionType.RESULT_CATEGORIES &&
+          questionnaireInEditor.resultCategories !== undefined ? (
             <ElementEditorResultCategory
-              formData={questionnaireInEditor.resultCategories[activeSelection.index]}
-              onChange={(formData) => handleResultCategoryChanged(activeSelection.index, formData)}
+              formData={questionnaireInEditor.resultCategories[activeItem.index]}
+              onChange={(formData) => handleResultCategoryChanged(activeItem.index, formData)}
             />
           ) : null}
-          {activeSelection.type === "variables" && questionnaireInEditor.variables !== undefined ? (
+          {activeItem.section === SectionType.VARIABLES && questionnaireInEditor.variables !== undefined ? (
             <ElementEditorVariable
-              formData={questionnaireInEditor.variables[activeSelection.index]}
-              onChange={(formData) => handleVariableChanged(activeSelection.index, formData)}
+              formData={questionnaireInEditor.variables[activeItem.index]}
+              onChange={(formData) => handleVariableChanged(activeItem.index, formData)}
             />
           ) : null}
         </Grid>

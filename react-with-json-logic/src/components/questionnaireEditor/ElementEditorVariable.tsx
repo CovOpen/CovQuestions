@@ -22,13 +22,13 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: Variable): VariableInStringRepresentation {
-  return { ...formData, value: convertLogicExpressionToString(formData.value) };
+  return { ...formData, value: convertLogicExpressionToString(formData?.value) };
 }
 
 function convertToJsonRepresentation(formData: VariableInStringRepresentation): Variable {
   return {
     ...formData,
-    value: convertStringToLogicExpression(formData.value),
+    value: convertStringToLogicExpression(formData?.value),
   } as Variable;
 }
 

@@ -1,11 +1,16 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { Questionnaire, QuestionType } from "../models/Questionnaire";
+import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 
 export const setQuestionnaireInEditor = createAction<Questionnaire>("setQuestionnaireInEditor");
 export const addNewQuestion = createAction("addNewQuestion");
 export const addNewResultCategory = createAction("addNewResultCategory");
 export const addNewVariable = createAction("addNewVariable");
+export const removeItem = createAction<{
+  section: SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
+  index: number;
+}>("removeItem");
 
 const initialQuestionnaireInEditor: Questionnaire = {
   id: "",
@@ -46,6 +51,10 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         id: "newVariableId",
         value: "",
       });
+    })
+    .addCase(removeItem, (state, { payload: { section, index } }) => {
+      state[section].splice(index, 1);
+      return state;
     })
 );
 
