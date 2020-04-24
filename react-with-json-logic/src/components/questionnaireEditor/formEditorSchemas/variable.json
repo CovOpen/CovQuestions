@@ -13,6 +13,10 @@
         "value": {
           "type": "string",
           "description": "Logic expression used to compute this variable."
+        },
+        "valueString": {
+          "type": "string",
+          "description": "Logic expression used to compute this variable."
         }
       },
       "required": ["id", "value"],

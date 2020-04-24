@@ -148,6 +148,10 @@ export interface Variable {
    * Logic expression used to compute this variable.
    */
   value: LogicExpression;
+  /**
+   * Logic expression as string
+   */
+  valueString?: string;
 }
 
 /**
@@ -185,6 +189,10 @@ export interface Result {
    * used as result. If no result evaluates to true, no result is shown for this category.
    */
   value: LogicExpression; // TODO: Maybe we can come up with a better name than value.
+  /**
+   * Logc expression as string
+   */
+  valueString?: string; // TODO: Maybe we can come up with a better name than value.
 }
 
 /**

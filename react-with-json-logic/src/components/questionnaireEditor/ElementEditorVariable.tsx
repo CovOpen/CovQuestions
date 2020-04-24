@@ -2,36 +2,26 @@ import { Variable } from "../../models/Questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";
-import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
+import { convertLogicExpressionToString } from "./converters";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { editVariable, variableInEditorSelector } from "../../store/questionnaireInEditor";
+import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-type VariableInStringRepresentation = Omit<Variable, "value"> & { value: string };
+export type VariableInStringRepresentation = Omit<Variable, "value"> & { value: string };
 
 type ElementEditorVariableProps = {
   index: number;
 };
 
 const uiSchema = {
-  "ui:order": ["id", "value"],
-  value: {
-    "ui:widget": "textarea",
-    "ui:options": {
-      rows: 15,
-    },
-  },
+  "ui:order": ["id", "valueString", "*"],
+  value: uiSchemaLogicReadOnly(),
+  valueString: uiSchemaLogic(),
 };
 
 function convertToStringRepresentation(formData: Variable): VariableInStringRepresentation {
   return { ...formData, value: convertLogicExpressionToString(formData?.value) };
-}
-
-function convertToJsonRepresentation(formData: VariableInStringRepresentation): Variable {
-  return {
-    ...formData,
-    value: convertStringToLogicExpression(formData?.value),
-  } as Variable;
 }
 
 export function ElementEditorVariable(props: ElementEditorVariableProps) {
@@ -40,7 +30,7 @@ export function ElementEditorVariable(props: ElementEditorVariableProps) {
   const variable = useSelector((state: RootState) => variableInEditorSelector(state, props));
 
   const onChange = (formData: VariableInStringRepresentation) => {
-    dispatch(editVariable({ index: props.index, changedVariable: convertToJsonRepresentation(formData) }));
+    dispatch(editVariable({ index: props.index, changedVariable: formData }));
   };
 
   return (

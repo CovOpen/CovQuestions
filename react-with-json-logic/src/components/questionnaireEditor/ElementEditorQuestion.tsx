@@ -6,28 +6,18 @@ import { convertLogicExpressionToString } from "./converters";
 import { editQuestion, questionInEditorSelector } from "../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
+import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
+export type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
 
 type ElementEditorQuestionProps = {
   index: number;
 };
 
 const uiSchema = {
-  "ui:order": ["type", "text", "details", "id", "optional", "*"],
-  enableWhen: {
-    "ui:readonly": true,
-    "ui:widget": "textarea",
-    "ui:options": {
-      rows: 5,
-    },
-  },
-  enableWhenString: {
-    "ui:widget": "textarea",
-    "ui:options": {
-      rows: 5,
-    },
-  },
+  "ui:order": ["type", "text", "details", "id", "optional", "enableWhenString", "*"],
+  enableWhen: uiSchemaLogicReadOnly(),
+  enableWhenString: uiSchemaLogic(),
   options: {
     items: {
       "ui:order": ["text", "value", "*"],

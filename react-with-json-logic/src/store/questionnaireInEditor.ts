@@ -1,19 +1,15 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import {
-  AnyQuestion,
-  Questionnaire,
-  QuestionnaireMeta,
-  QuestionType,
-  ResultCategory,
-  Variable,
-} from "../models/Questionnaire";
+import { Questionnaire, QuestionnaireMeta, QuestionType } from "../models/Questionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
   convertStringToLogicExpression,
   removeStringRepresentationFromQuestionnaire,
 } from "../components/questionnaireEditor/converters";
+import { QuestionInStringRepresentation } from "../components/questionnaireEditor/ElementEditorQuestion";
+import { ResultCategoryInStringRepresentation } from "../components/questionnaireEditor/ElementEditorResultCategory";
+import { VariableInStringRepresentation } from "../components/questionnaireEditor/ElementEditorVariable";
 
 type ArraySection = SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
 
@@ -33,11 +29,16 @@ export const swapItemWithNextOne = createAction<{
 }>("swapItemWithNextOne");
 
 export const editMeta = createAction<QuestionnaireMeta>("editMeta");
-export const editQuestion = createAction<{ index: number; changedQuestion: AnyQuestion }>("editQuestionnaire");
-export const editResultCategory = createAction<{ index: number; changedResultCategory: ResultCategory }>(
-  "editResultCategory"
+export const editQuestion = createAction<{ index: number; changedQuestion: QuestionInStringRepresentation }>(
+  "editQuestionnaire"
 );
-export const editVariable = createAction<{ index: number; changedVariable: Variable }>("editVariable");
+export const editResultCategory = createAction<{
+  index: number;
+  changedResultCategory: ResultCategoryInStringRepresentation;
+}>("editResultCategory");
+export const editVariable = createAction<{ index: number; changedVariable: VariableInStringRepresentation }>(
+  "editVariable"
+);
 
 const initialQuestionnaireInEditor: Questionnaire = {
   id: "",
@@ -97,10 +98,19 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       };
     })
     .addCase(editResultCategory, (state, { payload: { index, changedResultCategory } }) => {
-      state.resultCategories[index] = changedResultCategory;
+      state.resultCategories[index] = {
+        ...changedResultCategory,
+        results: changedResultCategory.results.map((result) => ({
+          ...result,
+          value: convertStringToLogicExpression(result.valueString) || "",
+        })),
+      };
     })
     .addCase(editVariable, (state, { payload: { index, changedVariable } }) => {
-      state.variables[index] = changedVariable;
+      state.variables[index] = {
+        ...changedVariable,
+        value: convertStringToLogicExpression(changedVariable.valueString) || "",
+      };
     })
 );
 

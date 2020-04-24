@@ -28,6 +28,17 @@ export function addStringRepresentationToQuestionnaire(questionnaire: Questionna
       ...question,
       enableWhenString: convertLogicExpressionToString(question.enableWhen),
     })),
+    resultCategories: questionnaire.resultCategories.map((resultCategory) => ({
+      ...resultCategory,
+      results: resultCategory.results.map((result) => ({
+        ...result,
+        valueString: convertLogicExpressionToString(result.value),
+      })),
+    })),
+    variables: questionnaire.variables.map((variable) => ({
+      ...variable,
+      valueString: convertLogicExpressionToString(variable.value),
+    })),
   };
 }
 
@@ -36,6 +47,17 @@ export function removeStringRepresentationFromQuestionnaire(questionnaire: Quest
     ...questionnaire,
     questions: questionnaire.questions.map((question) => {
       const { enableWhenString, ...rest } = question;
+      return rest;
+    }),
+    resultCategories: questionnaire.resultCategories.map((resultCategory) => ({
+      ...resultCategory,
+      results: resultCategory.results.map((result) => {
+        const { valueString, ...rest } = result;
+        return rest;
+      }),
+    })),
+    variables: questionnaire.variables.map((variable) => {
+      const { valueString, ...rest } = variable;
       return rest;
     }),
   };
