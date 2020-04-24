@@ -10,9 +10,7 @@ export class QuestionnaireTest {
   private readonly renderedApp: RenderResult;
 
   constructor(questionnaire: Questionnaire) {
-    this.renderedApp = render(
-      <QuestionnaireExecution currentQuestionnaire={{ questionnaire, updatedAt: 0 }} isInSync={true} />
-    );
+    this.renderedApp = render(<QuestionnaireExecution currentQuestionnaire={questionnaire} isInSync={true} />);
 
     this.findByText = (text: string | RegExp, selector: string | undefined) =>
       this.renderedApp.findByText(text, selector !== undefined ? { selector } : undefined);

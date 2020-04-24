@@ -20,12 +20,10 @@ export const App: React.FC = () => {
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined
   );
-  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<
-    { questionnaire: Questionnaire; updatedAt: number } | undefined
-  >(undefined);
+  const [currentQuestionnaire, setCurrentQuestionnaire] = useState<Questionnaire | undefined>(undefined);
 
   function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
-    setCurrentQuestionnaire({ questionnaire: JSON.parse(JSON.stringify(newQuestionnaire)), updatedAt: Date.now() });
+    setCurrentQuestionnaire(JSON.parse(JSON.stringify(newQuestionnaire)));
     dispatch(setQuestionnaireInSync(true));
   }
 
@@ -67,7 +65,7 @@ export const App: React.FC = () => {
           </Grid>
           <Grid item xs={8}>
             <QuestionnaireEditor
-              value={currentQuestionnaire?.questionnaire}
+              value={currentQuestionnaire}
               resetQuestionnaire={() => {
                 if (originalCurrentQuestionnaire) {
                   overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);

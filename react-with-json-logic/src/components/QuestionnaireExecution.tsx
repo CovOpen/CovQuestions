@@ -9,19 +9,17 @@ import { Primitive } from "../Primitive";
 
 type QuestionnaireExecutionProps = {
   isInSync: boolean;
-  currentQuestionnaire: { questionnaire: Questionnaire; updatedAt: number };
+  currentQuestionnaire: Questionnaire;
 };
 
 export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ isInSync, currentQuestionnaire }) => {
-  const [questionnaireEngine, setQuestionnaireEngine] = useState(
-    new QuestionnaireEngine(currentQuestionnaire.questionnaire)
-  );
+  const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
   const [doRerender, setDoRerender] = useState(false);
 
   function restartQuestionnaire() {
-    const engine = new QuestionnaireEngine(currentQuestionnaire.questionnaire);
+    const engine = new QuestionnaireEngine(currentQuestionnaire);
     const nextQuestion = engine.nextQuestion();
 
     setResult(undefined);
