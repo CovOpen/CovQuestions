@@ -16,10 +16,11 @@ import jsonschema from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 import questionnaireSchema from "../../schemas/questionnaire.json";
+import { useAppDispatch } from "../../store/store";
+import { setQuestionnaireInSync } from "../../store/questionnaireInSync";
 
 type QuestionnaireEditorProps = {
   value: Questionnaire | undefined;
-  onChange: () => void;
   resetQuestionnaire: () => void;
   loadQuestionnaire: (newQuestionnaire: Questionnaire) => void;
 };
@@ -50,6 +51,7 @@ const useStyles = makeStyles(() =>
 );
 
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
+  const dispatch = useAppDispatch();
   const classes = useStyles();
 
   const [questionnaire, setQuestionnaire] = useState<Questionnaire>({} as Questionnaire);
@@ -132,7 +134,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       type: QuestionType.Text,
     } as AnyQuestion);
 
-    props.onChange();
+    dispatch(setQuestionnaireInSync(false));
 
     return length;
   };
@@ -146,7 +148,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       id: "rc_newResultCategoryId",
     } as ResultCategory);
 
-    props.onChange();
+    dispatch(setQuestionnaireInSync(false));
 
     return length;
   };
@@ -160,7 +162,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       id: "v_newVariable",
     } as Variable);
 
-    props.onChange();
+    dispatch(setQuestionnaireInSync(false));
 
     return length;
   };
@@ -203,7 +205,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
             heightWithoutEditor={heightWithoutEditor}
             onChange={(value) => {
               setQuestionnaire(JSON.parse(JSON.stringify(value)));
-              props.onChange();
+              dispatch(setQuestionnaireInSync(false));
             }}
             schema={questionnaireSchema || {}}
           />
@@ -213,7 +215,7 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
             heightWithoutEditor={heightWithoutEditor}
             onChange={(value) => {
               setQuestionnaire(JSON.parse(JSON.stringify(value)));
-              props.onChange();
+              dispatch(setQuestionnaireInSync(false));
             }}
             addQuestion={handleAddQuestion}
             addResultCategory={handleAddResultCategory}

@@ -5,10 +5,16 @@ import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelect
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { Questionnaire } from "./models/Questionnaire";
+import { useAppDispatch } from "./store/store";
+import { questionnaireInSyncSelector, setQuestionnaireInSync } from "./store/questionnaireInSync";
+import { useSelector } from "react-redux";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
 export const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const questionnaireInSync = useSelector(questionnaireInSyncSelector);
+
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
   const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
@@ -18,11 +24,9 @@ export const App: React.FC = () => {
     { questionnaire: Questionnaire; updatedAt: number } | undefined
   >(undefined);
 
-  const [isQuestionnaireInSync, setIsQuestionnaireInSync] = useState(true);
-
   function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
     setCurrentQuestionnaire({ questionnaire: JSON.parse(JSON.stringify(newQuestionnaire)), updatedAt: Date.now() });
-    setIsQuestionnaireInSync(true);
+    dispatch(setQuestionnaireInSync(true));
   }
 
   useEffect(() => {
@@ -58,13 +62,12 @@ export const App: React.FC = () => {
         <Grid container direction="row">
           <Grid item xs={4} data-testid="QuestionnaireExecution">
             {currentQuestionnaire !== undefined ? (
-              <QuestionnaireExecution isInSync={isQuestionnaireInSync} currentQuestionnaire={currentQuestionnaire} />
+              <QuestionnaireExecution isInSync={questionnaireInSync} currentQuestionnaire={currentQuestionnaire} />
             ) : null}
           </Grid>
           <Grid item xs={8}>
             <QuestionnaireEditor
               value={currentQuestionnaire?.questionnaire}
-              onChange={() => setIsQuestionnaireInSync(false)}
               resetQuestionnaire={() => {
                 if (originalCurrentQuestionnaire) {
                   overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
