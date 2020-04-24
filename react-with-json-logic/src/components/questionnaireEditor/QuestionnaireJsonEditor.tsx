@@ -9,22 +9,21 @@ import { JsonEditor as Editor } from "jsoneditor-react";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import Ajv from "ajv";
+import { useAppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
+import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
-  value: Questionnaire | undefined;
-  onChange: (value: Questionnaire) => void;
   heightWithoutEditor: number;
   schema: jsonschema.Schema;
 };
 
 const ajv = new Ajv({ allErrors: true, verbose: true });
 
-export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = ({
-  value,
-  heightWithoutEditor,
-  onChange,
-  schema,
-}) => {
+export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = ({ heightWithoutEditor, schema }) => {
+  const dispatch = useAppDispatch();
+  const questionnaireInEditor = useSelector(questionnaireInEditorSelector);
+
   const [editorReference, setEditorReference] = useState<Editor | undefined>(undefined);
   const [hasFocus, setHasFocus] = useState(false);
 
@@ -42,22 +41,24 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
       return;
     }
 
-    editorReference.jsonEditor.set(value);
-  }, [value, hasFocus, editorReference]);
+    editorReference.jsonEditor.set(questionnaireInEditor);
+  }, [questionnaireInEditor, hasFocus, editorReference]);
 
   return (
     <div>
       <style>{style}</style>
       <Editor
         ref={(ref: Editor) => setEditorReference(ref)}
-        value={value}
+        value={questionnaireInEditor}
         ajv={ajv}
         mode="code"
         theme="ace/theme/github"
         schema={schema}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
-        onChange={(value: Questionnaire) => onChange(value)}
+        onChange={(newQuestionnaire: Questionnaire) => {
+          dispatch(setQuestionnaireInEditor(newQuestionnaire));
+        }}
       />
     </div>
   );

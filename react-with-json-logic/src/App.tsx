@@ -8,6 +8,7 @@ import { Questionnaire } from "./models/Questionnaire";
 import { useAppDispatch } from "./store/store";
 import { questionnaireInSyncSelector, setQuestionnaireInSync } from "./store/questionnaireInSync";
 import { useSelector } from "react-redux";
+import { setQuestionnaireInEditor } from "./store/questionnaireInEditor";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -41,6 +42,7 @@ export const App: React.FC = () => {
         if (response.ok) {
           response.json().then((value) => {
             setOriginalCurrentQuestionnaire(value);
+            dispatch(setQuestionnaireInEditor(value));
             overwriteCurrentQuestionnaire(value);
           });
         }
@@ -65,9 +67,9 @@ export const App: React.FC = () => {
           </Grid>
           <Grid item xs={8}>
             <QuestionnaireEditor
-              value={currentQuestionnaire}
               resetQuestionnaire={() => {
                 if (originalCurrentQuestionnaire) {
+                  dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
                   overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
                 }
               }}

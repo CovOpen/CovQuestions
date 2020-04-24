@@ -10,17 +10,18 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Alert } from "@material-ui/lab";
-import { AnyQuestion, Questionnaire, QuestionType, ResultCategory, Variable } from "../../models/Questionnaire";
+import { Questionnaire } from "../../models/Questionnaire";
 // @ts-ignore
 import jsonschema from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 import questionnaireSchema from "../../schemas/questionnaire.json";
+import { useSelector } from "react-redux";
+import { questionnaireInEditorSelector } from "../../store/questionnaireInEditor";
 import { useAppDispatch } from "../../store/store";
-import { setQuestionnaireInSync } from "../../store/questionnaireInSync";
+import { questionnaireInSyncSelector, setQuestionnaireInSync } from "../../store/questionnaireInSync";
 
 type QuestionnaireEditorProps = {
-  value: Questionnaire | undefined;
   resetQuestionnaire: () => void;
   loadQuestionnaire: (newQuestionnaire: Questionnaire) => void;
 };
@@ -52,9 +53,11 @@ const useStyles = makeStyles(() =>
 
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const dispatch = useAppDispatch();
+  const questionnaireInEditor = useSelector(questionnaireInEditorSelector);
+  const questionnaireInSync = useSelector(questionnaireInSyncSelector);
+
   const classes = useStyles();
 
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire>({} as Questionnaire);
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
   const [developerMode, setDeveloperMode] = useState(false);
@@ -79,20 +82,26 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   }
   `;
 
+  useEffect(() => {
+    if (questionnaireInSync) {
+      dispatch(setQuestionnaireInSync(false));
+    }
+  }, [questionnaireInEditor]);
+
   const updateQuestionnaire = () => {
     setSchemaValidationErrors([]);
-    if (questionnaire === undefined) {
+    if (questionnaireInEditor === undefined) {
       return;
     }
     try {
       const validator = new jsonschema.Validator();
-      const validationResult = validator.validate(questionnaire, questionnaireSchema);
+      const validationResult = validator.validate(questionnaireInEditor, questionnaireSchema);
       if (validationResult.errors.length > 0) {
         setSchemaValidationErrors(validationResult.errors);
         setShowJsonInvalidMessage(true);
         return;
       }
-      props.loadQuestionnaire(questionnaire);
+      props.loadQuestionnaire(questionnaireInEditor);
     } catch (e) {
       setShowJsonInvalidMessage(true);
     }
@@ -107,14 +116,14 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   };
 
   const downloadJson = () => {
-    if (questionnaire === undefined) {
+    if (questionnaireInEditor === undefined) {
       return;
     }
     // after https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react/44661948
     const linkElement = document.createElement("a");
-    const jsonFile = new Blob([JSON.stringify(questionnaire, null, 2)], { type: "text/plain" });
+    const jsonFile = new Blob([JSON.stringify(questionnaireInEditor, null, 2)], { type: "text/plain" });
     linkElement.href = URL.createObjectURL(jsonFile);
-    linkElement.download = questionnaire.id + ".json";
+    linkElement.download = questionnaireInEditor.id + ".json";
     document.body.appendChild(linkElement);
     linkElement.click();
   };
@@ -122,58 +131,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const handleDeveloperModeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDeveloperMode(event.target.checked);
   };
-
-  const handleAddQuestion = () => {
-    if (questionnaire.questions === undefined) {
-      questionnaire.questions = [];
-    }
-    const length = questionnaire.questions.length;
-    questionnaire.questions.push({
-      id: "newQuestionId",
-      text: "new question",
-      type: QuestionType.Text,
-    } as AnyQuestion);
-
-    dispatch(setQuestionnaireInSync(false));
-
-    return length;
-  };
-
-  const handleAddResultCategory = () => {
-    if (questionnaire.resultCategories === undefined) {
-      questionnaire.resultCategories = [];
-    }
-    const length = questionnaire.resultCategories.length;
-    questionnaire.resultCategories.push({
-      id: "rc_newResultCategoryId",
-    } as ResultCategory);
-
-    dispatch(setQuestionnaireInSync(false));
-
-    return length;
-  };
-
-  const handleAddVariable = () => {
-    if (questionnaire.variables === undefined) {
-      questionnaire.variables = [];
-    }
-    const length = questionnaire.variables.length;
-    questionnaire.variables.push({
-      id: "v_newVariable",
-    } as Variable);
-
-    dispatch(setQuestionnaireInSync(false));
-
-    return length;
-  };
-
-  useEffect(() => {
-    if (props.value === undefined) {
-      setQuestionnaire({} as Questionnaire);
-    } else {
-      setQuestionnaire(JSON.parse(JSON.stringify(props.value)));
-    }
-  }, [props.value]);
 
   return (
     <Grid container direction="column" className={classes.wrapper}>
@@ -200,27 +157,9 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       </Grid>
       <Grid item xs={12} className="grid-row">
         {developerMode ? (
-          <QuestionnaireJsonEditor
-            value={questionnaire}
-            heightWithoutEditor={heightWithoutEditor}
-            onChange={(value) => {
-              setQuestionnaire(JSON.parse(JSON.stringify(value)));
-              dispatch(setQuestionnaireInSync(false));
-            }}
-            schema={questionnaireSchema || {}}
-          />
+          <QuestionnaireJsonEditor heightWithoutEditor={heightWithoutEditor} schema={questionnaireSchema} />
         ) : (
-          <QuestionnaireFormEditor
-            value={questionnaire}
-            heightWithoutEditor={heightWithoutEditor}
-            onChange={(value) => {
-              setQuestionnaire(JSON.parse(JSON.stringify(value)));
-              dispatch(setQuestionnaireInSync(false));
-            }}
-            addQuestion={handleAddQuestion}
-            addResultCategory={handleAddResultCategory}
-            addVariable={handleAddVariable}
-          />
+          <QuestionnaireFormEditor heightWithoutEditor={heightWithoutEditor} />
         )}
       </Grid>
       <Grid container className={`${classes.wrapper} grid-row`}>

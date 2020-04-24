@@ -27,13 +27,13 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: AnyQuestion): QuestionInStringRepresentation {
-  return { ...formData, enableWhen: convertLogicExpressionToString(formData.enableWhen) };
+  return { ...formData, enableWhen: convertLogicExpressionToString(formData?.enableWhen) };
 }
 
 function convertToJsonRepresentation(formData: QuestionInStringRepresentation): AnyQuestion {
   return {
     ...formData,
-    enableWhen: convertStringToLogicExpression(formData.enableWhen),
+    enableWhen: convertStringToLogicExpression(formData?.enableWhen),
   } as AnyQuestion;
 }
 
