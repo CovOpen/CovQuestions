@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import { IQuestionnaire, IQuestionnaireMeta, IQuestion } from '../../../react-with-json-logic/src/logic/schema';
 import * as glob from 'fast-glob';
 import { validate } from './validate';
-import { loadTranslation, doOnEachTranslation, md5 } from './utility';
+import { loadTranslation, doOnEachTranslation, md5, IDENTIFIER_REGEX, getStringRessource } from './utility';
 class TranslationNotCompleteError extends Error {
   constructor(m: string) {
     super(m);
@@ -16,15 +16,15 @@ const PATHS = {
 /**
  * Validates and generates the static API
  */
-export function main() {
+export function main(pwd: string = './src', outputDir: string = './dist') {
   // Get all Questionnaire
-  let questionnairePaths = glob.sync('./src/data/**/*.json');
+  let questionnairePaths = glob.sync(`${pwd}/data/**/*.json`);
 
   console.log('Validating the Questionnaires...');
   validate(questionnairePaths);
 
   console.log('Building the static API');
-  build(questionnairePaths, './dist');
+  build(questionnairePaths, outputDir);
 }
 
 export function build(paths: string[], outputPath: string) {
@@ -106,7 +106,8 @@ export function translateQuestionnaire(q: IQuestionnaire, lang: Language): IQues
   q.meta.language = lang.id;
 
   doOnEachTranslation(q, (key, value, obj) => {
-    let translation = lang.translations[md5(value)];
+    let [trans, id] = getStringRessource(value);
+    let translation = lang.translations[id || md5(value)];
     if (translation == null) {
       throw new TranslationNotCompleteError(
         `Questionnaire with id "${q.id}" could not be translated, because there is no translation in "${lang.id}" for "${key}" (${value})`

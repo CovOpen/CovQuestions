@@ -2,11 +2,9 @@ import * as fs from 'fs-extra';
 import { convert } from 'xmlbuilder2';
 import * as glob from 'fast-glob';
 import { validate } from '../src/validate';
-import { md5, doOnEachTranslation } from '../src/utility';
+import { md5, doOnEachTranslation, IDENTIFIER_REGEX, getStringRessource } from '../src/utility';
 
-const questionnairesLocation = './src/data/**/*.json';
-const i18nFolder = './src/i18n';
-const sourceFile = 'translation.en.xlf';
+const defaultFile = 'translation.en.xlf';
 
 const xmlBase = {
   xliff: {
@@ -21,15 +19,16 @@ const xmlBase = {
 
 const tranlationMap: { [id: string]: string } = {};
 
-export async function i18n_extract() {
-  let questionnairePaths = glob.sync(questionnairesLocation);
+export async function i18n_extract(srcGlob: string = './src/data/**/*.json', outDir: string = './src/i18n') {
+  let questionnairePaths = glob.sync(srcGlob);
   validate(questionnairePaths);
 
   // Goes through each file and extracts the
   questionnairePaths.forEach((path) => {
-    doOnEachTranslation(JSON.parse(fs.readFileSync(path, { encoding: 'utf-8' })), (key, value, obj) => {
-      addTranslation(obj[key], obj);
+    const newfile = doOnEachTranslation(JSON.parse(fs.readFileSync(path, { encoding: 'utf-8' })), (key, value, obj) => {
+      addTranslation(obj[key], obj, key);
     });
+    fs.writeFileSync(path, JSON.stringify(newfile));
   });
 
   // Adds the translation to the xliff skeleton and writes
@@ -44,13 +43,21 @@ export async function i18n_extract() {
     };
   });
 
-  fs.outputFileSync(`${i18nFolder}/${sourceFile}`, convert(xmlBase));
+  console.log(`Extracted ${Object.keys(tranlationMap).length} Translation Entities.`);
+
+  fs.outputFileSync(`${outDir}/${defaultFile}`, convert(xmlBase));
 }
 
-export function addTranslation(str: string, obj: Object) {
+export function addTranslation(str: string, obj: Object, key: string) {
   // We should't use md5 from source, if source is updated all other references are lost.
   // TODO: Make sure every object with strings for translation has a unqiue id (this makes reusing the objects easier aswell)
-  let id = md5(str);
+  let [trans, id] = getStringRessource(str);
+  if (id != null) {
+    str = trans;
+  } else {
+    id = md5(str);
+    obj[key] = `${str}@@${id}`;
+  }
   if (tranlationMap[id] != null && tranlationMap[id] !== str) {
     throw new Error(`Different Translations detected.`);
   }

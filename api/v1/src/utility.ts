@@ -2,6 +2,7 @@ import { convert } from 'xmlbuilder2';
 import * as fs from 'fs-extra';
 import * as crypto from 'crypto';
 const STRINGS_TO_TRANSLATE: string[] = ['title', 'text', 'asQuestion', 'details', 'description'];
+export const IDENTIFIER_REGEX: RegExp = /(.*)@@(.*)/;
 
 export function loadTranslation(path: string): { [id: string]: string } {
   let translationMap = {};
@@ -11,6 +12,16 @@ export function loadTranslation(path: string): { [id: string]: string } {
     translationMap[translation['@id']] = translation.target['#'];
   });
   return translationMap;
+}
+
+/**
+ * Converts a string ressource to transStr and Id
+ * or null if it is no ressource string
+ * @param str [transString, id]
+ */
+export function getStringRessource(str: string): [string, string] {
+  let [srcStr, trans, id] = str.match(IDENTIFIER_REGEX) || [null, null, null];
+  return [trans, id];
 }
 
 export function md5(str: string): string {
