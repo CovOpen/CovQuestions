@@ -27,6 +27,7 @@ import {
   questionnaireInEditorSelector,
   removeItem,
   setQuestionnaireInEditor,
+  swapItemWithNextOne,
 } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
@@ -84,8 +85,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const classes = useStyles();
 
   const [activeItem, setActiveItem] = useState<ActiveItem>({ section: SectionType.META, index: 0 });
-  const [enableMoveUp, setEnableMoveUp] = useState(false);
-  const [enableMoveDown, setEnableMoveDown] = useState(false);
 
   const style = `
     .rjsf > .MuiFormControl-root {
@@ -135,43 +134,18 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     onChange(questionnaireInEditor);
   };
 
-  const handleListItemClick = (type: SectionType, index?: number) => {
-    if (type === SectionType.META) {
-      setActiveItem({ section: type, index: 0 });
-      return;
-    }
-    if (index === undefined) {
-      return;
-    }
-    setActiveItem({ section: type, index });
-    setEnableMoveUp(index > 0);
-    setEnableMoveDown(index < questionnaireInEditor[type].length - 1);
-  };
-
   const handleMoveUp = () => {
-    // let listPropertyName = activeItem.type;
-    // const currentQuestionnaire: any = questionnaire;
-    // const currentIndex = activeItem.index;
-    // const elementToMoveDown = currentQuestionnaire[listPropertyName][currentIndex - 1];
-    // currentQuestionnaire[listPropertyName][currentIndex - 1] = currentQuestionnaire[listPropertyName][currentIndex];
-    // currentQuestionnaire[listPropertyName][currentIndex] = elementToMoveDown;
-    //
-    // setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
-    // handleListItemClick(activeItem.type, currentIndex - 1);
-    // onChange(questionnaire);
+    if (activeItem.section !== SectionType.META) {
+      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index - 1 }));
+      setActiveItem({ section: activeItem.section, index: activeItem.index - 1 });
+    }
   };
 
   const handleMoveDown = () => {
-    // let listPropertyName = activeItem.type;
-    // const currentQuestionnaire: any = questionnaire;
-    // const currentIndex = activeItem.index;
-    // const elementToMoveUp = currentQuestionnaire[listPropertyName][currentIndex + 1];
-    // currentQuestionnaire[listPropertyName][currentIndex + 1] = currentQuestionnaire[listPropertyName][currentIndex];
-    // currentQuestionnaire[listPropertyName][currentIndex] = elementToMoveUp;
-    //
-    // setQuestionnaire(JSON.parse(JSON.stringify(currentQuestionnaire)));
-    // handleListItemClick(activeItem.type, currentIndex + 1);
-    // onChange(questionnaire);
+    if (activeItem.section !== SectionType.META) {
+      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index }));
+      setActiveItem({ section: activeItem.section, index: activeItem.index + 1 });
+    }
   };
 
   const handleRemove = () => {
@@ -203,7 +177,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                     button
                     className={classes.listItem}
                     selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
-                    onClick={() => handleListItemClick(SectionType.QUESTIONS, index)}
+                    onClick={() => setActiveItem({ section: SectionType.QUESTIONS, index })}
                     key={index}
                   >
                     <ListItemText primary={item.text} />
@@ -216,7 +190,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 color="secondary"
                 onClick={() => {
                   dispatch(addNewQuestion());
-                  handleListItemClick(SectionType.QUESTIONS, questionnaireInEditor.questions.length);
+                  setActiveItem({ section: SectionType.QUESTIONS, index: questionnaireInEditor.questions.length });
                 }}
               >
                 Add Question
@@ -231,7 +205,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                     button
                     className={classes.listItem}
                     selected={activeItem.section === SectionType.RESULT_CATEGORIES && activeItem.index === index}
-                    onClick={() => handleListItemClick(SectionType.RESULT_CATEGORIES, index)}
+                    onClick={() => setActiveItem({ section: SectionType.RESULT_CATEGORIES, index })}
                     key={index}
                   >
                     <ListItemText primary={item.id} />
@@ -244,7 +218,10 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 color="secondary"
                 onClick={() => {
                   dispatch(addNewResultCategory());
-                  handleListItemClick(SectionType.RESULT_CATEGORIES, questionnaireInEditor.resultCategories.length);
+                  setActiveItem({
+                    section: SectionType.RESULT_CATEGORIES,
+                    index: questionnaireInEditor.resultCategories.length,
+                  });
                 }}
               >
                 Add Result
@@ -259,7 +236,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                     button
                     className={classes.listItem}
                     selected={activeItem.section === SectionType.VARIABLES && activeItem.index === index}
-                    onClick={() => handleListItemClick(SectionType.VARIABLES, index)}
+                    onClick={() => setActiveItem({ section: SectionType.VARIABLES, index })}
                     key={index}
                   >
                     <ListItemText primary={item.id} />
@@ -272,7 +249,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 color="secondary"
                 onClick={() => {
                   dispatch(addNewVariable());
-                  handleListItemClick(SectionType.VARIABLES, questionnaireInEditor.variables.length);
+                  setActiveItem({ section: SectionType.VARIABLES, index: questionnaireInEditor.variables.length });
                 }}
               >
                 Add Variable
@@ -281,12 +258,16 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           </List>
         </Grid>
         <Grid container item xs={9} className={classes.formContainer}>
-          {["questions", "resultCategories", "variables"].indexOf(activeItem.section) > -1 ? (
+          {activeItem.section !== SectionType.META ? (
             <div className={classes.alignRight}>
-              <IconButton aria-label="move-up" disabled={!enableMoveUp} onClick={handleMoveUp}>
+              <IconButton aria-label="move-up" disabled={activeItem.index <= 0} onClick={handleMoveUp}>
                 <ArrowUpwardIcon />
               </IconButton>
-              <IconButton aria-label="move-down" disabled={!enableMoveDown} onClick={handleMoveDown}>
+              <IconButton
+                aria-label="move-down"
+                disabled={activeItem.index >= questionnaireInEditor[activeItem.section].length - 1}
+                onClick={handleMoveDown}
+              >
                 <ArrowDownwardIcon />
               </IconButton>
               <IconButton aria-label="remove" onClick={handleRemove}>

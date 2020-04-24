@@ -3,14 +3,22 @@ import { RootState } from "./store";
 import { Questionnaire, QuestionType } from "../models/Questionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 
+type ArraySection = SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
+
 export const setQuestionnaireInEditor = createAction<Questionnaire>("setQuestionnaireInEditor");
 export const addNewQuestion = createAction("addNewQuestion");
 export const addNewResultCategory = createAction("addNewResultCategory");
 export const addNewVariable = createAction("addNewVariable");
+
 export const removeItem = createAction<{
-  section: SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
+  section: ArraySection;
   index: number;
 }>("removeItem");
+
+export const swapItemWithNextOne = createAction<{
+  section: ArraySection;
+  index: number;
+}>("swapItemWithNextOne");
 
 const initialQuestionnaireInEditor: Questionnaire = {
   id: "",
@@ -54,7 +62,11 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     })
     .addCase(removeItem, (state, { payload: { section, index } }) => {
       state[section].splice(index, 1);
-      return state;
+    })
+    .addCase(swapItemWithNextOne, (state, { payload: { section, index } }) => {
+      const tmp = state[section][index];
+      state[section][index] = state[section][index + 1];
+      state[section][index + 1] = tmp;
     })
 );
 
