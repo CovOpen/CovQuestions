@@ -1,23 +1,26 @@
-import { QuestionnaireMeta } from "../../models/Questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionnaireMetaSchema from "./formEditorSchemas/questionnaireMeta.json";
 import React from "react";
-
-type ElementEditorMetaProps = {
-  formData: QuestionnaireMeta;
-  onChange: (formData: QuestionnaireMeta) => void;
-};
+import { useAppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
+import { editMeta, metaInEditorSelector } from "../../store/questionnaireInEditor";
 
 const uiSchema = {
   "ui:order": ["title", "*"],
 };
 
-export function ElementEditorMeta(props: ElementEditorMetaProps) {
+export function ElementEditorMeta() {
+  const dispatch = useAppDispatch();
+
+  const meta = useSelector(metaInEditorSelector);
+
   return (
     <ElementEditor
       schema={questionnaireMetaSchema as any}
-      formData={props.formData}
-      onChange={props.onChange}
+      formData={meta}
+      onChange={(formData) => {
+        dispatch(editMeta(formData));
+      }}
       uiSchema={uiSchema}
     />
   );

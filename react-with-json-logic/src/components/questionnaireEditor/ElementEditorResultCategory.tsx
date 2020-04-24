@@ -3,6 +3,9 @@ import React from "react";
 import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
 import { Result, ResultCategory } from "../../models/Questionnaire";
 import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
+import { RootState, useAppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
+import { editResultCategory, resultCategoryInEditorSelector } from "../../store/questionnaireInEditor";
 
 type ResultInStringRepresentation = Omit<Result, "value"> & { value: string };
 type ResultCategoryInStringRepresentation = Omit<ResultCategory, "results"> & {
@@ -10,8 +13,7 @@ type ResultCategoryInStringRepresentation = Omit<ResultCategory, "results"> & {
 };
 
 type ElementEditorResultProps = {
-  formData: ResultCategory;
-  onChange: (formData: ResultCategory) => void;
+  index: number;
 };
 
 const uiSchema = {
@@ -49,11 +51,19 @@ function convertToJsonRepresentation(formData: ResultCategoryInStringRepresentat
 }
 
 export function ElementEditorResultCategory(props: ElementEditorResultProps) {
+  const dispatch = useAppDispatch();
+
+  const resultCategory = useSelector((state: RootState) => resultCategoryInEditorSelector(state, props));
+
+  const onChange = (formData: ResultCategoryInStringRepresentation) => {
+    dispatch(editResultCategory({ index: props.index, changedResultCategory: convertToJsonRepresentation(formData) }));
+  };
+
   return (
     <ElementEditor
       schema={resultCategorySchema as any}
-      formData={convertToStringRepresentation(props.formData)}
-      onChange={(formData) => props.onChange(convertToJsonRepresentation(formData))}
+      formData={convertToStringRepresentation(resultCategory)}
+      onChange={onChange}
       uiSchema={uiSchema}
     />
   );

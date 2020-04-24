@@ -3,12 +3,14 @@ import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";
 import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
+import { RootState, useAppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
+import { editVariable, variableInEditorSelector } from "../../store/questionnaireInEditor";
 
 type VariableInStringRepresentation = Omit<Variable, "value"> & { value: string };
 
 type ElementEditorVariableProps = {
-  formData: Variable;
-  onChange: (formData: Variable) => void;
+  index: number;
 };
 
 const uiSchema = {
@@ -33,11 +35,19 @@ function convertToJsonRepresentation(formData: VariableInStringRepresentation): 
 }
 
 export function ElementEditorVariable(props: ElementEditorVariableProps) {
+  const dispatch = useAppDispatch();
+
+  const variable = useSelector((state: RootState) => variableInEditorSelector(state, props));
+
+  const onChange = (formData: VariableInStringRepresentation) => {
+    dispatch(editVariable({ index: props.index, changedVariable: convertToJsonRepresentation(formData) }));
+  };
+
   return (
     <ElementEditor
       schema={variableSchema as any}
-      formData={convertToStringRepresentation(props.formData)}
-      onChange={(formData) => props.onChange(convertToJsonRepresentation(formData))}
+      formData={convertToStringRepresentation(variable)}
+      onChange={onChange}
       uiSchema={uiSchema}
     />
   );

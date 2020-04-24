@@ -10,11 +10,6 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { AnyQuestion, Questionnaire, QuestionnaireMeta, ResultCategory, Variable } from "../../models/Questionnaire";
-import { ElementEditorQuestion } from "./ElementEditorQuestion";
-import { ElementEditorMeta } from "./ElementEditorMeta";
-import { ElementEditorVariable } from "./ElementEditorVariable";
-import { ElementEditorResultCategory } from "./ElementEditorResultCategory";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -26,9 +21,9 @@ import {
   addNewVariable,
   questionnaireInEditorSelector,
   removeItem,
-  setQuestionnaireInEditor,
   swapItemWithNextOne,
 } from "../../store/questionnaireInEditor";
+import { ElementEditorSwitch } from "./ElementEditorSwitch";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
@@ -48,8 +43,7 @@ export type ActiveItem = {
 
 export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const dispatch = useAppDispatch();
-  // FIXME do not write to questionnaireInEditor below, but use actions instead, then remove JSON.parse(JSON.stringify())
-  const questionnaireInEditor: Questionnaire = JSON.parse(JSON.stringify(useSelector(questionnaireInEditorSelector)));
+  const questionnaireInEditor = useSelector(questionnaireInEditorSelector);
 
   const useStyles = makeStyles(() =>
     createStyles({
@@ -101,6 +95,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     if (activeItem.section === SectionType.META) {
       return;
     }
+
     const lengthOfActiveSection = questionnaireInEditor[activeItem.section].length;
     if (lengthOfActiveSection === 0) {
       setActiveItem({ section: SectionType.META, index: 0 });
@@ -109,30 +104,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
       setActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
     }
   }, [activeItem, questionnaireInEditor]);
-
-  const onChange = (newQuestionnaire: Questionnaire) => {
-    dispatch(setQuestionnaireInEditor(newQuestionnaire));
-  };
-
-  const handleQuestionnaireMetaChanged = (value: QuestionnaireMeta) => {
-    questionnaireInEditor.meta = value;
-    onChange(questionnaireInEditor);
-  };
-
-  const handleQuestionChanged = (index: number, value: AnyQuestion) => {
-    questionnaireInEditor.questions[index] = value;
-    onChange(questionnaireInEditor);
-  };
-
-  const handleResultCategoryChanged = (index: number, value: ResultCategory) => {
-    questionnaireInEditor.resultCategories[index] = value;
-    onChange(questionnaireInEditor);
-  };
-
-  const handleVariableChanged = (index: number, value: Variable) => {
-    questionnaireInEditor.variables[index] = value;
-    onChange(questionnaireInEditor);
-  };
 
   const handleMoveUp = () => {
     if (activeItem.section !== SectionType.META) {
@@ -171,19 +142,17 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           </List>
           <Divider className={classes.selectionListDivider} />
           <List className={classes.selectionList}>
-            {questionnaireInEditor?.questions !== undefined
-              ? questionnaireInEditor.questions.map((item, index) => (
-                  <ListItem
-                    button
-                    className={classes.listItem}
-                    selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
-                    onClick={() => setActiveItem({ section: SectionType.QUESTIONS, index })}
-                    key={index}
-                  >
-                    <ListItemText primary={item.text} />
-                  </ListItem>
-                ))
-              : null}
+            {questionnaireInEditor.questions.map((item, index) => (
+              <ListItem
+                button
+                className={classes.listItem}
+                selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
+                onClick={() => setActiveItem({ section: SectionType.QUESTIONS, index })}
+                key={index}
+              >
+                <ListItemText primary={item.text} />
+              </ListItem>
+            ))}
             <ListItem className={classes.listItem}>
               <Button
                 variant="contained"
@@ -199,19 +168,17 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           </List>
           <Divider className={classes.selectionListDivider} />
           <List className={classes.selectionList}>
-            {questionnaireInEditor.resultCategories !== undefined
-              ? questionnaireInEditor.resultCategories.map((item, index) => (
-                  <ListItem
-                    button
-                    className={classes.listItem}
-                    selected={activeItem.section === SectionType.RESULT_CATEGORIES && activeItem.index === index}
-                    onClick={() => setActiveItem({ section: SectionType.RESULT_CATEGORIES, index })}
-                    key={index}
-                  >
-                    <ListItemText primary={item.id} />
-                  </ListItem>
-                ))
-              : null}
+            {questionnaireInEditor.resultCategories.map((item, index) => (
+              <ListItem
+                button
+                className={classes.listItem}
+                selected={activeItem.section === SectionType.RESULT_CATEGORIES && activeItem.index === index}
+                onClick={() => setActiveItem({ section: SectionType.RESULT_CATEGORIES, index })}
+                key={index}
+              >
+                <ListItemText primary={item.id} />
+              </ListItem>
+            ))}
             <ListItem className={classes.listItem}>
               <Button
                 variant="contained"
@@ -230,19 +197,17 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           </List>
           <Divider className={classes.selectionListDivider} />
           <List className={classes.selectionList}>
-            {questionnaireInEditor.variables !== undefined
-              ? questionnaireInEditor.variables.map((item, index) => (
-                  <ListItem
-                    button
-                    className={classes.listItem}
-                    selected={activeItem.section === SectionType.VARIABLES && activeItem.index === index}
-                    onClick={() => setActiveItem({ section: SectionType.VARIABLES, index })}
-                    key={index}
-                  >
-                    <ListItemText primary={item.id} />
-                  </ListItem>
-                ))
-              : null}
+            {questionnaireInEditor.variables.map((item, index) => (
+              <ListItem
+                button
+                className={classes.listItem}
+                selected={activeItem.section === SectionType.VARIABLES && activeItem.index === index}
+                onClick={() => setActiveItem({ section: SectionType.VARIABLES, index })}
+                key={index}
+              >
+                <ListItemText primary={item.id} />
+              </ListItem>
+            ))}
             <ListItem className={classes.listItem}>
               <Button
                 variant="contained"
@@ -275,31 +240,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
               </IconButton>
             </div>
           ) : null}
-          {activeItem.section === SectionType.META ? (
-            <ElementEditorMeta
-              formData={questionnaireInEditor.meta || ({} as QuestionnaireMeta)}
-              onChange={(formData) => handleQuestionnaireMetaChanged(formData)}
-            />
-          ) : null}
-          {activeItem.section === SectionType.QUESTIONS && questionnaireInEditor.questions !== undefined ? (
-            <ElementEditorQuestion
-              formData={questionnaireInEditor.questions[activeItem.index]}
-              onChange={(formData) => handleQuestionChanged(activeItem.index, formData)}
-            />
-          ) : null}
-          {activeItem.section === SectionType.RESULT_CATEGORIES &&
-          questionnaireInEditor.resultCategories !== undefined ? (
-            <ElementEditorResultCategory
-              formData={questionnaireInEditor.resultCategories[activeItem.index]}
-              onChange={(formData) => handleResultCategoryChanged(activeItem.index, formData)}
-            />
-          ) : null}
-          {activeItem.section === SectionType.VARIABLES && questionnaireInEditor.variables !== undefined ? (
-            <ElementEditorVariable
-              formData={questionnaireInEditor.variables[activeItem.index]}
-              onChange={(formData) => handleVariableChanged(activeItem.index, formData)}
-            />
-          ) : null}
+          <ElementEditorSwitch activeItem={activeItem} />
         </Grid>
       </Grid>
     </Grid>

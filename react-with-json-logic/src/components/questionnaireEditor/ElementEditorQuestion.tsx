@@ -3,12 +3,14 @@ import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
 import { convertLogicExpressionToString, convertStringToLogicExpression } from "./converters";
+import { editQuestion, questionInEditorSelector } from "../../store/questionnaireInEditor";
+import { RootState, useAppDispatch } from "../../store/store";
+import { useSelector } from "react-redux";
 
 type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
 
 type ElementEditorQuestionProps = {
-  formData: AnyQuestion;
-  onChange: (formData: AnyQuestion) => void;
+  index: number;
 };
 
 const uiSchema = {
@@ -38,11 +40,19 @@ function convertToJsonRepresentation(formData: QuestionInStringRepresentation): 
 }
 
 export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
+  const dispatch = useAppDispatch();
+
+  const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
+
+  const onChange = (formData: QuestionInStringRepresentation) => {
+    dispatch(editQuestion({ index: props.index, changedQuestion: convertToJsonRepresentation(formData) }));
+  };
+
   return (
     <ElementEditor
       schema={questionSchema as any}
-      formData={convertToStringRepresentation(props.formData)}
-      onChange={(formData) => props.onChange(convertToJsonRepresentation(formData))}
+      formData={convertToStringRepresentation(question)}
+      onChange={onChange}
       uiSchema={uiSchema}
     />
   );

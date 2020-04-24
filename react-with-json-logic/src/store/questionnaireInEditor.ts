@@ -1,6 +1,13 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Questionnaire, QuestionType } from "../models/Questionnaire";
+import {
+  AnyQuestion,
+  Questionnaire,
+  QuestionnaireMeta,
+  QuestionType,
+  ResultCategory,
+  Variable,
+} from "../models/Questionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 
 type ArraySection = SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
@@ -19,6 +26,13 @@ export const swapItemWithNextOne = createAction<{
   section: ArraySection;
   index: number;
 }>("swapItemWithNextOne");
+
+export const editMeta = createAction<QuestionnaireMeta>("editMeta");
+export const editQuestion = createAction<{ index: number; changedQuestion: AnyQuestion }>("editQuestionnaire");
+export const editResultCategory = createAction<{ index: number; changedResultCategory: ResultCategory }>(
+  "editResultCategory"
+);
+export const editVariable = createAction<{ index: number; changedVariable: Variable }>("editVariable");
 
 const initialQuestionnaireInEditor: Questionnaire = {
   id: "",
@@ -68,6 +82,26 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       state[section][index] = state[section][index + 1];
       state[section][index + 1] = tmp;
     })
+    .addCase(editMeta, (state, { payload }) => {
+      state.meta = payload;
+    })
+    .addCase(editQuestion, (state, { payload: { index, changedQuestion } }) => {
+      state.questions[index] = changedQuestion;
+    })
+    .addCase(editResultCategory, (state, { payload: { index, changedResultCategory } }) => {
+      state.resultCategories[index] = changedResultCategory;
+    })
+    .addCase(editVariable, (state, { payload: { index, changedVariable } }) => {
+      state.variables[index] = changedVariable;
+    })
 );
 
 export const questionnaireInEditorSelector = (state: RootState) => state.questionnaireInEditor;
+
+export const metaInEditorSelector = (state: RootState) => state.questionnaireInEditor.meta;
+export const questionInEditorSelector = (state: RootState, props: { index: number }) =>
+  state.questionnaireInEditor.questions[props.index];
+export const resultCategoryInEditorSelector = (state: RootState, props: { index: number }) =>
+  state.questionnaireInEditor.resultCategories[props.index];
+export const variableInEditorSelector = (state: RootState, props: { index: number }) =>
+  state.questionnaireInEditor.variables[props.index];
