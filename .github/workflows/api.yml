@@ -1,10 +1,10 @@
-name: CI - API v1
+name: API/v1 - CI
 on:
-  push:
+  pull_request:
     branches:
       - master
     paths:
-      - "api/v1/**"
+      - 'api/v1/**'
 
 jobs:
   build:

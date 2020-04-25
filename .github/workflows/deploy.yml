@@ -1,38 +1,38 @@
-name: CD
+name: Editor - CD
 on:
   push:
     branches:
       - master
     paths:
-    - 'react-with-json-logic/**'
+      - 'react-with-json-logic/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: Install Packages
-      run: npm install
-      working-directory: react-with-json-logic/
-    - name: Build App
-      run: npm run build
-      working-directory: react-with-json-logic/
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: react-app
-        # Directory containing files to upload
-        path: react-with-json-logic/build/
-    - name: Publish to blob storage
-      uses: bacongobbler/azure-blob-storage-upload@v1.0.0
-      with:
-        source_dir: react-with-json-logic/build/
-        container_name: $web
-        connection_string: ${{ secrets.ConnectionString }}
-        extra_args: ''
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Packages
+        run: npm install
+        working-directory: react-with-json-logic/
+      - name: Build App
+        run: npm run build
+        working-directory: react-with-json-logic/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          # Artifact name
+          name: react-app
+          # Directory containing files to upload
+          path: react-with-json-logic/build/
+      - name: Publish to blob storage
+        uses: bacongobbler/azure-blob-storage-upload@v1.0.0
+        with:
+          source_dir: react-with-json-logic/build/
+          container_name: $web
+          connection_string: ${{ secrets.ConnectionString }}
+          extra_args: ''
