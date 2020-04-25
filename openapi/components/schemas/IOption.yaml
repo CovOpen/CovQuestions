@@ -8,7 +8,7 @@ properties:
       for example telephone hotlines.
     type: string
   text:
-    description: 'Human-Readable answer, can be localized.'
+    description: "Human-Readable answer, can be localized."
     type: string
   value:
     description: Value used for evaluating logic expressions.

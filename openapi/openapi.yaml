@@ -1,20 +1,20 @@
 openapi: 3.0.0
 info:
   title: CovQuestionsAPI
-  version: '1.0'
+  version: "1.0"
   contact:
     name: CovQuestions-Team
-    url: 'https://github.com/CovOpen/CovQuestions/issues'
+    url: "https://github.com/CovOpen/CovQuestions/issues"
   description: API for retrieving standarized Questionnaires
-  termsOfService: 'https://github.com/CovOpen/CovQuestions/blob/master/LICENSE'
+  termsOfService: "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE"
   license:
-    url: 'https://github.com/CovOpen/CovQuestions/blob/master/LICENSE'
+    url: "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE"
     name: Apache License 2.0
 servers:
-  - url: 'https://v1.covquestions.aquiver.de/api'
+  - url: "https://v1.covquestions.aquiver.de/api"
     description: Test
   - description: Local
-    url: 'http://localhost:80'
+    url: "http://localhost:80"
 tags:
   - name: views
     description: All special views of the API
@@ -23,18 +23,18 @@ tags:
   - name: questions
     description: Questions
 paths:
-  '/views/questionnaires/{id}/{version}/{lang}':
+  "/views/questionnaires/{id}/{version}/{lang}":
     get:
       summary: Get specific Questionnaire
       operationId: get-views-questionnaires-id-version-lang
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 $ref: components\schemas\IQuestionnaire.yaml
-      description: 'Get a questionnaire. '
+      description: "Get a questionnaire. "
       tags:
         - views
     parameters:
@@ -52,7 +52,7 @@ paths:
         in: path
         required: true
         description: The Version of the questionnaire
-        example: '2'
+        example: "2"
 
       - schema:
           type: string
@@ -65,7 +65,7 @@ paths:
     get:
       summary: List Questions
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -79,7 +79,7 @@ paths:
         - questions
     parameters: []
 
-  '/translations/{lang}':
+  "/translations/{lang}":
     parameters:
       - schema:
           type: string
@@ -90,7 +90,7 @@ paths:
     get:
       summary: Get Translation
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -101,7 +101,7 @@ paths:
                     type: string
               examples: {}
       operationId: get-translations-lang
-      description: 'Returns all Translations for the {lang}'
+      description: "Returns all Translations for the {lang}"
       tags:
         - translations
 
@@ -111,7 +111,7 @@ paths:
       tags:
         - views
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
