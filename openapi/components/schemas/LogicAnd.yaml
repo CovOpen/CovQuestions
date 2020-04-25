@@ -1,9 +1,0 @@
-additionalProperties: false
-properties:
-  and:
-    items:
-      $ref: ./LogicExpression.yaml
-    type: array
-required:
-  - and
-type: object

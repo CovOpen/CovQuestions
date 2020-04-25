@@ -1,5 +1,2 @@
-anyOf:
-  - $ref: ./LogicOperator.yaml
-  - $ref: ./LogicVariable.yaml
-  - $ref: ./LogicConstant.yaml
-description: Logic expression used to compute this variable. Defaults to true.
+description: Logic expression (from json-logic) used to compute this variable. Defaults to true.
+properties:
