@@ -12,7 +12,7 @@ properties:
     description: Boolean indicating whether the question is optional or not.
     type: boolean
   text:
-    description: 'Human-readable question text, can be localized.'
+    description: "Human-readable question text, can be localized."
     type: string
   type:
     anyOf:
