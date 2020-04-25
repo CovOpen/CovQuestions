@@ -1,4 +1,4 @@
-name: CI - API v1
+name: Openapi CI
 on:
   push:
     branches:
