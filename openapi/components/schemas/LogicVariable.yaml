@@ -1,0 +1,7 @@
+additionalProperties: false
+properties:
+  var:
+    type: string
+required:
+  - var
+type: object

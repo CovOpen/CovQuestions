@@ -1,0 +1,13 @@
+additionalProperties: false
+description: >-
+  Represents a variable which is computed from the given answers or other
+  variables.
+type: object
+properties:
+  id:
+    description: Unique id for referring this variable in logic expressions.
+    type: string
+  value:
+    $ref: .\LogicExpression.yaml
+required:
+  - id

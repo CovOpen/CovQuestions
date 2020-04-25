@@ -206,6 +206,7 @@
     }
   },
   "components": {
+    "securitySchemes": {},
     "schemas": {
       "INumericOption": {
         "additionalProperties": false,

@@ -21,3 +21,9 @@ https://zellwk.com/blog/endpoint-testing/
 Documentation: redoc-cli bundle [spec]
 
 https://learning.postman.com/docs/postman/api-documentation/documenting-your-api/
+
+https://github.com/TwineHealth/TwineDeveloperDocs
+
+https://www.npmjs.com/package/openapi-examples-validator
+
+https://medium.com/@Scampiuk/handling-api-validation-with-openapi-swagger-documents-in-nodejs-1f09c133d4d2

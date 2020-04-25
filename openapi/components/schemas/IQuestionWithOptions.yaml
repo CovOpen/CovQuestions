@@ -1,0 +1,35 @@
+additionalProperties: false
+properties:
+  details:
+    description: Optional human-readable details or clarifiation about this question.
+    type: string
+  enableWhen:
+    $ref: .\LogicExpression.yaml
+  id:
+    description: Unique id for referring this question in logic expressions.
+    type: string
+  optional:
+    description: Boolean indicating whether the question is optional or not.
+    type: boolean
+  options:
+    description: Answer options for Select/Multiselect questions.
+    items:
+      $ref: .\IOption.yaml
+    type: array
+  text:
+    description: 'Human-readable question text, can be localized.'
+    type: string
+  type:
+    anyOf:
+      - enum:
+          - select
+        type: string
+      - enum:
+          - multiselect
+        type: string
+    description: Type of the question.
+required:
+  - id
+  - text
+  - type
+type: object

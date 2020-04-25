@@ -1,0 +1,4 @@
+anyOf:
+  - $ref: .\IQuestionWithoutOptions.yaml
+  - $ref: .\IQuestionWithOptions.yaml
+  - $ref: .\INumericQuestion.yaml
