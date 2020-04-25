@@ -8,6 +8,6 @@ properties:
     description: Unique id for referring this variable in logic expressions.
     type: string
   value:
-    $ref: .\LogicExpression.yaml
+    $ref: ./LogicExpression.yaml
 required:
   - id

@@ -2,7 +2,7 @@ additionalProperties: false
 properties:
   and:
     items:
-      $ref: .\LogicExpression.yaml
+      $ref: ./LogicExpression.yaml
     type: array
 required:
   - and

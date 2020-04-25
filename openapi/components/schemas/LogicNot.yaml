@@ -1,11 +1,11 @@
 additionalProperties: false
 properties:
-  "!":
+  '!':
     anyOf:
-      - $ref: .\LogicExpression.yaml
+      - $ref: ./LogicExpression.yaml
       - items:
-          $ref: .\LogicExpression.yaml
+          $ref: ./LogicExpression.yaml
         type: array
 required:
-  - "!"
+  - '!'
 type: object

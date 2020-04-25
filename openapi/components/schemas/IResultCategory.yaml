@@ -12,7 +12,7 @@ properties:
   results:
     description: A list of results for this category.
     items:
-      $ref: .\IResult.yaml
+      $ref: ./IResult.yaml
     type: array
 required:
   - id

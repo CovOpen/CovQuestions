@@ -4,6 +4,6 @@ properties:
   if:
     type: array
     items:
-      $ref: .\LogicExpression.yaml
+      $ref: ./LogicExpression.yaml
 required:
   - if

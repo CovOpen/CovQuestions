@@ -1,5 +1,5 @@
 anyOf:
-  - $ref: .\LogicOperator.yaml
-  - $ref: .\LogicVariable.yaml
-  - $ref: .\LogicConstant.yaml
+  - $ref: ./LogicOperator.yaml
+  - $ref: ./LogicVariable.yaml
+  - $ref: ./LogicConstant.yaml
 description: Logic expression used to compute this variable. Defaults to true.

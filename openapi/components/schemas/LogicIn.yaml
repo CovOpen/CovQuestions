@@ -6,6 +6,6 @@ properties:
     minItems: 2
     type: array
     items:
-      $ref: .\LogicExpression.yaml
+      $ref: ./LogicExpression.yaml
 required:
   - in

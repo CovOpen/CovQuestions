@@ -3,7 +3,7 @@ description: >-
   Represents a single result.
 
   The value of the logic expression yielding true or false. The first result in
-  the result category yielding true will be\nused as result. If no result
+  the result category yielding true will be/nused as result. If no result
   evaluates to true, no result is shown for this category.
 properties:
   id:
@@ -13,7 +13,7 @@ properties:
     description: A human readable text for this result. Can be localized.
     type: string
   value:
-    $ref: .\LogicExpression.yaml
+    $ref: ./LogicExpression.yaml
 required:
   - id
   - text

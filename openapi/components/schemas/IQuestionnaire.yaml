@@ -2,29 +2,29 @@ additionalProperties: false
 description: The questionaire.
 properties:
   id:
-    description: "Unique, assigned identifier. Machine friendly."
+    description: 'Unique, assigned identifier. Machine friendly.'
     type: string
   meta:
-    $ref: .\IQuestionnaireMeta.yaml
+    $ref: ./IQuestionnaireMeta.yaml
   questions:
-    description: "All questions, shown one after another, in order."
+    description: 'All questions, shown one after another, in order.'
     items:
-      $ref: .\IQuestion.yaml
+      $ref: ./IQuestion.yaml
     type: array
   resultCategories:
     description: |-
       All result categories. When all questions are answered,
       the result for each result category is computed.
     items:
-      $ref: .\IResultCategory.yaml
+      $ref: ./IResultCategory.yaml
     type: array
   schemaVersion:
     description: File format/api version in semver.
     type: string
   variables:
-    description: "All variables, refreshed after each update to any answer."
+    description: 'All variables, refreshed after each update to any answer.'
     items:
-      $ref: .\IVariable.yaml
+      $ref: ./IVariable.yaml
     type: array
   version:
     description: Version of this question in semver.

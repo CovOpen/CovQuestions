@@ -4,7 +4,7 @@ properties:
     description: Optional human-readable details or clarifiation about this question.
     type: string
   enableWhen:
-    $ref: .\LogicExpression.yaml
+    $ref: ./LogicExpression.yaml
   id:
     description: Unique id for referring this question in logic expressions.
     type: string
@@ -12,7 +12,7 @@ properties:
     description: Boolean indicating whether the question is optional or not.
     type: boolean
   text:
-    description: "Human-readable question text, can be localized."
+    description: 'Human-readable question text, can be localized.'
     type: string
   type:
     anyOf:
