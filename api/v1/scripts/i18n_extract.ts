@@ -1,17 +1,22 @@
-import * as fs from 'fs-extra';
-import { convert } from 'xmlbuilder2';
-import * as glob from 'fast-glob';
-import { validate } from '../src/validate';
-import { md5, doOnEachTranslation, getStringRessource, writeJSONFile } from '../src/utility';
+import * as fs from "fs-extra";
+import { convert } from "xmlbuilder2";
+import * as glob from "fast-glob";
+import { validate } from "../src/validate";
+import {
+  md5,
+  doOnEachTranslation,
+  getStringRessource,
+  writeJSONFile,
+} from "../src/utility";
 
-const defaultFile = 'translation.en.xlf';
+const defaultFile = "translation.en.xlf";
 
 const xmlBase = {
   xliff: {
-    '@version': '1.2',
+    "@version": "1.2",
     file: {
-      '@datatype': 'plaintext',
-      '@source-language': 'en',
+      "@datatype": "plaintext",
+      "@source-language": "en",
       body: {},
     },
   },
@@ -19,33 +24,48 @@ const xmlBase = {
 
 const tranlationMap: { [id: string]: string } = {};
 
-export async function i18n_extract(srcGlob: string = './src/data/**/*.json', outDir: string = './src/i18n') {
+export async function i18n_extract(
+  srcGlob: string = "./src/data/**/*.json",
+  outDir: string = "./src/i18n"
+) {
   let questionnairePaths = glob.sync(srcGlob);
   validate(questionnairePaths);
 
   // Goes through each file and extracts the
   questionnairePaths.forEach((path) => {
-    const newfile = doOnEachTranslation(JSON.parse(fs.readFileSync(path, { encoding: 'utf-8' })), (key, value, obj) => {
-      addTranslation(obj[key], obj, key);
-    });
+    const newfile = doOnEachTranslation(
+      JSON.parse(fs.readFileSync(path, { encoding: "utf-8" })),
+      (key, value, obj) => {
+        addTranslation(obj[key], obj, key);
+      }
+    );
     fs.writeFileSync(path, JSON.stringify(newfile, null, 2));
   });
 
   // Adds the translation to the xliff skeleton and writes
-  xmlBase.xliff.file.body['trans-unit'] = Object.keys(tranlationMap).map((key) => {
-    return {
-      '@id': key,
-      source: tranlationMap[key],
-      target: {
-        '@state': 'translated',
-        '#': tranlationMap[key],
-      },
-    };
-  });
+  xmlBase.xliff.file.body["trans-unit"] = Object.keys(tranlationMap).map(
+    (key) => {
+      return {
+        "@id": key,
+        source: tranlationMap[key],
+        target: {
+          "@state": "translated",
+          "#": tranlationMap[key],
+        },
+      };
+    }
+  );
 
-  console.log(`Extracted ${Object.keys(tranlationMap).length} Translation Entities from "${srcGlob}" to "${outDir}"`);
+  console.log(
+    `Extracted ${
+      Object.keys(tranlationMap).length
+    } Translation Entities from "${srcGlob}" to "${outDir}"`
+  );
 
-  fs.outputFileSync(`${outDir}/${defaultFile}`, convert(xmlBase, { prettyPrint: true }));
+  fs.outputFileSync(
+    `${outDir}/${defaultFile}`,
+    convert(xmlBase, { prettyPrint: true })
+  );
 }
 
 export function addTranslation(str: string, obj: Object, key: string) {
