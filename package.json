@@ -2,14 +2,18 @@
   "name": "covquestionsapi",
   "version": "1.0.0",
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
     "@redocly/openapi-cli": "^0.12.5",
-    "redoc-cli": "^0.9.7"
+    "json-schema-to-typescript": "^8.2.0",
+    "redoc-cli": "^0.9.7",
+    "rimraf": "^3.0.2"
   },
   "private": true,
   "scripts": {
     "start": "openapi preview-docs",
     "build": "openapi bundle -o dist --ext json && openapi bundle -o dist --ext yaml",
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
-    "test": "openapi validate"
+    "test": "openapi validate",
+    "generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-rxjs -o generated-sources/openapi"
   }
 }

@@ -1,2 +1,2 @@
 description: Logic expression (from json-logic) used to compute this variable. Defaults to true.
-properties:
+type: object
