@@ -2,12 +2,12 @@ additionalProperties: false
 description: The questionaire.
 properties:
   id:
-    description: 'Unique, assigned identifier. Machine friendly.'
+    description: "Unique, assigned identifier. Machine friendly."
     type: string
   meta:
     $ref: ./IQuestionnaireMeta.yaml
   questions:
-    description: 'All questions, shown one after another, in order.'
+    description: "All questions, shown one after another, in order."
     items:
       $ref: ./IQuestion.yaml
     type: array
@@ -22,7 +22,7 @@ properties:
     description: File format/api version in semver.
     type: string
   variables:
-    description: 'All variables, refreshed after each update to any answer.'
+    description: "All variables, refreshed after each update to any answer."
     items:
       $ref: ./IVariable.yaml
     type: array
