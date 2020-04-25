@@ -1,4 +1,4 @@
-Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIvbIJmsb08GLVQt8iE?usp=sharing)
+Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIvbIJmsb08GLVQt8iE?usp=sharing) | [OpenAPI Spec](https://covopen.github.io/CovQuestions/)
 
 # CovQuestions OpenAPI Definition and Tooling
 
@@ -221,8 +221,8 @@ You will use `$ref`s to reference schema from your path definitions.
 Example addition to the `openapi.yaml` file:
 
 ```yaml
-"/customers/{id}":
-  $ref: "./paths/customers@{id}.yaml"
+'/customers/{id}':
+  $ref: './paths/customers@{id}.yaml'
 ```
 
 Here is an example of a YAML file named `customers@{id}.yaml` in the `paths` folder:
@@ -243,7 +243,7 @@ get:
     - $ref: ../components/parameters/collectionExpand.yaml
     - $ref: ../components/parameters/collectionFields.yaml
   responses:
-    "200":
+    '200':
       description: A list of Customers was retrieved successfully
       headers:
         Rate-Limit-Limit:
@@ -269,7 +269,7 @@ get:
             type: array
             items:
               $ref: ../components/schemas/Customer.yaml
-    "401":
+    '401':
       $ref: ../components/responses/AccessForbidden.yaml
   x-code-samples:
     - lang: PHP
@@ -284,13 +284,13 @@ post:
   requestBody:
     $ref: ../components/requestBodies/Customer.yaml
   responses:
-    "201":
+    '201':
       $ref: ../components/responses/Customer.yaml
-    "401":
+    '401':
       $ref: ../components/responses/AccessForbidden.yaml
-    "409":
+    '409':
       $ref: ../components/responses/Conflict.yaml
-    "422":
+    '422':
       $ref: ../components/responses/InvalidDataError.yaml
   x-code-samples:
     - lang: PHP
