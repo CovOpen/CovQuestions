@@ -6,11 +6,10 @@ describe("Restart test", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("The answer female should lead to female", async () => {
-    await t.findByText("Geben Sie bitte ihr Geschlecht an?");
+    await t.findByText("Geben Sie bitte ihr Geschlecht an?", "legend");
 
     await t.clickOnAnswer("weiblich");
     await t.clickRestart();

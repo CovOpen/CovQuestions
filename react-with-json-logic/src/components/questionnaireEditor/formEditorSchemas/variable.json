@@ -1,0 +1,26 @@
+{
+  "$ref": "#/definitions/Variable",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Variable": {
+      "additionalProperties": false,
+      "description": "Represents a variable which is computed from the given answers or other variables.",
+      "properties": {
+        "id": {
+          "description": "Unique id for referring this variable in logic expressions.",
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "Logic expression used to compute this variable."
+        },
+        "valueString": {
+          "type": "string",
+          "description": "Logic expression used to compute this variable."
+        }
+      },
+      "required": ["id", "value"],
+      "type": "object"
+    }
+  }
+}

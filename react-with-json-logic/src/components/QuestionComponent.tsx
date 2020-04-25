@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Question } from "../logic/questionnaire";
+import { Question } from "../logic/QuestionnaireEngine";
 import { Button, Grid, Paper } from "@material-ui/core";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
 import { Alert } from "@material-ui/lab";

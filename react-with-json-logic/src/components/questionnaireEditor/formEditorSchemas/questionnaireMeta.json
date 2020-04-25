@@ -1,0 +1,46 @@
+{
+  "$ref": "#/definitions/QuestionnaireMeta",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "QuestionnaireMeta": {
+      "additionalProperties": false,
+      "description": "Meta-Information for a questionaire.",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "creationDate": {
+          "description": "Creation date as ISO 8601 string",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "experiationDate": {
+          "description": "Expiration date as ISO 8601 string",
+          "type": "string"
+        },
+        "language": {
+          "description": "Language of this questionaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
+          "type": "string"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "regions": {
+          "title": "Region restriction",
+          "description": "Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": ["title", "author", "language", "creationDate"],
+      "type": "object"
+    }
+  }
+}

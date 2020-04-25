@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { Question, Questionnaire, Result } from "../logic/questionnaire";
+import { Question, QuestionnaireEngine, Result } from "../logic/QuestionnaireEngine";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
-import { IQuestionnaire } from "../logic/schema";
+import { Questionnaire } from "../models/Questionnaire";
 import { Primitive } from "../Primitive";
 
 type QuestionnaireExecutionProps = {
-  isInSync: boolean;
-  currentQuestionnaire: { questionnaire: IQuestionnaire; updatedAt: number };
+  isJsonInvalid?: boolean;
+  currentQuestionnaire: Questionnaire;
 };
 
-export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ isInSync, currentQuestionnaire }) => {
-  const [questionnaireEngine, setQuestionnaireEngine] = useState(new Questionnaire(currentQuestionnaire.questionnaire));
+export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
+  isJsonInvalid,
+  currentQuestionnaire,
+}) => {
+  const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
   const [doRerender, setDoRerender] = useState(false);
 
   function restartQuestionnaire() {
-    const engine = new Questionnaire(currentQuestionnaire.questionnaire);
+    const engine = new QuestionnaireEngine(currentQuestionnaire);
     const nextQuestion = engine.nextQuestion();
 
     setResult(undefined);
@@ -52,23 +55,23 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({ 
     <></>
   ) : (
     <>
-      <Grid item xs={9}>
+      <Grid item xs={9} className="grid-row">
         <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
           Restart Questionnaire
         </Button>
       </Grid>
-      {!isInSync ? (
-        <Grid item xs={9}>
-          <Alert severity="warning">This questionnaire is out of sync. Please reload.</Alert>
+      {isJsonInvalid ? (
+        <Grid item xs={9} className="grid-row">
+          <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert>
         </Grid>
       ) : null}
-      <Grid item xs={9}>
+      <Grid item xs={9} className="grid-row">
         {result === undefined && currentQuestion ? (
           <QuestionComponent currentQuestion={currentQuestion} handleNextClick={handleNextClick} />
         ) : null}
         {result !== undefined ? <ResultComponent result={result} /> : null}
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={9} className="grid-row">
         {questionnaireEngine ? (
           <>
             <Typography>Current internal state:</Typography>

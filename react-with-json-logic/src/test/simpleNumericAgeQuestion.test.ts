@@ -6,11 +6,10 @@ describe("Simple numeric age question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("Age below 18 should lead to the AGE_CHILD result", async () => {
-    await t.findByText("Wie alt sind Sie?");
+    await t.findByText("Wie alt sind Sie?", "p");
     await t.enterNumber(6);
     await t.clickNext();
 
@@ -18,7 +17,7 @@ describe("Simple numeric age question", () => {
   });
 
   test("Age above 18 should lead to the AGE_ADULT result", async () => {
-    await t.findByText("Wie alt sind Sie?");
+    await t.findByText("Wie alt sind Sie?", "p");
     await t.enterNumber(21);
     await t.clickNext();
 

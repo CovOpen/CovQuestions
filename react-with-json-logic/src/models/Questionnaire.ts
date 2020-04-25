@@ -1,5 +1,5 @@
 // LogicExpression refers to the JSONLogic standard.
-import { LogicExpression } from "./logic";
+import { LogicExpression } from "./LogicExpression";
 
 /*
  * This module defines a schema for questionaire and result calulation logic.
@@ -20,7 +20,7 @@ export enum QuestionType {
 /**
  * Option for multi-select questions.
  */
-export interface IOption {
+export interface Option {
   /**
    * Human-Readable answer, can be localized.
    */
@@ -40,7 +40,7 @@ export interface IOption {
 /**
  * Option for numeric questions.
  */
-export interface INumericOption {
+export interface NumericOption {
   /**
    * Minimal value
    */
@@ -62,7 +62,7 @@ export interface INumericOption {
 /**
  * Represents a question.
  */
-interface IQuestionBase {
+interface QuestionBase {
   /**
    * Unique id for referring this question in logic expressions.
    */
@@ -84,16 +84,28 @@ interface IQuestionBase {
    * Defaults to true.
    */
   enableWhen?: LogicExpression;
+  /**
+   * Logic expression in a string representation
+   */
+  enableWhenString?: string;
 }
 
-export type IQuestionWithoutOptions = IQuestionBase & {
+/**
+ * Represents a question. The answer is a choice of yes/no, text or date.
+ * @title Yes/No, Text or Date question
+ */
+export type QuestionWithoutOptions = QuestionBase & {
   /**
    * Type of the question.
    */
   type: QuestionType.Boolean | QuestionType.Date | QuestionType.Text;
 };
 
-export type IQuestionWithOptions = IQuestionBase & {
+/**
+ * Represents a question with predefined answers to select.
+ * @title Question with options
+ */
+export type QuestionWithOptions = QuestionBase & {
   /**
    * Type of the question.
    */
@@ -101,10 +113,14 @@ export type IQuestionWithOptions = IQuestionBase & {
   /**
    * Answer options for Select/Multiselect questions.
    */
-  options?: IOption[];
+  options?: Option[];
 };
 
-export type INumericQuestion = IQuestionBase & {
+/**
+ * Represents a question with numeric answer.
+ * @title Numeric question
+ */
+export type NumericQuestion = QuestionBase & {
   /**
    * Type of the question.
    */
@@ -112,15 +128,18 @@ export type INumericQuestion = IQuestionBase & {
   /**
    * Answer options for Select/Multiselect questions.
    */
-  numericOptions?: INumericOption;
+  numericOptions?: NumericOption;
 };
 
-export type IQuestion = IQuestionWithoutOptions | IQuestionWithOptions | INumericQuestion;
+/**
+ * Represents a single question of the questionnaire.
+ */
+export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
 
 /**
  * Represents a variable which is computed from the given answers or other variables.
  */
-export interface IVariable {
+export interface Variable {
   /**
    * Unique id for referring this variable in logic expressions.
    */
@@ -128,13 +147,17 @@ export interface IVariable {
   /**
    * Logic expression used to compute this variable.
    */
-  value: LogicExpression;
+  value?: LogicExpression;
+  /**
+   * Logic expression as string
+   */
+  valueString?: string;
 }
 
 /**
  * Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.
  */
-export interface IResultCategory {
+export interface ResultCategory {
   /**
    * A unique identifier for this result category.
    */
@@ -146,13 +169,13 @@ export interface IResultCategory {
   /**
    * A list of results for this category.
    */
-  results: IResult[];
+  results: Result[];
 }
 
 /**
  * Represents a single result.
  */
-export interface IResult {
+export interface Result {
   /**
    * A unique identifier for this result.
    */
@@ -165,13 +188,17 @@ export interface IResult {
    * A logic expression yielding true or false. The first result in the result category yielding true will be
    * used as result. If no result evaluates to true, no result is shown for this category.
    */
-  value: LogicExpression; // TODO: Maybe we can come up with a better name than value.
+  value?: LogicExpression; // TODO: Maybe we can come up with a better name than value.
+  /**
+   * Logc expression as string
+   */
+  valueString?: string; // TODO: Maybe we can come up with a better name than value.
 }
 
 /**
  * Meta-Information for a questionaire.
  */
-export interface IQuestionnaireMeta {
+export interface QuestionnaireMeta {
   title: string;
   description?: string;
   author: string;
@@ -198,7 +225,7 @@ export interface IQuestionnaireMeta {
 /**
  * The questionaire.
  */
-export interface IQuestionnaire {
+export interface Questionnaire {
   /**
    * Unique, assigned identifier. Machine friendly.
    */
@@ -214,18 +241,18 @@ export interface IQuestionnaire {
   /**
    * Meta-Information.
    */
-  meta: IQuestionnaireMeta;
+  meta: QuestionnaireMeta;
   /**
    * All questions, shown one after another, in order.
    */
-  questions: IQuestion[];
+  questions: AnyQuestion[];
   /**
    * All variables, refreshed after each update to any answer.
    */
-  variables: IVariable[];
+  variables: Variable[];
   /**
    * All result categories. When all questions are answered,
    * the result for each result category is computed.
    */
-  resultCategories: IResultCategory[];
+  resultCategories: ResultCategory[];
 }

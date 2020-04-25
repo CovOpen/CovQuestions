@@ -1,0 +1,124 @@
+{
+  "$ref": "#/definitions/Question",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Question": {
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarifiation about this question.",
+          "type": "string"
+        },
+        "enableWhen": {
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true.",
+          "type": "string"
+        },
+        "enableWhenString": {
+          "description": "Logic expression in string representation",
+          "type": "string"
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["select", "multiselect", "number", "boolean", "date", "text"],
+          "description": "Type of the question."
+        }
+      },
+      "required": ["id", "text", "type"],
+      "title": "Question",
+      "type": "object",
+      "dependencies": {
+        "type": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": ["boolean", "text", "date"]
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": ["multiselect", "select"]
+                },
+                "options": {
+                  "title": "Answer options for Select/Multiselect questions.",
+                  "items": {
+                    "$ref": "#/definitions/Option"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": ["number"]
+                },
+                "numericOptions": {
+                  "title": "Answer options for Numeric questions.",
+                  "$ref": "#/definitions/NumericOption"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "NumericOption": {
+      "additionalProperties": false,
+      "title": "",
+      "properties": {
+        "defaultValue": {
+          "description": "Default value",
+          "type": "number"
+        },
+        "max": {
+          "description": "maximal value",
+          "type": "number"
+        },
+        "min": {
+          "description": "Minimal value",
+          "type": "number"
+        },
+        "step": {
+          "description": "Step size",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "Option": {
+      "additionalProperties": false,
+      "title": "",
+      "properties": {
+        "asQuestion": {
+          "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+          "type": "string"
+        },
+        "text": {
+          "description": "Human-Readable answer, can be localized.",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value used for evaluating logic expressions.",
+          "type": "string"
+        }
+      },
+      "required": ["text", "value"],
+      "type": "object"
+    }
+  }
+}
