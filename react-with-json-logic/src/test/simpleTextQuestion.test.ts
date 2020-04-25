@@ -6,11 +6,10 @@ describe("Simple text question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("Text 'test' should lead to result", async () => {
-    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.");
+    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.", "legend");
     await t.enterText("test");
     await t.clickNext();
 
@@ -18,7 +17,7 @@ describe("Simple text question", () => {
   });
 
   test("Wrong text should lead to no result", async () => {
-    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.");
+    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.", "legend");
     await t.enterText("Something else");
     await t.clickNext();
 
@@ -26,7 +25,7 @@ describe("Simple text question", () => {
   });
 
   test("Skipping the optional question should be possible", async () => {
-    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.");
+    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.", "legend");
     await t.clickNext();
 
     await t.findByText("No result applies");

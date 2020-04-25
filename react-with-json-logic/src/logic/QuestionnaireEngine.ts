@@ -1,8 +1,16 @@
 // @ts-ignore
 import jsonLogic from "json-logic-js";
 
-import { INumericOption, IOption, IQuestion, IQuestionnaire, IResultCategory, IVariable, QuestionType } from "./schema";
-import { LogicExpression } from "./logic";
+import {
+  AnyQuestion,
+  NumericOption,
+  Option,
+  Questionnaire,
+  QuestionType,
+  ResultCategory,
+  Variable,
+} from "../models/Questionnaire";
+import { LogicExpression } from "../models/LogicExpression";
 import { Primitive } from "../Primitive";
 
 export type Result = {
@@ -14,12 +22,12 @@ export class Question {
   id: string;
   type: QuestionType;
   text: string;
-  options?: IOption[];
-  numericOption?: INumericOption;
+  options?: Option[];
+  numericOption?: NumericOption;
   enableWhen?: LogicExpression;
   optional?: boolean;
 
-  constructor(question: IQuestion) {
+  constructor(question: AnyQuestion) {
     this.id = question.id;
     this.type = question.type;
     this.text = question.text;
@@ -57,14 +65,14 @@ type QuestionRespose = {
   option?: { [optionId: string]: { selected: boolean } };
 };
 
-export class Questionnaire {
+export class QuestionnaireEngine {
   private readonly questions: Question[] = [];
-  private variables: IVariable[] = [];
-  private resultCategories: IResultCategory[] = [];
+  private variables: Variable[] = [];
+  private resultCategories: ResultCategory[] = [];
   private data: { [key: string]: QuestionRespose } = {};
   private currentQuestionIndex = -1;
 
-  constructor(newQuestionnaire: IQuestionnaire) {
+  constructor(newQuestionnaire: Questionnaire) {
     this.questions = newQuestionnaire.questions.map((question) => new Question(question));
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;

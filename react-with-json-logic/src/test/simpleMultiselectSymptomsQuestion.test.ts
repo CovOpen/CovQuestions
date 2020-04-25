@@ -6,11 +6,10 @@ describe("Simple multiselect symptoms question", () => {
 
   beforeEach(async () => {
     t = new QuestionnaireTest(testQuestionnaire);
-    await t.start();
   });
 
   test("Three symptoms", async () => {
-    await t.findByText("Welche der folgenden Symptome haben Sie?");
+    await t.findByText("Welche der folgenden Symptome haben Sie?", "legend");
     await t.clickOnAnswer("Husten");
     await t.clickOnAnswer("Fieber");
     await t.clickOnAnswer("Atemnot");
@@ -20,7 +19,7 @@ describe("Simple multiselect symptoms question", () => {
   });
 
   test("Two symptoms", async () => {
-    await t.findByText("Welche der folgenden Symptome haben Sie?");
+    await t.findByText("Welche der folgenden Symptome haben Sie?", "legend");
     await t.clickOnAnswer("Fieber");
     await t.clickOnAnswer("Atemnot");
     await t.clickNext();
@@ -29,7 +28,7 @@ describe("Simple multiselect symptoms question", () => {
   });
 
   test("No symptoms", async () => {
-    await t.findByText("Welche der folgenden Symptome haben Sie?");
+    await t.findByText("Welche der folgenden Symptome haben Sie?", "legend");
     await t.clickNext();
 
     await t.findByText("Symptome: Sie haben keine Symptome.");

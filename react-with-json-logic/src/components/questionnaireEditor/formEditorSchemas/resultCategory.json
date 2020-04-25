@@ -1,0 +1,54 @@
+{
+  "$ref": "#/definitions/ResultCategory",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Result": {
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "id": {
+          "description": "A unique identifier for this result.",
+          "type": "string"
+        },
+        "text": {
+          "description": "A human readable text for this result. Can be localized.",
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
+        },
+        "valueString": {
+          "type": "string",
+          "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
+        }
+      },
+      "required": ["id", "text", "value"],
+      "type": "object"
+    },
+    "ResultCategory": {
+      "additionalProperties": false,
+      "title": "Result category",
+      "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.",
+      "properties": {
+        "description": {
+          "description": "A human readable description for the result category. Can be localized.",
+          "type": "string"
+        },
+        "id": {
+          "description": "A unique identifier for this result category.",
+          "type": "string"
+        },
+        "results": {
+          "title": "Results for this category.",
+          "items": {
+            "$ref": "#/definitions/Result"
+          },
+          "type": "array"
+        }
+      },
+      "required": ["id", "description", "results"],
+      "type": "object"
+    }
+  }
+}
