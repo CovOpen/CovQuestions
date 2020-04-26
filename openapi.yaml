@@ -33,7 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Questionnaire'
+                $ref: '#/components/schemas/questionnaire'
       description: 'Get a questionnaire. '
       tags:
         - views
@@ -139,7 +139,7 @@ paths:
     parameters: []
 components:
   schemas:
-    QuestionnaireMeta:
+    QuestionnaireMeta: &ref_6
       additionalProperties: false
       description: Meta-Information for a questionaire.
       properties:
@@ -175,13 +175,13 @@ components:
         - language
         - creationDate
       type: object
-    LogicExpression:
+    LogicExpression: &ref_13
       anyOf:
         - $ref: '#/components/schemas/LogicOperator'
         - $ref: '#/components/schemas/LogicVariable'
         - $ref: '#/components/schemas/LogicConstant'
       description: Logic expression used to compute this variable. Defaults to true.
-    LogicIf:
+    LogicIf: &ref_16
       additionalProperties: false
       properties:
         if:
@@ -197,7 +197,7 @@ components:
         - if
       title: LogicIf
       type: object
-    LogicReduce:
+    LogicReduce: &ref_25
       additionalProperties: false
       properties:
         reduce:
@@ -213,7 +213,7 @@ components:
         - reduce
       title: LogicReduce
       type: object
-    LogicSome:
+    LogicSome: &ref_26
       additionalProperties: false
       properties:
         some:
@@ -228,7 +228,7 @@ components:
         - some
       title: LogicSome
       type: object
-    LogicEquals:
+    LogicEquals: &ref_12
       additionalProperties: false
       properties:
         ==:
@@ -243,7 +243,7 @@ components:
         - ==
       title: LogicEquals
       type: object
-    LogicGreaterEqual:
+    LogicGreaterEqual: &ref_15
       additionalProperties: false
       properties:
         '>=':
@@ -258,7 +258,7 @@ components:
         - '>='
       title: LogicGreaterEqual
       type: object
-    LogicNot:
+    LogicNot: &ref_21
       additionalProperties: false
       properties:
         '!':
@@ -271,7 +271,7 @@ components:
         - '!'
       title: LogicNot
       type: object
-    LogicLessEqual:
+    LogicLessEqual: &ref_19
       additionalProperties: false
       properties:
         <=:
@@ -286,7 +286,7 @@ components:
         - <=
       title: LogicLessEqual
       type: object
-    LogicPlus:
+    LogicPlus: &ref_24
       additionalProperties: false
       properties:
         +:
@@ -301,7 +301,7 @@ components:
         - +
       title: LogicPlus
       type: object
-    LogicMinus:
+    LogicMinus: &ref_20
       additionalProperties: false
       properties:
         '-':
@@ -316,7 +316,7 @@ components:
         - '-'
       title: LogicMinus
       type: object
-    LogicAnd:
+    LogicAnd: &ref_10
       additionalProperties: false
       properties:
         and:
@@ -327,7 +327,7 @@ components:
         - and
       title: LogicAnd
       type: object
-    LogicOr:
+    LogicOr: &ref_23
       additionalProperties: false
       properties:
         or:
@@ -338,7 +338,7 @@ components:
         - or
       title: LogicOr
       type: object
-    LogicIn:
+    LogicIn: &ref_17
       additionalProperties: false
       properties:
         in:
@@ -355,7 +355,7 @@ components:
         - in
       title: LogicIn
       type: object
-    LogicGreater:
+    LogicGreater: &ref_14
       additionalProperties: false
       properties:
         '>':
@@ -370,7 +370,7 @@ components:
         - '>'
       title: LogicGreater
       type: object
-    LogicLess:
+    LogicLess: &ref_18
       additionalProperties: false
       properties:
         <:
@@ -385,7 +385,7 @@ components:
         - <
       title: LogicLess
       type: object
-    LogicOperator:
+    LogicOperator: &ref_22
       anyOf:
         - $ref: '#/components/schemas/LogicIf'
         - $ref: '#/components/schemas/LogicReduce'
@@ -401,7 +401,7 @@ components:
         - $ref: '#/components/schemas/LogicIn'
         - $ref: '#/components/schemas/LogicGreater'
         - $ref: '#/components/schemas/LogicLess'
-    LogicVariable:
+    LogicVariable: &ref_27
       additionalProperties: false
       properties:
         var:
@@ -409,12 +409,12 @@ components:
       required:
         - var
       type: object
-    LogicConstant:
+    LogicConstant: &ref_11
       anyOf:
         - type: number
         - type: string
         - type: boolean
-    QuestionWithoutOptions:
+    QuestionWithoutOptions: &ref_5
       additionalProperties: false
       description: 'Represents a question. The answer is a choice of yes/no, text or date.'
       properties:
@@ -433,16 +433,14 @@ components:
           description: 'Human-readable question text, can be localized.'
           type: string
         type:
-          anyOf:
-            - enum:
-                - boolean
-              type: string
-            - enum:
-                - date
-              type: string
-            - enum:
-                - text
-              type: string
+          type: string
+          enum:
+            - boolean
+            - date
+            - text
+            - multiselect
+            - number
+            - select
           description: Type of the question.
       required:
         - id
@@ -450,7 +448,7 @@ components:
         - type
       title: 'Yes/No, Text or Date question'
       type: object
-    Option:
+    Option: &ref_2
       additionalProperties: false
       description: Option for multi-select questions.
       properties:
@@ -473,7 +471,7 @@ components:
         - text
         - value
       type: object
-    QuestionWithOptions:
+    QuestionWithOptions: &ref_4
       additionalProperties: false
       description: Represents a question with predefined answers to select.
       properties:
@@ -511,7 +509,7 @@ components:
         - type
       title: Question with options
       type: object
-    NumericOption:
+    NumericOption: &ref_0
       additionalProperties: false
       description: |-
         Option for numeric questions.
@@ -530,7 +528,7 @@ components:
           description: Step size
           type: number
       type: object
-    NumericQuestion:
+    NumericQuestion: &ref_1
       additionalProperties: false
       description: Represents a question with numeric answer.
       properties:
@@ -561,13 +559,13 @@ components:
         - type
       title: Numeric question
       type: object
-    Question:
+    Question: &ref_3
       anyOf:
         - $ref: '#/components/schemas/QuestionWithoutOptions'
         - $ref: '#/components/schemas/QuestionWithOptions'
         - $ref: '#/components/schemas/NumericQuestion'
       description: Represents a single question of the questionnaire.
-    Result:
+    Result: &ref_7
       additionalProperties: false
       description: >-
         Represents a single result.
@@ -589,7 +587,7 @@ components:
         - text
         - value
       type: object
-    ResultCategory:
+    ResultCategory: &ref_8
       additionalProperties: false
       description: >-
         Represents a result category. A category might yield exactly one or zero
@@ -613,7 +611,7 @@ components:
         - description
         - results
       type: object
-    Variable:
+    Variable: &ref_9
       additionalProperties: false
       description: >-
         Represents a variable which is computed from the given answers or other
@@ -628,7 +626,7 @@ components:
       required:
         - id
         - value
-    Questionnaire:
+    questionnaire:
       additionalProperties: false
       description: The questionaire.
       properties:
@@ -669,3 +667,32 @@ components:
         - variables
         - resultCategories
       type: object
+      x-definitions:
+        NumericOption: *ref_0
+        NumericQuestion: *ref_1
+        Option: *ref_2
+        Question: *ref_3
+        QuestionWithOptions: *ref_4
+        QuestionWithoutOptions: *ref_5
+        QuestionnaireMeta: *ref_6
+        Result: *ref_7
+        ResultCategory: *ref_8
+        Variable: *ref_9
+        LogicAnd: *ref_10
+        LogicConstant: *ref_11
+        LogicEquals: *ref_12
+        LogicExpression: *ref_13
+        LogicGreater: *ref_14
+        LogicGreaterEqual: *ref_15
+        LogicIf: *ref_16
+        LogicIn: *ref_17
+        LogicLess: *ref_18
+        LogicLessEqual: *ref_19
+        LogicMinus: *ref_20
+        LogicNot: *ref_21
+        LogicOperator: *ref_22
+        LogicOr: *ref_23
+        LogicPlus: *ref_24
+        LogicReduce: *ref_25
+        LogicSome: *ref_26
+        LogicVariable: *ref_27
