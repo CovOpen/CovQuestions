@@ -1,18 +1,18 @@
-import * as fs from 'fs-extra';
+import * as fs from "fs-extra";
 import {
   Questionnaire,
   QuestionnaireMeta,
   AnyQuestion,
-} from '../../../react-with-json-logic/src/models/Questionnaire';
-import * as glob from 'fast-glob';
-import { validate } from './validate';
+} from "../../../react-with-json-logic/src/models/Questionnaire";
+import * as glob from "fast-glob";
+import { validate } from "./validate";
 import {
   loadTranslation,
   doOnEachTranslation,
   md5,
   getStringRessource,
   writeJSONFile,
-} from './utility';
+} from "./utility";
 class TranslationNotCompleteError extends Error {
   constructor(m: string) {
     super(m);
@@ -20,21 +20,21 @@ class TranslationNotCompleteError extends Error {
 }
 
 const PATHS = {
-  VIEWS_QUESTIONNAIRES: '/views/questionnaires',
+  VIEWS_QUESTIONNAIRES: "/views/questionnaires",
 };
 
 /**
  * Validates and generates the static API
  */
-export function main(pwd: string = './src', outputDir: string = './dist') {
+export function main(pwd: string = "./src", outputDir: string = "./dist") {
   // Get all Questionnaire
   let questionnaireFilePaths = glob.sync(`${pwd}/data/**/*.json`);
   let translationFilePaths = glob.sync(`${pwd}/i18n/*.xlf`);
 
-  console.log('Validating the Questionnaires...');
+  console.log("Validating the Questionnaires...");
   validate(questionnaireFilePaths);
 
-  console.log('Building the static API');
+  console.log("Building the static API");
   build(questionnaireFilePaths, translationFilePaths, outputDir);
   console.log(`Build API. Output Directory: "${outputDir}"`);
 }
@@ -60,7 +60,7 @@ export function build(
    */
   questionnaireFilePaths.forEach((path) => {
     let questionnaire: Questionnaire = JSON.parse(
-      fs.readFileSync(path, 'utf-8')
+      fs.readFileSync(path, "utf-8")
     );
 
     // Languages Files
@@ -115,7 +115,7 @@ export function build(
   let questions: AnyQuestion[] = [];
   questionnaireFilePaths.forEach((path) => {
     let questionnaire: Questionnaire = JSON.parse(
-      fs.readFileSync(path, 'utf-8')
+      fs.readFileSync(path, "utf-8")
     );
     questions = [...questions, ...questionnaire.questions];
   });
