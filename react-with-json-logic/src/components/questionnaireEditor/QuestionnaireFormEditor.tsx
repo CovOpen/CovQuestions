@@ -89,6 +89,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     .rjsf .MuiGrid-item {
       padding: 0px 8px 0px 8px;
     }
+    .rjsf .MuiButton-textSecondary {
+      color: rgba(0, 0, 0, 0.87);
+    }
     `;
 
   useEffect(() => {
