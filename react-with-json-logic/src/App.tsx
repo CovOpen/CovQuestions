@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import "./App.css";
 import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelectionDropdown";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
@@ -12,6 +12,17 @@ import jsonschema from "jsonschema";
 import questionnaireSchema from "./schemas/questionnaire.json";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#667EEA",
+    },
+    secondary: {
+      main: "#E2E8F0",
+    },
+  },
+});
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -71,36 +82,36 @@ export const App: React.FC = () => {
   }, [questionnaireJson]);
 
   return (
-    <Container>
-      <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
-        <Grid item xs={12}>
-          <QuestionnaireSelectionDropdown
-            handleChange={setCurrentQuestionnairePath}
-            allQuestionnaires={allQuestionnaires}
-          />
-        </Grid>
-        <Grid container direction="row">
-          <Grid item xs={4} data-testid="QuestionnaireExecution">
-            {executedQuestionnaire !== undefined ? (
-              <QuestionnaireExecution
-                isJsonInvalid={showJsonInvalidMessage}
-                currentQuestionnaire={executedQuestionnaire}
-              />
-            ) : null}
-          </Grid>
-          <Grid item xs={8}>
-            <QuestionnaireEditor
-              resetQuestionnaire={() => {
-                if (originalCurrentQuestionnaire) {
-                  dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
-                  overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
-                }
-              }}
-              schemaValidationErrors={schemaValidationErrors}
+    <ThemeProvider theme={theme}>
+        <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
+          <Grid item xs={12}>
+            <QuestionnaireSelectionDropdown
+              handleChange={setCurrentQuestionnairePath}
+              allQuestionnaires={allQuestionnaires}
             />
           </Grid>
+          <Grid container direction="row">
+            <Grid item xs={4} data-testid="QuestionnaireExecution">
+              {executedQuestionnaire !== undefined ? (
+                <QuestionnaireExecution
+                  isJsonInvalid={showJsonInvalidMessage}
+                  currentQuestionnaire={executedQuestionnaire}
+                />
+              ) : null}
+            </Grid>
+            <Grid item xs={8}>
+              <QuestionnaireEditor
+                resetQuestionnaire={() => {
+                  if (originalCurrentQuestionnaire) {
+                    dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
+                    overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
+                  }
+                }}
+                schemaValidationErrors={schemaValidationErrors}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+    </ThemeProvider>
   );
 };
