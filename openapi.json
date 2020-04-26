@@ -277,11 +277,20 @@
       },
       "LogicIf": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "if": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 3,
             "minItems": 3,
@@ -291,15 +300,25 @@
         "required": [
           "if"
         ],
-        "title": "LogicIf"
+        "title": "LogicIf",
+        "type": "object"
       },
       "LogicReduce": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "reduce": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 3,
             "minItems": 3,
@@ -309,15 +328,22 @@
         "required": [
           "reduce"
         ],
-        "title": "LogicReduce"
+        "title": "LogicReduce",
+        "type": "object"
       },
       "LogicSome": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "some": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -327,15 +353,22 @@
         "required": [
           "some"
         ],
-        "title": "LogicSome"
+        "title": "LogicSome",
+        "type": "object"
       },
       "LogicEquals": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "==": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -345,15 +378,22 @@
         "required": [
           "=="
         ],
-        "title": "LogicEquals"
+        "title": "LogicEquals",
+        "type": "object"
       },
       "LogicGreaterEqual": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           ">=": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -363,7 +403,8 @@
         "required": [
           ">="
         ],
-        "title": "LogicGreaterEqual"
+        "title": "LogicGreaterEqual",
+        "type": "object"
       },
       "LogicNot": {
         "additionalProperties": false,
@@ -390,11 +431,17 @@
       },
       "LogicLessEqual": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "<=": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -404,15 +451,22 @@
         "required": [
           "<="
         ],
-        "title": "LogicLessEqual"
+        "title": "LogicLessEqual",
+        "type": "object"
       },
       "LogicPlus": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "+": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -422,15 +476,22 @@
         "required": [
           "+"
         ],
-        "title": "LogicPlus"
+        "title": "LogicPlus",
+        "type": "object"
       },
       "LogicMinus": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "-": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -440,7 +501,8 @@
         "required": [
           "-"
         ],
-        "title": "LogicMinus"
+        "title": "LogicMinus",
+        "type": "object"
       },
       "LogicAnd": {
         "additionalProperties": false,
@@ -476,11 +538,20 @@
       },
       "LogicIn": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "in": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "items": {
+                    "$ref": "#/components/schemas/LogicExpression"
+                  },
+                  "type": "array"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -490,15 +561,22 @@
         "required": [
           "in"
         ],
-        "title": "LogicIn"
+        "title": "LogicIn",
+        "type": "object"
       },
       "LogicGreater": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           ">": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -508,15 +586,22 @@
         "required": [
           ">"
         ],
-        "title": "LogicGreater"
+        "title": "LogicGreater",
+        "type": "object"
       },
       "LogicLess": {
         "additionalProperties": false,
-        "type": "object",
         "properties": {
           "<": {
             "items": {
-              "$ref": "#/components/schemas/LogicExpression"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
             },
             "maxItems": 2,
             "minItems": 2,
@@ -526,7 +611,8 @@
         "required": [
           "<"
         ],
-        "title": "LogicLess"
+        "title": "LogicLess",
+        "type": "object"
       },
       "LogicOperator": {
         "anyOf": [
@@ -587,7 +673,17 @@
         "type": "object"
       },
       "LogicConstant": {
-        "type": "string"
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
       },
       "QuestionWithoutOptions": {
         "additionalProperties": false,
@@ -669,6 +765,7 @@
       },
       "QuestionWithOptions": {
         "additionalProperties": false,
+        "description": "Represents a question with predefined answers to select.",
         "properties": {
           "details": {
             "description": "Optional human-readable details or clarifiation about this question.",
@@ -747,6 +844,7 @@
       },
       "NumericQuestion": {
         "additionalProperties": false,
+        "description": "Represents a question with numeric answer.",
         "properties": {
           "details": {
             "description": "Optional human-readable details or clarifiation about this question.",
@@ -783,6 +881,7 @@
           "text",
           "type"
         ],
+        "title": "Numeric question",
         "type": "object"
       },
       "Question": {
@@ -796,7 +895,8 @@
           {
             "$ref": "#/components/schemas/NumericQuestion"
           }
-        ]
+        ],
+        "description": "Represents a single question of the questionnaire."
       },
       "Result": {
         "additionalProperties": false,

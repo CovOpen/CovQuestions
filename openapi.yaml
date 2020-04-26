@@ -183,69 +183,81 @@ components:
       description: Logic expression used to compute this variable. Defaults to true.
     LogicIf:
       additionalProperties: false
-      type: object
       properties:
         if:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 3
           minItems: 3
           type: array
       required:
         - if
       title: LogicIf
+      type: object
     LogicReduce:
       additionalProperties: false
-      type: object
       properties:
         reduce:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 3
           minItems: 3
           type: array
       required:
         - reduce
       title: LogicReduce
+      type: object
     LogicSome:
       additionalProperties: false
-      type: object
       properties:
         some:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - some
       title: LogicSome
+      type: object
     LogicEquals:
       additionalProperties: false
-      type: object
       properties:
         ==:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - ==
       title: LogicEquals
+      type: object
     LogicGreaterEqual:
       additionalProperties: false
-      type: object
       properties:
         '>=':
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - '>='
       title: LogicGreaterEqual
+      type: object
     LogicNot:
       additionalProperties: false
       properties:
@@ -261,43 +273,49 @@ components:
       type: object
     LogicLessEqual:
       additionalProperties: false
-      type: object
       properties:
         <=:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - <=
       title: LogicLessEqual
+      type: object
     LogicPlus:
       additionalProperties: false
-      type: object
       properties:
         +:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - +
       title: LogicPlus
+      type: object
     LogicMinus:
       additionalProperties: false
-      type: object
       properties:
         '-':
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - '-'
       title: LogicMinus
+      type: object
     LogicAnd:
       additionalProperties: false
       properties:
@@ -322,43 +340,51 @@ components:
       type: object
     LogicIn:
       additionalProperties: false
-      type: object
       properties:
         in:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - items:
+                  $ref: '#/components/schemas/LogicExpression'
+                type: array
           maxItems: 2
           minItems: 2
           type: array
       required:
         - in
       title: LogicIn
+      type: object
     LogicGreater:
       additionalProperties: false
-      type: object
       properties:
         '>':
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - '>'
       title: LogicGreater
+      type: object
     LogicLess:
       additionalProperties: false
-      type: object
       properties:
         <:
           items:
-            $ref: '#/components/schemas/LogicExpression'
+            anyOf:
+              - $ref: '#/components/schemas/LogicExpression'
+              - $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
       required:
         - <
       title: LogicLess
+      type: object
     LogicOperator:
       anyOf:
         - $ref: '#/components/schemas/LogicIf'
@@ -384,7 +410,10 @@ components:
         - var
       type: object
     LogicConstant:
-      type: string
+      anyOf:
+        - type: number
+        - type: string
+        - type: boolean
     QuestionWithoutOptions:
       additionalProperties: false
       description: 'Represents a question. The answer is a choice of yes/no, text or date.'
@@ -446,6 +475,7 @@ components:
       type: object
     QuestionWithOptions:
       additionalProperties: false
+      description: Represents a question with predefined answers to select.
       properties:
         details:
           description: Optional human-readable details or clarifiation about this question.
@@ -502,6 +532,7 @@ components:
       type: object
     NumericQuestion:
       additionalProperties: false
+      description: Represents a question with numeric answer.
       properties:
         details:
           description: Optional human-readable details or clarifiation about this question.
@@ -528,12 +559,14 @@ components:
         - id
         - text
         - type
+      title: Numeric question
       type: object
     Question:
       anyOf:
         - $ref: '#/components/schemas/QuestionWithoutOptions'
         - $ref: '#/components/schemas/QuestionWithOptions'
         - $ref: '#/components/schemas/NumericQuestion'
+      description: Represents a single question of the questionnaire.
     Result:
       additionalProperties: false
       description: >-
