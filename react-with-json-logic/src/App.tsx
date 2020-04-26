@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       marginTop: 10,
       paddingLeft: 0,
+      background: "#EDF2F7",
     },
     editor: {
       background: "#F7FAFC",
