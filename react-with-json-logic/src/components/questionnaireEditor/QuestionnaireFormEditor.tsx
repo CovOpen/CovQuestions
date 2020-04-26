@@ -82,7 +82,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const style = `
     .rjsf > .MuiFormControl-root {
-      height: calc(100vh - ${props.heightWithoutEditor + 48}px);
+      height: calc(100vh - ${
+        activeItem.section === SectionType.META ? props.heightWithoutEditor : props.heightWithoutEditor + 48
+      }px);
       overflow-x: hidden !important;
       overflow-x: auto;
     }
