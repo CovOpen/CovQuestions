@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       background: "rgba(237, 242, 247, 0.7)",
       height: "100%",
-      marginRight: 12,
       border: "1.5px solid #CBD5E0",
       boxSizing: "border-box",
       borderRadius: 6,

@@ -30,6 +30,14 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
   const style = `
   .jsoneditor {
     height: calc(100vh - ${heightWithoutEditor}px);
+    border: thin solid #667EEA;
+  }
+  .jsoneditor-menu {
+    background-color: #667EEA;
+    border-color: #667EEA;
+  }
+  .ace-github {
+    background: #F7FAFC;
   }
   `;
 

@@ -22,6 +22,8 @@ const useStyles = makeStyles(() =>
     },
     wrapper: {
       margin: 0,
+      paddingRight: 12,
+      paddingLeft: 24,
     },
     selection: {
       height: `calc(100vh - ${heightWithoutEditor}px)`,

@@ -13,7 +13,6 @@ import {
   createStyles,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import clsx from "clsx";
 import "./App.css";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
@@ -42,9 +41,11 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
       marginTop: 10,
-    },
-    noPaddingLeft: {
       paddingLeft: 0,
+    },
+    editor: {
+      background: "#F7FAFC",
+      boxShadow: "3px 0px 34px rgba(0, 0, 0, 0.06)",
     },
   })
 );
@@ -123,12 +124,7 @@ export const App: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Container
-        maxWidth={false}
-        className={clsx(classes.content, {
-          [classes.noPaddingLeft]: showMenu,
-        })}
-      >
+      <Container maxWidth={false} className={classes.content}>
         <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
           <Grid container direction="row">
             {showMenu ? (
@@ -143,15 +139,7 @@ export const App: React.FC = () => {
                 />
               </Grid>
             ) : null}
-            <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
-              {executedQuestionnaire !== undefined ? (
-                <QuestionnaireExecution
-                  isJsonInvalid={showJsonInvalidMessage}
-                  currentQuestionnaire={executedQuestionnaire}
-                />
-              ) : null}
-            </Grid>
-            <Grid item xs={showMenu ? 6 : 8} onClick={() => setShowMenu(false)}>
+            <Grid item xs={showMenu ? 6 : 8} onClick={() => setShowMenu(false)} className={classes.editor}>
               <QuestionnaireEditor
                 resetQuestionnaire={() => {
                   if (originalCurrentQuestionnaire) {
@@ -161,6 +149,14 @@ export const App: React.FC = () => {
                 }}
                 schemaValidationErrors={schemaValidationErrors}
               />
+            </Grid>
+            <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
+              {executedQuestionnaire !== undefined ? (
+                <QuestionnaireExecution
+                  isJsonInvalid={showJsonInvalidMessage}
+                  currentQuestionnaire={executedQuestionnaire}
+                />
+              ) : null}
             </Grid>
           </Grid>
         </Grid>

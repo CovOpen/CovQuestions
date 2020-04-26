@@ -94,6 +94,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     .rjsf .MuiButton-textSecondary {
       color: rgba(0, 0, 0, 0.87);
     }
+    .rjsf .MuiPaper-root {
+      background: #F7FAFC;
+    }
     `;
 
   useEffect(() => {
