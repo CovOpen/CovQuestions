@@ -49,7 +49,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IQuestionnaire"
+                  "$ref": "#/components/schemas/Questionnaire"
                 }
               }
             }
@@ -103,7 +103,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/IQuestion"
+                    "$ref": "#/components/schemas/Question"
                   }
                 }
               }
@@ -217,7 +217,7 @@
   },
   "components": {
     "schemas": {
-      "IQuestionnaireMeta": {
+      "QuestionnaireMeta": {
         "additionalProperties": false,
         "description": "Meta-Information for a questionaire.",
         "properties": {
@@ -262,11 +262,336 @@
         "type": "object"
       },
       "LogicExpression": {
-        "description": "Logic expression (from json-logic) used to compute this variable. Defaults to true.",
-        "properties": null
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/LogicOperator"
+          },
+          {
+            "$ref": "#/components/schemas/LogicVariable"
+          },
+          {
+            "$ref": "#/components/schemas/LogicConstant"
+          }
+        ],
+        "description": "Logic expression used to compute this variable. Defaults to true."
       },
-      "IQuestionWithoutOptions": {
+      "LogicIf": {
         "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "if": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        "required": [
+          "if"
+        ],
+        "title": "LogicIf"
+      },
+      "LogicReduce": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "reduce": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        "required": [
+          "reduce"
+        ],
+        "title": "LogicReduce"
+      },
+      "LogicSome": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "some": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "some"
+        ],
+        "title": "LogicSome"
+      },
+      "LogicEquals": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "==": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "=="
+        ],
+        "title": "LogicEquals"
+      },
+      "LogicGreaterEqual": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          ">=": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          ">="
+        ],
+        "title": "LogicGreaterEqual"
+      },
+      "LogicNot": {
+        "additionalProperties": false,
+        "properties": {
+          "!": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LogicExpression"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "required": [
+          "!"
+        ],
+        "title": "LogicNot",
+        "type": "object"
+      },
+      "LogicLessEqual": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "<=": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "<="
+        ],
+        "title": "LogicLessEqual"
+      },
+      "LogicPlus": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "+": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "+"
+        ],
+        "title": "LogicPlus"
+      },
+      "LogicMinus": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "-": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "-"
+        ],
+        "title": "LogicMinus"
+      },
+      "LogicAnd": {
+        "additionalProperties": false,
+        "properties": {
+          "and": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "and"
+        ],
+        "title": "LogicAnd",
+        "type": "object"
+      },
+      "LogicOr": {
+        "additionalProperties": false,
+        "properties": {
+          "or": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "or"
+        ],
+        "title": "LogicOr",
+        "type": "object"
+      },
+      "LogicIn": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "in": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "in"
+        ],
+        "title": "LogicIn"
+      },
+      "LogicGreater": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          ">": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          ">"
+        ],
+        "title": "LogicGreater"
+      },
+      "LogicLess": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "<": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "<"
+        ],
+        "title": "LogicLess"
+      },
+      "LogicOperator": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/LogicIf"
+          },
+          {
+            "$ref": "#/components/schemas/LogicReduce"
+          },
+          {
+            "$ref": "#/components/schemas/LogicSome"
+          },
+          {
+            "$ref": "#/components/schemas/LogicEquals"
+          },
+          {
+            "$ref": "#/components/schemas/LogicGreaterEqual"
+          },
+          {
+            "$ref": "#/components/schemas/LogicNot"
+          },
+          {
+            "$ref": "#/components/schemas/LogicLessEqual"
+          },
+          {
+            "$ref": "#/components/schemas/LogicPlus"
+          },
+          {
+            "$ref": "#/components/schemas/LogicMinus"
+          },
+          {
+            "$ref": "#/components/schemas/LogicAnd"
+          },
+          {
+            "$ref": "#/components/schemas/LogicOr"
+          },
+          {
+            "$ref": "#/components/schemas/LogicIn"
+          },
+          {
+            "$ref": "#/components/schemas/LogicGreater"
+          },
+          {
+            "$ref": "#/components/schemas/LogicLess"
+          }
+        ]
+      },
+      "LogicVariable": {
+        "additionalProperties": false,
+        "properties": {
+          "var": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "var"
+        ],
+        "type": "object"
+      },
+      "LogicConstant": {
+        "type": "string"
+      },
+      "QuestionWithoutOptions": {
+        "additionalProperties": false,
+        "description": "Represents a question. The answer is a choice of yes/no, text or date.",
         "properties": {
           "details": {
             "description": "Optional human-readable details or clarifiation about this question.",
@@ -316,9 +641,10 @@
           "text",
           "type"
         ],
+        "title": "Yes/No, Text or Date question",
         "type": "object"
       },
-      "IOption": {
+      "Option": {
         "additionalProperties": false,
         "description": "Option for multi-select questions.",
         "properties": {
@@ -341,7 +667,7 @@
         ],
         "type": "object"
       },
-      "IQuestionWithOptions": {
+      "QuestionWithOptions": {
         "additionalProperties": false,
         "properties": {
           "details": {
@@ -362,7 +688,7 @@
           "options": {
             "description": "Answer options for Select/Multiselect questions.",
             "items": {
-              "$ref": "#/components/schemas/IOption"
+              "$ref": "#/components/schemas/Option"
             },
             "type": "array"
           },
@@ -393,9 +719,10 @@
           "text",
           "type"
         ],
+        "title": "Question with options",
         "type": "object"
       },
-      "INumericOption": {
+      "NumericOption": {
         "additionalProperties": false,
         "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
         "properties": {
@@ -418,7 +745,7 @@
         },
         "type": "object"
       },
-      "INumericQuestion": {
+      "NumericQuestion": {
         "additionalProperties": false,
         "properties": {
           "details": {
@@ -433,7 +760,7 @@
             "type": "string"
           },
           "numericOptions": {
-            "$ref": "#/components/schemas/INumericOption"
+            "$ref": "#/components/schemas/NumericOption"
           },
           "optional": {
             "description": "Boolean indicating whether the question is optional or not.",
@@ -458,22 +785,22 @@
         ],
         "type": "object"
       },
-      "IQuestion": {
+      "Question": {
         "anyOf": [
           {
-            "$ref": "#/components/schemas/IQuestionWithoutOptions"
+            "$ref": "#/components/schemas/QuestionWithoutOptions"
           },
           {
-            "$ref": "#/components/schemas/IQuestionWithOptions"
+            "$ref": "#/components/schemas/QuestionWithOptions"
           },
           {
-            "$ref": "#/components/schemas/INumericQuestion"
+            "$ref": "#/components/schemas/NumericQuestion"
           }
         ]
       },
-      "IResult": {
+      "Result": {
         "additionalProperties": false,
-        "description": "Represents a single result.\nThe value of the logic expression yielding true or false. The first result in the result category yielding true will be/nused as result. If no result evaluates to true, no result is shown for this category.",
+        "description": "Represents a single result.\nThe value of the logic expression yielding true or false. The first result in the result category yielding true will be\\nused as result. If no result evaluates to true, no result is shown for this category.",
         "properties": {
           "id": {
             "description": "A unique identifier for this result.",
@@ -494,7 +821,7 @@
         ],
         "type": "object"
       },
-      "IResultCategory": {
+      "ResultCategory": {
         "additionalProperties": false,
         "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.",
         "properties": {
@@ -509,7 +836,7 @@
           "results": {
             "description": "A list of results for this category.",
             "items": {
-              "$ref": "#/components/schemas/IResult"
+              "$ref": "#/components/schemas/Result"
             },
             "type": "array"
           }
@@ -521,7 +848,7 @@
         ],
         "type": "object"
       },
-      "IVariable": {
+      "Variable": {
         "additionalProperties": false,
         "description": "Represents a variable which is computed from the given answers or other variables.",
         "type": "object",
@@ -535,10 +862,11 @@
           }
         },
         "required": [
-          "id"
+          "id",
+          "value"
         ]
       },
-      "IQuestionnaire": {
+      "Questionnaire": {
         "additionalProperties": false,
         "description": "The questionaire.",
         "properties": {
@@ -547,19 +875,19 @@
             "type": "string"
           },
           "meta": {
-            "$ref": "#/components/schemas/IQuestionnaireMeta"
+            "$ref": "#/components/schemas/QuestionnaireMeta"
           },
           "questions": {
             "description": "All questions, shown one after another, in order.",
             "items": {
-              "$ref": "#/components/schemas/IQuestion"
+              "$ref": "#/components/schemas/Question"
             },
             "type": "array"
           },
           "resultCategories": {
             "description": "All result categories. When all questions are answered,\nthe result for each result category is computed.",
             "items": {
-              "$ref": "#/components/schemas/IResultCategory"
+              "$ref": "#/components/schemas/ResultCategory"
             },
             "type": "array"
           },
@@ -570,7 +898,7 @@
           "variables": {
             "description": "All variables, refreshed after each update to any answer.",
             "items": {
-              "$ref": "#/components/schemas/IVariable"
+              "$ref": "#/components/schemas/Variable"
             },
             "type": "array"
           },
