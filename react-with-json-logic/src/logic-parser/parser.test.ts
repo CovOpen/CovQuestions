@@ -213,24 +213,23 @@ describe("test parser", () => {
     );
   });
 
-
   test("Precedence check Mul Add Mul", () => {
-    equalAssert("5 * 2 + 5 * 2", {}, 20)
-  })
+    equalAssert("5 * 2 + 5 * 2", {}, 20);
+  });
 
   test("Precedence check Add Mul Add", () => {
-    equalAssert("5 + 2 * 8 + 3", {}, 24)
-  })
+    equalAssert("5 + 2 * 8 + 3", {}, 24);
+  });
 
   test("Precedence check Mul Sub Add", () => {
-    equalAssert("5 * -2 - 4 + 8", {}, -6)
-  })
+    equalAssert("5 * -2 - 4 + 8", {}, -6);
+  });
 
   test("Unary Minus", () => {
-    equalAssert("5 + -5", {}, 0)
-  })
+    equalAssert("5 + -5", {}, 0);
+  });
 
   test("Unary Minus With Space", () => {
-    equalAssert("5 + - 5", {}, 0)
-  })
+    equalAssert("5 + - 5", {}, 0);
+  });
 });
