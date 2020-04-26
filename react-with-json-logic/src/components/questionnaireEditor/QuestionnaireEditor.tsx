@@ -13,8 +13,7 @@ type QuestionnaireEditorProps = {
   schemaValidationErrors: ValidationError[];
 };
 
-const heightWithoutEditor = 210;
-// const formHeight = "calc(100vh - 210px)";
+const heightWithoutEditor = 180;
 const useStyles = makeStyles(() =>
   createStyles({
     formContainer: {

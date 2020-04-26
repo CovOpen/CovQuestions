@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, createMuiTheme, ThemeProvider } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  createMuiTheme,
+  ThemeProvider,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  makeStyles,
+  Theme,
+  createStyles,
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import clsx from "clsx";
 import "./App.css";
-import { QuestionnaireSelectionDropdown } from "./components/QuestionnaireSelectionDropdown";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { Questionnaire } from "./models/Questionnaire";
@@ -10,6 +23,7 @@ import { useSelector } from "react-redux";
 import { questionnaireJsonSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
 import jsonschema from "jsonschema";
 import questionnaireSchema from "./schemas/questionnaire.json";
+import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -24,6 +38,17 @@ const theme = createMuiTheme({
   },
 });
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    content: {
+      marginTop: 10,
+    },
+    noPaddingLeft: {
+      paddingLeft: 0,
+    },
+  })
+);
+
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const questionnaireJson = useSelector(questionnaireJsonSelector);
@@ -37,6 +62,10 @@ export const App: React.FC = () => {
 
   const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
+
+  const [showMenu, setShowMenu] = useState(false);
+
+  const classes = useStyles();
 
   function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
     setExecutedQuestionnaire(JSON.parse(JSON.stringify(newQuestionnaire)));
@@ -83,16 +112,38 @@ export const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth={false}>
+      <AppBar position="static">
+        <Toolbar variant="dense">
+          <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={() => setShowMenu(!showMenu)}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            CovQuestions
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Container
+        maxWidth={false}
+        className={clsx(classes.content, {
+          [classes.noPaddingLeft]: showMenu,
+        })}
+      >
         <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
-          <Grid item xs={12}>
-            <QuestionnaireSelectionDropdown
-              handleChange={setCurrentQuestionnairePath}
-              allQuestionnaires={allQuestionnaires}
-            />
-          </Grid>
           <Grid container direction="row">
-            <Grid item xs={4} data-testid="QuestionnaireExecution">
+            {showMenu ? (
+              <Grid item xs={3}>
+                <QuestionnaireSelectionDrawer
+                  handleChange={(value) => {
+                    setCurrentQuestionnairePath(value);
+                    setShowMenu(false);
+                  }}
+                  allQuestionnaires={allQuestionnaires}
+                  selectedValue={currentQuestionnairePath}
+                />
+              </Grid>
+            ) : null}
+            <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
               {executedQuestionnaire !== undefined ? (
                 <QuestionnaireExecution
                   isJsonInvalid={showJsonInvalidMessage}
@@ -100,7 +151,7 @@ export const App: React.FC = () => {
                 />
               ) : null}
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={showMenu ? 6 : 8} onClick={() => setShowMenu(false)}>
               <QuestionnaireEditor
                 resetQuestionnaire={() => {
                   if (originalCurrentQuestionnaire) {
