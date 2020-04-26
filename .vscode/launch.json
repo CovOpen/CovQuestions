@@ -26,6 +26,16 @@
       "sourceMaps": true,
       "cwd": "${workspaceRoot}/api/v1/",
       "protocol": "inspector"
+    },
+    {
+      "name": "Update Schemas TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["scripts/updateFilesFromSchema.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
     }
   ]
 }

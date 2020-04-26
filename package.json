@@ -2,11 +2,17 @@
   "name": "covquestionsapi",
   "version": "1.0.0",
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^9.0.1",
     "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
     "@redocly/openapi-cli": "^0.12.5",
+    "copyfiles": "^2.2.0",
     "json-schema-to-typescript": "^8.2.0",
+    "quicktype": "^15.0.223",
+    "quicktype-core": "^6.0.56",
     "redoc-cli": "^0.9.7",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.9.1",
+    "typescript": "^3.8.3"
   },
   "private": true,
   "scripts": {
@@ -14,6 +20,8 @@
     "build": "openapi bundle -o dist --ext json && openapi bundle -o dist --ext yaml",
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
     "test": "openapi validate",
-    "generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-rxjs -o generated-sources/openapi"
+    "bla": "json2ts -i ./openapi/components/schemas/questionnaire.json -o test.ts",
+    "update-files": "ts-node ./scripts/updateFilesFromSchema.ts",
+    "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi"
   }
 }
