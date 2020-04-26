@@ -26,6 +26,7 @@
     },
     "NumericQuestion": {
       "additionalProperties": false,
+      "description": "Represents a question with numeric answer.",
       "properties": {
         "details": {
           "description": "Optional human-readable details or clarifiation about this question.",
@@ -56,6 +57,7 @@
         }
       },
       "required": ["id", "text", "type"],
+      "title": "Numeric question",
       "type": "object"
     },
     "Option": {
@@ -89,10 +91,12 @@
         {
           "$ref": "#/definitions/NumericQuestion"
         }
-      ]
+      ],
+      "description": "Represents a single question of the questionnaire."
     },
     "QuestionWithOptions": {
       "additionalProperties": false,
+      "description": "Represents a question with predefined answers to select.",
       "properties": {
         "details": {
           "description": "Optional human-readable details or clarifiation about this question.",
@@ -346,15 +350,31 @@
       "type": "object"
     },
     "LogicConstant": {
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     },
     "LogicEquals": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "==": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -362,7 +382,8 @@
         }
       },
       "required": ["=="],
-      "title": "LogicEquals"
+      "title": "LogicEquals",
+      "type": "object"
     },
     "LogicExpression": {
       "anyOf": [
@@ -380,11 +401,17 @@
     },
     "LogicGreater": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         ">": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -392,15 +419,22 @@
         }
       },
       "required": [">"],
-      "title": "LogicGreater"
+      "title": "LogicGreater",
+      "type": "object"
     },
     "LogicGreaterEqual": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         ">=": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -408,15 +442,25 @@
         }
       },
       "required": [">="],
-      "title": "LogicGreaterEqual"
+      "title": "LogicGreaterEqual",
+      "type": "object"
     },
     "LogicIf": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "if": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 3,
           "minItems": 3,
@@ -424,15 +468,25 @@
         }
       },
       "required": ["if"],
-      "title": "LogicIf"
+      "title": "LogicIf",
+      "type": "object"
     },
     "LogicIn": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "in": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "items": {
+                  "$ref": "#/definitions/LogicExpression"
+                },
+                "type": "array"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -440,15 +494,22 @@
         }
       },
       "required": ["in"],
-      "title": "LogicIn"
+      "title": "LogicIn",
+      "type": "object"
     },
     "LogicLess": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "<": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -456,15 +517,22 @@
         }
       },
       "required": ["<"],
-      "title": "LogicLess"
+      "title": "LogicLess",
+      "type": "object"
     },
     "LogicLessEqual": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "<=": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -472,15 +540,22 @@
         }
       },
       "required": ["<="],
-      "title": "LogicLessEqual"
+      "title": "LogicLessEqual",
+      "type": "object"
     },
     "LogicMinus": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "-": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -488,7 +563,8 @@
         }
       },
       "required": ["-"],
-      "title": "LogicMinus"
+      "title": "LogicMinus",
+      "type": "object"
     },
     "LogicNot": {
       "additionalProperties": false,
@@ -573,11 +649,17 @@
     },
     "LogicPlus": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "+": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -585,15 +667,25 @@
         }
       },
       "required": ["+"],
-      "title": "LogicPlus"
+      "title": "LogicPlus",
+      "type": "object"
     },
     "LogicReduce": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "reduce": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 3,
           "minItems": 3,
@@ -601,15 +693,22 @@
         }
       },
       "required": ["reduce"],
-      "title": "LogicReduce"
+      "title": "LogicReduce",
+      "type": "object"
     },
     "LogicSome": {
       "additionalProperties": false,
-      "type": "object",
       "properties": {
         "some": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
           },
           "maxItems": 2,
           "minItems": 2,
@@ -617,7 +716,8 @@
         }
       },
       "required": ["some"],
-      "title": "LogicSome"
+      "title": "LogicSome",
+      "type": "object"
     },
     "LogicVariable": {
       "additionalProperties": false,

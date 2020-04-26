@@ -353,20 +353,32 @@
       "type": "object"
     },
     "LogicConstant": {
-      "type": ["number", "string", "boolean"]
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     },
     "LogicEquals": {
       "additionalProperties": false,
       "properties": {
         "==": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -393,14 +405,16 @@
       "additionalProperties": false,
       "properties": {
         ">": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -414,14 +428,16 @@
       "additionalProperties": false,
       "properties": {
         ">=": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -435,17 +451,19 @@
       "additionalProperties": false,
       "properties": {
         "if": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 3,
           "minItems": 3,
           "type": "array"
@@ -459,17 +477,19 @@
       "additionalProperties": false,
       "properties": {
         "in": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "items": {
+          "items": {
+            "anyOf": [
+              {
                 "$ref": "#/definitions/LogicExpression"
               },
-              "type": "array"
-            }
-          ],
+              {
+                "items": {
+                  "$ref": "#/definitions/LogicExpression"
+                },
+                "type": "array"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -483,14 +503,16 @@
       "additionalProperties": false,
       "properties": {
         "<": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -504,14 +526,16 @@
       "additionalProperties": false,
       "properties": {
         "<=": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -525,14 +549,16 @@
       "additionalProperties": false,
       "properties": {
         "-": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -641,14 +667,16 @@
       "additionalProperties": false,
       "properties": {
         "+": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -662,17 +690,19 @@
       "additionalProperties": false,
       "properties": {
         "reduce": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 3,
           "minItems": 3,
           "type": "array"
@@ -686,14 +716,16 @@
       "additionalProperties": false,
       "properties": {
         "some": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              {
+                "$ref": "#/definitions/LogicExpression"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
