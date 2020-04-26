@@ -83,6 +83,7 @@ export const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Container maxWidth={false}>
         <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
           <Grid item xs={12}>
             <QuestionnaireSelectionDropdown
@@ -112,6 +113,7 @@ export const App: React.FC = () => {
             </Grid>
           </Grid>
         </Grid>
+      </Container>
     </ThemeProvider>
   );
 };
