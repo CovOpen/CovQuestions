@@ -72,7 +72,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: ./components/schemas/IQuestion.yaml
+                  $ref: ./components/schemas/questionnaire.json#/definitions/Question
       operationId: get-questions
       description: Get all questions that are used in the questionnaires.
       tags:

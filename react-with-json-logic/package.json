@@ -40,10 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --config .prettierrc --ignore-path .gitignore --write **/*.{ts,tsx,json}",
-    "lint": "prettier --config .prettierrc --ignore-path .gitignore --check **/*.{ts,tsx,json}",
-    "copyTsFiles": "copyfiles -u 2 src/models/LogicExpression.ts src/models/Questionnaire.ts ../json-logic",
-    "copyJsonSchema": "copyfiles -u 3 ./src/schemas/questionnaire.json ../json-logic",
-    "copyfiles": "npm run copyTsFiles & npm run copyJsonSchema"
+    "lint": "prettier --config .prettierrc --ignore-path .gitignore --check **/*.{ts,tsx,json}"
   },
   "eslintConfig": {
     "extends": "react-app"
