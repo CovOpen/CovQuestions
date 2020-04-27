@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "i18n-extract": "ts-node scripts/i18n_extract.ts",
-    "build": "rimraf dist && ts-node ./index.ts",
+    "build": "ts-node ./index.ts",
+    "build-test": "rimraf dist && ts-node ./index.ts",
     "test": "jest"
   },
   "author": "",

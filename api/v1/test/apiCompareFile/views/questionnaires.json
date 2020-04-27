@@ -1,8 +1,8 @@
 [
   {
-    "id": "testQuestionnaire",
+    "id": "testQuestionnaire1",
     "availableLanguages": [
-      "en",
+      "de",
       "en"
     ],
     "meta": {
@@ -11,6 +11,20 @@
       "creationDate": "2020-04-13T14:48:48+0000"
     },
     "version": "1",
-    "path": "/views/questionnaires/testQuestionnaire/1"
+    "path": "/views/questionnaires/testQuestionnaire1/1"
+  },
+  {
+    "id": "testQuestionnaire1",
+    "availableLanguages": [
+      "de",
+      "en"
+    ],
+    "meta": {
+      "author": "Someone",
+      "title": "125410ed17b62eaf46409e964c569c2d",
+      "creationDate": "2020-04-13T14:48:48+0000"
+    },
+    "version": "2",
+    "path": "/views/questionnaires/testQuestionnaire1/2"
   }
 ]
