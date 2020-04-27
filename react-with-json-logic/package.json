@@ -33,6 +33,7 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "rjsf-material-ui": "^0.3.9",
+    "typeface-fira-sans": "0.0.75",
     "typescript": "~3.7.2"
   },
   "scripts": {
