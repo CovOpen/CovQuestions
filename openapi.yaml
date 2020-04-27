@@ -140,6 +140,7 @@ paths:
 components:
   schemas:
     QuestionnaireMeta: &ref_6
+      title: QuestionnaireMeta
       additionalProperties: false
       description: Meta-Information for a questionaire.
       properties:
@@ -415,6 +416,7 @@ components:
         - type: string
         - type: boolean
     QuestionWithoutOptions: &ref_5
+      title: QuestionWithoutOptions
       additionalProperties: false
       description: 'Represents a question. The answer is a choice of yes/no, text or date.'
       properties:
@@ -446,7 +448,6 @@ components:
         - id
         - text
         - type
-      title: 'Yes/No, Text or Date question'
       type: object
     Option: &ref_2
       additionalProperties: false
@@ -472,6 +473,7 @@ components:
         - value
       type: object
     QuestionWithOptions: &ref_4
+      title: QuestionWithOptions
       additionalProperties: false
       description: Represents a question with predefined answers to select.
       properties:
@@ -507,7 +509,6 @@ components:
         - id
         - text
         - type
-      title: Question with options
       type: object
     NumericOption: &ref_0
       additionalProperties: false
@@ -560,12 +561,14 @@ components:
       title: Numeric question
       type: object
     Question: &ref_3
+      title: AnyQuestion
       anyOf:
         - $ref: '#/components/schemas/QuestionWithoutOptions'
         - $ref: '#/components/schemas/QuestionWithOptions'
         - $ref: '#/components/schemas/NumericQuestion'
       description: Represents a single question of the questionnaire.
     Result: &ref_7
+      title: Result
       additionalProperties: false
       description: >-
         Represents a single result.
@@ -588,6 +591,7 @@ components:
         - value
       type: object
     ResultCategory: &ref_8
+      title: ResultCategory
       additionalProperties: false
       description: >-
         Represents a result category. A category might yield exactly one or zero
@@ -627,6 +631,7 @@ components:
         - id
         - value
     questionnaire:
+      title: Questionnaire
       additionalProperties: false
       description: The questionaire.
       properties:
