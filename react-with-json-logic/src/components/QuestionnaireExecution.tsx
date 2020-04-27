@@ -34,7 +34,6 @@ const useStyles = makeStyles(() =>
       fontFamily: "Fira Sans",
       fontSize: 14,
       fontWeight: 500,
-      height: "calc(40vh - 37px)",
       letterSpacing: "0.1rem",
       padding: 10,
       opacity: 0.6,
@@ -118,7 +117,10 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
         {questionnaireEngine ? (
           <>
             <Typography className={classes.internalStateHeadline}>Internal state</Typography>
-            <Paper className={classes.internalState}>
+            <Paper
+              className={classes.internalState}
+              style={{ height: `calc(40vh - 37px - ${isJsonInvalid ? 58 : 0}px)` }}
+            >
               <Box style={{ whiteSpace: "pre-wrap" }}>
                 {JSON.stringify(questionnaireEngine.getDataObjectForDeveloping(), null, 2)}
               </Box>
