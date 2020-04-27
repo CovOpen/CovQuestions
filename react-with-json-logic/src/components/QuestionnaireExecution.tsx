@@ -6,6 +6,7 @@ import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
 import { Questionnaire } from "../models/Questionnaire";
 import { Primitive } from "../Primitive";
+import "typeface-fira-sans";
 
 type QuestionnaireExecutionProps = {
   isJsonInvalid?: boolean;
@@ -19,6 +20,35 @@ const useStyles = makeStyles(() =>
     },
     paddingRight: {
       paddingLeft: 12,
+    },
+    execution: {
+      height: "calc(60vh - 56px - 48px)",
+      overflow: "auto",
+    },
+    internalState: {
+      backgroundColor: "#F7FAFC",
+      border: "1.5px solid #CBD5E0",
+      borderRadius: 6,
+      boxSizing: "border-box",
+      boxShadow: "none",
+      fontFamily: "Fira Sans",
+      fontSize: 14,
+      fontWeight: 500,
+      height: "calc(40vh - 37px)",
+      letterSpacing: "0.1rem",
+      padding: 10,
+      opacity: 0.6,
+      overflow: "auto",
+    },
+    internalStateHeadline: {
+      color: "#A0AEC0",
+      fontFamily: "Fira Sans",
+      fontWeight: 500,
+      fontSize: 14,
+      lineHeight: "17px",
+      letterSpacing: "0.1em",
+      opacity: 0.8,
+      textTransform: "uppercase",
     },
   })
 );
@@ -78,7 +108,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
           <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert>
         </Grid>
       ) : null}
-      <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
+      <Grid item xs={12} className={`${classes.paddingRight} grid-row ${classes.execution}`}>
         {result === undefined && currentQuestion ? (
           <QuestionComponent currentQuestion={currentQuestion} handleNextClick={handleNextClick} />
         ) : null}
@@ -87,8 +117,8 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
       <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
         {questionnaireEngine ? (
           <>
-            <Typography>Current internal state:</Typography>
-            <Paper>
+            <Typography className={classes.internalStateHeadline}>Internal state</Typography>
+            <Paper className={classes.internalState}>
               <Box style={{ whiteSpace: "pre-wrap" }}>
                 {JSON.stringify(questionnaireEngine.getDataObjectForDeveloping(), null, 2)}
               </Box>
