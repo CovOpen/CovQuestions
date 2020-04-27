@@ -3,7 +3,7 @@ import {
   Questionnaire,
   QuestionnaireMeta,
   AnyQuestion,
-} from "../../../react-with-json-logic/src/models/Questionnaire";
+} from "./models/Questionnaire.generated";
 import * as glob from "fast-glob";
 import { validate } from "./validate";
 import {

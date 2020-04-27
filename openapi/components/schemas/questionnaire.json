@@ -1,4 +1,5 @@
 {
+  "title": "Questionnaire",
   "additionalProperties": false,
   "description": "The questionaire.",
   "properties": {
@@ -130,6 +131,7 @@
       "type": "object"
     },
     "Question": {
+      "title": "AnyQuestion",
       "anyOf": [
         {
           "$ref": "#/x-definitions/QuestionWithoutOptions"
@@ -144,6 +146,7 @@
       "description": "Represents a single question of the questionnaire."
     },
     "QuestionWithOptions": {
+      "title": "QuestionWithOptions",
       "additionalProperties": false,
       "description": "Represents a question with predefined answers to select.",
       "properties": {
@@ -188,10 +191,10 @@
         }
       },
       "required": ["id", "text", "type"],
-      "title": "Question with options",
       "type": "object"
     },
     "QuestionWithoutOptions": {
+      "title": "QuestionWithoutOptions",
       "additionalProperties": false,
       "description": "Represents a question. The answer is a choice of yes/no, text or date.",
       "properties": {
@@ -228,10 +231,10 @@
         }
       },
       "required": ["id", "text", "type"],
-      "title": "Yes/No, Text or Date question",
       "type": "object"
     },
     "QuestionnaireMeta": {
+      "title": "QuestionnaireMeta",
       "additionalProperties": false,
       "description": "Meta-Information for a questionaire.",
       "properties": {
@@ -271,6 +274,7 @@
       "type": "object"
     },
     "Result": {
+      "title": "Result",
       "additionalProperties": false,
       "description": "Represents a single result.\nThe value of the logic expression yielding true or false. The first result in the result category yielding true will be\\nused as result. If no result evaluates to true, no result is shown for this category.",
       "properties": {
@@ -290,6 +294,7 @@
       "type": "object"
     },
     "ResultCategory": {
+      "title": "ResultCategory",
       "additionalProperties": false,
       "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.",
       "properties": {
