@@ -11,6 +11,8 @@ import {
   makeStyles,
   Theme,
   createStyles,
+  FormControlLabel,
+  Switch,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import "./App.css";
@@ -48,6 +50,10 @@ const useStyles = makeStyles((theme: Theme) =>
       background: "#F7FAFC",
       boxShadow: "3px 0px 34px rgba(0, 0, 0, 0.06)",
     },
+    jsonMode: {
+      position: "absolute",
+      right: 0,
+    },
   })
 );
 
@@ -67,11 +73,17 @@ export const App: React.FC = () => {
 
   const [showMenu, setShowMenu] = useState(false);
 
+  const [isJsonMode, setIsJsonMode] = useState(false);
+
   const classes = useStyles();
 
   function overwriteCurrentQuestionnaire(newQuestionnaire: Questionnaire) {
     setExecutedQuestionnaire(JSON.parse(JSON.stringify(newQuestionnaire)));
   }
+
+  const handleJsonModeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsJsonMode(event.target.checked);
+  };
 
   useEffect(() => {
     fetch("/api/index.json").then((response) => {
@@ -122,6 +134,11 @@ export const App: React.FC = () => {
           <Typography variant="h6" noWrap>
             CovQuestions
           </Typography>
+          <FormControlLabel
+            className={classes.jsonMode}
+            control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
+            label="JSON Mode"
+          />
         </Toolbar>
       </AppBar>
 
@@ -149,6 +166,7 @@ export const App: React.FC = () => {
                   }
                 }}
                 schemaValidationErrors={schemaValidationErrors}
+                isJsonMode={isJsonMode}
               />
             </Grid>
             <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>

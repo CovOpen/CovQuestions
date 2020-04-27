@@ -97,7 +97,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
     <></>
   ) : (
     <div className={classes.root}>
-      <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
+      <Grid container item xs={12} className={`${classes.paddingRight} grid-row`} justify="flex-end">
         <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
           Restart Questionnaire
         </Button>

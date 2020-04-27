@@ -1,5 +1,5 @@
-import { Button, createStyles, FormControlLabel, Grid, ListItemText, makeStyles, Switch } from "@material-ui/core";
-import React, { useState } from "react";
+import { Button, createStyles, Grid, ListItemText, makeStyles } from "@material-ui/core";
+import React from "react";
 import { Alert } from "@material-ui/lab";
 import { ValidationError } from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
@@ -11,9 +11,10 @@ import { questionnaireJsonSelector } from "../../store/questionnaireInEditor";
 type QuestionnaireEditorProps = {
   resetQuestionnaire: () => void;
   schemaValidationErrors: ValidationError[];
+  isJsonMode: boolean;
 };
 
-const heightWithoutEditor = 180;
+const heightWithoutEditor = 125;
 const useStyles = makeStyles(() =>
   createStyles({
     formContainer: {
@@ -43,8 +44,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   const questionnaireJson = useSelector(questionnaireJsonSelector);
 
   const classes = useStyles();
-
-  const [developerMode, setDeveloperMode] = useState(false);
 
   const style = `
   .MuiTabs-root, .MuiTabs-scroller, .MuiTabs-flexContainer {
@@ -79,41 +78,22 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
     linkElement.click();
   };
 
-  const handleDeveloperModeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDeveloperMode(event.target.checked);
-  };
-
   return (
     <Grid container direction="column" className={classes.wrapper}>
       <style>{style}</style>
-      <Grid container className={`${classes.wrapper} grid-row`}>
-        <Grid container item xs={6}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={developerMode}
-                onChange={handleDeveloperModeChanged}
-                name="developerMode"
-                color="primary"
-              />
-            }
-            label="Developer Mode"
-          />
-        </Grid>
-        <Grid container item xs={6} justify="flex-end">
-          <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
-            Reset Questionnaire
-          </Button>
-        </Grid>
-      </Grid>
       <Grid item xs={12} className="grid-row">
-        {developerMode ? (
+        {props.isJsonMode ? (
           <QuestionnaireJsonEditor heightWithoutEditor={heightWithoutEditor} schema={questionnaireSchema} />
         ) : (
           <QuestionnaireFormEditor heightWithoutEditor={heightWithoutEditor} />
         )}
       </Grid>
-      <Grid container className={`${classes.wrapper} grid-row`}>
+      <Grid container className={`${classes.wrapper} grid-row`} style={{ paddingLeft: 0, paddingRight: 0 }}>
+        <Grid container item xs={6}>
+          <Button onClick={props.resetQuestionnaire} variant="contained" color="secondary">
+            Reset Questionnaire
+          </Button>
+        </Grid>
         <Grid container item xs={6} justify="flex-end">
           <Button onClick={downloadJson} variant="contained" color="primary">
             Download Questionnaire
