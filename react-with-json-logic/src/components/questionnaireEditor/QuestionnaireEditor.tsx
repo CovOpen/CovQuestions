@@ -1,6 +1,5 @@
-import { Button, createStyles, Grid, ListItemText, makeStyles } from "@material-ui/core";
+import { Button, createStyles, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
-import { Alert } from "@material-ui/lab";
 import { ValidationError } from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
@@ -100,16 +99,6 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
           </Button>
         </Grid>
       </Grid>
-      {props.schemaValidationErrors.length > 0 ? (
-        <Grid item xs={12} className="grid-row">
-          <Alert severity="error">
-            Errors while validating JSON schema.
-            {props.schemaValidationErrors.map((error, index) => (
-              <ListItemText key={index} primary={error.message} />
-            ))}
-          </Alert>
-        </Grid>
-      ) : null}
     </Grid>
   );
 }
