@@ -29,8 +29,8 @@ export function ElementEditorVariable(props: ElementEditorVariableProps) {
 
   const variable = useSelector((state: RootState) => variableInEditorSelector(state, props));
 
-  const onChange = (formData: VariableInStringRepresentation) => {
-    dispatch(editVariable({ index: props.index, changedVariable: formData }));
+  const onChange = (formData: VariableInStringRepresentation, hasErrors: boolean) => {
+    dispatch(editVariable({ index: props.index, changedVariable: formData, hasErrors: hasErrors }));
   };
 
   return (

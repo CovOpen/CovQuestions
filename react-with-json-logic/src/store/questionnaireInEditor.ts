@@ -28,100 +28,121 @@ export const swapItemWithNextOne = createAction<{
   index: number;
 }>("swapItemWithNextOne");
 
-export const editMeta = createAction<QuestionnaireMeta>("editMeta");
-export const editQuestion = createAction<{ index: number; changedQuestion: QuestionInStringRepresentation }>(
-  "editQuestionnaire"
-);
+export const editMeta = createAction<{ changedMeta: QuestionnaireMeta; hasErrors: boolean }>("editMeta");
+export const editQuestion = createAction<{
+  index: number;
+  changedQuestion: QuestionInStringRepresentation;
+  hasErrors: boolean;
+}>("editQuestionnaire");
 export const editResultCategory = createAction<{
   index: number;
   changedResultCategory: ResultCategoryInStringRepresentation;
+  hasErrors: boolean;
 }>("editResultCategory");
-export const editVariable = createAction<{ index: number; changedVariable: VariableInStringRepresentation }>(
-  "editVariable"
-);
+export const editVariable = createAction<{
+  index: number;
+  changedVariable: VariableInStringRepresentation;
+  hasErrors: boolean;
+}>("editVariable");
 
-const initialQuestionnaireInEditor: Questionnaire = {
-  id: "",
-  schemaVersion: "",
-  version: "",
-  meta: {
-    author: "",
-    creationDate: "",
-    language: "",
-    title: "",
+export type QuestionnaireWrapper = {
+  questionnaire: Questionnaire;
+  hasErrors: boolean;
+};
+
+const initialQuestionnaireInEditor: QuestionnaireWrapper = {
+  questionnaire: {
+    id: "",
+    schemaVersion: "",
+    version: "",
+    meta: {
+      author: "",
+      creationDate: "",
+      language: "",
+      title: "",
+    },
+    questions: [],
+    resultCategories: [],
+    variables: [],
   },
-  questions: [],
-  resultCategories: [],
-  variables: [],
+  hasErrors: false,
 };
 
 export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor, (builder) =>
   builder
     .addCase(setQuestionnaireInEditor, (state, action) => {
-      return addStringRepresentationToQuestionnaire(action.payload);
+      const result = addStringRepresentationToQuestionnaire(action.payload);
+      return {
+        questionnaire: result,
+        hasErrors: false,
+      };
     })
     .addCase(addNewQuestion, (state) => {
-      state.questions.push({
+      state.questionnaire.questions.push({
         id: "newQuestionId",
         text: "new question",
         type: QuestionType.Boolean,
       });
     })
     .addCase(addNewResultCategory, (state) => {
-      state.resultCategories.push({
+      state.questionnaire.resultCategories.push({
         id: "newResultCategoryId",
         description: "",
         results: [],
       });
     })
     .addCase(addNewVariable, (state) => {
-      state.variables.push({
+      state.questionnaire.variables.push({
         id: "newVariableId",
         value: "",
       });
     })
     .addCase(removeItem, (state, { payload: { section, index } }) => {
-      state[section].splice(index, 1);
+      state.questionnaire[section].splice(index, 1);
     })
     .addCase(swapItemWithNextOne, (state, { payload: { section, index } }) => {
-      const tmp = state[section][index];
-      state[section][index] = state[section][index + 1];
-      state[section][index + 1] = tmp;
+      const tmp = state.questionnaire[section][index];
+      state.questionnaire[section][index] = state.questionnaire[section][index + 1];
+      state.questionnaire[section][index + 1] = tmp;
     })
-    .addCase(editMeta, (state, { payload }) => {
-      state.meta = payload;
+    .addCase(editMeta, (state, { payload: { changedMeta, hasErrors } }) => {
+      state.questionnaire.meta = changedMeta;
+      state.hasErrors = hasErrors;
     })
-    .addCase(editQuestion, (state, { payload: { index, changedQuestion } }) => {
-      state.questions[index] = {
+    .addCase(editQuestion, (state, { payload: { index, changedQuestion, hasErrors } }) => {
+      state.questionnaire.questions[index] = {
         ...changedQuestion,
         enableWhen: convertStringToLogicExpression(changedQuestion.enableWhenString),
       };
+      state.hasErrors = hasErrors;
     })
-    .addCase(editResultCategory, (state, { payload: { index, changedResultCategory } }) => {
-      state.resultCategories[index] = {
+    .addCase(editResultCategory, (state, { payload: { index, changedResultCategory, hasErrors } }) => {
+      state.questionnaire.resultCategories[index] = {
         ...changedResultCategory,
         results: changedResultCategory.results.map((result) => ({
           ...result,
           value: convertStringToLogicExpression(result.valueString),
         })),
       };
+      state.hasErrors = hasErrors;
     })
-    .addCase(editVariable, (state, { payload: { index, changedVariable } }) => {
-      state.variables[index] = {
+    .addCase(editVariable, (state, { payload: { index, changedVariable, hasErrors } }) => {
+      state.questionnaire.variables[index] = {
         ...changedVariable,
         value: convertStringToLogicExpression(changedVariable.valueString),
       };
+      state.hasErrors = hasErrors;
     })
 );
 
 export const questionnaireInEditorSelector = (state: RootState) => state.questionnaireInEditor;
 export const questionnaireJsonSelector = (state: RootState) =>
-  removeStringRepresentationFromQuestionnaire(state.questionnaireInEditor);
+  removeStringRepresentationFromQuestionnaire(state.questionnaireInEditor.questionnaire);
 
-export const metaInEditorSelector = (state: RootState) => state.questionnaireInEditor.meta;
+export const metaInEditorSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.meta;
 export const questionInEditorSelector = (state: RootState, props: { index: number }) =>
-  state.questionnaireInEditor.questions[props.index];
+  state.questionnaireInEditor.questionnaire.questions[props.index];
 export const resultCategoryInEditorSelector = (state: RootState, props: { index: number }) =>
-  state.questionnaireInEditor.resultCategories[props.index];
+  state.questionnaireInEditor.questionnaire.resultCategories[props.index];
 export const variableInEditorSelector = (state: RootState, props: { index: number }) =>
-  state.questionnaireInEditor.variables[props.index];
+  state.questionnaireInEditor.questionnaire.variables[props.index];

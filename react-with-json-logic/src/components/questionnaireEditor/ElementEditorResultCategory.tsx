@@ -43,8 +43,8 @@ export function ElementEditorResultCategory(props: ElementEditorResultProps) {
 
   const resultCategory = useSelector((state: RootState) => resultCategoryInEditorSelector(state, props));
 
-  const onChange = (formData: ResultCategoryInStringRepresentation) => {
-    dispatch(editResultCategory({ index: props.index, changedResultCategory: formData }));
+  const onChange = (formData: ResultCategoryInStringRepresentation, hasErrors: boolean) => {
+    dispatch(editResultCategory({ index: props.index, changedResultCategory: formData, hasErrors: hasErrors }));
   };
 
   return (
