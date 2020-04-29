@@ -39,6 +39,10 @@ export type LogicOperator =
   | LogicLess;
 export type LogicConstant = number | string | boolean;
 /**
+ * Type of the question.
+ */
+export type QuestionType = "boolean" | "date" | "text" | "number" | "select" | "multiselect";
+/**
  * Represents a question with predefined answers to select.
  */
 export type QuestionWithOptions = CommonQuestionFields & {
@@ -140,6 +144,7 @@ export interface CommonQuestionFields {
    * Human-readable question text, can be localized.
    */
   text: string;
+  type: QuestionType;
 }
 export interface LogicIf {
   if: [LogicExpression, LogicExpression, LogicExpression];

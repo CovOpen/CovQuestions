@@ -71,11 +71,15 @@
         "text": {
           "description": "Human-readable question text, can be localized.",
           "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/QuestionType"
         }
       },
       "required": [
         "id",
-        "text"
+        "text",
+        "type"
       ],
       "title": "Common question fields",
       "type": "object"
@@ -667,6 +671,18 @@
         "var"
       ],
       "type": "object"
+    },
+    "QuestionType": {
+      "description": "Type of the question.",
+      "type": "string",
+      "enum": [
+        "boolean",
+        "date",
+        "text",
+        "number",
+        "select",
+        "multiselect"
+      ]
     }
   }
 }
