@@ -9,6 +9,26 @@
  * Represents a single question of the questionnaire.
  */
 export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
+/**
+ * Logic expression used to compute this variable. Defaults to true.
+ */
+export type LogicExpression = LogicOperator | LogicVariable | LogicConstant;
+export type LogicOperator =
+  | LogicIf
+  | LogicReduce
+  | LogicSome
+  | LogicEquals
+  | LogicGreaterEqual
+  | LogicNot
+  | LogicLessEqual
+  | LogicPlus
+  | LogicMinus
+  | LogicAnd
+  | LogicOr
+  | LogicIn
+  | LogicGreater
+  | LogicLess;
+export type LogicConstant = number | string | boolean;
 
 /**
  * The questionaire.
@@ -35,36 +55,7 @@ export interface Questionnaire {
   /**
    * All variables, refreshed after each update to any answer.
    */
-  variables: {
-    /**
-     * Unique id for referring this variable in logic expressions.
-     */
-    id: string;
-    /**
-     * Logic expression used to compute this variable. Defaults to true.
-     */
-    value:
-      | (
-          | LogicIf
-          | LogicReduce
-          | LogicSome
-          | LogicEquals
-          | LogicGreaterEqual
-          | LogicNot
-          | LogicLessEqual
-          | LogicPlus
-          | LogicMinus
-          | LogicAnd
-          | LogicOr
-          | LogicIn
-          | LogicGreater
-          | LogicLess
-        )
-      | {
-          var: string;
-        }
-      | (number | string | boolean);
-  }[];
+  variables: Variable[];
   /**
    * Version of this question in semver.
    */
@@ -104,30 +95,7 @@ export interface QuestionWithoutOptions {
    * Optional human-readable details or clarifiation about this question.
    */
   details?: string;
-  /**
-   * Logic expression used to compute this variable. Defaults to true.
-   */
-  enableWhen?:
-    | (
-        | LogicIf
-        | LogicReduce
-        | LogicSome
-        | LogicEquals
-        | LogicGreaterEqual
-        | LogicNot
-        | LogicLessEqual
-        | LogicPlus
-        | LogicMinus
-        | LogicAnd
-        | LogicOr
-        | LogicIn
-        | LogicGreater
-        | LogicLess
-      )
-    | {
-        var: string;
-      }
-    | (number | string | boolean);
+  enableWhen?: LogicExpression;
   /**
    * Unique id for referring this question in logic expressions.
    */
@@ -146,1379 +114,49 @@ export interface QuestionWithoutOptions {
   type: "boolean" | "date" | "text" | "multiselect" | "number" | "select";
 }
 export interface LogicIf {
-  if: [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  if: [LogicExpression, LogicExpression, LogicExpression];
 }
 export interface LogicReduce {
-  reduce: [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  reduce: [LogicExpression, LogicExpression, LogicExpression];
 }
 export interface LogicSome {
-  some: [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  some: [LogicExpression, LogicExpression];
 }
 export interface LogicEquals {
-  "==": [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  "==": [LogicExpression, LogicExpression];
 }
 export interface LogicGreaterEqual {
-  ">=": [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  ">=": [LogicExpression, LogicExpression];
 }
 export interface LogicNot {
-  "!":
-    | (
-        | (
-            | LogicIf
-            | LogicReduce
-            | LogicSome
-            | LogicEquals
-            | LogicGreaterEqual
-            | LogicNot
-            | LogicLessEqual
-            | LogicPlus
-            | LogicMinus
-            | LogicAnd
-            | LogicOr
-            | LogicIn
-            | LogicGreater
-            | LogicLess
-          )
-        | {
-            var: string;
-          }
-        | (number | string | boolean)
-      )
-    | (
-        | (
-            | LogicIf
-            | LogicReduce
-            | LogicSome
-            | LogicEquals
-            | LogicGreaterEqual
-            | LogicNot
-            | LogicLessEqual
-            | LogicPlus
-            | LogicMinus
-            | LogicAnd
-            | LogicOr
-            | LogicIn
-            | LogicGreater
-            | LogicLess
-          )
-        | {
-            var: string;
-          }
-        | (number | string | boolean)
-      )[];
+  "!": LogicExpression | LogicExpression[];
 }
 export interface LogicLessEqual {
-  "<=": [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  "<=": [LogicExpression, LogicExpression];
 }
 export interface LogicPlus {
-  "+": [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  "+": [LogicExpression, LogicExpression];
 }
 export interface LogicMinus {
-  "-": [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  "-": [LogicExpression, LogicExpression];
 }
 export interface LogicAnd {
-  and: (
-    | (
-        | LogicIf
-        | LogicReduce
-        | LogicSome
-        | LogicEquals
-        | LogicGreaterEqual
-        | LogicNot
-        | LogicLessEqual
-        | LogicPlus
-        | LogicMinus
-        | LogicAnd
-        | LogicOr
-        | LogicIn
-        | LogicGreater
-        | LogicLess
-      )
-    | {
-        var: string;
-      }
-    | (number | string | boolean)
-  )[];
+  and: LogicExpression[];
 }
 export interface LogicOr {
-  or: (
-    | (
-        | LogicIf
-        | LogicReduce
-        | LogicSome
-        | LogicEquals
-        | LogicGreaterEqual
-        | LogicNot
-        | LogicLessEqual
-        | LogicPlus
-        | LogicMinus
-        | LogicAnd
-        | LogicOr
-        | LogicIn
-        | LogicGreater
-        | LogicLess
-      )
-    | {
-        var: string;
-      }
-    | (number | string | boolean)
-  )[];
+  or: LogicExpression[];
 }
 export interface LogicIn {
-  in: [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )[]
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )[]
-    )
-  ];
+  in: [LogicExpression | LogicExpression[], LogicExpression | LogicExpression[]];
 }
 export interface LogicGreater {
-  ">": [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  ">": [LogicExpression, LogicExpression];
 }
 export interface LogicLess {
-  "<": [
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    ),
-    (
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-      | (
-          | (
-              | LogicIf
-              | LogicReduce
-              | LogicSome
-              | LogicEquals
-              | LogicGreaterEqual
-              | LogicNot
-              | LogicLessEqual
-              | LogicPlus
-              | LogicMinus
-              | LogicAnd
-              | LogicOr
-              | LogicIn
-              | LogicGreater
-              | LogicLess
-            )
-          | {
-              var: string;
-            }
-          | (number | string | boolean)
-        )
-    )
-  ];
+  "<": [LogicExpression, LogicExpression];
+}
+export interface LogicVariable {
+  var: string;
 }
 /**
  * Represents a question with predefined answers to select.
@@ -1528,30 +166,7 @@ export interface QuestionWithOptions {
    * Optional human-readable details or clarifiation about this question.
    */
   details?: string;
-  /**
-   * Logic expression used to compute this variable. Defaults to true.
-   */
-  enableWhen?:
-    | (
-        | LogicIf
-        | LogicReduce
-        | LogicSome
-        | LogicEquals
-        | LogicGreaterEqual
-        | LogicNot
-        | LogicLessEqual
-        | LogicPlus
-        | LogicMinus
-        | LogicAnd
-        | LogicOr
-        | LogicIn
-        | LogicGreater
-        | LogicLess
-      )
-    | {
-        var: string;
-      }
-    | (number | string | boolean);
+  enableWhen?: LogicExpression;
   /**
    * Unique id for referring this question in logic expressions.
    */
@@ -1563,22 +178,7 @@ export interface QuestionWithOptions {
   /**
    * Answer options for Select/Multiselect questions.
    */
-  options?: {
-    /**
-     * Human-Readable formulation of this option as yes/no question.
-     * This is for use-cases where multi-selects are not possible in the UI,
-     * for example telephone hotlines.
-     */
-    asQuestion?: string;
-    /**
-     * Human-Readable answer, can be localized.
-     */
-    text: string;
-    /**
-     * Value used for evaluating logic expressions.
-     */
-    value: string;
-  }[];
+  options?: Option[];
   /**
    * Human-readable question text, can be localized.
    */
@@ -1589,63 +189,38 @@ export interface QuestionWithOptions {
   type: "select" | "multiselect";
 }
 /**
+ * Option for multi-select questions.
+ */
+export interface Option {
+  /**
+   * Human-Readable formulation of this option as yes/no question.
+   * This is for use-cases where multi-selects are not possible in the UI,
+   * for example telephone hotlines.
+   */
+  asQuestion?: string;
+  /**
+   * Human-Readable answer, can be localized.
+   */
+  text: string;
+  /**
+   * Value used for evaluating logic expressions.
+   */
+  value: string;
+}
+/**
  * Represents a question with numeric answer.
  */
 export interface NumericQuestion {
   /**
-   * Optional human-readable details or clarifiation about this question.
+   * Optional human-readable details or clarification about this question.
    */
   details?: string;
-  /**
-   * Logic expression used to compute this variable. Defaults to true.
-   */
-  enableWhen?:
-    | (
-        | LogicIf
-        | LogicReduce
-        | LogicSome
-        | LogicEquals
-        | LogicGreaterEqual
-        | LogicNot
-        | LogicLessEqual
-        | LogicPlus
-        | LogicMinus
-        | LogicAnd
-        | LogicOr
-        | LogicIn
-        | LogicGreater
-        | LogicLess
-      )
-    | {
-        var: string;
-      }
-    | (number | string | boolean);
+  enableWhen?: LogicExpression;
   /**
    * Unique id for referring this question in logic expressions.
    */
   id: string;
-  /**
-   * Option for numeric questions.
-   * Answer options for Select/Multiselect questions.
-   */
-  numericOptions?: {
-    /**
-     * Default value
-     */
-    defaultValue?: number;
-    /**
-     * maximal value
-     */
-    max?: number;
-    /**
-     * Minimal value
-     */
-    min?: number;
-    /**
-     * Step size
-     */
-    step?: number;
-  };
+  numericOptions?: NumericOption;
   /**
    * Boolean indicating whether the question is optional or not.
    */
@@ -1658,6 +233,28 @@ export interface NumericQuestion {
    * Type of the question.
    */
   type: "number";
+}
+/**
+ * Option for numeric questions.
+ * Answer options for Select/Multiselect questions.
+ */
+export interface NumericOption {
+  /**
+   * Default value
+   */
+  defaultValue?: number;
+  /**
+   * maximal value
+   */
+  max?: number;
+  /**
+   * Minimal value
+   */
+  min?: number;
+  /**
+   * Step size
+   */
+  step?: number;
 }
 /**
  * Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.
@@ -1689,28 +286,15 @@ export interface Result {
    * A human readable text for this result. Can be localized.
    */
   text: string;
+  value: LogicExpression;
+}
+/**
+ * Represents a variable which is computed from the given answers or other variables.
+ */
+export interface Variable {
   /**
-   * Logic expression used to compute this variable. Defaults to true.
+   * Unique id for referring this variable in logic expressions.
    */
-  value:
-    | (
-        | LogicIf
-        | LogicReduce
-        | LogicSome
-        | LogicEquals
-        | LogicGreaterEqual
-        | LogicNot
-        | LogicLessEqual
-        | LogicPlus
-        | LogicMinus
-        | LogicAnd
-        | LogicOr
-        | LogicIn
-        | LogicGreater
-        | LogicLess
-      )
-    | {
-        var: string;
-      }
-    | (number | string | boolean);
+  id: string;
+  value: LogicExpression;
 }

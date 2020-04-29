@@ -8,19 +8,19 @@
       "type": "string"
     },
     "meta": {
-      "$ref": "#/x-definitions/QuestionnaireMeta"
+      "$ref": "#/definitions/QuestionnaireMeta"
     },
     "questions": {
       "description": "All questions, shown one after another, in order.",
       "items": {
-        "$ref": "#/x-definitions/Question"
+        "$ref": "#/definitions/Question"
       },
       "type": "array"
     },
     "resultCategories": {
       "description": "All result categories. When all questions are answered,\nthe result for each result category is computed.",
       "items": {
-        "$ref": "#/x-definitions/ResultCategory"
+        "$ref": "#/definitions/ResultCategory"
       },
       "type": "array"
     },
@@ -31,7 +31,7 @@
     "variables": {
       "description": "All variables, refreshed after each update to any answer.",
       "items": {
-        "$ref": "#/x-definitions/Variable"
+        "$ref": "#/definitions/Variable"
       },
       "type": "array"
     },
@@ -50,7 +50,7 @@
     "resultCategories"
   ],
   "type": "object",
-  "x-definitions": {
+  "definitions": {
     "NumericOption": {
       "additionalProperties": false,
       "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
@@ -79,18 +79,18 @@
       "description": "Represents a question with numeric answer.",
       "properties": {
         "details": {
-          "description": "Optional human-readable details or clarifiation about this question.",
+          "description": "Optional human-readable details or clarification about this question.",
           "type": "string"
         },
         "enableWhen": {
-          "$ref": "#/x-definitions/LogicExpression"
+          "$ref": "#/definitions/LogicExpression"
         },
         "id": {
           "description": "Unique id for referring this question in logic expressions.",
           "type": "string"
         },
         "numericOptions": {
-          "$ref": "#/x-definitions/NumericOption"
+          "$ref": "#/definitions/NumericOption"
         },
         "optional": {
           "description": "Boolean indicating whether the question is optional or not.",
@@ -134,13 +134,13 @@
       "title": "AnyQuestion",
       "anyOf": [
         {
-          "$ref": "#/x-definitions/QuestionWithoutOptions"
+          "$ref": "#/definitions/QuestionWithoutOptions"
         },
         {
-          "$ref": "#/x-definitions/QuestionWithOptions"
+          "$ref": "#/definitions/QuestionWithOptions"
         },
         {
-          "$ref": "#/x-definitions/NumericQuestion"
+          "$ref": "#/definitions/NumericQuestion"
         }
       ],
       "description": "Represents a single question of the questionnaire."
@@ -155,7 +155,7 @@
           "type": "string"
         },
         "enableWhen": {
-          "$ref": "#/x-definitions/LogicExpression"
+          "$ref": "#/definitions/LogicExpression"
         },
         "id": {
           "description": "Unique id for referring this question in logic expressions.",
@@ -168,7 +168,7 @@
         "options": {
           "description": "Answer options for Select/Multiselect questions.",
           "items": {
-            "$ref": "#/x-definitions/Option"
+            "$ref": "#/definitions/Option"
           },
           "type": "array"
         },
@@ -203,7 +203,7 @@
           "type": "string"
         },
         "enableWhen": {
-          "$ref": "#/x-definitions/LogicExpression"
+          "$ref": "#/definitions/LogicExpression"
         },
         "id": {
           "description": "Unique id for referring this question in logic expressions.",
@@ -287,7 +287,7 @@
           "type": "string"
         },
         "value": {
-          "$ref": "#/x-definitions/LogicExpression"
+          "$ref": "#/definitions/LogicExpression"
         }
       },
       "required": ["id", "text", "value"],
@@ -309,7 +309,7 @@
         "results": {
           "description": "A list of results for this category.",
           "items": {
-            "$ref": "#/x-definitions/Result"
+            "$ref": "#/definitions/Result"
           },
           "type": "array"
         }
@@ -327,7 +327,7 @@
           "type": "string"
         },
         "value": {
-          "$ref": "#/x-definitions/LogicExpression"
+          "$ref": "#/definitions/LogicExpression"
         }
       },
       "required": ["id", "value"]
@@ -337,7 +337,7 @@
       "properties": {
         "and": {
           "items": {
-            "$ref": "#/x-definitions/LogicExpression"
+            "$ref": "#/definitions/LogicExpression"
           },
           "type": "array"
         }
@@ -364,14 +364,7 @@
       "properties": {
         "==": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
@@ -385,13 +378,13 @@
     "LogicExpression": {
       "anyOf": [
         {
-          "$ref": "#/x-definitions/LogicOperator"
+          "$ref": "#/definitions/LogicOperator"
         },
         {
-          "$ref": "#/x-definitions/LogicVariable"
+          "$ref": "#/definitions/LogicVariable"
         },
         {
-          "$ref": "#/x-definitions/LogicConstant"
+          "$ref": "#/definitions/LogicConstant"
         }
       ],
       "description": "Logic expression used to compute this variable. Defaults to true."
@@ -401,14 +394,7 @@
       "properties": {
         ">": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
@@ -424,14 +410,7 @@
       "properties": {
         ">=": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
@@ -447,17 +426,7 @@
       "properties": {
         "if": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 3,
           "minItems": 3,
@@ -475,11 +444,11 @@
           "items": {
             "anyOf": [
               {
-                "$ref": "#/x-definitions/LogicExpression"
+                "$ref": "#/definitions/LogicExpression"
               },
               {
                 "items": {
-                  "$ref": "#/x-definitions/LogicExpression"
+                  "$ref": "#/definitions/LogicExpression"
                 },
                 "type": "array"
               }
@@ -499,14 +468,7 @@
       "properties": {
         "<": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
@@ -522,14 +484,7 @@
       "properties": {
         "<=": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
@@ -545,14 +500,7 @@
       "properties": {
         "-": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
@@ -569,11 +517,11 @@
         "!": {
           "anyOf": [
             {
-              "$ref": "#/x-definitions/LogicExpression"
+              "$ref": "#/definitions/LogicExpression"
             },
             {
               "items": {
-                "$ref": "#/x-definitions/LogicExpression"
+                "$ref": "#/definitions/LogicExpression"
               },
               "type": "array"
             }
@@ -587,46 +535,46 @@
     "LogicOperator": {
       "anyOf": [
         {
-          "$ref": "#/x-definitions/LogicIf"
+          "$ref": "#/definitions/LogicIf"
         },
         {
-          "$ref": "#/x-definitions/LogicReduce"
+          "$ref": "#/definitions/LogicReduce"
         },
         {
-          "$ref": "#/x-definitions/LogicSome"
+          "$ref": "#/definitions/LogicSome"
         },
         {
-          "$ref": "#/x-definitions/LogicEquals"
+          "$ref": "#/definitions/LogicEquals"
         },
         {
-          "$ref": "#/x-definitions/LogicGreaterEqual"
+          "$ref": "#/definitions/LogicGreaterEqual"
         },
         {
-          "$ref": "#/x-definitions/LogicNot"
+          "$ref": "#/definitions/LogicNot"
         },
         {
-          "$ref": "#/x-definitions/LogicLessEqual"
+          "$ref": "#/definitions/LogicLessEqual"
         },
         {
-          "$ref": "#/x-definitions/LogicPlus"
+          "$ref": "#/definitions/LogicPlus"
         },
         {
-          "$ref": "#/x-definitions/LogicMinus"
+          "$ref": "#/definitions/LogicMinus"
         },
         {
-          "$ref": "#/x-definitions/LogicAnd"
+          "$ref": "#/definitions/LogicAnd"
         },
         {
-          "$ref": "#/x-definitions/LogicOr"
+          "$ref": "#/definitions/LogicOr"
         },
         {
-          "$ref": "#/x-definitions/LogicIn"
+          "$ref": "#/definitions/LogicIn"
         },
         {
-          "$ref": "#/x-definitions/LogicGreater"
+          "$ref": "#/definitions/LogicGreater"
         },
         {
-          "$ref": "#/x-definitions/LogicLess"
+          "$ref": "#/definitions/LogicLess"
         }
       ]
     },
@@ -635,7 +583,7 @@
       "properties": {
         "or": {
           "items": {
-            "$ref": "#/x-definitions/LogicExpression"
+            "$ref": "#/definitions/LogicExpression"
           },
           "type": "array"
         }
@@ -649,14 +597,7 @@
       "properties": {
         "+": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
@@ -672,17 +613,7 @@
       "properties": {
         "reduce": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 3,
           "minItems": 3,
@@ -698,14 +629,7 @@
       "properties": {
         "some": {
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              },
-              {
-                "$ref": "#/x-definitions/LogicExpression"
-              }
-            ]
+            "$ref": "#/definitions/LogicExpression"
           },
           "maxItems": 2,
           "minItems": 2,
