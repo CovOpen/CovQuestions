@@ -20,11 +20,9 @@ import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { Questionnaire } from "./models/Questionnaire";
 import { useAppDispatch } from "./store/store";
-import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
-import jsonschema from "jsonschema";
-import questionnaireSchema from "./schemas/questionnaire.json";
+import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
 import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
+import { useSelector } from "react-redux";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -59,7 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const questionnaireJson = useSelector(questionnaireJsonSelector);
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
 
@@ -69,9 +66,6 @@ export const App: React.FC = () => {
     undefined
   );
   const [executedQuestionnaire, setExecutedQuestionnaire] = useState<Questionnaire | undefined>(undefined);
-
-  const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
-  const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -108,23 +102,6 @@ export const App: React.FC = () => {
       });
     }
   }, [dispatch, currentQuestionnairePath]);
-
-  useEffect(() => {
-    try {
-      const validator = new jsonschema.Validator();
-      const validationResult = validator.validate(questionnaireJson, questionnaireSchema);
-      if (validationResult.errors.length > 0) {
-        setSchemaValidationErrors(validationResult.errors);
-        setShowJsonInvalidMessage(true);
-        return;
-      }
-      setShowJsonInvalidMessage(false);
-      setSchemaValidationErrors([]);
-      overwriteCurrentQuestionnaire(questionnaireJson);
-    } catch (e) {
-      setShowJsonInvalidMessage(true);
-    }
-  }, [questionnaireJson]);
 
   return (
     <ThemeProvider theme={theme}>
