@@ -61,6 +61,8 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const questionnaireJson = useSelector(questionnaireJsonSelector);
 
+  const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
+
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
   const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
@@ -171,8 +173,8 @@ export const App: React.FC = () => {
             <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
               {executedQuestionnaire !== undefined ? (
                 <QuestionnaireExecution
-                  isJsonInvalid={showJsonInvalidMessage}
-                  currentQuestionnaire={executedQuestionnaire}
+                  currentQuestionnaire={currentQuestionnaire.questionnaire}
+                  isJsonInvalid={currentQuestionnaire.hasErrors}
                 />
               ) : null}
             </Grid>
