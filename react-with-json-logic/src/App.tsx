@@ -165,7 +165,6 @@ export const App: React.FC = () => {
                     overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
                   }
                 }}
-                schemaValidationErrors={schemaValidationErrors}
                 isJsonMode={isJsonMode}
               />
             </Grid>

@@ -1,6 +1,5 @@
 import { Button, createStyles, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
-import { ValidationError } from "jsonschema";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 import questionnaireSchema from "../../schemas/questionnaire.json";
@@ -9,7 +8,6 @@ import { questionnaireJsonSelector } from "../../store/questionnaireInEditor";
 
 type QuestionnaireEditorProps = {
   resetQuestionnaire: () => void;
-  schemaValidationErrors: ValidationError[];
   isJsonMode: boolean;
 };
 
