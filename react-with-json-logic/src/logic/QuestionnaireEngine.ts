@@ -50,10 +50,7 @@ export class Question {
   }
 
   public isOptional(): boolean {
-    if (this.optional != null) {
-      return this.optional;
-    }
-    return this.type === QuestionType.Multiselect;
+    return this.optional === true;
   }
 }
 
