@@ -1,0 +1,1769 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CovQuestionsAPI",
+    "version": "1.0",
+    "contact": {
+      "name": "CovQuestions-Team",
+      "url": "https://github.com/CovOpen/CovQuestions/issues"
+    },
+    "description": "API for retrieving standarized Questionnaires",
+    "termsOfService": "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE",
+    "license": {
+      "url": "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE",
+      "name": "Apache License 2.0"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://v1.covquestions.aquiver.de/api",
+      "description": "Test"
+    },
+    {
+      "description": "Local",
+      "url": "http://localhost:80"
+    }
+  ],
+  "tags": [
+    {
+      "name": "views",
+      "description": "All special views of the API"
+    },
+    {
+      "name": "translations",
+      "description": "Translations for questions and questionaires"
+    },
+    {
+      "name": "questions",
+      "description": "Questions"
+    }
+  ],
+  "paths": {
+    "/questionnaires/{id}/{version}/{lang}": {
+      "get": {
+        "summary": "Get specific Questionnaire",
+        "operationId": "get-views-questionnaires-id-version-lang",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/questionnaire"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a questionnaire. ",
+        "tags": [
+          "views"
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the questionnaire",
+          "example": "covapp_original"
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "name": "version",
+          "in": "path",
+          "required": true,
+          "description": "The Version of the questionnaire",
+          "example": 2
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lang",
+          "in": "path",
+          "required": true,
+          "description": "The ISO language the questionnaire should be in"
+        }
+      ]
+    },
+    "/questions": {
+      "get": {
+        "summary": "List Questions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Question"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-questions",
+        "description": "Get all questions that are used in the questionnaires.",
+        "tags": [
+          "questions"
+        ]
+      },
+      "parameters": []
+    },
+    "/questionnaires/{id}/translations/{lang}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lang",
+          "in": "path",
+          "required": true,
+          "description": "The ISO language"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get Translation",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "translationId": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {}
+              }
+            }
+          }
+        },
+        "operationId": "get-translations-lang",
+        "description": "Returns all Translations for the {lang}",
+        "tags": [
+          "translations"
+        ]
+      }
+    },
+    "/questionnaires": {
+      "get": {
+        "summary": "List Questionnaires",
+        "tags": [
+          "views"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "availableLanguages": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "meta": {
+                        "type": "object",
+                        "properties": {
+                          "author": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "creationDate": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-views-questionnaires",
+        "description": "Lists all Questionnaires"
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "QuestionnaireMeta": {
+        "title": "QuestionnaireMeta",
+        "additionalProperties": false,
+        "description": "Meta-Information for a questionaire.",
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "creationDate": {
+            "description": "Creation date as ISO 8601 string",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "experiationDate": {
+            "description": "Expiration date as ISO 8601 string",
+            "type": "string"
+          },
+          "language": {
+            "description": "Language of this questionaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "regions": {
+            "description": "Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "author",
+          "language",
+          "creationDate"
+        ],
+        "type": "object"
+      },
+      "LogicExpression": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/LogicOperator"
+          },
+          {
+            "$ref": "#/components/schemas/LogicVariable"
+          },
+          {
+            "$ref": "#/components/schemas/LogicConstant"
+          }
+        ],
+        "description": "Logic expression used to compute this variable. Defaults to true."
+      },
+      "LogicIf": {
+        "additionalProperties": false,
+        "properties": {
+          "if": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        "required": [
+          "if"
+        ],
+        "title": "LogicIf",
+        "type": "object"
+      },
+      "LogicReduce": {
+        "additionalProperties": false,
+        "properties": {
+          "reduce": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        "required": [
+          "reduce"
+        ],
+        "title": "LogicReduce",
+        "type": "object"
+      },
+      "LogicSome": {
+        "additionalProperties": false,
+        "properties": {
+          "some": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "some"
+        ],
+        "title": "LogicSome",
+        "type": "object"
+      },
+      "LogicEquals": {
+        "additionalProperties": false,
+        "properties": {
+          "==": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "=="
+        ],
+        "title": "LogicEquals",
+        "type": "object"
+      },
+      "LogicGreaterEqual": {
+        "additionalProperties": false,
+        "properties": {
+          ">=": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          ">="
+        ],
+        "title": "LogicGreaterEqual",
+        "type": "object"
+      },
+      "LogicNot": {
+        "additionalProperties": false,
+        "properties": {
+          "!": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LogicExpression"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "required": [
+          "!"
+        ],
+        "title": "LogicNot",
+        "type": "object"
+      },
+      "LogicLessEqual": {
+        "additionalProperties": false,
+        "properties": {
+          "<=": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "<="
+        ],
+        "title": "LogicLessEqual",
+        "type": "object"
+      },
+      "LogicPlus": {
+        "additionalProperties": false,
+        "properties": {
+          "+": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "+"
+        ],
+        "title": "LogicPlus",
+        "type": "object"
+      },
+      "LogicMinus": {
+        "additionalProperties": false,
+        "properties": {
+          "-": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "-"
+        ],
+        "title": "LogicMinus",
+        "type": "object"
+      },
+      "LogicAnd": {
+        "additionalProperties": false,
+        "properties": {
+          "and": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "and"
+        ],
+        "title": "LogicAnd",
+        "type": "object"
+      },
+      "LogicOr": {
+        "additionalProperties": false,
+        "properties": {
+          "or": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "or"
+        ],
+        "title": "LogicOr",
+        "type": "object"
+      },
+      "LogicIn": {
+        "additionalProperties": false,
+        "properties": {
+          "in": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "items": {
+                    "$ref": "#/components/schemas/LogicExpression"
+                  },
+                  "type": "array"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "in"
+        ],
+        "title": "LogicIn",
+        "type": "object"
+      },
+      "LogicGreater": {
+        "additionalProperties": false,
+        "properties": {
+          ">": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          ">"
+        ],
+        "title": "LogicGreater",
+        "type": "object"
+      },
+      "LogicLess": {
+        "additionalProperties": false,
+        "properties": {
+          "<": {
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                {
+                  "$ref": "#/components/schemas/LogicExpression"
+                }
+              ]
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "<"
+        ],
+        "title": "LogicLess",
+        "type": "object"
+      },
+      "LogicOperator": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/LogicIf"
+          },
+          {
+            "$ref": "#/components/schemas/LogicReduce"
+          },
+          {
+            "$ref": "#/components/schemas/LogicSome"
+          },
+          {
+            "$ref": "#/components/schemas/LogicEquals"
+          },
+          {
+            "$ref": "#/components/schemas/LogicGreaterEqual"
+          },
+          {
+            "$ref": "#/components/schemas/LogicNot"
+          },
+          {
+            "$ref": "#/components/schemas/LogicLessEqual"
+          },
+          {
+            "$ref": "#/components/schemas/LogicPlus"
+          },
+          {
+            "$ref": "#/components/schemas/LogicMinus"
+          },
+          {
+            "$ref": "#/components/schemas/LogicAnd"
+          },
+          {
+            "$ref": "#/components/schemas/LogicOr"
+          },
+          {
+            "$ref": "#/components/schemas/LogicIn"
+          },
+          {
+            "$ref": "#/components/schemas/LogicGreater"
+          },
+          {
+            "$ref": "#/components/schemas/LogicLess"
+          }
+        ]
+      },
+      "LogicVariable": {
+        "additionalProperties": false,
+        "properties": {
+          "var": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "var"
+        ],
+        "type": "object"
+      },
+      "LogicConstant": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "QuestionWithoutOptions": {
+        "title": "QuestionWithoutOptions",
+        "additionalProperties": false,
+        "description": "Represents a question. The answer is a choice of yes/no, text or date.",
+        "properties": {
+          "details": {
+            "description": "Optional human-readable details or clarifiation about this question.",
+            "type": "string"
+          },
+          "enableWhen": {
+            "$ref": "#/components/schemas/LogicExpression"
+          },
+          "id": {
+            "description": "Unique id for referring this question in logic expressions.",
+            "type": "string"
+          },
+          "optional": {
+            "description": "Boolean indicating whether the question is optional or not.",
+            "type": "boolean"
+          },
+          "text": {
+            "description": "Human-readable question text, can be localized.",
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "boolean",
+              "date",
+              "text",
+              "multiselect",
+              "number",
+              "select"
+            ],
+            "description": "Type of the question."
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
+        "type": "object"
+      },
+      "Option": {
+        "additionalProperties": false,
+        "description": "Option for multi-select questions.",
+        "properties": {
+          "asQuestion": {
+            "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+            "type": "string"
+          },
+          "text": {
+            "description": "Human-Readable answer, can be localized.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value used for evaluating logic expressions.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text",
+          "value"
+        ],
+        "type": "object"
+      },
+      "QuestionWithOptions": {
+        "title": "QuestionWithOptions",
+        "additionalProperties": false,
+        "description": "Represents a question with predefined answers to select.",
+        "properties": {
+          "details": {
+            "description": "Optional human-readable details or clarifiation about this question.",
+            "type": "string"
+          },
+          "enableWhen": {
+            "$ref": "#/components/schemas/LogicExpression"
+          },
+          "id": {
+            "description": "Unique id for referring this question in logic expressions.",
+            "type": "string"
+          },
+          "optional": {
+            "description": "Boolean indicating whether the question is optional or not.",
+            "type": "boolean"
+          },
+          "options": {
+            "description": "Answer options for Select/Multiselect questions.",
+            "items": {
+              "$ref": "#/components/schemas/Option"
+            },
+            "type": "array"
+          },
+          "text": {
+            "description": "Human-readable question text, can be localized.",
+            "type": "string"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "enum": [
+                  "select"
+                ],
+                "type": "string"
+              },
+              {
+                "enum": [
+                  "multiselect"
+                ],
+                "type": "string"
+              }
+            ],
+            "description": "Type of the question."
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
+        "type": "object"
+      },
+      "NumericOption": {
+        "additionalProperties": false,
+        "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
+        "properties": {
+          "defaultValue": {
+            "description": "Default value",
+            "type": "number"
+          },
+          "max": {
+            "description": "maximal value",
+            "type": "number"
+          },
+          "min": {
+            "description": "Minimal value",
+            "type": "number"
+          },
+          "step": {
+            "description": "Step size",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "NumericQuestion": {
+        "additionalProperties": false,
+        "description": "Represents a question with numeric answer.",
+        "properties": {
+          "details": {
+            "description": "Optional human-readable details or clarifiation about this question.",
+            "type": "string"
+          },
+          "enableWhen": {
+            "$ref": "#/components/schemas/LogicExpression"
+          },
+          "id": {
+            "description": "Unique id for referring this question in logic expressions.",
+            "type": "string"
+          },
+          "numericOptions": {
+            "$ref": "#/components/schemas/NumericOption"
+          },
+          "optional": {
+            "description": "Boolean indicating whether the question is optional or not.",
+            "type": "boolean"
+          },
+          "text": {
+            "description": "Human-readable question text, can be localized.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Type of the question.",
+            "enum": [
+              "number"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
+        "title": "Numeric question",
+        "type": "object"
+      },
+      "Question": {
+        "title": "AnyQuestion",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/QuestionWithoutOptions"
+          },
+          {
+            "$ref": "#/components/schemas/QuestionWithOptions"
+          },
+          {
+            "$ref": "#/components/schemas/NumericQuestion"
+          }
+        ],
+        "description": "Represents a single question of the questionnaire."
+      },
+      "Result": {
+        "title": "Result",
+        "additionalProperties": false,
+        "description": "Represents a single result.\nThe value of the logic expression yielding true or false. The first result in the result category yielding true will be\\nused as result. If no result evaluates to true, no result is shown for this category.",
+        "properties": {
+          "id": {
+            "description": "A unique identifier for this result.",
+            "type": "string"
+          },
+          "text": {
+            "description": "A human readable text for this result. Can be localized.",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/LogicExpression"
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "value"
+        ],
+        "type": "object"
+      },
+      "ResultCategory": {
+        "title": "ResultCategory",
+        "additionalProperties": false,
+        "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.",
+        "properties": {
+          "description": {
+            "description": "A human readable description for the result category. Can be localized.",
+            "type": "string"
+          },
+          "id": {
+            "description": "A unique identifier for this result category.",
+            "type": "string"
+          },
+          "results": {
+            "description": "A list of results for this category.",
+            "items": {
+              "$ref": "#/components/schemas/Result"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "description",
+          "results"
+        ],
+        "type": "object"
+      },
+      "Variable": {
+        "additionalProperties": false,
+        "description": "Represents a variable which is computed from the given answers or other variables.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Unique id for referring this variable in logic expressions.",
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/LogicExpression"
+          }
+        },
+        "required": [
+          "id",
+          "value"
+        ]
+      },
+      "questionnaire": {
+        "title": "Questionnaire",
+        "additionalProperties": false,
+        "description": "The questionaire.",
+        "properties": {
+          "id": {
+            "description": "Unique, assigned identifier. Machine friendly.",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/QuestionnaireMeta"
+          },
+          "questions": {
+            "description": "All questions, shown one after another, in order.",
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            },
+            "type": "array"
+          },
+          "resultCategories": {
+            "description": "All result categories. When all questions are answered,\nthe result for each result category is computed.",
+            "items": {
+              "$ref": "#/components/schemas/ResultCategory"
+            },
+            "type": "array"
+          },
+          "schemaVersion": {
+            "description": "File format/api version in semver.",
+            "type": "string"
+          },
+          "variables": {
+            "description": "All variables, refreshed after each update to any answer.",
+            "items": {
+              "$ref": "#/components/schemas/Variable"
+            },
+            "type": "array"
+          },
+          "version": {
+            "description": "Version of this question in semver.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "schemaVersion",
+          "version",
+          "meta",
+          "questions",
+          "variables",
+          "resultCategories"
+        ],
+        "type": "object",
+        "x-definitions": {
+          "NumericOption": {
+            "additionalProperties": false,
+            "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
+            "properties": {
+              "defaultValue": {
+                "description": "Default value",
+                "type": "number"
+              },
+              "max": {
+                "description": "maximal value",
+                "type": "number"
+              },
+              "min": {
+                "description": "Minimal value",
+                "type": "number"
+              },
+              "step": {
+                "description": "Step size",
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "NumericQuestion": {
+            "additionalProperties": false,
+            "description": "Represents a question with numeric answer.",
+            "properties": {
+              "details": {
+                "description": "Optional human-readable details or clarifiation about this question.",
+                "type": "string"
+              },
+              "enableWhen": {
+                "$ref": "#/components/schemas/LogicExpression"
+              },
+              "id": {
+                "description": "Unique id for referring this question in logic expressions.",
+                "type": "string"
+              },
+              "numericOptions": {
+                "$ref": "#/components/schemas/NumericOption"
+              },
+              "optional": {
+                "description": "Boolean indicating whether the question is optional or not.",
+                "type": "boolean"
+              },
+              "text": {
+                "description": "Human-readable question text, can be localized.",
+                "type": "string"
+              },
+              "type": {
+                "description": "Type of the question.",
+                "enum": [
+                  "number"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "type"
+            ],
+            "title": "Numeric question",
+            "type": "object"
+          },
+          "Option": {
+            "additionalProperties": false,
+            "description": "Option for multi-select questions.",
+            "properties": {
+              "asQuestion": {
+                "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+                "type": "string"
+              },
+              "text": {
+                "description": "Human-Readable answer, can be localized.",
+                "type": "string"
+              },
+              "value": {
+                "description": "Value used for evaluating logic expressions.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "text",
+              "value"
+            ],
+            "type": "object"
+          },
+          "Question": {
+            "title": "AnyQuestion",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionWithoutOptions"
+              },
+              {
+                "$ref": "#/components/schemas/QuestionWithOptions"
+              },
+              {
+                "$ref": "#/components/schemas/NumericQuestion"
+              }
+            ],
+            "description": "Represents a single question of the questionnaire."
+          },
+          "QuestionWithOptions": {
+            "title": "QuestionWithOptions",
+            "additionalProperties": false,
+            "description": "Represents a question with predefined answers to select.",
+            "properties": {
+              "details": {
+                "description": "Optional human-readable details or clarifiation about this question.",
+                "type": "string"
+              },
+              "enableWhen": {
+                "$ref": "#/components/schemas/LogicExpression"
+              },
+              "id": {
+                "description": "Unique id for referring this question in logic expressions.",
+                "type": "string"
+              },
+              "optional": {
+                "description": "Boolean indicating whether the question is optional or not.",
+                "type": "boolean"
+              },
+              "options": {
+                "description": "Answer options for Select/Multiselect questions.",
+                "items": {
+                  "$ref": "#/components/schemas/Option"
+                },
+                "type": "array"
+              },
+              "text": {
+                "description": "Human-readable question text, can be localized.",
+                "type": "string"
+              },
+              "type": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "select"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "enum": [
+                      "multiselect"
+                    ],
+                    "type": "string"
+                  }
+                ],
+                "description": "Type of the question."
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "type"
+            ],
+            "type": "object"
+          },
+          "QuestionWithoutOptions": {
+            "title": "QuestionWithoutOptions",
+            "additionalProperties": false,
+            "description": "Represents a question. The answer is a choice of yes/no, text or date.",
+            "properties": {
+              "details": {
+                "description": "Optional human-readable details or clarifiation about this question.",
+                "type": "string"
+              },
+              "enableWhen": {
+                "$ref": "#/components/schemas/LogicExpression"
+              },
+              "id": {
+                "description": "Unique id for referring this question in logic expressions.",
+                "type": "string"
+              },
+              "optional": {
+                "description": "Boolean indicating whether the question is optional or not.",
+                "type": "boolean"
+              },
+              "text": {
+                "description": "Human-readable question text, can be localized.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "boolean",
+                  "date",
+                  "text",
+                  "multiselect",
+                  "number",
+                  "select"
+                ],
+                "description": "Type of the question."
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "type"
+            ],
+            "type": "object"
+          },
+          "QuestionnaireMeta": {
+            "title": "QuestionnaireMeta",
+            "additionalProperties": false,
+            "description": "Meta-Information for a questionaire.",
+            "properties": {
+              "author": {
+                "type": "string"
+              },
+              "creationDate": {
+                "description": "Creation date as ISO 8601 string",
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "experiationDate": {
+                "description": "Expiration date as ISO 8601 string",
+                "type": "string"
+              },
+              "language": {
+                "description": "Language of this questionaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
+                "type": "string"
+              },
+              "publisher": {
+                "type": "string"
+              },
+              "regions": {
+                "description": "Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "author",
+              "language",
+              "creationDate"
+            ],
+            "type": "object"
+          },
+          "Result": {
+            "title": "Result",
+            "additionalProperties": false,
+            "description": "Represents a single result.\nThe value of the logic expression yielding true or false. The first result in the result category yielding true will be\\nused as result. If no result evaluates to true, no result is shown for this category.",
+            "properties": {
+              "id": {
+                "description": "A unique identifier for this result.",
+                "type": "string"
+              },
+              "text": {
+                "description": "A human readable text for this result. Can be localized.",
+                "type": "string"
+              },
+              "value": {
+                "$ref": "#/components/schemas/LogicExpression"
+              }
+            },
+            "required": [
+              "id",
+              "text",
+              "value"
+            ],
+            "type": "object"
+          },
+          "ResultCategory": {
+            "title": "ResultCategory",
+            "additionalProperties": false,
+            "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.",
+            "properties": {
+              "description": {
+                "description": "A human readable description for the result category. Can be localized.",
+                "type": "string"
+              },
+              "id": {
+                "description": "A unique identifier for this result category.",
+                "type": "string"
+              },
+              "results": {
+                "description": "A list of results for this category.",
+                "items": {
+                  "$ref": "#/components/schemas/Result"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "id",
+              "description",
+              "results"
+            ],
+            "type": "object"
+          },
+          "Variable": {
+            "additionalProperties": false,
+            "description": "Represents a variable which is computed from the given answers or other variables.",
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Unique id for referring this variable in logic expressions.",
+                "type": "string"
+              },
+              "value": {
+                "$ref": "#/components/schemas/LogicExpression"
+              }
+            },
+            "required": [
+              "id",
+              "value"
+            ]
+          },
+          "LogicAnd": {
+            "additionalProperties": false,
+            "properties": {
+              "and": {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "and"
+            ],
+            "title": "LogicAnd",
+            "type": "object"
+          },
+          "LogicConstant": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "LogicEquals": {
+            "additionalProperties": false,
+            "properties": {
+              "==": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "=="
+            ],
+            "title": "LogicEquals",
+            "type": "object"
+          },
+          "LogicExpression": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LogicOperator"
+              },
+              {
+                "$ref": "#/components/schemas/LogicVariable"
+              },
+              {
+                "$ref": "#/components/schemas/LogicConstant"
+              }
+            ],
+            "description": "Logic expression used to compute this variable. Defaults to true."
+          },
+          "LogicGreater": {
+            "additionalProperties": false,
+            "properties": {
+              ">": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              ">"
+            ],
+            "title": "LogicGreater",
+            "type": "object"
+          },
+          "LogicGreaterEqual": {
+            "additionalProperties": false,
+            "properties": {
+              ">=": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              ">="
+            ],
+            "title": "LogicGreaterEqual",
+            "type": "object"
+          },
+          "LogicIf": {
+            "additionalProperties": false,
+            "properties": {
+              "if": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              }
+            },
+            "required": [
+              "if"
+            ],
+            "title": "LogicIf",
+            "type": "object"
+          },
+          "LogicIn": {
+            "additionalProperties": false,
+            "properties": {
+              "in": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "items": {
+                        "$ref": "#/components/schemas/LogicExpression"
+                      },
+                      "type": "array"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "in"
+            ],
+            "title": "LogicIn",
+            "type": "object"
+          },
+          "LogicLess": {
+            "additionalProperties": false,
+            "properties": {
+              "<": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "<"
+            ],
+            "title": "LogicLess",
+            "type": "object"
+          },
+          "LogicLessEqual": {
+            "additionalProperties": false,
+            "properties": {
+              "<=": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "<="
+            ],
+            "title": "LogicLessEqual",
+            "type": "object"
+          },
+          "LogicMinus": {
+            "additionalProperties": false,
+            "properties": {
+              "-": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "-"
+            ],
+            "title": "LogicMinus",
+            "type": "object"
+          },
+          "LogicNot": {
+            "additionalProperties": false,
+            "properties": {
+              "!": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/LogicExpression"
+                  },
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    "type": "array"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "!"
+            ],
+            "title": "LogicNot",
+            "type": "object"
+          },
+          "LogicOperator": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LogicIf"
+              },
+              {
+                "$ref": "#/components/schemas/LogicReduce"
+              },
+              {
+                "$ref": "#/components/schemas/LogicSome"
+              },
+              {
+                "$ref": "#/components/schemas/LogicEquals"
+              },
+              {
+                "$ref": "#/components/schemas/LogicGreaterEqual"
+              },
+              {
+                "$ref": "#/components/schemas/LogicNot"
+              },
+              {
+                "$ref": "#/components/schemas/LogicLessEqual"
+              },
+              {
+                "$ref": "#/components/schemas/LogicPlus"
+              },
+              {
+                "$ref": "#/components/schemas/LogicMinus"
+              },
+              {
+                "$ref": "#/components/schemas/LogicAnd"
+              },
+              {
+                "$ref": "#/components/schemas/LogicOr"
+              },
+              {
+                "$ref": "#/components/schemas/LogicIn"
+              },
+              {
+                "$ref": "#/components/schemas/LogicGreater"
+              },
+              {
+                "$ref": "#/components/schemas/LogicLess"
+              }
+            ]
+          },
+          "LogicOr": {
+            "additionalProperties": false,
+            "properties": {
+              "or": {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "or"
+            ],
+            "title": "LogicOr",
+            "type": "object"
+          },
+          "LogicPlus": {
+            "additionalProperties": false,
+            "properties": {
+              "+": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "+"
+            ],
+            "title": "LogicPlus",
+            "type": "object"
+          },
+          "LogicReduce": {
+            "additionalProperties": false,
+            "properties": {
+              "reduce": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              }
+            },
+            "required": [
+              "reduce"
+            ],
+            "title": "LogicReduce",
+            "type": "object"
+          },
+          "LogicSome": {
+            "additionalProperties": false,
+            "properties": {
+              "some": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    }
+                  ]
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "some"
+            ],
+            "title": "LogicSome",
+            "type": "object"
+          },
+          "LogicVariable": {
+            "additionalProperties": false,
+            "properties": {
+              "var": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "var"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

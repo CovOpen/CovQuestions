@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "i18n-extract": "ts-node scripts/i18n_extract.ts",
-    "build": "ts-node ./index.ts",
+    "build": "ts-node ./index.ts && npm run build-swagger",
+    "build-swagger": "copyfiles -f ./src/swagger/index.html ./dist/swagger/ && copyfiles ./openapi.json ./dist/swagger/",
     "build-test": "rimraf dist && ts-node ./index.ts",
     "test": "jest"
   },
@@ -13,6 +14,7 @@
     "@types/fs-extra": "^8.1.0",
     "@types/node": "^13.11.1",
     "ajv": "^6.12.0",
+    "copyfiles": "^2.2.0",
     "fast-glob": "^3.2.2",
     "fs-extra": "^9.0.0",
     "prettier": "^2.0.4",
