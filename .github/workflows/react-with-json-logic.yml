@@ -18,6 +18,13 @@ jobs:
     - name: Install Packages
       run: npm install
       working-directory: react-with-json-logic/
+    - name: Build covquestions package
+      run: npm install
+      run: npm run build
+      working-directory: covquestions-js/
+    - name: Link covquestions package
+      run: npm link ../covquestions-js
+      working-directory: react-with-json-logic/
     - name: Check format
       run: npm run lint
       working-directory: react-with-json-logic/
