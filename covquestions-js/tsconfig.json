@@ -6,9 +6,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
-  "exclude": [
-    "./dist"
-  ]
+  "exclude": ["./dist"]
 }

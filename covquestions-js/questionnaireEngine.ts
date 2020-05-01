@@ -11,7 +11,7 @@ import {
   Variable,
 } from "./models/questionnaire";
 import { LogicExpression } from "./models/logicExpression";
-import { Primitive } from "./primitive"
+import { Primitive } from "./primitive";
 
 export type Result = {
   resultCategory: { id: string; description: string };
@@ -33,7 +33,10 @@ export class Question {
     this.text = question.text;
     this.enableWhen = question.enableWhen;
     this.optional = question.optional;
-    if (question.type === QuestionType.Select || question.type === QuestionType.Multiselect) {
+    if (
+      question.type === QuestionType.Select ||
+      question.type === QuestionType.Multiselect
+    ) {
       this.options = question.options;
     }
     if (question.type === QuestionType.Number) {
@@ -73,14 +76,17 @@ export class QuestionnaireEngine {
   private currentQuestionIndex = -1;
 
   constructor(newQuestionnaire: Questionnaire) {
-    this.questions = newQuestionnaire.questions.map((question) => new Question(question));
+    this.questions = newQuestionnaire.questions.map(
+      (question) => new Question(question)
+    );
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;
   }
 
   public nextQuestion(): Question | undefined {
     const indexOfNextQuestion = this.questions.findIndex(
-      (question, index) => index > this.currentQuestionIndex && question.check(this.data)
+      (question, index) =>
+        index > this.currentQuestionIndex && question.check(this.data)
     );
 
     if (indexOfNextQuestion > -1) {
@@ -91,7 +97,10 @@ export class QuestionnaireEngine {
     return undefined;
   }
 
-  public setAnswer(questionId: string, value: Primitive | Array<Primitive> | undefined) {
+  public setAnswer(
+    questionId: string,
+    value: Primitive | Array<Primitive> | undefined
+  ) {
     let answer: QuestionRespose = { value };
     let question = this.getQuestionById(questionId);
     if (question !== undefined) {
@@ -104,7 +113,8 @@ export class QuestionnaireEngine {
           answer.option = {};
           for (const option of question.options || []) {
             answer.option[option.value] = {
-              selected: array !== undefined ? array.indexOf(option.value) > -1 : false,
+              selected:
+                array !== undefined ? array.indexOf(option.value) > -1 : false,
             };
           }
           break;
@@ -123,7 +133,9 @@ export class QuestionnaireEngine {
 
     this.variables.forEach((variable) => {
       try {
-        this.data[variable.id] = { value: jsonLogic.apply(variable.value, this.data) };
+        this.data[variable.id] = {
+          value: jsonLogic.apply(variable.value, this.data),
+        };
       } catch (e) {}
     });
   }

@@ -1,6 +1,6 @@
 # Covquestions Questionaire Logic
 
-This package (`covquestions-js`) provides models, state handling and evaluation logic for a questionaire. 
+This package (`covquestions-js`) provides models, state handling and evaluation logic for a questionaire.
 
 An API client for accessing the covquestions API will be included in the future.
 
@@ -9,7 +9,6 @@ An API client for accessing the covquestions API will be included in the future.
 Basic example:
 
 ```typescript
-
 // currentQuestionaire is simply a questionaire file, as Javascript Object.
 
 const engine = new QuestionnaireEngine(currentQuestionnaire);
@@ -19,7 +18,7 @@ const nextQuestion = engine.nextQuestion();
 questionnaireEngine.setAnswer(currentQuestion!.id, value);
 
 // If nextQuestion is undefined, the questionaire is finished. Get and show results.
-questionnaireEngine.getResults()
+questionnaireEngine.getResults();
 ```
 
 For a usage example with react, please refer to our questionarie reference implementation.
