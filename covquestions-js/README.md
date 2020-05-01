@@ -26,7 +26,7 @@ For a usage example with react, please refer to our questionarie reference imple
 
 ## Usage during active development
 
-In this directory, execute `yarn link`. In the typescript project, where the package is to be used, execute `yarn link covquestions-js`.
+In the typescript project, where the package is to be used, execute `npm link ../path/to/covquestions-js`.
 
 This will link against the uncompiled typescript files, updates will be propagated without building. It will only work with a typescript loader.
 
