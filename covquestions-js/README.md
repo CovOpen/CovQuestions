@@ -11,6 +11,7 @@ Basic example:
 ```typescript
 
 // currentQuestionaire is simply a questionaire file, as Javascript Object.
+import { QuestionnaireEngine } from 'covquestions-js`
 
 const engine = new QuestionnaireEngine(currentQuestionnaire);
 
