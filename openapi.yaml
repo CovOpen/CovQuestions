@@ -144,10 +144,9 @@ paths:
     parameters: []
 components:
   schemas:
-    QuestionnaireMeta: &ref_6
+    QuestionnaireMeta: &ref_7
       title: QuestionnaireMeta
-      additionalProperties: false
-      description: Meta-Information for a questionaire.
+      description: Meta-Information for a questionnaire.
       properties:
         author:
           type: string
@@ -161,14 +160,14 @@ components:
           type: string
         language:
           description: |-
-            Language of this questionaire, as ISO 639-1 code.
+            Language of this questionnaire, as ISO 639-1 code.
             Note that further languages can be defined in external lookup files.
           type: string
         publisher:
           type: string
         regions:
           description: >-
-            Region restriction (e.g. regions in which this questionaire is
+            Region restriction (e.g. regions in which this questionnaire is
             valid) as list of ISO 3166 ids.
           items:
             type: string
@@ -181,21 +180,17 @@ components:
         - language
         - creationDate
       type: object
-    LogicExpression: &ref_13
+    LogicExpression: &ref_14
       anyOf:
         - $ref: '#/components/schemas/LogicOperator'
         - $ref: '#/components/schemas/LogicVariable'
         - $ref: '#/components/schemas/LogicConstant'
       description: Logic expression used to compute this variable. Defaults to true.
-    LogicIf: &ref_16
-      additionalProperties: false
+    LogicIf: &ref_17
       properties:
         if:
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 3
           minItems: 3
           type: array
@@ -203,15 +198,11 @@ components:
         - if
       title: LogicIf
       type: object
-    LogicReduce: &ref_25
-      additionalProperties: false
+    LogicReduce: &ref_26
       properties:
         reduce:
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 3
           minItems: 3
           type: array
@@ -219,14 +210,11 @@ components:
         - reduce
       title: LogicReduce
       type: object
-    LogicSome: &ref_26
-      additionalProperties: false
+    LogicSome: &ref_27
       properties:
         some:
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -234,14 +222,11 @@ components:
         - some
       title: LogicSome
       type: object
-    LogicEquals: &ref_12
-      additionalProperties: false
+    LogicEquals: &ref_13
       properties:
         ==:
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -249,14 +234,11 @@ components:
         - ==
       title: LogicEquals
       type: object
-    LogicGreaterEqual: &ref_15
-      additionalProperties: false
+    LogicGreaterEqual: &ref_16
       properties:
         '>=':
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -264,8 +246,7 @@ components:
         - '>='
       title: LogicGreaterEqual
       type: object
-    LogicNot: &ref_21
-      additionalProperties: false
+    LogicNot: &ref_22
       properties:
         '!':
           anyOf:
@@ -277,14 +258,11 @@ components:
         - '!'
       title: LogicNot
       type: object
-    LogicLessEqual: &ref_19
-      additionalProperties: false
+    LogicLessEqual: &ref_20
       properties:
         <=:
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -292,14 +270,11 @@ components:
         - <=
       title: LogicLessEqual
       type: object
-    LogicPlus: &ref_24
-      additionalProperties: false
+    LogicPlus: &ref_25
       properties:
         +:
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -307,14 +282,11 @@ components:
         - +
       title: LogicPlus
       type: object
-    LogicMinus: &ref_20
-      additionalProperties: false
+    LogicMinus: &ref_21
       properties:
         '-':
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -322,8 +294,7 @@ components:
         - '-'
       title: LogicMinus
       type: object
-    LogicAnd: &ref_10
-      additionalProperties: false
+    LogicAnd: &ref_11
       properties:
         and:
           items:
@@ -333,8 +304,7 @@ components:
         - and
       title: LogicAnd
       type: object
-    LogicOr: &ref_23
-      additionalProperties: false
+    LogicOr: &ref_24
       properties:
         or:
           items:
@@ -344,8 +314,7 @@ components:
         - or
       title: LogicOr
       type: object
-    LogicIn: &ref_17
-      additionalProperties: false
+    LogicIn: &ref_18
       properties:
         in:
           items:
@@ -361,14 +330,11 @@ components:
         - in
       title: LogicIn
       type: object
-    LogicGreater: &ref_14
-      additionalProperties: false
+    LogicGreater: &ref_15
       properties:
         '>':
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -376,14 +342,11 @@ components:
         - '>'
       title: LogicGreater
       type: object
-    LogicLess: &ref_18
-      additionalProperties: false
+    LogicLess: &ref_19
       properties:
         <:
           items:
-            anyOf:
-              - $ref: '#/components/schemas/LogicExpression'
-              - $ref: '#/components/schemas/LogicExpression'
+            $ref: '#/components/schemas/LogicExpression'
           maxItems: 2
           minItems: 2
           type: array
@@ -391,7 +354,7 @@ components:
         - <
       title: LogicLess
       type: object
-    LogicOperator: &ref_22
+    LogicOperator: &ref_23
       anyOf:
         - $ref: '#/components/schemas/LogicIf'
         - $ref: '#/components/schemas/LogicReduce'
@@ -407,26 +370,35 @@ components:
         - $ref: '#/components/schemas/LogicIn'
         - $ref: '#/components/schemas/LogicGreater'
         - $ref: '#/components/schemas/LogicLess'
-    LogicVariable: &ref_27
-      additionalProperties: false
+    LogicVariable: &ref_28
       properties:
         var:
           type: string
       required:
         - var
       type: object
-    LogicConstant: &ref_11
+    LogicConstant: &ref_12
       anyOf:
         - type: number
         - type: string
         - type: boolean
-    QuestionWithoutOptions: &ref_5
-      title: QuestionWithoutOptions
-      additionalProperties: false
-      description: 'Represents a question. The answer is a choice of yes/no, text or date.'
+    QuestionType: &ref_29
+      description: Type of the question.
+      type: string
+      enum:
+        - boolean
+        - date
+        - text
+        - number
+        - select
+        - multiselect
+    QuestionBase: &ref_0
+      description: Represents the common fields of every question.
       properties:
         details:
-          description: Optional human-readable details or clarifiation about this question.
+          description: >-
+            Optional human-readable details or clarification about this
+            question.
           type: string
         enableWhen:
           $ref: '#/components/schemas/LogicExpression'
@@ -440,22 +412,30 @@ components:
           description: 'Human-readable question text, can be localized.'
           type: string
         type:
-          type: string
-          enum:
-            - boolean
-            - date
-            - text
-            - multiselect
-            - number
-            - select
-          description: Type of the question.
+          $ref: '#/components/schemas/QuestionType'
       required:
         - id
         - text
         - type
+      title: Common question fields
       type: object
-    Option: &ref_2
-      additionalProperties: false
+    QuestionWithoutOptions: &ref_6
+      title: QuestionWithoutOptions
+      description: 'Represents a question. The answer is a choice of yes/no, text or date.'
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/QuestionBase'
+        - properties:
+            type:
+              type: string
+              enum:
+                - boolean
+                - date
+                - text
+              description: Type of the question.
+          required:
+            - type
+    Option: &ref_3
       description: Option for multi-select questions.
       properties:
         asQuestion:
@@ -477,46 +457,27 @@ components:
         - text
         - value
       type: object
-    QuestionWithOptions: &ref_4
+    QuestionWithOptions: &ref_5
       title: QuestionWithOptions
-      additionalProperties: false
       description: Represents a question with predefined answers to select.
-      properties:
-        details:
-          description: Optional human-readable details or clarifiation about this question.
-          type: string
-        enableWhen:
-          $ref: '#/components/schemas/LogicExpression'
-        id:
-          description: Unique id for referring this question in logic expressions.
-          type: string
-        optional:
-          description: Boolean indicating whether the question is optional or not.
-          type: boolean
-        options:
-          description: Answer options for Select/Multiselect questions.
-          items:
-            $ref: '#/components/schemas/Option'
-          type: array
-        text:
-          description: 'Human-readable question text, can be localized.'
-          type: string
-        type:
-          anyOf:
-            - enum:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/QuestionBase'
+        - properties:
+            options:
+              description: Answer options for Select/Multiselect questions.
+              items:
+                $ref: '#/components/schemas/Option'
+              type: array
+            type:
+              enum:
                 - select
-              type: string
-            - enum:
                 - multiselect
               type: string
-          description: Type of the question.
-      required:
-        - id
-        - text
-        - type
-      type: object
-    NumericOption: &ref_0
-      additionalProperties: false
+              description: Type of the question.
+          required:
+            - type
+    NumericOption: &ref_1
       description: |-
         Option for numeric questions.
         Answer options for Select/Multiselect questions.
@@ -534,53 +495,39 @@ components:
           description: Step size
           type: number
       type: object
-    NumericQuestion: &ref_1
-      additionalProperties: false
-      description: Represents a question with numeric answer.
-      properties:
-        details:
-          description: Optional human-readable details or clarifiation about this question.
-          type: string
-        enableWhen:
-          $ref: '#/components/schemas/LogicExpression'
-        id:
-          description: Unique id for referring this question in logic expressions.
-          type: string
-        numericOptions:
-          $ref: '#/components/schemas/NumericOption'
-        optional:
-          description: Boolean indicating whether the question is optional or not.
-          type: boolean
-        text:
-          description: 'Human-readable question text, can be localized.'
-          type: string
-        type:
-          description: Type of the question.
-          enum:
-            - number
-          type: string
-      required:
-        - id
-        - text
-        - type
+    NumericQuestion: &ref_2
       title: Numeric question
       type: object
-    Question: &ref_3
+      description: Represents a question with numeric answer.
+      allOf:
+        - $ref: '#/components/schemas/QuestionBase'
+        - properties:
+            numericOptions:
+              $ref: '#/components/schemas/NumericOption'
+            type:
+              description: Type of the question.
+              enum:
+                - number
+              type: string
+          required:
+            - type
+    Question: &ref_4
       title: AnyQuestion
       anyOf:
         - $ref: '#/components/schemas/QuestionWithoutOptions'
         - $ref: '#/components/schemas/QuestionWithOptions'
         - $ref: '#/components/schemas/NumericQuestion'
       description: Represents a single question of the questionnaire.
-    Result: &ref_7
+    Result: &ref_8
       title: Result
-      additionalProperties: false
       description: >-
         Represents a single result.
 
         The value of the logic expression yielding true or false. The first
-        result in the result category yielding true will be\nused as result. If
-        no result evaluates to true, no result is shown for this category.
+        result in the result category yielding true will be
+
+        used as result. If no result evaluates to true, no result is shown for
+        this category.
       properties:
         id:
           description: A unique identifier for this result.
@@ -595,12 +542,11 @@ components:
         - text
         - value
       type: object
-    ResultCategory: &ref_8
+    ResultCategory: &ref_9
       title: ResultCategory
-      additionalProperties: false
       description: >-
         Represents a result category. A category might yield exactly one or zero
-        results at the end of the questionaire.
+        results at the end of the questionnaire.
       properties:
         description:
           description: >-
@@ -620,8 +566,7 @@ components:
         - description
         - results
       type: object
-    Variable: &ref_9
-      additionalProperties: false
+    Variable: &ref_10
       description: >-
         Represents a variable which is computed from the given answers or other
         variables.
@@ -637,8 +582,7 @@ components:
         - value
     questionnaire:
       title: Questionnaire
-      additionalProperties: false
-      description: The questionaire.
+      description: The questionnaire.
       properties:
         id:
           description: 'Unique, assigned identifier. Machine friendly.'
@@ -678,31 +622,33 @@ components:
         - resultCategories
       type: object
       x-definitions:
-        NumericOption: *ref_0
-        NumericQuestion: *ref_1
-        Option: *ref_2
-        Question: *ref_3
-        QuestionWithOptions: *ref_4
-        QuestionWithoutOptions: *ref_5
-        QuestionnaireMeta: *ref_6
-        Result: *ref_7
-        ResultCategory: *ref_8
-        Variable: *ref_9
-        LogicAnd: *ref_10
-        LogicConstant: *ref_11
-        LogicEquals: *ref_12
-        LogicExpression: *ref_13
-        LogicGreater: *ref_14
-        LogicGreaterEqual: *ref_15
-        LogicIf: *ref_16
-        LogicIn: *ref_17
-        LogicLess: *ref_18
-        LogicLessEqual: *ref_19
-        LogicMinus: *ref_20
-        LogicNot: *ref_21
-        LogicOperator: *ref_22
-        LogicOr: *ref_23
-        LogicPlus: *ref_24
-        LogicReduce: *ref_25
-        LogicSome: *ref_26
-        LogicVariable: *ref_27
+        QuestionBase: *ref_0
+        NumericOption: *ref_1
+        NumericQuestion: *ref_2
+        Option: *ref_3
+        Question: *ref_4
+        QuestionWithOptions: *ref_5
+        QuestionWithoutOptions: *ref_6
+        QuestionnaireMeta: *ref_7
+        Result: *ref_8
+        ResultCategory: *ref_9
+        Variable: *ref_10
+        LogicAnd: *ref_11
+        LogicConstant: *ref_12
+        LogicEquals: *ref_13
+        LogicExpression: *ref_14
+        LogicGreater: *ref_15
+        LogicGreaterEqual: *ref_16
+        LogicIf: *ref_17
+        LogicIn: *ref_18
+        LogicLess: *ref_19
+        LogicLessEqual: *ref_20
+        LogicMinus: *ref_21
+        LogicNot: *ref_22
+        LogicOperator: *ref_23
+        LogicOr: *ref_24
+        LogicPlus: *ref_25
+        LogicReduce: *ref_26
+        LogicSome: *ref_27
+        LogicVariable: *ref_28
+        QuestionType: *ref_29
