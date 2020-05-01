@@ -73,10 +73,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
   builder
     .addCase(setQuestionnaireInEditor, (state, action) => {
       const result = addStringRepresentationToQuestionnaire(action.payload);
-      return {
-        questionnaire: result,
-        hasErrors: false,
-      };
+      state.questionnaire = result;
     })
     .addCase(setInvalid, (state) => {
       state.hasErrors = true;
