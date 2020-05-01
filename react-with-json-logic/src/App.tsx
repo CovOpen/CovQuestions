@@ -93,7 +93,7 @@ export const App: React.FC = () => {
     if (currentQuestionnairePath !== "") {
       fetch(currentQuestionnairePath).then((response) => {
         if (response.ok) {
-          response.json().then((value) => {
+          response.json().then((value: Questionnaire) => {
             setOriginalCurrentQuestionnaire(value);
             dispatch(setQuestionnaireInEditor(value));
             overwriteCurrentQuestionnaire(value);
