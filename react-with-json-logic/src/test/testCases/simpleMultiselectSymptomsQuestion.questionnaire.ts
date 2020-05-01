@@ -15,6 +15,7 @@ const testQuestionnaire: Questionnaire = {
       id: "q1_symptoms",
       text: "Welche der folgenden Symptome haben Sie?",
       type: QuestionType.Multiselect,
+      optional: true,
       options: [
         {
           text: "Husten",

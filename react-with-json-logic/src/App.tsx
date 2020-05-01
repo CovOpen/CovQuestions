@@ -20,11 +20,9 @@ import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { Questionnaire } from "covquestions-js/models/questionnaire";
 import { useAppDispatch } from "./store/store";
-import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
-import jsonschema from "jsonschema";
-import questionnaireSchema from "./schemas/questionnaire.json";
+import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
 import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
+import { useSelector } from "react-redux";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -59,7 +57,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const questionnaireJson = useSelector(questionnaireJsonSelector);
+
+  const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
 
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
   const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
@@ -67,9 +66,6 @@ export const App: React.FC = () => {
     undefined
   );
   const [executedQuestionnaire, setExecutedQuestionnaire] = useState<Questionnaire | undefined>(undefined);
-
-  const [showJsonInvalidMessage, setShowJsonInvalidMessage] = useState(false);
-  const [schemaValidationErrors, setSchemaValidationErrors] = useState<jsonschema.ValidationError[]>([]);
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -97,7 +93,7 @@ export const App: React.FC = () => {
     if (currentQuestionnairePath !== "") {
       fetch(currentQuestionnairePath).then((response) => {
         if (response.ok) {
-          response.json().then((value) => {
+          response.json().then((value: Questionnaire) => {
             setOriginalCurrentQuestionnaire(value);
             dispatch(setQuestionnaireInEditor(value));
             overwriteCurrentQuestionnaire(value);
@@ -106,23 +102,6 @@ export const App: React.FC = () => {
       });
     }
   }, [dispatch, currentQuestionnairePath]);
-
-  useEffect(() => {
-    try {
-      const validator = new jsonschema.Validator();
-      const validationResult = validator.validate(questionnaireJson, questionnaireSchema);
-      if (validationResult.errors.length > 0) {
-        setSchemaValidationErrors(validationResult.errors);
-        setShowJsonInvalidMessage(true);
-        return;
-      }
-      setShowJsonInvalidMessage(false);
-      setSchemaValidationErrors([]);
-      overwriteCurrentQuestionnaire(questionnaireJson);
-    } catch (e) {
-      setShowJsonInvalidMessage(true);
-    }
-  }, [questionnaireJson]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -165,15 +144,14 @@ export const App: React.FC = () => {
                     overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
                   }
                 }}
-                schemaValidationErrors={schemaValidationErrors}
                 isJsonMode={isJsonMode}
               />
             </Grid>
             <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
               {executedQuestionnaire !== undefined ? (
                 <QuestionnaireExecution
-                  isJsonInvalid={showJsonInvalidMessage}
-                  currentQuestionnaire={executedQuestionnaire}
+                  currentQuestionnaire={currentQuestionnaire.questionnaire}
+                  isJsonInvalid={currentQuestionnaire.hasErrors}
                 />
               ) : null}
             </Grid>

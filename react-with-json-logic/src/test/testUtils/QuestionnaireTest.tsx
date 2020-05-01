@@ -10,7 +10,7 @@ export class QuestionnaireTest {
   private readonly renderedApp: RenderResult;
 
   constructor(questionnaire: Questionnaire) {
-    this.renderedApp = render(<QuestionnaireExecution currentQuestionnaire={questionnaire} />);
+    this.renderedApp = render(<QuestionnaireExecution currentQuestionnaire={questionnaire} isJsonInvalid={false} />);
 
     this.findByText = (text: string | RegExp, selector: string | undefined) =>
       this.renderedApp.findByText(text, selector !== undefined ? { selector } : undefined);
@@ -37,8 +37,12 @@ export class QuestionnaireTest {
   }
 
   public async clickNext() {
-    const nextButton = await this.renderedApp.findByText(/next/i);
+    const nextButton = await this.nextButton();
     UserEvent.click(nextButton);
+  }
+
+  public async nextButton() {
+    return this.renderedApp.findByText(/next/i);
   }
 
   public async clickRestart() {

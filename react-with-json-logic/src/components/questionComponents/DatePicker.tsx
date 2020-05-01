@@ -4,7 +4,12 @@ import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
 export const DatePicker: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   const handleChange = (e: any) => {
-    onChange(Math.round(Date.parse(e.target.value) / 1000));
+    const dateInSecondsTimestamp = Math.round(Date.parse(e.target.value) / 1000);
+    if (isNaN(dateInSecondsTimestamp)) {
+      onChange(undefined);
+    } else {
+      onChange(dateInSecondsTimestamp);
+    }
   };
 
   return (

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Question } from "covquestions-js";
 import { Button, Grid, Paper, makeStyles, createStyles } from "@material-ui/core";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
-import { Alert } from "@material-ui/lab";
 import { Primitive } from "covquestions-js/primitive";
 
 type QuestionComponentProps = {
@@ -25,41 +24,28 @@ const useStyles = makeStyles(() =>
 
 export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQuestion, handleNextClick }) => {
   const [currentValue, setCurrentValue] = useState<Primitive | Array<Primitive> | undefined>(undefined);
-  const [showAnswerIsRequired, setShowAnswerIsRequired] = useState(false);
 
   const classes = useStyles();
 
-  const handleChangeInForm = (value: any) => {
-    setCurrentValue(value);
-    if (value === undefined && !currentQuestion.isOptional()) {
-      setShowAnswerIsRequired(true);
-      return;
-    }
-    setShowAnswerIsRequired(false);
-  };
-
   const next = () => {
-    if (currentValue === undefined && !currentQuestion.isOptional()) {
-      setShowAnswerIsRequired(true);
-      return;
-    }
     handleNextClick(currentValue);
+    setCurrentValue(undefined);
   };
-
-  useEffect(() => {
-    setShowAnswerIsRequired(false);
-  }, [currentQuestion]);
 
   return (
     <Paper className={classes.root}>
       <Grid container direction="column" alignItems="stretch">
         <Grid item xs={12}>
-          <QuestionFormComponent currentQuestion={currentQuestion} onChange={handleChangeInForm} />
+          <QuestionFormComponent currentQuestion={currentQuestion} onChange={setCurrentValue} />
         </Grid>
-        {showAnswerIsRequired ? <Alert severity="error">Answer is required for this question.</Alert> : null}
         <Grid container item xs={12} justify="flex-end">
           <Grid item>
-            <Button onClick={next} variant="contained" color="primary">
+            <Button
+              onClick={next}
+              variant="contained"
+              color="primary"
+              disabled={!currentQuestion.isOptional() && currentValue === undefined}
+            >
               Next
             </Button>
           </Grid>
