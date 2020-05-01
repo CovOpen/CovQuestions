@@ -1,5 +1,5 @@
 // LogicExpression refers to the JSONLogic standard.
-import { LogicExpression } from "./LogicExpression";
+import { LogicExpression } from "./logicExpression";
 
 /*
  * This module defines a schema for questionaire and result calulation logic.
@@ -134,7 +134,10 @@ export type NumericQuestion = QuestionBase & {
 /**
  * Represents a single question of the questionnaire.
  */
-export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
+export type AnyQuestion =
+  | QuestionWithoutOptions
+  | QuestionWithOptions
+  | NumericQuestion;
 
 /**
  * Represents a variable which is computed from the given answers or other variables.

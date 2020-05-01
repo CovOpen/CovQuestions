@@ -1,12 +1,12 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
 import { NumericInput } from "./NumericInput";
-import { QuestionType } from "../../models/Questionnaire";
+import { QuestionType } from "covquestions-js/models/questionnaire";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
-import { Primitive } from "../../Primitive";
+import { Primitive } from "covquestions-js/primitive";
 import { TextInput } from "./TextInput";
-import { Question } from "../../logic/QuestionnaireEngine";
+import { Question } from "covquestions-js";
 
 export type QuestionFormComponentProps = {
   currentQuestion: Question;

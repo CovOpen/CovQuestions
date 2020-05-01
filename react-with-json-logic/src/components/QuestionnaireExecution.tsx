@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Paper, Typography, makeStyles, createStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { Question, QuestionnaireEngine, Result } from "../logic/QuestionnaireEngine";
+import { Question, QuestionnaireEngine, Result } from "covquestions-js";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
-import { Questionnaire } from "../models/Questionnaire";
-import { Primitive } from "../Primitive";
+import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Primitive } from "covquestions-js/primitive";
 import "typeface-fira-sans";
 
 type QuestionnaireExecutionProps = {

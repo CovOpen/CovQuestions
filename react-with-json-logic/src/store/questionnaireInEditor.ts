@@ -1,6 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Questionnaire, QuestionnaireMeta, QuestionType } from "../models/Questionnaire";
+import { Questionnaire, QuestionnaireMeta, QuestionType } from "covquestions-js/models/questionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
