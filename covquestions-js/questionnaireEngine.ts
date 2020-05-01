@@ -9,7 +9,6 @@ import {
   QuestionType,
   ResultCategory,
   Variable,
-  
 } from "./models/questionnaire";
 import { LogicExpression } from "./models/logicExpression";
 import { Primitive } from "./primitive";
