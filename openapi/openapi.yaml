@@ -23,7 +23,7 @@ tags:
   - name: questions
     description: Questions
 paths:
-  '/views/questionnaires/{id}/{version}/{lang}':
+  '/questionnaires/{id}/{version}/{lang}':
     get:
       summary: Get specific Questionnaire
       operationId: get-views-questionnaires-id-version-lang
@@ -44,23 +44,20 @@ paths:
         in: path
         required: true
         description: The id of the questionnaire
-        example:
-
+        example: 'covapp_original'
       - schema:
-          type: string
+          type: number
         name: version
         in: path
         required: true
         description: The Version of the questionnaire
-        example: '2'
-
+        example: 2
       - schema:
           type: string
         name: lang
         in: path
         required: true
-        description: The language the questionnaire should be in
-
+        description: The ISO language the questionnaire should be in
   /questions:
     get:
       summary: List Questions
@@ -72,14 +69,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: ./components/schemas/questionnaire.json#/x-definitions/Question
+                  $ref: './components/schemas/questionnaire.json#/x-definitions/Question'
       operationId: get-questions
       description: Get all questions that are used in the questionnaires.
       tags:
         - questions
     parameters: []
-
-  '/translations/{lang}':
+  '/questionnaires/{id}/translations/{lang}':
     parameters:
       - schema:
           type: string
@@ -87,6 +83,11 @@ paths:
         in: path
         required: true
         description: The ISO language
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
     get:
       summary: Get Translation
       responses:
@@ -104,8 +105,7 @@ paths:
       description: 'Returns all Translations for the {lang}'
       tags:
         - translations
-
-  /views/questionnaires:
+  /questionnaires:
     get:
       summary: List Questionnaires
       tags:
