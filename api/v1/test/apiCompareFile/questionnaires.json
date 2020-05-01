@@ -11,7 +11,7 @@
       "creationDate": "2020-04-13T14:48:48+0000"
     },
     "version": "1",
-    "path": "/views/questionnaires/testQuestionnaire1/1"
+    "path": "/questionnaires/testQuestionnaire1/1"
   },
   {
     "id": "testQuestionnaire1",
@@ -25,6 +25,6 @@
       "creationDate": "2020-04-13T14:48:48+0000"
     },
     "version": "2",
-    "path": "/views/questionnaires/testQuestionnaire1/2"
+    "path": "/questionnaires/testQuestionnaire1/2"
   }
 ]
