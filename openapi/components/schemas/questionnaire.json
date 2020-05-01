@@ -39,7 +39,15 @@
       "type": "string"
     }
   },
-  "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],
+  "required": [
+    "id",
+    "schemaVersion",
+    "version",
+    "meta",
+    "questions",
+    "variables",
+    "resultCategories"
+  ],
   "type": "object",
   "x-definitions": {
     "QuestionBase": {
