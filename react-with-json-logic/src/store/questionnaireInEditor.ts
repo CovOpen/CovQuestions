@@ -14,7 +14,7 @@ import { VariableInStringRepresentation } from "../components/questionnaireEdito
 type ArraySection = SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
 
 export const setQuestionnaireInEditor = createAction<Questionnaire>("setQuestionnaireInEditor");
-export const setInvalid = createAction("setJsonInvalid");
+export const setHasErrors = createAction<boolean>("setHasErrors");
 export const addNewQuestion = createAction("addNewQuestion");
 export const addNewResultCategory = createAction("addNewResultCategory");
 export const addNewVariable = createAction("addNewVariable");
@@ -75,8 +75,8 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       const result = addStringRepresentationToQuestionnaire(action.payload);
       state.questionnaire = result;
     })
-    .addCase(setInvalid, (state) => {
-      state.hasErrors = true;
+    .addCase(setHasErrors, (state, { payload }) => {
+      state.hasErrors = payload;
     })
     .addCase(addNewQuestion, (state) => {
       state.questionnaire.questions.push({
