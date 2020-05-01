@@ -28,7 +28,8 @@ describe("Simple boolean contact question", () => {
     await t.findByText("Gab es Kontakt zu bestätigten Fällen?", "legend");
     await t.clickNext();
 
-    await t.findByText("Answer is required for this question.");
+    const nextButton = await t.nextButton();
+    expect(nextButton).toBeDisabled();
 
     await t.clickOnAnswer("no");
     await t.clickNext();

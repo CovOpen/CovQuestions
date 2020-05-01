@@ -37,8 +37,12 @@ export class QuestionnaireTest {
   }
 
   public async clickNext() {
-    const nextButton = await this.renderedApp.findByText(/next/i);
+    const nextButton = await this.nextButton();
     UserEvent.click(nextButton);
+  }
+
+  public async nextButton() {
+    return this.renderedApp.findByText(/next/i);
   }
 
   public async clickRestart() {

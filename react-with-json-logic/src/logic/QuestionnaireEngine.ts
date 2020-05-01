@@ -50,14 +50,11 @@ export class Question {
   }
 
   public isOptional(): boolean {
-    if (this.optional != null) {
-      return this.optional;
-    }
-    return this.type === QuestionType.Multiselect;
+    return this.optional === true;
   }
 }
 
-type QuestionRespose = {
+type QuestionResponse = {
   value: Primitive | Array<Primitive> | undefined;
   selectedCount?: number;
   count?: number;
@@ -69,7 +66,7 @@ export class QuestionnaireEngine {
   private readonly questions: Question[] = [];
   private variables: Variable[] = [];
   private resultCategories: ResultCategory[] = [];
-  private data: { [key: string]: QuestionRespose } = {};
+  private data: { [key: string]: QuestionResponse } = {};
   private currentQuestionIndex = -1;
 
   constructor(newQuestionnaire: Questionnaire) {
@@ -92,7 +89,7 @@ export class QuestionnaireEngine {
   }
 
   public setAnswer(questionId: string, value: Primitive | Array<Primitive> | undefined) {
-    let answer: QuestionRespose = { value };
+    let answer: QuestionResponse = { value };
     let question = this.getQuestionById(questionId);
     if (question !== undefined) {
       switch (question.type) {
