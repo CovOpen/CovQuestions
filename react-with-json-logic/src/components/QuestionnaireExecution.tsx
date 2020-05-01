@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Paper, Typography, makeStyles, createStyles } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { Question, QuestionnaireEngine, Result } from "covquestions-js/questionnaireEngine";
+import { Question, QuestionnaireEngine, Result } from "covquestions-js";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
 import { Questionnaire } from "covquestions-js/models/questionnaire";

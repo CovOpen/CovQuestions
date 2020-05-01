@@ -1,4 +1,4 @@
-import { Variable } from "../../models/Questionnaire";
+import { Variable } from "covquestions-js/models/questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";

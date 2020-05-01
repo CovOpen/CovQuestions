@@ -6,7 +6,7 @@ import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 import { Primitive } from "covquestions-js/primitive";
 import { TextInput } from "./TextInput";
-import { Question } from "covquestions-js/questionnaireEngine";
+import { Question } from "covquestions-js";
 
 export type QuestionFormComponentProps = {
   currentQuestion: Question;
