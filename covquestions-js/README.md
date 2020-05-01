@@ -28,4 +28,6 @@ For a usage example with react, please refer to our questionarie reference imple
 
 In this directory, execute `yarn link`. In the typescript project, where the package is to be used, execute `yarn link covquestions-js`.
 
-This will link against the uncompiled typescript files, updates will be propagated without building.
+This will link against the uncompiled typescript files, updates will be propagated without building. It will only work with a typescript loader.
+
+If you seek to create a production build you will either need to install the built module, or build the module and use `npm link ../path/to/covequestions-js` which will link your dist folder.
