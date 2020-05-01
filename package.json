@@ -12,16 +12,19 @@
     "redoc-cli": "^0.9.7",
     "rimraf": "^3.0.2",
     "ts-node": "^8.9.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "@types/node": "^13.11.1",
+    "prettier": "^2.0.4"
   },
   "private": true,
   "scripts": {
+    "format": "prettier --write **/*.{ts,tsx,json}",
     "start": "openapi preview-docs",
     "build": "openapi bundle -o dist --ext json && openapi bundle -o dist --ext yaml",
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
     "test": "openapi validate",
-    "generate-typescript": "json2ts -i ./openapi/components/schemas/questionnaire.json -o ./react-with-json-logic/src/models/Questionnaire.generated.ts && json2ts -i ./openapi/components/schemas/questionnaire.json -o ./api/v1/src/models/Questionnaire.generated.ts",
-    "update-files": "npm run generate-typescript && ts-node ./scripts/updateFilesFromSchema.ts",
-    "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi"
+    "update-files": "npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts",
+    "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi",
+    "generateTypes": "ts-node scripts/generateTypes.ts && ts-node scripts/copyGeneratedTypes.ts"
   }
 }

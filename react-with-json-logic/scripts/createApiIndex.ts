@@ -1,10 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const apiBasePath = path.join(
-  __dirname,
-  "../../react-with-json-logic/public/api/"
-);
+const apiBasePath = path.join(__dirname, "../public/api/");
 
 const fileNames = fs.readdirSync(apiBasePath);
 
