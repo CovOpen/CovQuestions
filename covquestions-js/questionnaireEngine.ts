@@ -9,9 +9,9 @@ import {
   QuestionType,
   ResultCategory,
   Variable,
-} from "../models/Questionnaire";
-import { LogicExpression } from "../models/LogicExpression";
-import { Primitive } from "../Primitive";
+} from "./models/questionnaire";
+import { LogicExpression } from "./models/logicExpression";
+import { Primitive } from "./primitive"
 
 export type Result = {
   resultCategory: { id: string; description: string };
@@ -99,10 +99,10 @@ export class QuestionnaireEngine {
         case QuestionType.Multiselect:
           let array = (value || []) as Array<Primitive>;
           answer.selectedCount = array !== undefined ? array.length : 0;
-          answer.count = question.options?.length ?? 0;
+          answer.count = question.options?.length || 0;
           answer.unselectedCount = answer.count - answer.selectedCount;
           answer.option = {};
-          for (const option of question.options ?? []) {
+          for (const option of question.options || []) {
             answer.option[option.value] = {
               selected: array !== undefined ? array.indexOf(option.value) > -1 : false,
             };

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Question } from "../logic/QuestionnaireEngine";
+import { Question } from "covquestions-js/questionnaireEngine";
 import { Button, Grid, Paper, makeStyles, createStyles } from "@material-ui/core";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
 import { Alert } from "@material-ui/lab";
-import { Primitive } from "../Primitive";
+import { Primitive } from "covquestions-js/primitive";
 
 type QuestionComponentProps = {
   currentQuestion: Question;
