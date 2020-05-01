@@ -1,9 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const testCasePath = path.join(__dirname, "../../react-with-json-logic/src/test/testCases/");
+const testCasePath = path.join(__dirname, "../src/test/testCases/");
 
-const apiBasePath = path.join(__dirname, "../../react-with-json-logic/public/api/");
+const apiBasePath = path.join(__dirname, "../public/api/");
 
 const fileNames = fs.readdirSync(testCasePath);
 
