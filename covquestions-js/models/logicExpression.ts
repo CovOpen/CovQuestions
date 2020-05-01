@@ -22,11 +22,15 @@ export type LogicOperator =
 /**
  * @title LogicIf
  */
-export type LogicIf = { if: [LogicExpression, LogicExpression, LogicExpression] };
+export type LogicIf = {
+  if: [LogicExpression, LogicExpression, LogicExpression];
+};
 /**
  * @title LogicReduce
  */
-export type LogicReduce = { reduce: [LogicExpression, LogicExpression, LogicExpression] };
+export type LogicReduce = {
+  reduce: [LogicExpression, LogicExpression, LogicExpression];
+};
 /**
  * @title LogicSome
  */

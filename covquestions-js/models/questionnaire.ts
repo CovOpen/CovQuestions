@@ -134,7 +134,10 @@ export type NumericQuestion = QuestionBase & {
 /**
  * Represents a single question of the questionnaire.
  */
-export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
+export type AnyQuestion =
+  | QuestionWithoutOptions
+  | QuestionWithOptions
+  | NumericQuestion;
 
 /**
  * Represents a variable which is computed from the given answers or other variables.
