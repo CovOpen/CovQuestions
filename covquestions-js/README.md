@@ -9,10 +9,9 @@ An API client for accessing the covquestions API will be included in the future.
 Basic example:
 
 ```typescript
-
-// currentQuestionaire is simply a questionaire file, as Javascript Object.
 import { QuestionnaireEngine } from 'covquestions-js`
 
+// currentQuestionaire is simply a JSON-parsed questionaire file, as Javascript Object.
 const engine = new QuestionnaireEngine(currentQuestionnaire);
 
 // Until the questionaire is finished, get the next question and set the answer:
