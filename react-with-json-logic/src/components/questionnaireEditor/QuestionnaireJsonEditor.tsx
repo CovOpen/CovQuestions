@@ -11,7 +11,7 @@ import jsonschema from "jsonschema";
 import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
+import { questionnaireJsonSelector, setQuestionnaireInEditor, setInvalid } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
@@ -64,8 +64,11 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
         schema={schema}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
-        onChange={(newQuestionnaire: Questionnaire) => {
-          dispatch(setQuestionnaireInEditor(newQuestionnaire));
+        onChange={(newQuestionnaire: Questionnaire) => dispatch(setQuestionnaireInEditor(newQuestionnaire))}
+        onValidationError={(errors: []) => {
+          if (errors.length > 0) {
+            dispatch(setInvalid());
+          }
         }}
       />
     </div>

@@ -9,8 +9,8 @@ import { Primitive } from "../Primitive";
 import "typeface-fira-sans";
 
 type QuestionnaireExecutionProps = {
-  isJsonInvalid?: boolean;
   currentQuestionnaire: Questionnaire;
+  isJsonInvalid: boolean;
 };
 
 const useStyles = makeStyles(() =>
@@ -53,8 +53,8 @@ const useStyles = makeStyles(() =>
 );
 
 export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
-  isJsonInvalid,
   currentQuestionnaire,
+  isJsonInvalid,
 }) => {
   const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
