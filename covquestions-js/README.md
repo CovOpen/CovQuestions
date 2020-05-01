@@ -1,6 +1,6 @@
 # Covquestions Questionaire Logic
 
-This package (`covquestions-js`) provides models, state handling and evaluation logic for a questionaire. 
+This package (`covquestions-js`) provides models, state handling and evaluation logic for a questionaire.
 
 An API client for accessing the covquestions API will be included in the future.
 
