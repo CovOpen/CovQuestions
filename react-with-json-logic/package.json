@@ -41,8 +41,8 @@
     "eject": "react-scripts eject",
     "format": "prettier --config .prettierrc --ignore-path .gitignore --write **/*.{ts,tsx,json}",
     "lint": "prettier --config .prettierrc --ignore-path .gitignore --check **/*.{ts,tsx,json}",
-    "copyTestCases": "ts-node src/copyTestCasesToApi.ts",
-    "createApiIndex": "ts-node scripts/createApiIndex.ts"
+    "copyTestCases": "ts-node --compiler-options={\"\\\"module\"\\\":\"\\\"commonJS\"\\\"} scripts/copyTestCasesToApi.ts",
+    "createApiIndex": "ts-node --compiler-options={\"\\\"module\"\\\":\"\\\"commonJS\"\\\"} scripts/createApiIndex.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
