@@ -8,7 +8,10 @@
 /**
  * Represents a single question of the questionnaire.
  */
-export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
+export type AnyQuestion =
+  | QuestionWithoutOptions
+  | QuestionWithOptions
+  | NumericQuestion;
 /**
  * Represents a question. The answer is a choice of yes/no, text or date.
  */
@@ -41,7 +44,13 @@ export type LogicConstant = number | string | boolean;
 /**
  * Type of the question.
  */
-export type QuestionType = "boolean" | "date" | "text" | "number" | "select" | "multiselect";
+export type QuestionType =
+  | "boolean"
+  | "date"
+  | "text"
+  | "number"
+  | "select"
+  | "multiselect";
 /**
  * Represents a question with predefined answers to select.
  */
@@ -180,7 +189,10 @@ export interface LogicOr {
   or: LogicExpression[];
 }
 export interface LogicIn {
-  in: [LogicExpression | LogicExpression[], LogicExpression | LogicExpression[]];
+  in: [
+    LogicExpression | LogicExpression[],
+    LogicExpression | LogicExpression[]
+  ];
 }
 export interface LogicGreater {
   ">": [LogicExpression, LogicExpression];
