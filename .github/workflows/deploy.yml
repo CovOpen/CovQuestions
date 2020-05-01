@@ -27,7 +27,7 @@ jobs:
       working-directory: covquestions-js/
       # npm needs to happen after npm install
     - name: Link covquestions package
-      run: npm link ../covquestions-js
+      run: npm link ../covquestions-js/dist
       working-directory: react-with-json-logic/
     - name: Build App
       run: npm run build
