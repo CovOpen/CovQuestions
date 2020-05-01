@@ -1,9 +1,5 @@
 import * as fs from 'fs-extra';
-import {
-  Questionnaire,
-  QuestionnaireMeta,
-  AnyQuestion,
-} from './models/Questionnaire.generated';
+import { Questionnaire, QuestionnaireMeta, AnyQuestion } from './models/Questionnaire.generated';
 import * as glob from 'fast-glob';
 import { validate } from './validate';
 import {
@@ -21,7 +17,7 @@ class TranslationNotCompleteError extends Error {
 }
 
 const API_PATHS = {
-  VIEWS_QUESTIONNAIRES: '/views/questionnaires',
+  QUESTIONNAIRES: '/questionnaires',
 };
 
 const SOURCE_PATHS = {
@@ -39,19 +35,10 @@ export function main(pwd: string = './src', outputDir: string = './dist') {
 
   // Build all Questionnaire
   console.log('Building the static API:');
-  let questionnaireDirs = getDirectories(
-    `${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`
-  );
+  let questionnaireDirs = getDirectories(`${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`);
   questionnaireDirs.forEach((questionnaireId) => {
     console.log(` - Building "${questionnaireId}"`);
-    index = [
-      ...index,
-      ...buildQuestionnaire(
-        `${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`,
-        questionnaireId,
-        outputDir
-      ),
-    ];
+    index = [...index, ...buildQuestionnaire(`${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`, questionnaireId, outputDir)];
   });
 
   // Index Document
@@ -65,13 +52,13 @@ export function main(pwd: string = './src', outputDir: string = './dist') {
         availableLanguages: [current.meta.language],
         meta: { ...current.meta, language: undefined },
         version: current.version,
-        path: `${API_PATHS.VIEWS_QUESTIONNAIRES}/${current.id}/${current.version}`,
+        path: `${API_PATHS.QUESTIONNAIRES}/${current.id}/${current.version}`,
       };
     }
     return accumulator;
   }, {} as { [key: string]: QuestionIndexEntry });
   writeJSONFile(
-    `${outputDir}${API_PATHS.VIEWS_QUESTIONNAIRES}.json`,
+    `${outputDir}${API_PATHS.QUESTIONNAIRES}.json`,
     Object.keys(indexMap).map((key) => translateObject(indexMap[key]))
   );
 
@@ -100,12 +87,8 @@ export function buildQuestionnaire(
   questionnaireId: string,
   outputPath: string
 ): Questionnaire[] {
-  let questionnaireFilePaths = glob.sync(
-    `${sourceBaseDir}/${questionnaireId}/**.json`
-  );
-  let translationFilePaths = glob.sync(
-    `${sourceBaseDir}/${questionnaireId}/i18n/*.xlf`
-  );
+  let questionnaireFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/**.json`);
+  let translationFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/i18n/*.xlf`);
 
   // Retrieving available languages
   let languages: Language[] = translationFilePaths.map((p) => {
@@ -121,28 +104,21 @@ export function buildQuestionnaire(
    * Generate the questionnaire JSON files
    */
   questionnaireFilePaths.forEach((path) => {
-    let questionnaire: Questionnaire = JSON.parse(
-      fs.readFileSync(path, 'utf-8')
-    );
+    let questionnaire: Questionnaire = JSON.parse(fs.readFileSync(path, 'utf-8'));
     // Test for same Ids
     if (questionnaire.id != questionnaireId) {
-      throw new Error(
-        `Id of Folder ("${questionnaireId}") does not match id "${questionnaire.id}" of ${path}`
-      );
+      throw new Error(`Id of Folder ("${questionnaireId}") does not match id "${questionnaire.id}" of ${path}`);
     }
 
     // Write Language Specific Questionnaire Files
     languages.forEach((lang) => {
       try {
-        const translatedQuestionnaire = translateQuestionnaire(
-          questionnaire,
-          lang
-        );
+        const translatedQuestionnaire = translateQuestionnaire(questionnaire, lang);
         translatedQuestionnaire.meta.language = lang.id;
         questionnaire.meta.language = lang.id;
         index.push(JSON.parse(JSON.stringify(questionnaire)));
         writeJSONFile(
-          `${outputPath}${API_PATHS.VIEWS_QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
+          `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
           translatedQuestionnaire
         );
       } catch (e) {
@@ -156,7 +132,7 @@ export function buildQuestionnaire(
 
     // Write Version Specififc Questionnaire Files (with translation Ids)
     writeJSONFile(
-      `${outputPath}${API_PATHS.VIEWS_QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}.json`,
+      `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}.json`,
       translateObject(questionnaire)
     );
 
@@ -179,17 +155,14 @@ export function buildQuestionnaire(
    */
   languages.forEach((lang) => {
     writeJSONFile(
-      `${outputPath}${API_PATHS.VIEWS_QUESTIONNAIRES}/${questionnaireId}/translations/${lang.id}.json`,
+      `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaireId}/translations/${lang.id}.json`,
       lang.translations
     );
   });
   return index;
 }
 
-export function translateQuestionnaire(
-  q: Questionnaire,
-  lang: Language
-): Questionnaire {
+export function translateQuestionnaire(q: Questionnaire, lang: Language): Questionnaire {
   q.meta.language = lang.id;
 
   return translateObject(q, lang);
@@ -210,9 +183,7 @@ export function translateObject<T = any>(o: T, lang: Language = null): T {
       let translation = lang.translations[id];
       if (translation == null) {
         throw new TranslationNotCompleteError(
-          `Questionnaire with id "${
-            (o as any).id
-          }" could not be translated, because there is no translation in "${
+          `Questionnaire with id "${(o as any).id}" could not be translated, because there is no translation in "${
             lang.id
           }" for "${key}" (${value})`
         );
