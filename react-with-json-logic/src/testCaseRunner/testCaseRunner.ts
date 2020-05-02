@@ -41,35 +41,61 @@ export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestC
   return { description: testCase.description, success: true };
 }
 
-function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestResultError | undefined {
-  const { description } = testCase;
-
-  for (const answerId of Object.keys(testCase.answers)) {
-    const question = engine.nextQuestion();
-    if (question === undefined) {
-      return { description, success: false, errorMessage: `Expected question with ID "${answerId}", but got none.` };
-    }
-    if (question.id !== answerId) {
-      return {
-        description,
-        success: false,
-        errorMessage: `Expected question with ID "${answerId}", but got question with ID ${question.id}.`,
-      };
-    }
-
-    if (question.type !== QuestionType.Date) {
-      engine.setAnswer(answerId, testCase.answers[answerId]);
-    } else {
-      engine.setAnswer(answerId, Date.parse(testCase.answers[answerId]) / 1000);
-    }
+function findUnusedProvidedAnswers(answersInTestCase: string[], givenAnswers: string[]): string[] {
+  if (givenAnswers.length !== answersInTestCase.length) {
+    return answersInTestCase.filter((it) => givenAnswers.includes(it));
   }
 
-  const noMoreQuestions = engine.nextQuestion();
-  if (noMoreQuestions !== undefined) {
+  return [];
+}
+
+function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestResultError | undefined {
+  const { description } = testCase;
+  const questionMode = testCase.options?.questionMode;
+
+  const givenAnswers: string[] = [];
+
+  let question = engine.nextQuestion();
+
+  while (question !== undefined) {
+    const answerValue = testCase.answers[question.id];
+
+    if (answerValue !== undefined) {
+      // answer was provided in test case
+      if (question.type !== QuestionType.Date) {
+        engine.setAnswer(question.id, answerValue);
+      } else {
+        engine.setAnswer(question.id, Date.parse(answerValue) / 1000);
+      }
+      givenAnswers.push(question.id);
+    } else {
+      // answer was not provided in test case
+      if (questionMode === "strict") {
+        return {
+          description,
+          success: false,
+          errorMessage: `No answer for question with ID "${question.id}" was provided, while questionMode is strict.`,
+        };
+      }
+      if (!question.isOptional()) {
+        return {
+          description,
+          success: false,
+          errorMessage: `No answer for question with ID "${question.id}" was provided, while questionMode is normal and the question is not optional.`,
+        };
+      }
+      engine.setAnswer(question.id, undefined);
+    }
+
+    question = engine.nextQuestion();
+  }
+
+  const unusedAnswers = findUnusedProvidedAnswers(Object.keys(testCase.answers), givenAnswers);
+  if (questionMode === "strict" && unusedAnswers.length > 0) {
     return {
       description,
       success: false,
-      errorMessage: `Expected no more questions, but got question with ID ${noMoreQuestions.id}.`,
+      errorMessage: `Not all provided answer were needed to fill the questionnaire: ${JSON.stringify(unusedAnswers)}`,
     };
   }
 

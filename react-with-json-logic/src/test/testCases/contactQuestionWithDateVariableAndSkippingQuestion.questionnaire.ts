@@ -100,6 +100,7 @@ const testQuestionnaire: Questionnaire = {
       results: { rc_contact: "CONTACT_NOT_RELEVANT" },
       options: {
         fillInDate: "2020-03-18",
+        questionMode: "strict",
       },
     },
     {
@@ -111,6 +112,7 @@ const testQuestionnaire: Questionnaire = {
       results: { rc_contact: "CONTACT_RELEVANT" },
       options: {
         fillInDate: "2020-03-18",
+        questionMode: "strict",
       },
     },
   ],

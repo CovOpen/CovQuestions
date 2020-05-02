@@ -1,7 +1,7 @@
-import { runTestCases } from "./testCaseRunner";
+import { runOneTestCase, runTestCases } from "./testCaseRunner";
 import contactQuestionWithDateVariableAndSkippingQuestion
   from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire, TestCase } from "covquestions-js/models/questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
 import simpleNumericAgeQuestion from "../test/testCases/simpleNumericAgeQuestion.questionnaire";
@@ -45,5 +45,63 @@ describe("testCaseRunner", () => {
 
   it("should run all test cases for simpleTextQuestion", () => {
     runTestCasesFor(simpleTextQuestion);
+  });
+
+  describe("questionMode", () => {
+    const testCaseWithMissingOptionalAnswers: TestCase = {
+      description: "Skipping the optional question should be possible",
+      answers: {},
+      results: {},
+    };
+
+    const testCaseWithTooManyAnswer: TestCase = {
+      description: "Skipping the optional question should be possible",
+      answers: { q1_text: "strange text", someOtherId: "something" },
+      results: {},
+    };
+
+    it("should succeed to run in normal mode (default), if not all optional answers are provided", () => {
+      const result = runOneTestCase(simpleTextQuestion, testCaseWithMissingOptionalAnswers);
+
+      expect(result).toEqual({
+        description: testCaseWithMissingOptionalAnswers.description,
+        success: true,
+      });
+    });
+
+    it("should fail to run in strict mode, if not all answers are provided", () => {
+      const result = runOneTestCase(simpleTextQuestion, {
+        ...testCaseWithMissingOptionalAnswers,
+        options: { questionMode: "strict" },
+      });
+
+      expect(result).toEqual({
+        description: testCaseWithMissingOptionalAnswers.description,
+        errorMessage: 'No answer for question with ID "q1_text" was provided, while questionMode is strict.',
+        success: false,
+      });
+    });
+
+    it("should succeed to run in normal mode, if too many answers are provided", () => {
+      const result = runOneTestCase(simpleTextQuestion, testCaseWithTooManyAnswer);
+
+      expect(result).toEqual({
+        description: testCaseWithTooManyAnswer.description,
+        success: true,
+      });
+    });
+
+    it("should fail to run in strict mode, if too many answers are provided", () => {
+      const result = runOneTestCase(simpleTextQuestion, {
+        ...testCaseWithTooManyAnswer,
+        options: { questionMode: "strict" },
+      });
+
+      expect(result).toEqual({
+        description: testCaseWithTooManyAnswer.description,
+        errorMessage: 'Not all provided answer were needed to fill the questionnaire: ["q1_text"]',
+        success: false,
+      });
+    });
   });
 });
