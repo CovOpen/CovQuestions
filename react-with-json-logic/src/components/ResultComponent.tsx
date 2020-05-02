@@ -1,5 +1,5 @@
 import React from "react";
-import { Result } from "../logic/QuestionnaireEngine";
+import { Result } from "covquestions-js";
 import { Paper, Typography } from "@material-ui/core";
 
 export const ResultComponent: React.FC<{ result: Result[] }> = ({ result }) => {

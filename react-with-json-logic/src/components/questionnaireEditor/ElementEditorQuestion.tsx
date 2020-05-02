@@ -1,4 +1,4 @@
-import { AnyQuestion } from "../../models/Questionnaire";
+import { AnyQuestion } from "covquestions-js/models/questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
@@ -34,8 +34,8 @@ export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
 
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
 
-  const onChange = (formData: QuestionInStringRepresentation) => {
-    dispatch(editQuestion({ index: props.index, changedQuestion: formData }));
+  const onChange = (formData: QuestionInStringRepresentation, hasErrors: boolean) => {
+    dispatch(editQuestion({ index: props.index, changedQuestion: formData, hasErrors: hasErrors }));
   };
 
   return (

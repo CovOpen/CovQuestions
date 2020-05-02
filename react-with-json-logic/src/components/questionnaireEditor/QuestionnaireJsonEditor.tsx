@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "jsoneditor-react/es/editor.min.css";
-import { Questionnaire } from "../../models/Questionnaire";
+import { Questionnaire } from "covquestions-js/models/questionnaire";
 import "brace";
 import "brace/mode/json";
 import "brace/theme/github";
@@ -11,7 +11,7 @@ import jsonschema from "jsonschema";
 import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
+import { questionnaireJsonSelector, setQuestionnaireInEditor, setHasErrors } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
@@ -30,6 +30,14 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
   const style = `
   .jsoneditor {
     height: calc(100vh - ${heightWithoutEditor}px);
+    border: thin solid #667EEA;
+  }
+  .jsoneditor-menu {
+    background-color: #667EEA;
+    border-color: #667EEA;
+  }
+  .ace-github {
+    background: #F7FAFC;
   }
   `;
 
@@ -56,8 +64,10 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
         schema={schema}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
-        onChange={(newQuestionnaire: Questionnaire) => {
-          dispatch(setQuestionnaireInEditor(newQuestionnaire));
+        onChange={(newQuestionnaire: Questionnaire) => dispatch(setQuestionnaireInEditor(newQuestionnaire))}
+        onValidationError={(errors: []) => {
+          const hasErrors = errors.length > 0;
+          dispatch(setHasErrors(hasErrors));
         }}
       />
     </div>

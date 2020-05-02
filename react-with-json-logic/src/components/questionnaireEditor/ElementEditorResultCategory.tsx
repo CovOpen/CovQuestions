@@ -1,7 +1,7 @@
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
-import { Result, ResultCategory } from "../../models/Questionnaire";
+import { Result, ResultCategory } from "covquestions-js/models/questionnaire";
 import { convertLogicExpressionToString } from "./converters";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -43,8 +43,8 @@ export function ElementEditorResultCategory(props: ElementEditorResultProps) {
 
   const resultCategory = useSelector((state: RootState) => resultCategoryInEditorSelector(state, props));
 
-  const onChange = (formData: ResultCategoryInStringRepresentation) => {
-    dispatch(editResultCategory({ index: props.index, changedResultCategory: formData }));
+  const onChange = (formData: ResultCategoryInStringRepresentation, hasErrors: boolean) => {
+    dispatch(editResultCategory({ index: props.index, changedResultCategory: formData, hasErrors: hasErrors }));
   };
 
   return (

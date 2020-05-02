@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, RenderResult } from "@testing-library/react";
 import UserEvent from "@testing-library/user-event";
-import { Questionnaire } from "../../models/Questionnaire";
+import { Questionnaire } from "covquestions-js/models/questionnaire";
 import { QuestionnaireExecution } from "../../components/QuestionnaireExecution";
 
 export class QuestionnaireTest {
@@ -10,7 +10,7 @@ export class QuestionnaireTest {
   private readonly renderedApp: RenderResult;
 
   constructor(questionnaire: Questionnaire) {
-    this.renderedApp = render(<QuestionnaireExecution currentQuestionnaire={questionnaire} />);
+    this.renderedApp = render(<QuestionnaireExecution currentQuestionnaire={questionnaire} isJsonInvalid={false} />);
 
     this.findByText = (text: string | RegExp, selector: string | undefined) =>
       this.renderedApp.findByText(text, selector !== undefined ? { selector } : undefined);
@@ -37,8 +37,12 @@ export class QuestionnaireTest {
   }
 
   public async clickNext() {
-    const nextButton = await this.renderedApp.findByText(/next/i);
+    const nextButton = await this.nextButton();
     UserEvent.click(nextButton);
+  }
+
+  public async nextButton() {
+    return this.renderedApp.findByText(/next/i);
   }
 
   public async clickRestart() {

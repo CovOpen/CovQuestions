@@ -18,8 +18,8 @@ export function ElementEditorMeta() {
     <ElementEditor
       schema={questionnaireMetaSchema as any}
       formData={meta}
-      onChange={(formData) => {
-        dispatch(editMeta(formData));
+      onChange={(formData, hasErrors) => {
+        dispatch(editMeta({ changedMeta: formData, hasErrors }));
       }}
       uiSchema={uiSchema}
     />

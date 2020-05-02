@@ -1,4 +1,4 @@
-import { Variable } from "../../models/Questionnaire";
+import { Variable } from "covquestions-js/models/questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";
@@ -29,8 +29,8 @@ export function ElementEditorVariable(props: ElementEditorVariableProps) {
 
   const variable = useSelector((state: RootState) => variableInEditorSelector(state, props));
 
-  const onChange = (formData: VariableInStringRepresentation) => {
-    dispatch(editVariable({ index: props.index, changedVariable: formData }));
+  const onChange = (formData: VariableInStringRepresentation, hasErrors: boolean) => {
+    dispatch(editVariable({ index: props.index, changedVariable: formData, hasErrors: hasErrors }));
   };
 
   return (

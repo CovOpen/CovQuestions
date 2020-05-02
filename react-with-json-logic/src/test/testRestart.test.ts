@@ -15,7 +15,8 @@ describe("Restart test", () => {
     await t.clickRestart();
     await t.clickNext();
 
-    await t.findByText("Answer is required for this question.");
+    const nextButton = await t.nextButton();
+    expect(nextButton).toBeDisabled();
 
     await t.clickOnAnswer("weiblich");
     await t.clickNext();

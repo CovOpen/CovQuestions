@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - 'react-with-json-logic/**'
+      - "react-with-json-logic/**"
 
 jobs:
   build:
@@ -18,6 +18,16 @@ jobs:
           node-version: 12.x
       - name: Install Packages
         run: npm install
+        working-directory: react-with-json-logic/
+      - name: Install covquestions Packages
+        run: npm install
+        working-directory: covquestions-js/
+      - name: Build covquestions Package
+        run: npm run build
+        working-directory: covquestions-js/
+        # npm needs to happen after npm install
+      - name: Link covquestions package
+        run: npm link ../covquestions-js/dist
         working-directory: react-with-json-logic/
       - name: Build App
         run: npm run build
@@ -35,4 +45,4 @@ jobs:
           source_dir: react-with-json-logic/build/
           container_name: $web
           connection_string: ${{ secrets.ConnectionString }}
-          extra_args: ''
+          extra_args: ""

@@ -1,4 +1,4 @@
-import { Questionnaire, QuestionType } from "../../models/Questionnaire";
+import { Questionnaire, QuestionType } from "covquestions-js/models/questionnaire";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleMultiselectSymptomsQuestion",
@@ -15,6 +15,7 @@ const testQuestionnaire: Questionnaire = {
       id: "q1_symptoms",
       text: "Welche der folgenden Symptome haben Sie?",
       type: QuestionType.Multiselect,
+      optional: true,
       options: [
         {
           text: "Husten",
