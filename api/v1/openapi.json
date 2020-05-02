@@ -16,7 +16,7 @@
   },
   "servers": [
     {
-      "url": "https://v1.covquestions.aquiver.de/api",
+      "url": "https://v1.covquestions.aquiver.de",
       "description": "Test"
     },
     {

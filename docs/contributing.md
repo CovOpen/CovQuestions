@@ -2,7 +2,7 @@
 
 ## Submit a Questionnaire
 
-1.
+1. Submit a PR or send us an email.
 
 2. Make sure the questionnaire is in english.
    > If you want to submit a german translation go to

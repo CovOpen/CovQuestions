@@ -23,8 +23,9 @@
     "build": "openapi bundle -o dist --ext json && openapi bundle -o dist --ext yaml",
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
     "test": "openapi validate",
-    "update-files": "npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts",
     "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi",
-    "generateTypes": "ts-node scripts/generateTypes.ts && ts-node scripts/copyGeneratedTypes.ts"
+    "update-files": "npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts",
+    "generateTypes": "ts-node scripts/generateTypes.ts && ts-node scripts/copyGeneratedTypes.ts",
+    "copy-openapi": "copyfiles -f ./dist/openapi.json ./api/v1/"
   }
 }

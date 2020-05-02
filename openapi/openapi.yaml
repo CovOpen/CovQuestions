@@ -11,7 +11,7 @@ info:
     url: 'https://github.com/CovOpen/CovQuestions/blob/master/LICENSE'
     name: Apache License 2.0
 servers:
-  - url: 'https://v1.covquestions.aquiver.de/api'
+  - url: 'https://v1.covquestions.aquiver.de'
     description: Test
   - description: Local
     url: 'http://localhost:80'
