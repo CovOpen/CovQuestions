@@ -1,4 +1,4 @@
-import { Questionnaire as QuestionnaireBase, AnyQuestion as AnyQuestionBase, ResultCategory as ResultCategoryBase, Result as ResultBase, Variable as VariableBase } from "covquestions-js/models/questionnaire";
+import { Questionnaire as QuestionnaireBase, AnyQuestion as AnyQuestionBase, ResultCategory as ResultCategoryBase, Result as ResultBase, Variable as VariableBase, QuestionnaireMeta as QuestionnaireMetaBase, ISOLanguage } from "covquestions-js/models/questionnaire";
 
 export interface Questionnaire extends QuestionnaireBase {
     questions: AnyQuestion[];
@@ -20,4 +20,9 @@ export interface Result extends ResultBase {
 
 export interface Variable extends VariableBase {
     valueString?: string; // TODO: Maybe we can come up with a better name than value.
+}
+
+export interface QuestionnaireMeta extends QuestionnaireMetaBase {
+    language: ISOLanguage;
+    title: string;
 }
