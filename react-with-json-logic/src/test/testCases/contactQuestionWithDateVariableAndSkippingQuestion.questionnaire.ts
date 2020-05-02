@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 
 const testQuestionnaire: Questionnaire = {
   id: "contactQuestionWithDateVariableAndSkippingQuestion",

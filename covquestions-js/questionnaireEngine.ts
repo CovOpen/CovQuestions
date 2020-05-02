@@ -10,7 +10,7 @@ import {
   ResultCategory,
   Variable,
   LogicExpression,
-} from "./models/questionnaire";
+} from "./models/Questionnaire.generated";
 import { Primitive } from "./primitive";
 
 export type Result = {

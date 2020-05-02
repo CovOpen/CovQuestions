@@ -6,7 +6,7 @@ import {
   Variable as VariableBase,
   QuestionnaireMeta as QuestionnaireMetaBase,
   ISOLanguage,
-} from "covquestions-js/models/questionnaire";
+} from "covquestions-js/models/Questionnaire.generated";
 
 export interface Questionnaire extends QuestionnaireBase {
   questions: AnyQuestion[];

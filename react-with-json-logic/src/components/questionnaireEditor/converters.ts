@@ -1,5 +1,5 @@
 import { Expression } from "../../logic-parser/parser";
-import { LogicExpression } from "covquestions-js/models/questionnaire";
+import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
 import { Questionnaire } from "../../models/questionnaire";
 
 export function convertLogicExpressionToString(value?: LogicExpression) {
