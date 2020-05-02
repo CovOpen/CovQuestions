@@ -1,4 +1,4 @@
-import { AnyQuestion } from "covquestions-js/models/questionnaire";
+import { AnyQuestion } from "../../models/questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
@@ -16,7 +16,7 @@ type ElementEditorQuestionProps = {
 
 const uiSchema = {
   "ui:order": ["type", "text", "details", "id", "optional", "enableWhenString", "*"],
-  enableWhen: uiSchemaLogicReadOnly(),
+  enableWhenExpression: uiSchemaLogicReadOnly(),
   enableWhenString: uiSchemaLogic(),
   options: {
     items: {
@@ -26,7 +26,7 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: AnyQuestion): QuestionInStringRepresentation {
-  return { ...formData, enableWhen: convertLogicExpressionToString(formData?.enableWhen) };
+  return { ...formData, enableWhen: convertLogicExpressionToString(formData?.enableWhenExpression) };
 }
 
 export function ElementEditorQuestion(props: ElementEditorQuestionProps) {

@@ -1,11 +1,11 @@
 import React from "react";
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
-import { Option, QuestionType } from "covquestions-js/models/questionnaire";
+import { Option } from "covquestions-js/models/questionnaire";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
 export const RadioSelect: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   const handleChange = (e: any) => {
-    if (currentQuestion.type === QuestionType.Boolean) {
+    if (currentQuestion.type === "boolean") {
       onChange(e.currentTarget.value === "true");
     } else {
       onChange(e.currentTarget.value);

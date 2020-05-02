@@ -1,7 +1,7 @@
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
-import { Result, ResultCategory } from "covquestions-js/models/questionnaire";
+import { Result, ResultCategory } from "../../models/questionnaire";
 import { convertLogicExpressionToString } from "./converters";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -22,7 +22,7 @@ const uiSchema = {
   results: {
     items: {
       "ui:order": ["id", "text", "valueString", "*"],
-      value: uiSchemaLogicReadOnly(),
+      expression: uiSchemaLogicReadOnly(),
       valueString: uiSchemaLogic(),
     },
   },
@@ -32,7 +32,7 @@ function convertToStringRepresentation(formData: ResultCategory): ResultCategory
   return {
     ...formData,
     results: formData?.results?.map((result) => {
-      let value = convertLogicExpressionToString(result.value);
+      let value = convertLogicExpressionToString(result.expression);
       return { ...result, value };
     }),
   };

@@ -1,6 +1,6 @@
-import { LogicExpression } from "covquestions-js/models/logicExpression";
 import { Expression } from "../../logic-parser/parser";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { LogicExpression } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "../../models/questionnaire";
 
 export function convertLogicExpressionToString(value?: LogicExpression) {
   return JSON.stringify(value, undefined, 2) ?? "";
@@ -26,18 +26,18 @@ export function addStringRepresentationToQuestionnaire(questionnaire: Questionna
     ...questionnaire,
     questions: questionnaire.questions.map((question) => ({
       ...question,
-      enableWhenString: convertLogicExpressionToString(question.enableWhen),
+      enableWhenString: convertLogicExpressionToString(question.enableWhenExpression),
     })),
     resultCategories: questionnaire.resultCategories.map((resultCategory) => ({
       ...resultCategory,
       results: resultCategory.results.map((result) => ({
         ...result,
-        valueString: convertLogicExpressionToString(result.value),
+        valueString: convertLogicExpressionToString(result.expression),
       })),
     })),
     variables: questionnaire.variables.map((variable) => ({
       ...variable,
-      valueString: convertLogicExpressionToString(variable.value),
+      valueString: convertLogicExpressionToString(variable.expression),
     })),
   };
 }

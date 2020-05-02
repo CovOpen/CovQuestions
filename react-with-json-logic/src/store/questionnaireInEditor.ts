@@ -1,6 +1,7 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Questionnaire, QuestionnaireMeta, QuestionType } from "covquestions-js/models/questionnaire";
+import { QuestionnaireMeta } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "../models/questionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
@@ -55,12 +56,13 @@ const initialQuestionnaireInEditor: QuestionnaireWrapper = {
   questionnaire: {
     id: "",
     schemaVersion: "",
-    version: "",
+    version: 1,
+    language: "none",
+    title: "",
     meta: {
       author: "",
       creationDate: "",
-      language: "",
-      title: "",
+      availableLanguages: []
     },
     questions: [],
     resultCategories: [],
@@ -82,7 +84,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       state.questionnaire.questions.push({
         id: "newQuestionId",
         text: "new question",
-        type: QuestionType.Boolean,
+        type: "boolean",
       });
     })
     .addCase(addNewResultCategory, (state) => {
@@ -95,7 +97,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     .addCase(addNewVariable, (state) => {
       state.questionnaire.variables.push({
         id: "newVariableId",
-        value: "",
+        expression: "",
       });
     })
     .addCase(removeItem, (state, { payload: { section, index } }) => {
@@ -113,7 +115,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     .addCase(editQuestion, (state, { payload: { index, changedQuestion, hasErrors } }) => {
       state.questionnaire.questions[index] = {
         ...changedQuestion,
-        enableWhen: convertStringToLogicExpression(changedQuestion.enableWhenString),
+        enableWhenExpression: convertStringToLogicExpression(changedQuestion.enableWhenString),
       };
       state.hasErrors = hasErrors;
     })
@@ -130,7 +132,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     .addCase(editVariable, (state, { payload: { index, changedVariable, hasErrors } }) => {
       state.questionnaire.variables[index] = {
         ...changedVariable,
-        value: convertStringToLogicExpression(changedVariable.valueString),
+        expression: convertStringToLogicExpression(changedVariable.valueString) || "",
       };
       state.hasErrors = hasErrors;
     })
