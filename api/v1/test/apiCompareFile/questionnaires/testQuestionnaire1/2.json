@@ -2,11 +2,14 @@
   "id": "testQuestionnaire1",
   "schemaVersion": "1",
   "version": 2,
-  "language": "en",
+  "language": "none",
   "title": "125410ed17b62eaf46409e964c569c2d",
   "meta": {
     "author": "Someone",
-    "availableLanguages": [],
+    "availableLanguages": [
+      "de",
+      "en"
+    ],
     "creationDate": "2020-04-13T14:48:48+0000"
   },
   "questions": [
