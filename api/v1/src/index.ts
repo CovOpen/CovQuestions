@@ -45,12 +45,12 @@ export function main(pwd: string = './src', outputDir: string = './dist') {
   let indexMap = index.reduce((accumulator, current, index, array) => {
     let slug = `${current.id}${current.version}`;
     if (accumulator[slug] != null) {
-      accumulator[slug].availableLanguages.push(current.meta.language);
+      accumulator[slug].availableLanguages.push(current.language);
     } else {
       accumulator[slug] = {
         id: current.id,
-        availableLanguages: [current.meta.language],
-        meta: { ...current.meta, language: undefined },
+        availableLanguages: [current.language],
+        meta: { ...current.meta, availableLanguages: undefined },
         version: current.version,
         path: `${API_PATHS.QUESTIONNAIRES}/${current.id}/${current.version}`,
       };
@@ -114,8 +114,8 @@ export function buildQuestionnaire(
     languages.forEach((lang) => {
       try {
         const translatedQuestionnaire = translateQuestionnaire(questionnaire, lang);
-        translatedQuestionnaire.meta.language = lang.id;
-        questionnaire.meta.language = lang.id;
+        translatedQuestionnaire.language = lang.id;
+        questionnaire.language = lang.id;
         index.push(JSON.parse(JSON.stringify(questionnaire)));
         writeJSONFile(
           `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
@@ -163,7 +163,7 @@ export function buildQuestionnaire(
 }
 
 export function translateQuestionnaire(q: Questionnaire, lang: Language): Questionnaire {
-  q.meta.language = lang.id;
+  q.language = lang.id;
 
   return translateObject(q, lang);
 }
@@ -205,7 +205,7 @@ interface Language {
 
 interface QuestionIndexEntry {
   id: string;
-  version: string;
+  version: number;
   availableLanguages: string[];
   meta: QuestionnaireMeta;
   path: string;

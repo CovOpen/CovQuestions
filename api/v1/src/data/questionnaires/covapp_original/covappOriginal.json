@@ -1,11 +1,12 @@
 {
   "id": "covapp_original",
   "schemaVersion": "1",
-  "version": "1",
+  "version": 0,
+  "language": "en",
+  "title": "Example@@0a52730597fb4ffa01fc117d9e71e3a9",
   "meta": {
     "author": "Alexander Thieme, CovQuestions Team",
-    "language": "EN",
-    "title": "Example@@0a52730597fb4ffa01fc117d9e71e3a9",
+    "availableLanguages": [],
     "creationDate": "2020-04-19T20:32:05+0000"
   },
   "questions": [
