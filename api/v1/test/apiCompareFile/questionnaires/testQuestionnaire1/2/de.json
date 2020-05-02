@@ -1,0 +1,44 @@
+{
+  "id": "testQuestionnaire1",
+  "schemaVersion": "1",
+  "version": 2,
+  "language": "de",
+  "title": "test Befragung",
+  "meta": {
+    "author": "Someone",
+    "availableLanguages": [
+      "de",
+      "en"
+    ],
+    "creationDate": "2020-04-13T14:48:48+0000"
+  },
+  "questions": [
+    {
+      "id": "q1_text",
+      "text": "Bitte gib 'test' ein um das Ergebnis zu sehen.",
+      "type": "text",
+      "optional": true
+    }
+  ],
+  "variables": [],
+  "resultCategories": [
+    {
+      "id": "rc_text",
+      "description": "Text",
+      "results": [
+        {
+          "id": "TEXT",
+          "text": "Wuhu! Du hast den Anweisung folge geleistet.",
+          "expression": {
+            "==": [
+              {
+                "var": "q1_text.value"
+              },
+              "test"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

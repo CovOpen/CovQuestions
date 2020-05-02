@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.2">
+  <file datatype="plaintext" source-language="en" target-language="en">
+    <body>
+      <trans-unit id="125410ed17b62eaf46409e964c569c2d">
+        <source>test questionnaire</source>
+        <target state="translated">test questionnaire</target>
+      </trans-unit>
+      <trans-unit id="345e803d7d45817da360af2d0d8463c6">
+        <source>Please enter 'test' in order to see a result.</source>
+        <target state="translated">Please enter 'test' in order to see a result.</target>
+      </trans-unit>
+      <trans-unit id="9dffbf69ffba8bc38bc4e01abf4b1675">
+        <source>Text</source>
+        <target state="translated">Text</target>
+      </trans-unit>
+      <trans-unit id="bf82275deefdc1b8e31d0458c01d995d">
+        <source>Yeah! You have followed the instruction.</source>
+        <target state="translated">Yeah! You have followed the instruction.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
