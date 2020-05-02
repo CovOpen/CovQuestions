@@ -99,8 +99,65 @@ describe("testCaseRunner", () => {
 
       expect(result).toEqual({
         description: testCaseWithTooManyAnswer.description,
-        errorMessage: 'Not all provided answer were needed to fill the questionnaire: ["q1_text"]',
+        errorMessage: 'Not all provided answer were needed to fill the questionnaire: ["someOtherId"]',
         success: false,
+      });
+    });
+  });
+
+  describe("resultsMode", () => {
+    const testCaseWithoutAllResults: TestCase = {
+      description: "Skipping the optional question should be possible",
+      answers: { q1_text: "test" },
+      results: { rc_text: "TEXT" },
+    };
+
+    const questionnaireWithTwoResultCategories: Questionnaire = {
+      ...simpleTextQuestion,
+      resultCategories: [
+        ...simpleTextQuestion.resultCategories,
+        {
+          id: "additionalCategory",
+          description: "something",
+          results: [{ id: "additionalResult", text: "some text", value: true }],
+        },
+      ],
+    };
+
+    it("should succeed to run in normal mode, if not all results are provided", () => {
+      const result = runOneTestCase(questionnaireWithTwoResultCategories, testCaseWithoutAllResults);
+
+      expect(result).toEqual({
+        description: testCaseWithoutAllResults.description,
+        success: true,
+      });
+    });
+
+    it("should fail to run in strict mode, if too many answers are provided", () => {
+      const result = runOneTestCase(questionnaireWithTwoResultCategories, {
+        ...testCaseWithoutAllResults,
+        options: { resultsMode: "strict" },
+      });
+
+      expect(result).toEqual({
+        description: testCaseWithoutAllResults.description,
+        errorMessage:
+          'The execution provided additional results in strict mode: "additionalCategory: additionalResult"',
+        success: false,
+      });
+    });
+
+    it("should fail to run in normal mode, if wrong result is provided", () => {
+      const result = runOneTestCase(simpleTextQuestion, {
+        description: "Failing test",
+        answers: { q1_text: "test" },
+        results: { rc_text: "WRONG_RESULT_ID" },
+      });
+
+      expect(result).toEqual({
+        description: "Failing test",
+        success: false,
+        errorMessage: 'Wrong results "rc_text: TEXT" vs "rc_text: WRONG_RESULT_ID"',
       });
     });
   });

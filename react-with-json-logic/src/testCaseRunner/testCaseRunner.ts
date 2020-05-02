@@ -1,4 +1,3 @@
-import equal from "fast-deep-equal/es6";
 import { Questionnaire, QuestionType, TestCase } from "covquestions-js/models/questionnaire";
 import { QuestionnaireEngine, Result } from "covquestions-js";
 
@@ -41,9 +40,9 @@ export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestC
   return { description: testCase.description, success: true };
 }
 
-function findUnusedProvidedAnswers(answersInTestCase: string[], givenAnswers: string[]): string[] {
-  if (givenAnswers.length !== answersInTestCase.length) {
-    return answersInTestCase.filter((it) => givenAnswers.includes(it));
+function findUnusedElements(arrayWithPossibleUnusedElements: string[], otherArray: string[]): string[] {
+  if (otherArray.length !== arrayWithPossibleUnusedElements.length) {
+    return arrayWithPossibleUnusedElements.filter((it) => !otherArray.includes(it));
   }
 
   return [];
@@ -90,7 +89,7 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
     question = engine.nextQuestion();
   }
 
-  const unusedAnswers = findUnusedProvidedAnswers(Object.keys(testCase.answers), givenAnswers);
+  const unusedAnswers = findUnusedElements(Object.keys(testCase.answers), givenAnswers);
   if (questionMode === "strict" && unusedAnswers.length > 0) {
     return {
       description,
@@ -102,19 +101,39 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
   return undefined;
 }
 
-function checkResults(results: Result[], testCase: TestCase): TestResultError | undefined {
-  const mappedResults = results.reduce((prev, current) => {
-    prev[current.resultCategory.id] = current.result.id;
-    return prev;
-  }, {} as any);
+function checkResults(executionResults: Result[], testCase: TestCase): TestResultError | undefined {
+  const { description } = testCase;
+  const resultsMode = testCase.options?.resultsMode;
 
-  return equal(mappedResults, testCase.results)
-    ? undefined
-    : {
-        description: testCase.description,
-        success: false,
-        errorMessage: `Expected results: ${JSON.stringify(testCase.results)}, but got results: ${JSON.stringify(
-          mappedResults
-        )}`,
-      };
+  const executionResultStrings = executionResults.map((it) => it.resultCategory.id + ": " + it.result.id);
+  const testCaseResultStrings = Object.entries(testCase.results).map(
+    ([categoryId, resultId]) => categoryId + ": " + resultId
+  );
+
+  const allResultsInTestCaseAreValid = testCaseResultStrings.every((testCaseResultString) =>
+    executionResultStrings.includes(testCaseResultString)
+  );
+
+  if (!allResultsInTestCaseAreValid) {
+    return {
+      description,
+      success: false,
+      errorMessage: `Wrong results "${executionResultStrings}" vs "${testCaseResultStrings}"`,
+    };
+  }
+
+  if (resultsMode !== "strict") {
+    return undefined;
+  }
+
+  const notSpecifiedResults = findUnusedElements(executionResultStrings, testCaseResultStrings);
+
+  if (notSpecifiedResults.length > 0) {
+    return {
+      description,
+      success: false,
+      errorMessage: `The execution provided additional results in strict mode: "${notSpecifiedResults}"`,
+    };
+  }
+  return undefined;
 }
