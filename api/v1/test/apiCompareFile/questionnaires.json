@@ -1,12 +1,12 @@
 [
   {
     "id": "testQuestionnaire1",
-    "availableLanguages": [
-      "de",
-      "en"
-    ],
     "meta": {
       "author": "Someone",
+      "availableLanguages": [
+        "de",
+        "en"
+      ],
       "creationDate": "2020-04-13T14:48:48+0000"
     },
     "version": 1,
@@ -14,12 +14,12 @@
   },
   {
     "id": "testQuestionnaire1",
-    "availableLanguages": [
-      "de",
-      "en"
-    ],
     "meta": {
       "author": "Someone",
+      "availableLanguages": [
+        "de",
+        "en"
+      ],
       "creationDate": "2020-04-13T14:48:48+0000"
     },
     "version": 2,
