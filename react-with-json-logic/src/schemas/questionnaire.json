@@ -300,7 +300,7 @@
       "required": [
         "id",
         "text",
-        "value"
+        "expression"
       ],
       "type": "object"
     },
@@ -345,7 +345,7 @@
       },
       "required": [
         "id",
-        "value"
+        "expression"
       ]
     },
     "LogicAnd": {

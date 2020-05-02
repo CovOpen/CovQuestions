@@ -271,7 +271,7 @@
           "$ref": "#/x-definitions/LogicExpression"
         }
       },
-      "required": ["id", "text", "value"],
+      "required": ["id", "text", "expression"],
       "type": "object"
     },
     "ResultCategory": {
@@ -309,7 +309,7 @@
           "$ref": "#/x-definitions/LogicExpression"
         }
       },
-      "required": ["id", "value"]
+      "required": ["id", "expression"]
     },
     "LogicAnd": {
       "properties": {

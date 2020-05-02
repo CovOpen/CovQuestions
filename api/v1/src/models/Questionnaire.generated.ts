@@ -270,7 +270,7 @@ export interface Result {
    * A human readable text for this result. Can be localized.
    */
   text: string;
-  expression?: LogicExpression;
+  expression: LogicExpression;
 }
 /**
  * Represents a variable which is computed from the given answers or other variables.
@@ -280,5 +280,5 @@ export interface Variable {
    * Unique id for referring this variable in logic expressions.
    */
   id: string;
-  expression?: LogicExpression;
+  expression: LogicExpression;
 }
