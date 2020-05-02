@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<xliff version="1.2">
+  <file datatype="plaintext" source-language="en" target-language="en">
+    <body>
+      <trans-unit id="0a52730597fb4ffa01fc117d9e71e3a9">
+        <source>Example</source>
+        <target state="translated">Example</target>
+      </trans-unit>
+      <trans-unit id="13e575be866ecf5ac3dcbf61ab2048d7">
+        <source>How old are you?</source>
+        <target state="translated">How old are you?</target>
+      </trans-unit>
+      <trans-unit id="123e51f97f057c3b8ed1709a4d062e0f">
+        <source>Under 40</source>
+        <target state="translated">Under 40</target>
+      </trans-unit>
+      <trans-unit id="bbca10c10e4d7121474e1af4965c5839">
+        <source>40-50</source>
+        <target state="translated">40-50</target>
+      </trans-unit>
+      <trans-unit id="392f884acd79ebaaf487fdd03d090591">
+        <source>51-60</source>
+        <target state="translated">51-60</target>
+      </trans-unit>
+      <trans-unit id="14ec6aa7b91b56d240410af2026030ab">
+        <source>61-70</source>
+        <target state="translated">61-70</target>
+      </trans-unit>
+      <trans-unit id="450e37e43b2947a365498c81d9f47f0d">
+        <source>71-80</source>
+        <target state="translated">71-80</target>
+      </trans-unit>
+      <trans-unit id="2c1820847d1eadf90662998460b39584">
+        <source>Over 80</source>
+        <target state="translated">Over 80</target>
+      </trans-unit>
+      <trans-unit id="9e4d732e73dfc7d64e8bf89c1f85b666">
+        <source>What is your current living situation?</source>
+        <target state="translated">What is your current living situation?</target>
+      </trans-unit>
+      <trans-unit id="1b18a03cca629193b2f848b66d247531">
+        <source>Living alone</source>
+        <target state="translated">Living alone</target>
+      </trans-unit>
+      <trans-unit id="8289ed56571d0f0db45889333347e34d">
+        <source>Living together with family, in a shared flat, or in a supervised community facility</source>
+        <target state="translated">Living together with family, in a shared flat, or in a supervised community facility</target>
+      </trans-unit>
+      <trans-unit id="6d3d7d0997d19c0d5be5c7a6bea885af">
+        <source>At least once a week, do you privately care for people with age-related conditions, chronic illnesses, or frailty?</source>
+        <target state="translated">At least once a week, do you privately care for people with age-related conditions, chronic illnesses, or frailty?</target>
+      </trans-unit>
+      <trans-unit id="3177ea52ef79969392fa9605bc638090">
+        <source>Risk Assessment</source>
+        <target state="translated">Risk Assessment</target>
+      </trans-unit>
+      <trans-unit id="6acfee300ab404be4aac6a7cfcc912c2">
+        <source>High Risk of SARS-Cov-2</source>
+        <target state="translated">High Risk of SARS-Cov-2</target>
+      </trans-unit>
+      <trans-unit id="4200028c03de792b3f22bcd6c950b9d8">
+        <source>Typical symptoms of SARS-Cov-2 without contact.</source>
+        <target state="translated">Typical symptoms of SARS-Cov-2 without contact.</target>
+      </trans-unit>
+      <trans-unit id="851e33a9b97da77fbdb70fba0776b8dd">
+        <source>No symptoms, but contact with case.</source>
+        <target state="translated">No symptoms, but contact with case.</target>
+      </trans-unit>
+      <trans-unit id="4933953940ca7e58e4a9a0277d7a08cd">
+        <source>Symptoms indicate a cold.</source>
+        <target state="translated">Symptoms indicate a cold.</target>
+      </trans-unit>
+      <trans-unit id="512e1fecde26404204e6072b3a12dcda">
+        <source>No risk</source>
+        <target state="translated">No risk</target>
+      </trans-unit>
+      <trans-unit id="358eae264c6b3c0a1eecd946a0e6ce3e">
+        <source>Medical advisory</source>
+        <target state="translated">Medical advisory</target>
+      </trans-unit>
+      <trans-unit id="2c48896b7d537f74d1e4dc39bc23bbfd">
+        <source>You work in the medical field.</source>
+        <target state="translated">You work in the medical field.</target>
+      </trans-unit>
+      <trans-unit id="553992236b0d02724bde961693640f6d">
+        <source>Contact advisory</source>
+        <target state="translated">Contact advisory</target>
+      </trans-unit>
+      <trans-unit id="c8073d819bb267511b3ad29b80c0ce12">
+        <source>Contact was irrellevant.</source>
+        <target state="translated">Contact was irrellevant.</target>
+      </trans-unit>
+      <trans-unit id="25597dc4512807cc3f8f0464262d4c54">
+        <source>Risk group advisory</source>
+        <target state="translated">Risk group advisory</target>
+      </trans-unit>
+      <trans-unit id="1e2e26a223d4087c8352a460ad1f8a07">
+        <source>You belong to the risk group</source>
+        <target state="translated">You belong to the risk group</target>
+      </trans-unit>
+      <trans-unit id="7eaf97ca1f777a52189942cd314de1f3">
+        <source>Shortness of breath advisory</source>
+        <target state="translated">Shortness of breath advisory</target>
+      </trans-unit>
+      <trans-unit id="b4a98c442f613dd85641af600b690199">
+        <source>You reported shortness of breath.</source>
+        <target state="translated">You reported shortness of breath.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

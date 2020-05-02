@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: CovQuestionsAPI
+  version: '1.0'
+  contact:
+    name: CovQuestions-Team
+    url: 'https://github.com/CovOpen/CovQuestions/issues'
+  description: API for retrieving standarized Questionnaires
+  termsOfService: 'https://github.com/CovOpen/CovQuestions/blob/master/LICENSE'
+  license:
+    url: 'https://github.com/CovOpen/CovQuestions/blob/master/LICENSE'
+    name: Apache License 2.0
+servers:
+  - url: 'https://v1.covquestions.aquiver.de'
+    description: Test
+  - description: Local
+    url: 'http://localhost:80'
+tags:
+  - name: views
+    description: All special views of the API
+  - name: translations
+    description: Translations for questions and questionaires
+  - name: questions
+    description: Questions
+paths:
+  '/questionnaires/{id}/{version}/{lang}':
+    get:
+      summary: Get specific Questionnaire
+      operationId: get-views-questionnaires-id-version-lang
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/questionnaire.json
+      description: 'Get a questionnaire. '
+      tags:
+        - views
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: The id of the questionnaire
+        example: covapp_original
+      - schema:
+          type: number
+        name: version
+        in: path
+        required: true
+        description: The Version of the questionnaire
+        example: 2
+      - schema:
+          type: string
+        name: lang
+        in: path
+        required: true
+        description: The ISO language the questionnaire should be in
+  /questions:
+    get:
+      summary: List Questions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components/schemas/questionnaire.json#/x-definitions/Question'
+      operationId: get-questions
+      description: Get all questions that are used in the questionnaires.
+      tags:
+        - questions
+    parameters: []
+  '/questionnaires/{id}/translations/{lang}':
+    parameters:
+      - schema:
+          type: string
+        name: lang
+        in: path
+        required: true
+        description: The ISO language
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get Translation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  translationId:
+                    type: string
+              examples: {}
+      operationId: get-translations-lang
+      description: 'Returns all Translations for the {lang}'
+      tags:
+        - translations
+  /questionnaires:
+    get:
+      summary: List Questionnaires
+      tags:
+        - views
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    meta:
+                      $ref: './components/schemas/questionnaire.json#/x-definitions/QuestionnaireMeta'
+                    path:
+                      type: string
+                    version:
+                      type: string
+      operationId: get-views-questionnaires
+      description: Lists all Questionnaires
+    parameters: []
+  '/questionnaires/{id}/latest':
+    get:
+      summary: Get specific Questionnaire
+      operationId: get-views-questionnaires-id-latest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./components/schemas/questionnaire.json
+      description: 'Get a questionnaire. '
+      tags:
+        - views
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: The id of the questionnaire
+        example: covapp_original
