@@ -24,7 +24,7 @@ export function runTestCases(testQuestionnaire: Questionnaire): TestResult[] {
 }
 
 export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestCase): TestResult {
-  const timeOfExecution = testCase.fillInDate ? Date.parse(testCase.fillInDate) / 1000 : undefined;
+  const timeOfExecution = testCase.options?.fillInDate ? Date.parse(testCase.options?.fillInDate) / 1000 : undefined;
 
   const engine = new QuestionnaireEngine(testQuestionnaire, timeOfExecution);
 
@@ -44,7 +44,7 @@ export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestC
 function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestResultError | undefined {
   const { description } = testCase;
 
-  for (const [answerId, answerValue] of testCase.answers) {
+  for (const answerId of Object.keys(testCase.answers)) {
     const question = engine.nextQuestion();
     if (question === undefined) {
       return { description, success: false, errorMessage: `Expected question with ID "${answerId}", but got none.` };
@@ -58,9 +58,9 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
     }
 
     if (question.type !== QuestionType.Date) {
-      engine.setAnswer(answerId, answerValue);
+      engine.setAnswer(answerId, testCase.answers[answerId]);
     } else {
-      engine.setAnswer(answerId, Date.parse(answerValue) / 1000);
+      engine.setAnswer(answerId, Date.parse(testCase.answers[answerId]) / 1000);
     }
   }
 
@@ -77,7 +77,10 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
 }
 
 function checkResults(results: Result[], testCase: TestCase): TestResultError | undefined {
-  const mappedResults = results.map((it) => [it.resultCategory.id, it.result.id]);
+  const mappedResults = results.reduce((prev, current) => {
+    prev[current.resultCategory.id] = current.result.id;
+    return prev;
+  }, {} as any);
 
   return equal(mappedResults, testCase.results)
     ? undefined

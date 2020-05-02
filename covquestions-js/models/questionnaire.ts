@@ -227,9 +227,20 @@ export interface QuestionnaireMeta {
 
 export type TestCase = {
   description: string;
-  fillInDate?: string;
-  answers: ([string, any] | [string])[];
-  results: [string, string][];
+  /**
+   * questionId: answerValue
+   */
+  answers: { [questionId: string]: any };
+  /**
+   * resultCategoryId: resultId
+   */
+  results: { [resultCategoryId: string]: string };
+  options?: {
+    fillInDate?: string;
+    questionMode?: "normal" | "strict" | "random",
+    resultsMode?: "normal" | "strict",
+    randomRuns?: number
+  }
 };
 
 /**

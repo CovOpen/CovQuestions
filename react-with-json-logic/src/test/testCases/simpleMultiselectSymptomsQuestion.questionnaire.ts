@@ -76,18 +76,18 @@ const testQuestionnaire: Questionnaire = {
   testCases: [
     {
       description: "Three symptoms",
-      answers: [["q1_symptoms", ["cough", "fever", "breathlessness"]]],
-      results: [["rc_symptoms", "MANY_SYMPTOMS"]],
+      answers: { q1_symptoms: ["cough", "fever", "breathlessness"] },
+      results: { rc_symptoms: "MANY_SYMPTOMS" },
     },
     {
       description: "Two symptoms",
-      answers: [["q1_symptoms", ["fever", "breathlessness"]]],
-      results: [["rc_symptoms", "FEW_SYMPTOMS"]],
+      answers: { q1_symptoms: ["fever", "breathlessness"] },
+      results: { rc_symptoms: "FEW_SYMPTOMS" },
     },
     {
       description: "No symptoms",
-      answers: [["q1_symptoms", []]],
-      results: [["rc_symptoms", "NO_SYMPTOMS"]],
+      answers: { q1_symptoms: [] },
+      results: { rc_symptoms: "NO_SYMPTOMS" },
     },
   ],
 };

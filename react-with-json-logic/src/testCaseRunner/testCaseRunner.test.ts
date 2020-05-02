@@ -1,7 +1,7 @@
 import { runTestCases } from "./testCaseRunner";
-import { Questionnaire } from "../models/Questionnaire";
 import contactQuestionWithDateVariableAndSkippingQuestion
   from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
+import { Questionnaire } from "covquestions-js/models/questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
 import simpleNumericAgeQuestion from "../test/testCases/simpleNumericAgeQuestion.questionnaire";
@@ -27,7 +27,6 @@ describe("testCaseRunner", () => {
   it("should run all test cases for contactQuestionWithDateVariableAndSkippingQuestion", () => {
     runTestCasesFor(contactQuestionWithDateVariableAndSkippingQuestion);
   });
-
   it("should run all test cases for simpleBooleanContactQuestion", () => {
     runTestCasesFor(simpleBooleanContactQuestion);
   });

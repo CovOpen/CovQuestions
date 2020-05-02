@@ -64,18 +64,18 @@ const testQuestionnaire: Questionnaire = {
   testCases: [
     {
       description: "The answer female should lead to female",
-      answers: [["q1_gender", "female"]],
-      results: [["rc_gender", "GENDER_FEMALE"]],
+      answers: { q1_gender: "female" },
+      results: { rc_gender: "GENDER_FEMALE" },
     },
     {
       description: "The answer male should lead to male",
-      answers: [["q1_gender", "male"]],
-      results: [["rc_gender", "GENDER_MALE"]],
+      answers: { q1_gender: "male" },
+      results: { rc_gender: "GENDER_MALE" },
     },
     {
       description: "The answer diverse should lead to diverse",
-      answers: [["q1_gender", "diverse"]],
-      results: [["rc_gender", "GENDER_DIVERSE"]],
+      answers: { q1_gender: "diverse" },
+      results: { rc_gender: "GENDER_DIVERSE" },
     },
   ],
 };
