@@ -810,7 +810,7 @@
         "required": [
           "id",
           "text",
-          "value"
+          "expression"
         ],
         "type": "object"
       },
@@ -855,7 +855,7 @@
         },
         "required": [
           "id",
-          "value"
+          "expression"
         ]
       },
       "questionnaire": {
@@ -1160,7 +1160,7 @@
             "required": [
               "id",
               "text",
-              "value"
+              "expression"
             ],
             "type": "object"
           },
@@ -1205,7 +1205,7 @@
             },
             "required": [
               "id",
-              "value"
+              "expression"
             ]
           },
           "LogicAnd": {

@@ -539,7 +539,7 @@ components:
       required:
         - id
         - text
-        - value
+        - expression
       type: object
     ResultCategory: &ref_9
       title: ResultCategory
@@ -578,7 +578,7 @@ components:
           $ref: '#/components/schemas/LogicExpression'
       required:
         - id
-        - value
+        - expression
     questionnaire:
       title: Questionnaire
       description: The questionnaire.
