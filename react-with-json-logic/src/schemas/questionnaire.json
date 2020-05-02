@@ -1,10 +1,96 @@
 {
-  "$ref": "#/definitions/Questionnaire",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
+  "title": "Questionnaire",
+  "description": "The questionnaire.",
+  "properties": {
+    "id": {
+      "description": "Unique, assigned identifier. Machine friendly.",
+      "type": "string"
+    },
+    "language": {
+      "$ref": "#/x-definitions/ISOLanguage"
+    },
+    "title": {
+      "description": "Unique, assigned identifier. Machine friendly.",
+      "type": "string"
+    },
+    "meta": {
+      "$ref": "#/x-definitions/QuestionnaireMeta"
+    },
+    "questions": {
+      "description": "All questions, shown one after another, in order.",
+      "items": {
+        "$ref": "#/x-definitions/Question"
+      },
+      "type": "array"
+    },
+    "resultCategories": {
+      "description": "All result categories. When all questions are answered,\nthe result for each result category is computed.",
+      "items": {
+        "$ref": "#/x-definitions/ResultCategory"
+      },
+      "type": "array"
+    },
+    "schemaVersion": {
+      "description": "File format/api version in semver.",
+      "type": "string"
+    },
+    "variables": {
+      "description": "All variables, refreshed after each update to any answer.",
+      "items": {
+        "$ref": "#/x-definitions/Variable"
+      },
+      "type": "array"
+    },
+    "version": {
+      "description": "Version of this question in semver.",
+      "type": "number"
+    }
+  },
+  "required": [
+    "id",
+    "schemaVersion",
+    "version",
+    "meta",
+    "questions",
+    "variables",
+    "resultCategories",
+    "title",
+    "language"
+  ],
+  "type": "object",
+  "x-definitions": {
+    "QuestionBase": {
+      "description": "Represents the common fields of every question.",
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarification about this question.",
+          "type": "string"
+        },
+        "enableWhenExpression": {
+          "$ref": "#/x-definitions/LogicExpression"
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/x-definitions/QuestionType"
+        }
+      },
+      "required": ["id", "text", "type"],
+      "title": "Common question fields",
+      "type": "object"
+    },
     "NumericOption": {
-      "additionalProperties": false,
-      "description": "Option for numeric questions.",
+      "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
       "properties": {
         "defaultValue": {
           "description": "Default value",
@@ -26,49 +112,33 @@
       "type": "object"
     },
     "NumericQuestion": {
-      "additionalProperties": false,
-      "description": "Represents a question with numeric answer.",
-      "properties": {
-        "details": {
-          "description": "Optional human-readable details or clarifiation about this question.",
-          "type": "string"
-        },
-        "enableWhen": {
-          "$ref": "#/definitions/LogicExpression",
-          "description": "Logic expression to decide whether the question should be displayed or not.\r\nDefaults to true."
-        },
-        "id": {
-          "description": "Unique id for referring this question in logic expressions.",
-          "type": "string"
-        },
-        "numericOptions": {
-          "$ref": "#/definitions/NumericOption",
-          "description": "Answer options for Select/Multiselect questions."
-        },
-        "optional": {
-          "description": "Boolean indicating whether the question is optional or not.",
-          "type": "boolean"
-        },
-        "text": {
-          "description": "Human-readable question text, can be localized.",
-          "type": "string"
-        },
-        "type": {
-          "description": "Type of the question.",
-          "enum": ["number"],
-          "type": "string"
-        }
-      },
-      "required": ["id", "text", "type"],
       "title": "Numeric question",
-      "type": "object"
+      "type": "object",
+      "description": "Represents a question with numeric answer.",
+      "allOf": [
+        {
+          "$ref": "#/x-definitions/QuestionBase"
+        },
+        {
+          "properties": {
+            "numericOptions": {
+              "$ref": "#/x-definitions/NumericOption"
+            },
+            "type": {
+              "description": "Type of the question.",
+              "enum": ["number"],
+              "type": "string"
+            }
+          },
+          "required": ["type"]
+        }
+      ]
     },
     "Option": {
-      "additionalProperties": false,
       "description": "Option for multi-select questions.",
       "properties": {
         "asQuestion": {
-          "description": "Human-Readable formulation of this option as yes/no question.\r\nThis is for use-cases where multi-selects are not possible in the UI,\r\nfor example telephone hotlines.",
+          "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
           "type": "string"
         },
         "text": {
@@ -84,165 +154,70 @@
       "type": "object"
     },
     "Question": {
+      "title": "AnyQuestion",
       "anyOf": [
         {
-          "$ref": "#/definitions/QuestionWithoutOptions",
-          "title": "Yes/No, Text or Date question"
+          "$ref": "#/x-definitions/QuestionWithoutOptions"
         },
         {
-          "$ref": "#/definitions/QuestionWithOptions",
-          "title": "Question with options"
+          "$ref": "#/x-definitions/QuestionWithOptions"
         },
         {
-          "$ref": "#/definitions/NumericQuestion",
-          "title": "Numeric question"
+          "$ref": "#/x-definitions/NumericQuestion"
         }
       ],
       "description": "Represents a single question of the questionnaire."
     },
     "QuestionWithOptions": {
-      "additionalProperties": false,
+      "title": "QuestionWithOptions",
       "description": "Represents a question with predefined answers to select.",
-      "properties": {
-        "details": {
-          "description": "Optional human-readable details or clarifiation about this question.",
-          "type": "string"
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/x-definitions/QuestionBase"
         },
-        "enableWhen": {
-          "$ref": "#/definitions/LogicExpression",
-          "description": "Logic expression to decide whether the question should be displayed or not.\r\nDefaults to true."
-        },
-        "id": {
-          "description": "Unique id for referring this question in logic expressions.",
-          "type": "string"
-        },
-        "optional": {
-          "description": "Boolean indicating whether the question is optional or not.",
-          "type": "boolean"
-        },
-        "options": {
-          "description": "Answer options for Select/Multiselect questions.",
-          "items": {
-            "$ref": "#/definitions/Option"
-          },
-          "type": "array"
-        },
-        "text": {
-          "description": "Human-readable question text, can be localized.",
-          "type": "string"
-        },
-        "type": {
-          "anyOf": [
-            {
-              "enum": ["select"],
-              "type": "string"
+        {
+          "properties": {
+            "options": {
+              "description": "Answer options for Select/Multiselect questions.",
+              "items": {
+                "$ref": "#/x-definitions/Option"
+              },
+              "type": "array"
             },
-            {
-              "enum": ["multiselect"],
-              "type": "string"
+            "type": {
+              "enum": ["select", "multiselect"],
+              "type": "string",
+              "description": "Type of the question."
             }
-          ],
-          "description": "Type of the question."
+          },
+          "required": ["type"]
         }
-      },
-      "required": ["id", "text", "type"],
-      "title": "Question with options",
-      "type": "object"
+      ]
     },
     "QuestionWithoutOptions": {
-      "additionalProperties": false,
+      "title": "QuestionWithoutOptions",
       "description": "Represents a question. The answer is a choice of yes/no, text or date.",
-      "properties": {
-        "details": {
-          "description": "Optional human-readable details or clarifiation about this question.",
-          "type": "string"
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/x-definitions/QuestionBase"
         },
-        "enableWhen": {
-          "$ref": "#/definitions/LogicExpression",
-          "description": "Logic expression to decide whether the question should be displayed or not.\r\nDefaults to true."
-        },
-        "id": {
-          "description": "Unique id for referring this question in logic expressions.",
-          "type": "string"
-        },
-        "optional": {
-          "description": "Boolean indicating whether the question is optional or not.",
-          "type": "boolean"
-        },
-        "text": {
-          "description": "Human-readable question text, can be localized.",
-          "type": "string"
-        },
-        "type": {
-          "anyOf": [
-            {
-              "enum": ["boolean"],
-              "type": "string"
-            },
-            {
-              "enum": ["date"],
-              "type": "string"
-            },
-            {
-              "enum": ["text"],
-              "type": "string"
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["boolean", "date", "text"],
+              "description": "Type of the question."
             }
-          ],
-          "description": "Type of the question."
+          },
+          "required": ["type"]
         }
-      },
-      "required": ["id", "text", "type"],
-      "title": "Yes/No, Text or Date question",
-      "type": "object"
-    },
-    "Questionnaire": {
-      "additionalProperties": false,
-      "description": "The questionaire.",
-      "properties": {
-        "id": {
-          "description": "Unique, assigned identifier. Machine friendly.",
-          "type": "string"
-        },
-        "meta": {
-          "$ref": "#/definitions/QuestionnaireMeta",
-          "description": "Meta-Information."
-        },
-        "questions": {
-          "description": "All questions, shown one after another, in order.",
-          "items": {
-            "$ref": "#/definitions/Question"
-          },
-          "type": "array"
-        },
-        "resultCategories": {
-          "description": "All result categories. When all questions are answered,\r\nthe result for each result category is computed.",
-          "items": {
-            "$ref": "#/definitions/ResultCategory"
-          },
-          "type": "array"
-        },
-        "schemaVersion": {
-          "description": "File format/api version in semver.",
-          "type": "string"
-        },
-        "variables": {
-          "description": "All variables, refreshed after each update to any answer.",
-          "items": {
-            "$ref": "#/definitions/Variable"
-          },
-          "type": "array"
-        },
-        "version": {
-          "description": "Version of this question in semver.",
-          "type": "string"
-        }
-      },
-      "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],
-      "type": "object"
+      ]
     },
     "QuestionnaireMeta": {
-      "additionalProperties": false,
-      "description": "Meta-Information for a questionaire.",
+      "title": "QuestionnaireMeta",
+      "description": "Meta-Information for a questionnaire.",
       "properties": {
         "author": {
           "type": "string"
@@ -258,30 +233,29 @@
           "description": "Expiration date as ISO 8601 string",
           "type": "string"
         },
-        "language": {
-          "description": "Language of this questionaire, as ISO 639-1 code.\r\nNote that further languages can be defined in external lookup files.",
-          "type": "string"
+        "availableLanguages": {
+          "items": {
+            "$ref": "#/x-definitions/ISOLanguage"
+          },
+          "type": "array"
         },
         "publisher": {
           "type": "string"
         },
         "regions": {
-          "description": "Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.",
+          "description": "Region restriction (e.g. regions in which this questionnaire is valid) as list of ISO 3166 ids.",
           "items": {
             "type": "string"
           },
           "type": "array"
-        },
-        "title": {
-          "type": "string"
         }
       },
-      "required": ["title", "author", "language", "creationDate"],
+      "required": ["author", "availableLanguages", "creationDate"],
       "type": "object"
     },
     "Result": {
-      "additionalProperties": false,
-      "description": "Represents a single result.",
+      "title": "Result",
+      "description": "Represents a single result.\nThe value of the logic expression yielding true or false. The first result in the result category yielding true will be\nused as result. If no result evaluates to true, no result is shown for this category.",
       "properties": {
         "id": {
           "description": "A unique identifier for this result.",
@@ -291,17 +265,16 @@
           "description": "A human readable text for this result. Can be localized.",
           "type": "string"
         },
-        "value": {
-          "$ref": "#/definitions/LogicExpression",
-          "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
+        "expression": {
+          "$ref": "#/x-definitions/LogicExpression"
         }
       },
-      "required": ["id", "text", "value"],
+      "required": ["id", "text", "expression"],
       "type": "object"
     },
     "ResultCategory": {
-      "additionalProperties": false,
-      "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionaire.",
+      "title": "ResultCategory",
+      "description": "Represents a result category. A category might yield exactly one or zero results at the end of the questionnaire.",
       "properties": {
         "description": {
           "description": "A human readable description for the result category. Can be localized.",
@@ -314,7 +287,7 @@
         "results": {
           "description": "A list of results for this category.",
           "items": {
-            "$ref": "#/definitions/Result"
+            "$ref": "#/x-definitions/Result"
           },
           "type": "array"
         }
@@ -323,27 +296,24 @@
       "type": "object"
     },
     "Variable": {
-      "additionalProperties": false,
       "description": "Represents a variable which is computed from the given answers or other variables.",
+      "type": "object",
       "properties": {
         "id": {
           "description": "Unique id for referring this variable in logic expressions.",
           "type": "string"
         },
-        "value": {
-          "$ref": "#/definitions/LogicExpression",
-          "description": "Logic expression used to compute this variable."
+        "expression": {
+          "$ref": "#/x-definitions/LogicExpression"
         }
       },
-      "required": ["id", "value"],
-      "type": "object"
+      "required": ["id", "expression"]
     },
     "LogicAnd": {
-      "additionalProperties": false,
       "properties": {
         "and": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "$ref": "#/x-definitions/LogicExpression"
           },
           "type": "array"
         }
@@ -353,20 +323,24 @@
       "type": "object"
     },
     "LogicConstant": {
-      "type": ["number", "string", "boolean"]
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     },
     "LogicEquals": {
-      "additionalProperties": false,
       "properties": {
         "==": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -379,28 +353,23 @@
     "LogicExpression": {
       "anyOf": [
         {
-          "$ref": "#/definitions/LogicOperator"
+          "$ref": "#/x-definitions/LogicOperator"
         },
         {
-          "$ref": "#/definitions/LogicVariable"
+          "$ref": "#/x-definitions/LogicVariable"
         },
         {
-          "$ref": "#/definitions/LogicConstant"
+          "$ref": "#/x-definitions/LogicConstant"
         }
-      ]
+      ],
+      "description": "Logic expression used to compute this variable. Defaults to true."
     },
     "LogicGreater": {
-      "additionalProperties": false,
       "properties": {
         ">": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -411,17 +380,11 @@
       "type": "object"
     },
     "LogicGreaterEqual": {
-      "additionalProperties": false,
       "properties": {
         ">=": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -432,20 +395,11 @@
       "type": "object"
     },
     "LogicIf": {
-      "additionalProperties": false,
       "properties": {
         "if": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 3,
           "minItems": 3,
           "type": "array"
@@ -456,20 +410,21 @@
       "type": "object"
     },
     "LogicIn": {
-      "additionalProperties": false,
       "properties": {
         "in": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "items": {
-                "$ref": "#/definitions/LogicExpression"
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/x-definitions/LogicExpression"
               },
-              "type": "array"
-            }
-          ],
+              {
+                "items": {
+                  "$ref": "#/x-definitions/LogicExpression"
+                },
+                "type": "array"
+              }
+            ]
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -480,17 +435,11 @@
       "type": "object"
     },
     "LogicLess": {
-      "additionalProperties": false,
       "properties": {
         "<": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -501,17 +450,11 @@
       "type": "object"
     },
     "LogicLessEqual": {
-      "additionalProperties": false,
       "properties": {
         "<=": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -522,17 +465,11 @@
       "type": "object"
     },
     "LogicMinus": {
-      "additionalProperties": false,
       "properties": {
         "-": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -543,16 +480,15 @@
       "type": "object"
     },
     "LogicNot": {
-      "additionalProperties": false,
       "properties": {
         "!": {
           "anyOf": [
             {
-              "$ref": "#/definitions/LogicExpression"
+              "$ref": "#/x-definitions/LogicExpression"
             },
             {
               "items": {
-                "$ref": "#/definitions/LogicExpression"
+                "$ref": "#/x-definitions/LogicExpression"
               },
               "type": "array"
             }
@@ -566,69 +502,54 @@
     "LogicOperator": {
       "anyOf": [
         {
-          "$ref": "#/definitions/LogicIf",
-          "title": "LogicIf"
+          "$ref": "#/x-definitions/LogicIf"
         },
         {
-          "$ref": "#/definitions/LogicReduce",
-          "title": "LogicReduce"
+          "$ref": "#/x-definitions/LogicReduce"
         },
         {
-          "$ref": "#/definitions/LogicSome",
-          "title": "LogicSome"
+          "$ref": "#/x-definitions/LogicSome"
         },
         {
-          "$ref": "#/definitions/LogicEquals",
-          "title": "LogicEquals"
+          "$ref": "#/x-definitions/LogicEquals"
         },
         {
-          "$ref": "#/definitions/LogicGreaterEqual",
-          "title": "LogicGreaterEqual"
+          "$ref": "#/x-definitions/LogicGreaterEqual"
         },
         {
-          "$ref": "#/definitions/LogicNot",
-          "title": "LogicNot"
+          "$ref": "#/x-definitions/LogicNot"
         },
         {
-          "$ref": "#/definitions/LogicLessEqual",
-          "title": "LogicLessEqual"
+          "$ref": "#/x-definitions/LogicLessEqual"
         },
         {
-          "$ref": "#/definitions/LogicPlus",
-          "title": "LogicPlus"
+          "$ref": "#/x-definitions/LogicPlus"
         },
         {
-          "$ref": "#/definitions/LogicMinus",
-          "title": "LogicMinus"
+          "$ref": "#/x-definitions/LogicMinus"
         },
         {
-          "$ref": "#/definitions/LogicAnd",
-          "title": "LogicAnd"
+          "$ref": "#/x-definitions/LogicAnd"
         },
         {
-          "$ref": "#/definitions/LogicOr",
-          "title": "LogicOr"
+          "$ref": "#/x-definitions/LogicOr"
         },
         {
-          "$ref": "#/definitions/LogicIn",
-          "title": "LogicIn"
+          "$ref": "#/x-definitions/LogicIn"
         },
         {
-          "$ref": "#/definitions/LogicGreater",
-          "title": "LogicGreater"
+          "$ref": "#/x-definitions/LogicGreater"
         },
         {
-          "$ref": "#/definitions/LogicLess",
-          "title": "LogicLess"
+          "$ref": "#/x-definitions/LogicLess"
         }
       ]
     },
     "LogicOr": {
-      "additionalProperties": false,
       "properties": {
         "or": {
           "items": {
-            "$ref": "#/definitions/LogicExpression"
+            "$ref": "#/x-definitions/LogicExpression"
           },
           "type": "array"
         }
@@ -638,17 +559,11 @@
       "type": "object"
     },
     "LogicPlus": {
-      "additionalProperties": false,
       "properties": {
         "+": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -659,20 +574,11 @@
       "type": "object"
     },
     "LogicReduce": {
-      "additionalProperties": false,
       "properties": {
         "reduce": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 3,
           "minItems": 3,
           "type": "array"
@@ -683,17 +589,11 @@
       "type": "object"
     },
     "LogicSome": {
-      "additionalProperties": false,
       "properties": {
         "some": {
-          "items": [
-            {
-              "$ref": "#/definitions/LogicExpression"
-            },
-            {
-              "$ref": "#/definitions/LogicExpression"
-            }
-          ],
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
           "maxItems": 2,
           "minItems": 2,
           "type": "array"
@@ -704,7 +604,6 @@
       "type": "object"
     },
     "LogicVariable": {
-      "additionalProperties": false,
       "properties": {
         "var": {
           "type": "string"
@@ -712,6 +611,202 @@
       },
       "required": ["var"],
       "type": "object"
+    },
+    "QuestionType": {
+      "description": "Type of the question.",
+      "type": "string",
+      "enum": ["boolean", "date", "text", "number", "select", "multiselect"]
+    },
+    "ISOLanguage": {
+      "description": "Language of this, as ISO 639-1 code. Additonally 'none' for no language. ",
+      "type": "string",
+      "enum": [
+        "none",
+        "aa",
+        "ab",
+        "ae",
+        "af",
+        "ak",
+        "am",
+        "an",
+        "ar",
+        "as",
+        "av",
+        "ay",
+        "az",
+        "ba",
+        "be",
+        "bg",
+        "bh",
+        "bi",
+        "bm",
+        "bn",
+        "bo",
+        "br",
+        "bs",
+        "ca",
+        "ce",
+        "ch",
+        "co",
+        "cr",
+        "cs",
+        "cu",
+        "cv",
+        "cy",
+        "da",
+        "de",
+        "dv",
+        "dz",
+        "ee",
+        "el",
+        "en",
+        "eo",
+        "es",
+        "et",
+        "eu",
+        "fa",
+        "ff",
+        "fi",
+        "fj",
+        "fo",
+        "fr",
+        "fy",
+        "ga",
+        "gd",
+        "gl",
+        "gn",
+        "gu",
+        "gv",
+        "ha",
+        "he",
+        "hi",
+        "ho",
+        "hr",
+        "ht",
+        "hu",
+        "hy",
+        "hz",
+        "ia",
+        "id",
+        "ie",
+        "ig",
+        "ii",
+        "ik",
+        "io",
+        "is",
+        "it",
+        "iu",
+        "ja",
+        "jv",
+        "ka",
+        "kg",
+        "ki",
+        "kj",
+        "kk",
+        "kl",
+        "km",
+        "kn",
+        "ko",
+        "kr",
+        "ks",
+        "ku",
+        "kv",
+        "kw",
+        "ky",
+        "la",
+        "lb",
+        "lg",
+        "li",
+        "ln",
+        "lo",
+        "lt",
+        "lu",
+        "lv",
+        "mg",
+        "mh",
+        "mi",
+        "mk",
+        "ml",
+        "mn",
+        "mr",
+        "ms",
+        "mt",
+        "my",
+        "na",
+        "nb",
+        "nd",
+        "ne",
+        "ng",
+        "nl",
+        "nn",
+        "no",
+        "nr",
+        "nv",
+        "ny",
+        "oc",
+        "oj",
+        "om",
+        "or",
+        "os",
+        "pa",
+        "pi",
+        "pl",
+        "ps",
+        "pt",
+        "qu",
+        "rm",
+        "rn",
+        "ro",
+        "ru",
+        "rw",
+        "sa",
+        "sc",
+        "sd",
+        "se",
+        "sg",
+        "si",
+        "sk",
+        "sl",
+        "sm",
+        "sn",
+        "so",
+        "sq",
+        "sr",
+        "ss",
+        "st",
+        "su",
+        "sv",
+        "sw",
+        "ta",
+        "te",
+        "tg",
+        "th",
+        "ti",
+        "tk",
+        "tl",
+        "tn",
+        "to",
+        "tr",
+        "ts",
+        "tt",
+        "tw",
+        "ty",
+        "ug",
+        "uk",
+        "ur",
+        "uz",
+        "ve",
+        "vi",
+        "vo",
+        "wa",
+        "wo",
+        "xh",
+        "yi",
+        "yo",
+        "za",
+        "zh",
+        "zu"
+      ]
     }
   }
 }
