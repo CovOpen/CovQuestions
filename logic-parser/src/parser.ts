@@ -9,8 +9,8 @@ import * as T from './tokens'
  * We need to trick a little bit to get recursive expressions
  * with operator precedence to work.
  * 
- * This parser uses C++ Operator Precedence, IN counts as unary operator: 
- * https://en.cppreference.com/w/cpp/language/operator_precedence
+ * This parser uses Javascript Operator Precedence:
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
  * 
  * Here is an example with explainations about how to get recursive expressions
  * to work with a Cst parser:
@@ -31,7 +31,7 @@ export class CovscriptParser extends CstParser {
     this.MANY_SEP({
       SEP: T.Comma,
       DEF: () => {
-        this.SUBRULE(this.value)
+        this.SUBRULE(this.expression, { LABEL: "value" })
       },
     })
     this.CONSUME(T.RSquare)
@@ -56,9 +56,9 @@ export class CovscriptParser extends CstParser {
 
   public condition = this.RULE('condition', () => {
     this.CONSUME(T.If)
-    this.SUBRULE(this.expression, { LABEL: 'contition' })
+    this.SUBRULE(this.expression, { LABEL: 'condition' })
     this.CONSUME(T.Then)
-    this.SUBRULE2(this.expression, { LABEL: 'brachTrue' })
+    this.SUBRULE2(this.expression, { LABEL: 'branchTrue' })
     this.CONSUME(T.Else)
     this.SUBRULE3(this.expression, { LABEL: 'branchFalse' })
     this.CONSUME(T.EndIf)

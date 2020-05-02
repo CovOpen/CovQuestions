@@ -2,8 +2,8 @@ import { IToken, CstNode } from "chevrotain"
 import * as T from './tokens'
 import * as L from 'covquestions-js/models/logicExpression'
 
-type BinaryOperator = 'or' | 'and' | '-' | '+' | '*' | '/' | '==' | '>=' | '<=' | '!=' | '<' | '>'
-type UnaryOperator = '!' | 'in'
+type BinaryOperator = 'in' | 'or' | 'and' | '-' | '+' | '*' | '/' | '==' | '>=' | '<=' | '!=' | '<' | '>' | '%'
+type UnaryOperator = '!'
 
 export class ToJsonLogicTransformer {
 
@@ -34,8 +34,14 @@ export class ToJsonLogicTransformer {
       throw new Error('CST node had more than one children. This is an internal error.')
     }
 
-    const child = children[0]
+    return this.parseTokenOrNode(children[0])
+  }
 
+  /**
+   * Parses a node or token structure.
+   * @param child 
+   */
+  private parseTokenOrNode(child: CstNode | IToken) {
     if(child["name"] !== undefined) {
       return this.toLogic(child as CstNode)
     } else {
@@ -44,22 +50,37 @@ export class ToJsonLogicTransformer {
   }
  
   /**
-   * Recursively packas a list of binary operations into a non-flat JSON-logic structure.
+   * Recursively packas a list of binary operations with the same precedence
+   * into a non-flat JSON-logic structure.
    * @param param0 The child expressions.
    * @param param1 The operators between expressions.
+   * @param self Accumulator.
    */
-  private packList([head, ...tail]: CstNode[], [opHead, ...opTail]: IToken[]): L.LogicExpression {
+  private packList([lhs, rhs, ...tail]: CstNode[], [opHead, ...opTail]: IToken[], self: L.LogicExpression | null = null): L.LogicExpression {
+    if(opHead === undefined) {
+      // finished!
+      return self
+    }
+
+    const op = this.parseOperator(opHead.image)
     const expr = { } as L.LogicExpression
 
-    const childs = tail.length > 1 ? this.packList(tail, opTail) : this.toLogic(tail[0])
-    const op = opHead.image as BinaryOperator
+    if(self === null) {
+      // Left-most expression (bottom of the output tree)
+      expr[op]= [
+        this.toLogic(lhs),
+        this.toLogic(rhs)
+      ]
+      return this.packList(tail, opTail, expr)
+    } else {
+      // Any other expression
+      expr[op] = [
+        self,
+        this.toLogic(lhs)
+      ]
 
-    expr[op]= [
-      this.toLogic(head),
-      childs
-    ]
-
-    return expr
+      return this.packList([rhs, ...tail], opTail, expr)
+    }
   }
 
   /**
@@ -93,6 +114,20 @@ export class ToJsonLogicTransformer {
   }
 
   /**
+   * Normalizes operators in case they have different
+   * writing styles.
+   */
+  private parseOperator(operator: string) : UnaryOperator | BinaryOperator {
+    switch(operator.toLowerCase()) {
+      case 'and': return 'and'
+      case 'or': return 'or'
+      case 'in': return 'in'
+      case '÷': return '/'
+      default: return operator as UnaryOperator | BinaryOperator
+    }
+  }
+
+  /**
    * Recursively converts a unary expression to JSON logic.
    * @param cst The expression node.
    */
@@ -108,7 +143,7 @@ export class ToJsonLogicTransformer {
       throw new Error('Expected exactly one operator')
     }
 
-    const op = operator[0].image as UnaryOperator
+    const op = this.parseOperator(operator[0].image)
     const expr = { } as L.LogicExpression
 
     expr[op] = this.toLogic(expression[0])
@@ -132,6 +167,50 @@ export class ToJsonLogicTransformer {
   }
 
   /**
+   * Converts an array, recusively.
+   * @param cst 
+   */
+  private arrayToLogic(cst: CstNode): L.LogicExpression {
+    const values = cst.children['value']
+    
+    if(!values) {
+      throw new Error('Expected array values.')
+    }
+
+    // This cast is not completely legal, but our library can not do 
+    // a typecheck.
+    return values.map(value => this.toLogic(value as CstNode)) as any
+  }
+
+  /**
+   * Converts a condition, recusively.
+   * @param cst 
+   */
+  private conditionToLogic(cst: CstNode): L.LogicExpression {
+    const condition = cst.children['condition']
+    const branchTrue = cst.children['branchTrue']
+    const branchFalse = cst.children['branchFalse']
+
+    if(!condition || condition.length !== 1) {
+      throw new Error('Expected exactly one condition node.')
+    }
+    if(!branchTrue || branchTrue.length !== 1) {
+      throw new Error('Expected exactly one positive branch node.')
+    }
+    if(!branchFalse || branchFalse.length !== 1) {
+      throw new Error('Expected exactly one negative branch node.')
+    }
+
+    return {
+      if: [
+        this.toLogic(condition[0] as CstNode),
+        this.toLogic(branchTrue[0] as CstNode),
+        this.toLogic(branchFalse[0] as CstNode)
+      ]
+    }
+  }
+
+  /**
    * Main Entrypoint.
    * Converts an expression to JSON-logic.
    */
@@ -147,6 +226,8 @@ export class ToJsonLogicTransformer {
       case 'comparisonExpression': return this.binaryToLogic(cst)
       case 'atomicExpression': return this.atomicToLogic(cst)
       case 'unaryOperation': return this.unaryToLogic(cst)
+      case 'array': return this.arrayToLogic(cst)
+      case 'condition': return this.conditionToLogic(cst)
       default: throw new Error(`Unknown node type: ${cst.name}`)
     }
   }

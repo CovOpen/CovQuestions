@@ -1,20 +1,30 @@
 import { CovscriptParser } from "./parser";
 import { CovscriptLexer } from "./lexer";
 import { ToJsonLogicTransformer } from "./transformer";
+import { LogicExpression } from "covquestions-js/models/logicExpression";
 
-
+/**
+ * Parses Covscript to JSON-logic
+ */
 export class CovscriptToJsonLogicConverter {
   private parser: CovscriptParser
   private lexer: CovscriptLexer
   private transformer: ToJsonLogicTransformer
 
+  /**
+   * Creates a new instance that can and should be reused.
+   */
   constructor() {
     this.parser = new CovscriptParser()
     this.lexer = new CovscriptLexer()
     this.transformer = new ToJsonLogicTransformer()
   }
 
-  public parse(expressionText: string) {
+  /**
+   * Parses the given Covscript Expression
+   * @param expressionText The Covscript Expresssion as string
+   */
+  public parse(expressionText: string): LogicExpression {
     const lexed = this.lexer.tokenize(expressionText)
 
     if(lexed.errors && lexed.errors.length > 0) {

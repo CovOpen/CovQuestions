@@ -9,7 +9,7 @@ const parser = new CovscriptToJsonLogicConverter()
  */
 // TODO(ejoebstl) remove any here as soon as div and mult are added to logic module.
 export function expectEx(text: string, logic: LogicExpression | null | any) {
-  test(`Parse ${text} correctly`, () => {
+  test(`Parse ${text.replace(/\s+/g, ' ')} correctly`, () => {
     const parsed = parser.parse(text)
 
     if(logic === null) {

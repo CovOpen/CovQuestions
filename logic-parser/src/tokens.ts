@@ -56,7 +56,7 @@ export const Mult = createToken({ name: 'Mult', pattern: /\*/, categories: Multi
 export const Div = createToken({ name: 'Div', pattern: /\/|\÷/, categories: MultiplicationOperator })
 export const Mod = createToken({ name: 'Mod', pattern: /%/, categories: MultiplicationOperator })
 
-export const InOperator = createToken({ name: 'In', pattern: /IN|in|In/, categories: UnaryOperator })
+export const InOperator = createToken({ name: 'In', pattern: /IN|in|In/, categories: ComparisonOperator })
 
 export const Greater = createToken({ name: 'Greater', pattern: />/, categories: ComparisonOperator })
 export const Less = createToken({ name: 'Less', pattern: /</, categories: ComparisonOperator })
