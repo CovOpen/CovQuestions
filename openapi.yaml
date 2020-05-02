@@ -158,11 +158,13 @@ components:
         experiationDate:
           description: Expiration date as ISO 8601 string
           type: string
-        language:
-          description: |-
-            Language of this questionnaire, as ISO 639-1 code.
-            Note that further languages can be defined in external lookup files.
-          type: string
+        availableLanguages:
+          description: >-
+            Languages this questionnaire is also available in, as ISO 639-1
+            code.
+          items:
+            type: string
+          type: array
         publisher:
           type: string
         regions:
@@ -172,8 +174,6 @@ components:
           items:
             type: string
           type: array
-        title:
-          type: string
       required:
         - title
         - author
@@ -400,7 +400,7 @@ components:
             Optional human-readable details or clarification about this
             question.
           type: string
-        enableWhen:
+        enableWhenExpression:
           $ref: '#/components/schemas/LogicExpression'
         id:
           description: Unique id for referring this question in logic expressions.
@@ -535,7 +535,7 @@ components:
         text:
           description: A human readable text for this result. Can be localized.
           type: string
-        value:
+        expression:
           $ref: '#/components/schemas/LogicExpression'
       required:
         - id
@@ -575,7 +575,7 @@ components:
         id:
           description: Unique id for referring this variable in logic expressions.
           type: string
-        value:
+        expression:
           $ref: '#/components/schemas/LogicExpression'
       required:
         - id
@@ -585,6 +585,14 @@ components:
       description: The questionnaire.
       properties:
         id:
+          description: 'Unique, assigned identifier. Machine friendly.'
+          type: string
+        language:
+          description: |-
+            Language of this questionnaire, as ISO 639-1 code.
+            Note that further languages can be defined in external lookup files.
+          type: string
+        title:
           description: 'Unique, assigned identifier. Machine friendly.'
           type: string
         meta:
@@ -611,7 +619,7 @@ components:
           type: array
         version:
           description: Version of this question in semver.
-          type: string
+          type: number
       required:
         - id
         - schemaVersion

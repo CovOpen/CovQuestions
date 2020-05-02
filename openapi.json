@@ -243,9 +243,12 @@
             "description": "Expiration date as ISO 8601 string",
             "type": "string"
           },
-          "language": {
-            "description": "Language of this questionnaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
-            "type": "string"
+          "availableLanguages": {
+            "description": "Languages this questionnaire is also available in, as ISO 639-1 code.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "publisher": {
             "type": "string"
@@ -256,9 +259,6 @@
               "type": "string"
             },
             "type": "array"
-          },
-          "title": {
-            "type": "string"
           }
         },
         "required": [
@@ -621,7 +621,7 @@
             "description": "Optional human-readable details or clarification about this question.",
             "type": "string"
           },
-          "enableWhen": {
+          "enableWhenExpression": {
             "$ref": "#/components/schemas/LogicExpression"
           },
           "id": {
@@ -804,7 +804,7 @@
             "description": "A human readable text for this result. Can be localized.",
             "type": "string"
           },
-          "value": {
+          "expression": {
             "$ref": "#/components/schemas/LogicExpression"
           }
         },
@@ -850,7 +850,7 @@
             "description": "Unique id for referring this variable in logic expressions.",
             "type": "string"
           },
-          "value": {
+          "expression": {
             "$ref": "#/components/schemas/LogicExpression"
           }
         },
@@ -864,6 +864,14 @@
         "description": "The questionnaire.",
         "properties": {
           "id": {
+            "description": "Unique, assigned identifier. Machine friendly.",
+            "type": "string"
+          },
+          "language": {
+            "description": "Language of this questionnaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
+            "type": "string"
+          },
+          "title": {
             "description": "Unique, assigned identifier. Machine friendly.",
             "type": "string"
           },
@@ -897,7 +905,7 @@
           },
           "version": {
             "description": "Version of this question in semver.",
-            "type": "string"
+            "type": "number"
           }
         },
         "required": [
@@ -918,7 +926,7 @@
                 "description": "Optional human-readable details or clarification about this question.",
                 "type": "string"
               },
-              "enableWhen": {
+              "enableWhenExpression": {
                 "$ref": "#/components/schemas/LogicExpression"
               },
               "id": {
@@ -1107,9 +1115,12 @@
                 "description": "Expiration date as ISO 8601 string",
                 "type": "string"
               },
-              "language": {
-                "description": "Language of this questionnaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
-                "type": "string"
+              "availableLanguages": {
+                "description": "Languages this questionnaire is also available in, as ISO 639-1 code.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               },
               "publisher": {
                 "type": "string"
@@ -1120,9 +1131,6 @@
                   "type": "string"
                 },
                 "type": "array"
-              },
-              "title": {
-                "type": "string"
               }
             },
             "required": [
@@ -1145,7 +1153,7 @@
                 "description": "A human readable text for this result. Can be localized.",
                 "type": "string"
               },
-              "value": {
+              "expression": {
                 "$ref": "#/components/schemas/LogicExpression"
               }
             },
@@ -1191,7 +1199,7 @@
                 "description": "Unique id for referring this variable in logic expressions.",
                 "type": "string"
               },
-              "value": {
+              "expression": {
                 "$ref": "#/components/schemas/LogicExpression"
               }
             },
