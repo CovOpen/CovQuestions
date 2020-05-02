@@ -262,7 +262,6 @@
           }
         },
         "required": [
-          "title",
           "author",
           "availableLanguages",
           "creationDate"
@@ -1136,7 +1135,6 @@
               }
             },
             "required": [
-              "title",
               "author",
               "availableLanguages",
               "creationDate"

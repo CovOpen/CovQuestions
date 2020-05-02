@@ -252,7 +252,7 @@
           "type": "array"
         }
       },
-      "required": ["title", "author", "availableLanguages", "creationDate"],
+      "required": ["author", "availableLanguages", "creationDate"],
       "type": "object"
     },
     "Result": {
