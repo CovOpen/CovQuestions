@@ -6,6 +6,10 @@
  */
 
 /**
+ * Language of this, as ISO 639-1 code. Additonally 'none' for no language.
+ */
+export type Language = "de" | "en" | "none";
+/**
  * Represents a single question of the questionnaire.
  */
 export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
@@ -74,11 +78,7 @@ export interface Questionnaire {
    * Unique, assigned identifier. Machine friendly.
    */
   id: string;
-  /**
-   * Language of this questionnaire, as ISO 639-1 code.
-   * Note that further languages can be defined in external lookup files.
-   */
-  language: string;
+  language: Language;
   /**
    * Unique, assigned identifier. Machine friendly.
    */
@@ -120,10 +120,7 @@ export interface QuestionnaireMeta {
    * Expiration date as ISO 8601 string
    */
   experiationDate?: string;
-  /**
-   * Languages this questionnaire is also available in, as ISO 639-1 code.
-   */
-  availableLanguages: string[];
+  availableLanguages: Language[];
   publisher?: string;
   /**
    * Region restriction (e.g. regions in which this questionnaire is valid) as list of ISO 3166 ids.

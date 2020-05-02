@@ -7,8 +7,7 @@
       "type": "string"
     },
     "language": {
-      "description": "Language of this questionnaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
-      "type": "string"
+      "$ref": "#/x-definitions/Language"
     },
     "title": {
       "description": "Unique, assigned identifier. Machine friendly.",
@@ -235,9 +234,8 @@
           "type": "string"
         },
         "availableLanguages": {
-          "description": "Languages this questionnaire is also available in, as ISO 639-1 code.",
           "items": {
-            "type": "string"
+            "$ref": "#/x-definitions/Language"
           },
           "type": "array"
         },
@@ -618,6 +616,11 @@
       "description": "Type of the question.",
       "type": "string",
       "enum": ["boolean", "date", "text", "number", "select", "multiselect"]
+    },
+    "Language": {
+      "description": "Language of this, as ISO 639-1 code. Additonally 'none' for no language. ",
+      "type": "string",
+      "enum": ["de", "en", "none"]
     }
   }
 }
