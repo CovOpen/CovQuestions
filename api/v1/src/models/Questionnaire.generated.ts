@@ -74,6 +74,15 @@ export interface Questionnaire {
    * Unique, assigned identifier. Machine friendly.
    */
   id: string;
+  /**
+   * Language of this questionnaire, as ISO 639-1 code.
+   * Note that further languages can be defined in external lookup files.
+   */
+  language?: string;
+  /**
+   * Unique, assigned identifier. Machine friendly.
+   */
+  title?: string;
   meta: QuestionnaireMeta;
   /**
    * All questions, shown one after another, in order.
@@ -112,16 +121,14 @@ export interface QuestionnaireMeta {
    */
   experiationDate?: string;
   /**
-   * Language of this questionnaire, as ISO 639-1 code.
-   * Note that further languages can be defined in external lookup files.
+   * Languages this questionnaire is also available in, as ISO 639-1 code.
    */
-  language: string;
+  availableLanguages?: string[];
   publisher?: string;
   /**
    * Region restriction (e.g. regions in which this questionnaire is valid) as list of ISO 3166 ids.
    */
   regions?: string[];
-  title: string;
 }
 /**
  * Represents the common fields of every question.

@@ -6,6 +6,14 @@
       "description": "Unique, assigned identifier. Machine friendly.",
       "type": "string"
     },
+    "language": {
+      "description": "Language of this questionnaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
+      "type": "string"
+    },
+    "title": {
+      "description": "Unique, assigned identifier. Machine friendly.",
+      "type": "string"
+    },
     "meta": {
       "$ref": "#/x-definitions/QuestionnaireMeta"
     },
@@ -246,9 +254,12 @@
           "description": "Expiration date as ISO 8601 string",
           "type": "string"
         },
-        "language": {
-          "description": "Language of this questionnaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
-          "type": "string"
+        "availableLanguages": {
+          "description": "Languages this questionnaire is also available in, as ISO 639-1 code.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         },
         "publisher": {
           "type": "string"
@@ -259,9 +270,6 @@
             "type": "string"
           },
           "type": "array"
-        },
-        "title": {
-          "type": "string"
         }
       },
       "required": [
