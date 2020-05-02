@@ -68,11 +68,13 @@ export class QuestionnaireEngine {
   private resultCategories: ResultCategory[] = [];
   private data: { [key: string]: QuestionResponse } = {};
   private currentQuestionIndex = -1;
+  private readonly timeOfExecution?: number;
 
-  constructor(newQuestionnaire: Questionnaire) {
+  constructor(newQuestionnaire: Questionnaire, timeOfExecution?: number) {
     this.questions = newQuestionnaire.questions.map((question) => new Question(question));
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;
+    this.timeOfExecution = timeOfExecution;
   }
 
   public nextQuestion(): Question | undefined {
@@ -116,7 +118,7 @@ export class QuestionnaireEngine {
   }
 
   private updateComputableVariables() {
-    this.data["g_now"] = { value: Math.round(Date.now() / 1000) };
+    this.data["g_now"] = { value: Math.round(this.timeOfExecution ?? Date.now() / 1000) };
 
     this.variables.forEach((variable) => {
       try {

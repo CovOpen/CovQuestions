@@ -222,6 +222,13 @@ export interface QuestionnaireMeta {
   regions?: string[];
 }
 
+export type TestCase = {
+  description: string;
+  fillInDate?: string;
+  answers: [string, any][];
+  results: [string, string][];
+};
+
 /**
  * The questionaire.
  */
@@ -255,4 +262,6 @@ export interface Questionnaire {
    * the result for each result category is computed.
    */
   resultCategories: ResultCategory[];
+
+  testCases?: TestCase[];
 }

@@ -42,5 +42,18 @@ const testQuestionnaire: Questionnaire = {
       ],
     },
   ],
+  testCases: [
+    {
+      description: "yes should lead to yes",
+      answers: [["q1_contact", true]],
+      results: [["rc_contact", "CONTACT_YES"]],
+    },
+    {
+      description: "no should lead to no",
+      answers: [["q1_contact", false]],
+      results: [["rc_contact", "CONTACT_NO"]],
+    },
+  ],
 };
+
 export default testQuestionnaire;

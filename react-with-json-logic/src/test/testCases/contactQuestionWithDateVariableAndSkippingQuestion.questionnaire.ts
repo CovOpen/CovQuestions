@@ -85,6 +85,31 @@ const testQuestionnaire: Questionnaire = {
       ],
     },
   ],
+  testCases: [
+    {
+      description: "No contact should lead to NO_CONTACT result",
+      answers: [["q1_contact", false]],
+      results: [["rc_contact", "NO_CONTACT"]],
+    },
+    {
+      description: "Contact, but longer than two weeks ago, should lead to CONTACT_NOT_RELEVANT result",
+      fillInDate: "2020-03-18",
+      answers: [
+        ["q1_contact", true],
+        ["q2_contact_when", "2020-03-01"],
+      ],
+      results: [["rc_contact", "CONTACT_NOT_RELEVANT"]],
+    },
+    {
+      description: "Contact within the last two weeks should lead to CONTACT_RELEVANT result",
+      fillInDate: "2020-03-18",
+      answers: [
+        ["q1_contact", true],
+        ["q2_contact_when", "2020-03-14"],
+      ],
+      results: [["rc_contact", "CONTACT_RELEVANT"]],
+    },
+  ],
 };
 
 export default testQuestionnaire;

@@ -61,6 +61,7 @@ const testQuestionnaire: Questionnaire = {
       ],
     },
   ],
+  testCases: [],
 };
 
 export default testQuestionnaire;
