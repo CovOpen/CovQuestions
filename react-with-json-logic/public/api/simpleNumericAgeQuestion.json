@@ -6,9 +6,7 @@
   "title": "Simple numeric age question",
   "meta": {
     "author": "Someone",
-    "availableLanguages": [
-      "en"
-    ],
+    "availableLanguages": ["en"],
     "creationDate": "2020-04-12T16:48:48+0000"
   },
   "questions": [

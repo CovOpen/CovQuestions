@@ -33,10 +33,7 @@ export class Question {
     this.text = question.text;
     this.enableWhenExpression = question.enableWhenExpression;
     this.optional = question.optional;
-    if (
-      question.type === "select" ||
-      question.type === "multiselect"
-    ) {
+    if (question.type === "select" || question.type === "multiselect") {
       this.options = question.options;
     }
     if (question.type === "number") {

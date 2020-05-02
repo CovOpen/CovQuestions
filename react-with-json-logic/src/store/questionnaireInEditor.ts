@@ -61,7 +61,7 @@ const initialQuestionnaireInEditor: QuestionnaireWrapper = {
     meta: {
       author: "",
       creationDate: "",
-      availableLanguages: []
+      availableLanguages: [],
     },
     questions: [],
     resultCategories: [],
@@ -109,7 +109,9 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     })
     .addCase(editMeta, (state, { payload: { changedMeta, hasErrors } }) => {
       const metaProperties = Object.getOwnPropertyNames(state.questionnaire.meta);
-      const rootProperties = Object.getOwnPropertyNames(changedMeta).filter(item => metaProperties.indexOf(item) === -1);
+      const rootProperties = Object.getOwnPropertyNames(changedMeta).filter(
+        (item) => metaProperties.indexOf(item) === -1
+      );
       for (const property of metaProperties) {
         Reflect.set(state.questionnaire.meta, property, Reflect.get(changedMeta, property));
       }
