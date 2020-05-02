@@ -1,26 +1,27 @@
-import { Questionnaire, QuestionType } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "covquestions-js/models/questionnaire";
 
 const testQuestionnaire: Questionnaire = {
   id: "contactQuestionWithDateVariableAndSkippingQuestion",
   schemaVersion: "1",
-  version: "1",
+  version: 1,
+  language: "de",
+  title: "Contact question with date variable and skipping a question",
   meta: {
     author: "Someone",
-    language: "DE",
-    title: "Contact question with date variable and skipping a question",
+    availableLanguages: ["de"],
     creationDate: "2020-04-12T14:23:00+0000",
   },
   questions: [
     {
       id: "q1_contact",
       text: "Gab es Kontakt zu bestätigten Fällen?",
-      type: QuestionType.Boolean,
+      type: "boolean",
     },
     {
       id: "q2_contact_when",
       text: "Wann trat der Kontakt auf?",
-      type: QuestionType.Date,
-      enableWhen: {
+      type: "date",
+      enableWhenExpression: {
         var: "q1_contact.value",
       },
     },
@@ -28,7 +29,7 @@ const testQuestionnaire: Questionnaire = {
   variables: [
     {
       id: "v_seconds_since_contact",
-      value: {
+      expression: {
         "-": [
           {
             var: "g_now.value",
@@ -41,7 +42,7 @@ const testQuestionnaire: Questionnaire = {
     },
     {
       id: "v_contact_during_last_two_weeks",
-      value: {
+      expression: {
         "<=": [
           {
             var: "v_seconds_since_contact.value",
@@ -59,14 +60,14 @@ const testQuestionnaire: Questionnaire = {
         {
           id: "CONTACT_RELEVANT",
           text: "Sie hatten einen relevanten Kontakt.",
-          value: {
+          expression: {
             var: "v_contact_during_last_two_weeks.value",
           },
         },
         {
           id: "CONTACT_NOT_RELEVANT",
           text: "Sie hatten keinen relevanten Kontakt.",
-          value: {
+          expression: {
             and: [
               { var: "q1_contact.value" },
               {
@@ -80,7 +81,7 @@ const testQuestionnaire: Questionnaire = {
         {
           id: "NO_CONTACT",
           text: "Sie hatten keinen Kontakt.",
-          value: true,
+          expression: true,
         },
       ],
     },
