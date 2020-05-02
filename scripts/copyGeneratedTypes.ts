@@ -3,7 +3,7 @@ import { generatedTypesOutputPath } from "./generateTypes";
 
 fs.copyFileSync(
   generatedTypesOutputPath,
-  "./react-with-json-logic/src/models/Questionnaire.generated.ts"
+  "./covquestions-js/models/Questionnaire.generated.ts"
 );
 
 fs.copyFileSync(
