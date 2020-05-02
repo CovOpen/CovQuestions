@@ -1,11 +1,12 @@
 {
   "id": "testQuestionnaire1",
   "schemaVersion": "1",
-  "version": "2",
+  "version": 2,
+  "language": "DE",
+  "title": "test questionnaire@@125410ed17b62eaf46409e964c569c2d",
   "meta": {
     "author": "Someone",
-    "language": "DE",
-    "title": "test questionnaire@@125410ed17b62eaf46409e964c569c2d",
+    "availableLanguages": [],
     "creationDate": "2020-04-13T14:48:48+0000"
   },
   "questions": [
@@ -25,7 +26,7 @@
         {
           "id": "TEXT",
           "text": "Yeah! You have followed the instruction.@@bf82275deefdc1b8e31d0458c01d995d",
-          "value": {
+          "expression": {
             "==": [
               {
                 "var": "q1_text.value"

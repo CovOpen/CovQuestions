@@ -114,7 +114,7 @@
       "id": "q_contact_date",
       "text": "What day was the last contact?@@84095755cfece2813329d8b3cb363073",
       "type": "date",
-      "enableWhen": {
+      "enableWhenExpression": {
         "var": "q_contact.value"
       }
     },
@@ -157,7 +157,7 @@
           "value": "dont_know"
         }
       ],
-      "enableWhen": {
+      "enableWhenExpression": {
         "var": "q_fever.value"
       }
     },
@@ -221,7 +221,7 @@
       "id": "q_symptoms_date",
       "text": "With regard to all questions about symptoms: since when have you had the symptoms you specified?@@a0afce7eb5aa9e70f9bcf0cfdf473409",
       "type": "date",
-      "enableWhen": {
+      "enableWhenExpression": {
         "var": "v_symptoms.value"
       }
     },
@@ -361,13 +361,13 @@
   "variables": [
     {
       "id": "v_symptoms",
-      "value": {
+      "expression": {
         "var": "q_symptoms.symptoms"
       }
     },
     {
       "id": "v_contact_relevant",
-      "value": {
+      "expression": {
         "<=": [
           {
             "-": [
@@ -385,7 +385,7 @@
     },
     {
       "id": "v_symptoms",
-      "value": {
+      "expression": {
         "or": [
           {
             "var": "q_fever.value"
@@ -418,7 +418,7 @@
     },
     {
       "id": "v_risk_group",
-      "value": {
+      "expression": {
         "or": [
           {
             "var": "q_pregnant.value"
@@ -448,7 +448,7 @@
     },
     {
       "id": "v_symptoms_after_contact",
-      "value": {
+      "expression": {
         "<": [
           {
             "var": "q_contact_date.value"
@@ -461,7 +461,7 @@
     },
     {
       "id": "v_respiratory_symptoms",
-      "value": {
+      "expression": {
         "or": [
           {
             "var": "q_cough.value"
@@ -484,7 +484,7 @@
         {
           "id": "HIGH_RISK",
           "text": "High Risk of SARS-Cov-2@@6acfee300ab404be4aac6a7cfcc912c2",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_symptoms.value"
@@ -501,7 +501,7 @@
         {
           "id": "MEDIUM_RISK_A",
           "text": "Typical symptoms of SARS-Cov-2 without contact.@@4200028c03de792b3f22bcd6c950b9d8",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_symptoms.value"
@@ -515,7 +515,7 @@
         {
           "id": "MEDIUM_RISK_B",
           "text": "No symptoms, but contact with case.@@851e33a9b97da77fbdb70fba0776b8dd",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_contact_relevant.value"
@@ -531,7 +531,7 @@
         {
           "id": "LOW_RISK",
           "text": "Symptoms indicate a cold.@@4933953940ca7e58e4a9a0277d7a08cd",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_symptoms.value"
@@ -547,7 +547,7 @@
         {
           "id": "NO_RISK",
           "text": "No risk@@512e1fecde26404204e6072b3a12dcda",
-          "value": {
+          "expression": {
             "and": [
               {
                 "!": {
@@ -571,7 +571,7 @@
         {
           "id": "SHOW_MEDICAL_ADVISORY",
           "text": "You work in the medical field.@@2c48896b7d537f74d1e4dc39bc23bbfd",
-          "value": {
+          "expression": {
             "==": [
               {
                 "var": "q_work.value"
@@ -589,7 +589,7 @@
         {
           "id": "SHOW_CONTACT_ADVISORY",
           "text": "Contact was irrellevant.@@c8073d819bb267511b3ad29b80c0ce12",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "q_contact_date.value"
@@ -616,7 +616,7 @@
         {
           "id": "SHOW_RISK_GROUP_ADVISORY",
           "text": "You belong to the risk group@@1e2e26a223d4087c8352a460ad1f8a07",
-          "value": {
+          "expression": {
             "var": "v_risk_group.value"
           }
         }
@@ -629,7 +629,7 @@
         {
           "id": "SHOW_SHORTNESS_OF_BREATH_ADVISORY",
           "text": "You reported shortness of breath.@@b4a98c442f613dd85641af600b690199",
-          "value": {
+          "expression": {
             "var": "q_breath.value"
           }
         }

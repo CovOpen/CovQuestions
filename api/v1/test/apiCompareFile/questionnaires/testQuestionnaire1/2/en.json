@@ -1,11 +1,12 @@
 {
   "id": "testQuestionnaire1",
   "schemaVersion": "1",
-  "version": "2",
+  "version": 2,
+  "language": "en",
+  "title": "test questionnaire",
   "meta": {
     "author": "Someone",
-    "language": "en",
-    "title": "test questionnaire",
+    "availableLanguages": [],
     "creationDate": "2020-04-13T14:48:48+0000"
   },
   "questions": [
@@ -25,7 +26,7 @@
         {
           "id": "TEXT",
           "text": "Yeah! You have followed the instruction.",
-          "value": {
+          "expression": {
             "==": [
               {
                 "var": "q1_text.value"
