@@ -14,7 +14,7 @@
           "description": "A human readable text for this result. Can be localized.",
           "type": "string"
         },
-        "value": {
+        "expression": {
           "type": "string",
           "description": "A logic expression yielding true or false. The first result in the result category yielding true will be\r\nused as result. If no result evaluates to true, no result is shown for this category."
         },
