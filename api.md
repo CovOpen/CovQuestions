@@ -27,3 +27,15 @@ https://github.com/TwineHealth/TwineDeveloperDocs
 https://www.npmjs.com/package/openapi-examples-validator
 
 https://medium.com/@Scampiuk/handling-api-validation-with-openapi-swagger-documents-in-nodejs-1f09c133d4d2
+
+
+## General Architecture
+
+### Pre Build
+
+> Info: Adds new questionnaires into the `/data` structure, updates the main translations with the new questionnaire data. Can also update the translations of a questionnaire to a newer version. 
+
+
+### API Build 
+
+> Info: Produces always the same result. (only dependent from `/data` files)
