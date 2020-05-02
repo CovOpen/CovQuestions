@@ -1,8 +1,20 @@
-import * as fs from 'fs-extra';
-import { Questionnaire, QuestionnaireMeta, AnyQuestion, ISOLanguage } from './models/Questionnaire.generated';
-import * as glob from 'fast-glob';
-import { validate } from './validate';
-import { readI18nFile, doOnEachTranslation, md5, getStringRessource, writeJSONFile, getDirectories } from './utility';
+import * as fs from "fs-extra";
+import {
+  Questionnaire,
+  QuestionnaireMeta,
+  AnyQuestion,
+  ISOLanguage,
+} from "./models/Questionnaire.generated";
+import * as glob from "fast-glob";
+import { validate } from "./validate";
+import {
+  readI18nFile,
+  doOnEachTranslation,
+  md5,
+  getStringRessource,
+  writeJSONFile,
+  getDirectories,
+} from "./utility";
 class TranslationNotCompleteError extends Error {
   constructor(m: string) {
     super(m);
@@ -10,29 +22,38 @@ class TranslationNotCompleteError extends Error {
 }
 
 const API_PATHS = {
-  QUESTIONNAIRES: '/questionnaires',
-  QUESTIONS: '/questions',
+  QUESTIONNAIRES: "/questionnaires",
+  QUESTIONS: "/questions",
 };
 
 export const SOURCE_PATHS = {
-  QUESTIONNAIRES: '/questionnaires',
+  QUESTIONNAIRES: "/questionnaires",
 };
 
 /**
  * Validates and generates the static API
  */
-export function main(pwd: string = './src/data', outputDir: string = './dist') {
-  console.log('Validating the Questionnaires...');
+export function main(pwd: string = "./src/data", outputDir: string = "./dist") {
+  console.log("Validating the Questionnaires...");
   glob.sync(`${pwd}/**/*.json`).forEach((q) => validate(q));
 
   let index: Questionnaire[] = [];
 
   // Build all Questionnaires
-  console.log('Building the static API:');
-  let questionnaireDirs = getDirectories(`${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`);
+  console.log("Building the static API:");
+  let questionnaireDirs = getDirectories(
+    `${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`
+  );
   questionnaireDirs.forEach((questionnaireId) => {
     console.log(` - Building "${questionnaireId}"`);
-    index = [...index, ...buildQuestionnaire(`${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`, questionnaireId, outputDir)];
+    index = [
+      ...index,
+      ...buildQuestionnaire(
+        `${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`,
+        questionnaireId,
+        outputDir
+      ),
+    ];
   });
 
   // Index Document
@@ -76,15 +97,21 @@ export function buildQuestionnaire(
   questionnaireId: string,
   outputPath: string
 ): Questionnaire[] {
-  let questionnaireFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/**/*.json`);
+  let questionnaireFilePaths = glob.sync(
+    `${sourceBaseDir}/${questionnaireId}/**/*.json`
+  );
 
   let index: Questionnaire[] = [];
   /**
    * Generate the questionnaire JSON files
    */
   questionnaireFilePaths.forEach((path) => {
-    let questionnaire: Questionnaire = JSON.parse(fs.readFileSync(path, 'utf-8'));
-    let translationFilePaths = glob.sync(`${path.split('/').slice(0, -1).join('/')}/*.xlf`);
+    let questionnaire: Questionnaire = JSON.parse(
+      fs.readFileSync(path, "utf-8")
+    );
+    let translationFilePaths = glob.sync(
+      `${path.split("/").slice(0, -1).join("/")}/*.xlf`
+    );
 
     // Retrieving available languages
     let languages: Language[] = translationFilePaths.map((p) => {
@@ -107,14 +134,19 @@ export function buildQuestionnaire(
 
     // Test for same Ids
     if (questionnaire.id != questionnaireId) {
-      throw new Error(`Id of Folder ("${questionnaireId}") does not match id "${questionnaire.id}" of ${path}`);
+      throw new Error(
+        `Id of Folder ("${questionnaireId}") does not match id "${questionnaire.id}" of ${path}`
+      );
     }
     questionnaire.meta.availableLanguages = languages.map((l) => l.id);
 
     // Write Language Specific Questionnaire Files
     languages.forEach((lang) => {
       try {
-        const translatedQuestionnaire = translateQuestionnaire(questionnaire, lang);
+        const translatedQuestionnaire = translateQuestionnaire(
+          questionnaire,
+          lang
+        );
 
         index.push(JSON.parse(JSON.stringify(questionnaire)));
         writeJSONFile(
@@ -151,7 +183,9 @@ export function buildQuestionnaire(
   /**
    * Generate Main Language Files
    */
-  let translationFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/i18n/*.xlf`);
+  let translationFilePaths = glob.sync(
+    `${sourceBaseDir}/${questionnaireId}/i18n/*.xlf`
+  );
 
   // Retrieving available languages
   let languages: Language[] = translationFilePaths.map((p) => {
@@ -173,14 +207,17 @@ export function buildQuestionnaire(
 
 export function translateQuestionnaire(
   q: Questionnaire,
-  lang: Language = { id: 'none', path: null, translations: {} }
+  lang: Language = { id: "none", path: null, translations: {} }
 ): Questionnaire {
   q.language = lang.id;
 
   return translateObject(q, lang);
 }
 
-export function translateObject<T = any>(o: T, lang: Language = { id: 'none', path: null, translations: {} }): T {
+export function translateObject<T = any>(
+  o: T,
+  lang: Language = { id: "none", path: null, translations: {} }
+): T {
   // Dereferrencing the object so there are no side effects
   o = JSON.parse(JSON.stringify(o));
 
@@ -191,11 +228,13 @@ export function translateObject<T = any>(o: T, lang: Language = { id: 'none', pa
         `The string "${value}" has no ID. Please run translation extraction before.`
       );
     }
-    if (lang.id != 'none') {
+    if (lang.id != "none") {
       let translation = lang.translations[id];
       if (translation == null) {
         throw new TranslationNotCompleteError(
-          `Questionnaire with id "${(o as any).id}" could not be translated, because there is no translation in "${
+          `Questionnaire with id "${
+            (o as any).id
+          }" could not be translated, because there is no translation in "${
             lang.id
           }" for "${key}" (${value})`
         );
