@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { Questionnaire, QuestionnaireMeta, AnyQuestion } from './models/Questionnaire.generated';
+import { Questionnaire, QuestionnaireMeta, AnyQuestion, ISOLanguage } from './models/Questionnaire.generated';
 import * as glob from 'fast-glob';
 import { validate } from './validate';
 import {
@@ -33,7 +33,7 @@ export function main(pwd: string = './src', outputDir: string = './dist') {
 
   let index: Questionnaire[] = [];
 
-  // Build all Questionnaire
+  // Build all Questionnaires
   console.log('Building the static API:');
   let questionnaireDirs = getDirectories(`${pwd}${SOURCE_PATHS.QUESTIONNAIRES}`);
   questionnaireDirs.forEach((questionnaireId) => {
@@ -95,7 +95,7 @@ export function buildQuestionnaire(
     return {
       path: p,
       translations: loadTranslation(p),
-      id: p.match(/translation\.(\S*)\.xlf/)[1],
+      id: p.match(/translation\.(\S*)\.xlf/)[1] as ISOLanguage,
     };
   });
 
@@ -109,13 +109,13 @@ export function buildQuestionnaire(
     if (questionnaire.id != questionnaireId) {
       throw new Error(`Id of Folder ("${questionnaireId}") does not match id "${questionnaire.id}" of ${path}`);
     }
+    questionnaire.meta.availableLanguages = languages.map((l) => l.id);
 
     // Write Language Specific Questionnaire Files
     languages.forEach((lang) => {
       try {
         const translatedQuestionnaire = translateQuestionnaire(questionnaire, lang);
-        translatedQuestionnaire.language = lang.id;
-        questionnaire.language = lang.id;
+
         index.push(JSON.parse(JSON.stringify(questionnaire)));
         writeJSONFile(
           `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
@@ -133,7 +133,7 @@ export function buildQuestionnaire(
     // Write Version Specififc Questionnaire Files (with translation Ids)
     writeJSONFile(
       `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}.json`,
-      translateObject(questionnaire)
+      translateQuestionnaire(questionnaire)
     );
 
     // Write latest Questionnaire File (with translation Ids)
@@ -162,13 +162,16 @@ export function buildQuestionnaire(
   return index;
 }
 
-export function translateQuestionnaire(q: Questionnaire, lang: Language): Questionnaire {
+export function translateQuestionnaire(
+  q: Questionnaire,
+  lang: Language = { id: 'none', path: null, translations: {} }
+): Questionnaire {
   q.language = lang.id;
 
   return translateObject(q, lang);
 }
 
-export function translateObject<T = any>(o: T, lang: Language = null): T {
+export function translateObject<T = any>(o: T, lang: Language = { id: 'none', path: null, translations: {} }): T {
   // Dereferrencing the object so there are no side effects
   o = JSON.parse(JSON.stringify(o));
 
@@ -179,7 +182,7 @@ export function translateObject<T = any>(o: T, lang: Language = null): T {
         `The string "${value}" has no ID. Please run translation extraction before.`
       );
     }
-    if (lang != null) {
+    if (lang.id != 'none') {
       let translation = lang.translations[id];
       if (translation == null) {
         throw new TranslationNotCompleteError(
@@ -198,7 +201,7 @@ export function translateObject<T = any>(o: T, lang: Language = null): T {
 }
 
 interface Language {
-  id: string;
+  id: ISOLanguage;
   path: string;
   translations: { [key: string]: string };
 }
@@ -206,7 +209,7 @@ interface Language {
 interface QuestionIndexEntry {
   id: string;
   version: number;
-  availableLanguages: string[];
+  availableLanguages: ISOLanguage[];
   meta: QuestionnaireMeta;
   path: string;
 }
