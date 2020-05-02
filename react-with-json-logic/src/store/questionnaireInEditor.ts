@@ -124,7 +124,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         ...changedResultCategory,
         results: changedResultCategory.results.map((result) => ({
           ...result,
-          value: convertStringToLogicExpression(result.valueString),
+          expression: convertStringToLogicExpression(result.valueString) || "",
         })),
       };
       state.hasErrors = hasErrors;

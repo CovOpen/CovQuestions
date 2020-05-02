@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { editResultCategory, resultCategoryInEditorSelector } from "../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-type ResultInStringRepresentation = Omit<Result, "value"> & { value: string };
+type ResultInStringRepresentation = Omit<Result, "expression"> & { expression: string };
 export type ResultCategoryInStringRepresentation = Omit<ResultCategory, "results"> & {
   results: ResultInStringRepresentation[];
 };
@@ -32,8 +32,8 @@ function convertToStringRepresentation(formData: ResultCategory): ResultCategory
   return {
     ...formData,
     results: formData?.results?.map((result) => {
-      let value = convertLogicExpressionToString(result.expression);
-      return { ...result, value };
+      let expression = convertLogicExpressionToString(result.expression);
+      return { ...result, expression };
     }),
   };
 }
