@@ -621,7 +621,7 @@
             "description": "Optional human-readable details or clarification about this question.",
             "type": "string"
           },
-          "enableWhen": {
+          "enableWhenExpression": {
             "$ref": "#/components/schemas/LogicExpression"
           },
           "id": {
@@ -804,7 +804,7 @@
             "description": "A human readable text for this result. Can be localized.",
             "type": "string"
           },
-          "value": {
+          "expression": {
             "$ref": "#/components/schemas/LogicExpression"
           }
         },
@@ -850,7 +850,7 @@
             "description": "Unique id for referring this variable in logic expressions.",
             "type": "string"
           },
-          "value": {
+          "expression": {
             "$ref": "#/components/schemas/LogicExpression"
           }
         },
@@ -926,7 +926,7 @@
                 "description": "Optional human-readable details or clarification about this question.",
                 "type": "string"
               },
-              "enableWhen": {
+              "enableWhenExpression": {
                 "$ref": "#/components/schemas/LogicExpression"
               },
               "id": {
@@ -1153,7 +1153,7 @@
                 "description": "A human readable text for this result. Can be localized.",
                 "type": "string"
               },
-              "value": {
+              "expression": {
                 "$ref": "#/components/schemas/LogicExpression"
               }
             },
@@ -1199,7 +1199,7 @@
                 "description": "Unique id for referring this variable in logic expressions.",
                 "type": "string"
               },
-              "value": {
+              "expression": {
                 "$ref": "#/components/schemas/LogicExpression"
               }
             },

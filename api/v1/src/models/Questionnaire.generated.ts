@@ -138,7 +138,7 @@ export interface CommonQuestionFields {
    * Optional human-readable details or clarification about this question.
    */
   details?: string;
-  enableWhen?: LogicExpression;
+  enableWhenExpression?: LogicExpression;
   /**
    * Unique id for referring this question in logic expressions.
    */
@@ -270,7 +270,7 @@ export interface Result {
    * A human readable text for this result. Can be localized.
    */
   text: string;
-  value: LogicExpression;
+  expression?: LogicExpression;
 }
 /**
  * Represents a variable which is computed from the given answers or other variables.
@@ -280,5 +280,5 @@ export interface Variable {
    * Unique id for referring this variable in logic expressions.
    */
   id: string;
-  value: LogicExpression;
+  expression?: LogicExpression;
 }
