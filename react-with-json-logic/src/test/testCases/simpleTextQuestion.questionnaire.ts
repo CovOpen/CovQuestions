@@ -1,4 +1,4 @@
-import { Questionnaire, QuestionType } from "../../models/Questionnaire";
+import { Questionnaire, QuestionType } from "covquestions-js/models/questionnaire";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleTextQuestion",

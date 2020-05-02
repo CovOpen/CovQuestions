@@ -1,6 +1,6 @@
-import { Questionnaire, QuestionType, TestCase } from "../models/Questionnaire";
-import { QuestionnaireEngine, Result } from "../logic/QuestionnaireEngine";
 import equal from "fast-deep-equal/es6";
+import { Questionnaire, QuestionType, TestCase } from "covquestions-js/models/questionnaire";
+import { QuestionnaireEngine, Result } from "covquestions-js";
 
 type TestResultSuccess = {
   description: string;
