@@ -8,7 +8,9 @@ import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-export type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhenExpression"> & { enableWhenExpression: string };
+export type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhenExpression"> & {
+  enableWhenExpression: string;
+};
 
 type ElementEditorQuestionProps = {
   index: number;

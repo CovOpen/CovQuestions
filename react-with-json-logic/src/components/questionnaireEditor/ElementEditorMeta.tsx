@@ -14,7 +14,7 @@ function convertToFormEditorRepresentation(questionnaire: Questionnaire): Questi
   return {
     ...questionnaire.meta,
     language: questionnaire.language,
-    title: questionnaire.title
+    title: questionnaire.title,
   };
 }
 
