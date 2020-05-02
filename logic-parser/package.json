@@ -1,0 +1,15 @@
+{
+  "name": "covquestions-logic-parser",
+  "version": "1.0.0",
+  "description": "Converts simple logic expressions to JSON logic and back",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.13.4",
+    "chevrotain": "^7.0.1"
+  }
+}
