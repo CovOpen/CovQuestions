@@ -8,7 +8,7 @@ import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-export type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
+export type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhenExpression"> & { enableWhenExpression: string };
 
 type ElementEditorQuestionProps = {
   index: number;
@@ -20,13 +20,13 @@ const uiSchema = {
   enableWhenString: uiSchemaLogic(),
   options: {
     items: {
-      "ui:order": ["text", "value", "*"],
+      "ui:order": ["text", "enableWhenString", "*"],
     },
   },
 };
 
 function convertToStringRepresentation(formData: AnyQuestion): QuestionInStringRepresentation {
-  return { ...formData, enableWhen: convertLogicExpressionToString(formData?.enableWhenExpression) };
+  return { ...formData, enableWhenExpression: convertLogicExpressionToString(formData?.enableWhenExpression) };
 }
 
 export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
