@@ -7,7 +7,7 @@
       "type": "string"
     },
     "language": {
-      "$ref": "#/x-definitions/Language"
+      "$ref": "#/x-definitions/ISOLanguage"
     },
     "title": {
       "description": "Unique, assigned identifier. Machine friendly.",
@@ -257,7 +257,7 @@
         },
         "availableLanguages": {
           "items": {
-            "$ref": "#/x-definitions/Language"
+            "$ref": "#/x-definitions/ISOLanguage"
           },
           "type": "array"
         },
@@ -691,7 +691,7 @@
         "multiselect"
       ]
     },
-    "Language": {
+    "ISOLanguage": {
       "description": "Language of this, as ISO 639-1 code. Additonally 'none' for no language. ",
       "type": "string",
       "enum": [

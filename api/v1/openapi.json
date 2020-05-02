@@ -225,7 +225,7 @@
   },
   "components": {
     "schemas": {
-      "Language": {
+      "ISOLanguage": {
         "description": "Language of this, as ISO 639-1 code. Additonally 'none' for no language. ",
         "type": "string",
         "enum": [
@@ -436,7 +436,7 @@
           },
           "availableLanguages": {
             "items": {
-              "$ref": "#/components/schemas/Language"
+              "$ref": "#/components/schemas/ISOLanguage"
             },
             "type": "array"
           },
@@ -1057,7 +1057,7 @@
             "type": "string"
           },
           "language": {
-            "$ref": "#/components/schemas/Language"
+            "$ref": "#/components/schemas/ISOLanguage"
           },
           "title": {
             "description": "Unique, assigned identifier. Machine friendly.",
@@ -1307,7 +1307,7 @@
               },
               "availableLanguages": {
                 "items": {
-                  "$ref": "#/components/schemas/Language"
+                  "$ref": "#/components/schemas/ISOLanguage"
                 },
                 "type": "array"
               },
@@ -1741,7 +1741,7 @@
               "multiselect"
             ]
           },
-          "Language": {
+          "ISOLanguage": {
             "description": "Language of this, as ISO 639-1 code. Additonally 'none' for no language. ",
             "type": "string",
             "enum": [

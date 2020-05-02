@@ -8,7 +8,7 @@
 /**
  * Language of this, as ISO 639-1 code. Additonally 'none' for no language.
  */
-export type Language =
+export type ISOLanguage =
   | "none"
   | "aa"
   | "ab"
@@ -263,7 +263,7 @@ export interface Questionnaire {
    * Unique, assigned identifier. Machine friendly.
    */
   id: string;
-  language: Language;
+  language: ISOLanguage;
   /**
    * Unique, assigned identifier. Machine friendly.
    */
@@ -305,7 +305,7 @@ export interface QuestionnaireMeta {
    * Expiration date as ISO 8601 string
    */
   experiationDate?: string;
-  availableLanguages: Language[];
+  availableLanguages: ISOLanguage[];
   publisher?: string;
   /**
    * Region restriction (e.g. regions in which this questionnaire is valid) as list of ISO 3166 ids.
