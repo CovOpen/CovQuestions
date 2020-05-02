@@ -54,7 +54,9 @@
     "meta",
     "questions",
     "variables",
-    "resultCategories"
+    "resultCategories",
+    "title",
+    "language"
   ],
   "type": "object",
   "x-definitions": {
@@ -275,7 +277,7 @@
       "required": [
         "title",
         "author",
-        "language",
+        "availableLanguages",
         "creationDate"
       ],
       "type": "object"

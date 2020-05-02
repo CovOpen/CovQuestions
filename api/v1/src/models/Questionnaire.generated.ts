@@ -78,11 +78,11 @@ export interface Questionnaire {
    * Language of this questionnaire, as ISO 639-1 code.
    * Note that further languages can be defined in external lookup files.
    */
-  language?: string;
+  language: string;
   /**
    * Unique, assigned identifier. Machine friendly.
    */
-  title?: string;
+  title: string;
   meta: QuestionnaireMeta;
   /**
    * All questions, shown one after another, in order.
@@ -123,7 +123,7 @@ export interface QuestionnaireMeta {
   /**
    * Languages this questionnaire is also available in, as ISO 639-1 code.
    */
-  availableLanguages?: string[];
+  availableLanguages: string[];
   publisher?: string;
   /**
    * Region restriction (e.g. regions in which this questionnaire is valid) as list of ISO 3166 ids.

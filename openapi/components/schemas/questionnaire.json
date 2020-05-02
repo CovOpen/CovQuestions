@@ -47,7 +47,17 @@
       "type": "number"
     }
   },
-  "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],
+  "required": [
+    "id",
+    "schemaVersion",
+    "version",
+    "meta",
+    "questions",
+    "variables",
+    "resultCategories",
+    "title",
+    "language"
+  ],
   "type": "object",
   "x-definitions": {
     "QuestionBase": {
@@ -242,7 +252,7 @@
           "type": "array"
         }
       },
-      "required": ["title", "author", "language", "creationDate"],
+      "required": ["title", "author", "availableLanguages", "creationDate"],
       "type": "object"
     },
     "Result": {
