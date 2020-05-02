@@ -10,18 +10,18 @@ A program in Covscript is always a single expression. The result of the expressi
 
 The following literals are supported:
 
-* Numeric constants (`1`, `-2`, `3.5`, `1e+3`)
-* Boolean constants (`true`, `false`)
-* Quote-Delimeted String constants (`"Hello"`)
-* Vaiables (`question3.value`)
+- Numeric constants (`1`, `-2`, `3.5`, `1e+3`)
+- Boolean constants (`true`, `false`)
+- Quote-Delimeted String constants (`"Hello"`)
+- Vaiables (`question3.value`)
 
 The following binary operations are supported:
 
-* Arithmetic operands (`+`, `-`, `*`, `/`)
-* Logical operands (`and`, `or`)
-* Comparisons (`>`, `<`, `<=`, `>=`, `==`, `!=`)
-* In-Operator for lists (`in`)
-* Unary logical negation (`!`)
+- Arithmetic operands (`+`, `-`, `*`, `/`)
+- Logical operands (`and`, `or`)
+- Comparisons (`>`, `<`, `<=`, `>=`, `==`, `!=`)
+- In-Operator for lists (`in`)
+- Unary logical negation (`!`)
 
 Also, there is an inline `If`
 
@@ -50,11 +50,11 @@ EndIf
 ```typescript
 import { CovscriptToJsonLogicConverter } from "../src";
 
-const parser = new CovscriptToJsonLogicConverter()
+const parser = new CovscriptToJsonLogicConverter();
 
-const res = parser.parse("1 + 2")
+const res = parser.parse("1 + 2");
 
-console.log(res) // { '+': [1, 2] }
+console.log(res); // { '+': [1, 2] }
 ```
 
 ## Converting back to Covscript
@@ -62,9 +62,9 @@ console.log(res) // { '+': [1, 2] }
 ```typescript
 import { CovscriptGenerator } from "../src/generator";
 
-const generator = new CovscriptGenerator()
+const generator = new CovscriptGenerator();
 
-const rendered = generator.generate({ '+': [1, 2] })
+const rendered = generator.generate({ "+": [1, 2] });
 
-console.log(res) // '1 + 2'
+console.log(res); // '1 + 2'
 ```

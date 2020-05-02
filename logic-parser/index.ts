@@ -1,2 +1,2 @@
-export { CovscriptToJsonLogicConverter } from './src'
-export { CovscriptGenerator } from './src/generator'
+export { CovscriptToJsonLogicConverter } from "./src";
+export { CovscriptGenerator } from "./src/generator";
