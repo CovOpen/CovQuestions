@@ -44,7 +44,7 @@
     },
     "version": {
       "description": "Version of this question in semver.",
-      "type": "string"
+      "type": "number"
     }
   },
   "required": ["id", "schemaVersion", "version", "meta", "questions", "variables", "resultCategories"],

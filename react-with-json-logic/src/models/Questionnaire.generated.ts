@@ -104,7 +104,7 @@ export interface Questionnaire {
   /**
    * Version of this question in semver.
    */
-  version: string;
+  version: number;
 }
 /**
  * Meta-Information for a questionnaire.
