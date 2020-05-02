@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import {
-  Container,
-  Grid,
-  createMuiTheme,
-  ThemeProvider,
   AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  makeStyles,
-  Theme,
+  Container,
+  createMuiTheme,
   createStyles,
   FormControlLabel,
+  Grid,
+  IconButton,
+  makeStyles,
   Switch,
+  Theme,
+  ThemeProvider,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import "./App.css";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "./covquestions-js/models/questionnaire";
 import { useAppDispatch } from "./store/store";
-import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
+import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
 import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
 import { useSelector } from "react-redux";
 

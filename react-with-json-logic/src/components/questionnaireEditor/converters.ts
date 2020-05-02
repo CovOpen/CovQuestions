@@ -1,6 +1,6 @@
-import { LogicExpression } from "covquestions-js/models/logicExpression";
+import { LogicExpression } from "../../covquestions-js/models/logicExpression";
 import { Expression } from "../../logic-parser/parser";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "../../covquestions-js/models/questionnaire";
 
 export function convertLogicExpressionToString(value?: LogicExpression) {
   return JSON.stringify(value, undefined, 2) ?? "";

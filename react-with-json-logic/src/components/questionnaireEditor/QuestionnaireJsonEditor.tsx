@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "jsoneditor-react/es/editor.min.css";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "../../covquestions-js/models/questionnaire";
 import "brace";
 import "brace/mode/json";
 import "brace/theme/github";
@@ -11,7 +11,7 @@ import jsonschema from "jsonschema";
 import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setQuestionnaireInEditor, setHasErrors } from "../../store/questionnaireInEditor";
+import { questionnaireJsonSelector, setHasErrors, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;

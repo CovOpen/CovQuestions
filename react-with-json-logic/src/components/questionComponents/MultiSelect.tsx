@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Checkbox, FormControlLabel, FormGroup, FormLabel } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
-import { isPrimitive, Primitive } from "covquestions-js/primitive";
+import { isPrimitive, Primitive } from "../../covquestions-js/primitive";
 
 export const MultiSelect: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   const [selectedValues, setSelectedValues] = useState<Primitive[]>([]);

@@ -1,4 +1,4 @@
-import { AnyQuestion } from "covquestions-js/models/questionnaire";
+import { AnyQuestion } from "../../covquestions-js/models/questionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
