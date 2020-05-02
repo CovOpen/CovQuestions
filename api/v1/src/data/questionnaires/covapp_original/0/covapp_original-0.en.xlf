@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <xliff version="1.2">
-  <file datatype="plaintext" source-language="en" target-language="de">
+  <file datatype="plaintext" source-language="en" target-language="en">
     <body>
       <trans-unit id="0a52730597fb4ffa01fc117d9e71e3a9">
         <source>Example</source>
-        <target state="translated">Beispiel</target>
+        <target state="translated">Example</target>
       </trans-unit>
       <trans-unit id="13e575be866ecf5ac3dcbf61ab2048d7">
         <source>How old are you?</source>
-        <target state="translated">Wie alt sind Sie?</target>
+        <target state="translated">How old are you?</target>
       </trans-unit>
       <trans-unit id="123e51f97f057c3b8ed1709a4d062e0f">
         <source>Under 40</source>

@@ -18,10 +18,10 @@
       }
     },
     {
-      "name": "I18n TS File",
+      "name": "Pre_Build TS File",
       "type": "node",
       "request": "launch",
-      "args": ["scripts/i18n_extract.ts"],
+      "args": ["scripts/pre_build.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}/api/v1/",
@@ -46,6 +46,16 @@
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",
       "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Test",
+      "program": "${workspaceFolder}\\api\\v1\\node_modules\\jest\\bin\\jest",
+      "args": ["--runInBand", "--config=${workspaceFolder}\\api\\v1\\jest.config.js"],
+      "cwd": "${workspaceRoot}\\api\\v1",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

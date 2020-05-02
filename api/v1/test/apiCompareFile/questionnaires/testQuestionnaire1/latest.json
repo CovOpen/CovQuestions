@@ -6,7 +6,10 @@
   "title": "test questionnaire@@125410ed17b62eaf46409e964c569c2d",
   "meta": {
     "author": "Someone",
-    "availableLanguages": [],
+    "availableLanguages": [
+      "de",
+      "en"
+    ],
     "creationDate": "2020-04-13T14:48:48+0000"
   },
   "questions": [

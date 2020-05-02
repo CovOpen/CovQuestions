@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "i18n-extract": "ts-node scripts/i18n_extract.ts",
+    "pre-build": "ts-node scripts/pre_build.ts",
     "build": "ts-node ./index.ts && npm run build-swagger",
     "build-swagger": "copyfiles -f ./src/swagger/index.html ./dist/swagger/ && copyfiles ./openapi.json ./dist/swagger/",
     "build-test": "rimraf dist && ts-node ./index.ts",

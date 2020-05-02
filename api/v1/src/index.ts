@@ -2,14 +2,7 @@ import * as fs from 'fs-extra';
 import { Questionnaire, QuestionnaireMeta, AnyQuestion, ISOLanguage } from './models/Questionnaire.generated';
 import * as glob from 'fast-glob';
 import { validate } from './validate';
-import {
-  loadTranslation,
-  doOnEachTranslation,
-  md5,
-  getStringRessource,
-  writeJSONFile,
-  getDirectories,
-} from './utility';
+import { readI18nFile, doOnEachTranslation, md5, getStringRessource, writeJSONFile, getDirectories } from './utility';
 class TranslationNotCompleteError extends Error {
   constructor(m: string) {
     super(m);
@@ -18,18 +11,19 @@ class TranslationNotCompleteError extends Error {
 
 const API_PATHS = {
   QUESTIONNAIRES: '/questionnaires',
+  QUESTIONS: '/questions',
 };
 
-const SOURCE_PATHS = {
-  QUESTIONNAIRES: '/data/questionnaires',
+export const SOURCE_PATHS = {
+  QUESTIONNAIRES: '/questionnaires',
 };
 
 /**
  * Validates and generates the static API
  */
-export function main(pwd: string = './src', outputDir: string = './dist') {
+export function main(pwd: string = './src/data', outputDir: string = './dist') {
   console.log('Validating the Questionnaires...');
-  glob.sync(`${pwd}/data/**/*.json`).forEach((q) => validate(q));
+  glob.sync(`${pwd}/**/*.json`).forEach((q) => validate(q));
 
   let index: Questionnaire[] = [];
 
@@ -75,7 +69,7 @@ export function main(pwd: string = './src', outputDir: string = './dist') {
   });
 
   writeJSONFile(
-    `${outputDir}/questions.json`,
+    `${outputDir}${API_PATHS.QUESTIONS}.json`,
     questions.map((q) => translateObject(q))
   );
 
@@ -87,17 +81,7 @@ export function buildQuestionnaire(
   questionnaireId: string,
   outputPath: string
 ): Questionnaire[] {
-  let questionnaireFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/**.json`);
-  let translationFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/i18n/*.xlf`);
-
-  // Retrieving available languages
-  let languages: Language[] = translationFilePaths.map((p) => {
-    return {
-      path: p,
-      translations: loadTranslation(p),
-      id: p.match(/translation\.(\S*)\.xlf/)[1] as ISOLanguage,
-    };
-  });
+  let questionnaireFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/**/*.json`);
 
   let index: Questionnaire[] = [];
   /**
@@ -105,6 +89,27 @@ export function buildQuestionnaire(
    */
   questionnaireFilePaths.forEach((path) => {
     let questionnaire: Questionnaire = JSON.parse(fs.readFileSync(path, 'utf-8'));
+    let translationFilePaths = glob.sync(`${path.split('/').slice(0, -1).join('/')}/*.xlf`);
+
+    // Retrieving available languages
+    let languages: Language[] = translationFilePaths.map((p) => {
+      return {
+        path: p,
+        translations: readI18nFile(p).target,
+        id: readI18nFile(p).lang as ISOLanguage,
+      };
+    });
+
+    /**
+     * Generate Versioned Language Files
+     */
+    languages.forEach((lang) => {
+      writeJSONFile(
+        `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaireId}/${questionnaire.version}/translations/${lang.id}.json`,
+        lang.translations
+      );
+    });
+
     // Test for same Ids
     if (questionnaire.id != questionnaireId) {
       throw new Error(`Id of Folder ("${questionnaireId}") does not match id "${questionnaire.id}" of ${path}`);
@@ -137,22 +142,31 @@ export function buildQuestionnaire(
     );
 
     // Write latest Questionnaire File (with translation Ids)
-    // writeJSONFile(
-    //   `${outputPath}${API_PATHS.VIEWS_QUESTIONNAIRES}/${questionnaire.id}.json`,
-    //   index.map((q) => {
-    //     return {
-    //       id: q.id,
-    //       meta: q.meta,
-    //       version: q.version,
-    //       schemaVersion: q.schemaVersion,
-    //     } as Partial<Questionnaire>;
-    //   })
-    // );
+    writeJSONFile(
+      `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/latest.json`,
+      index.reduce((prev, curr) => {
+        if (prev.version > curr.version) {
+          return prev;
+        }
+        return curr;
+      }, index[0])
+    );
   });
 
   /**
-   * Generate Language Files
+   * Generate Main Language Files
    */
+  let translationFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/i18n/*.xlf`);
+
+  // Retrieving available languages
+  let languages: Language[] = translationFilePaths.map((p) => {
+    return {
+      path: p,
+      translations: readI18nFile(p).target,
+      id: readI18nFile(p).lang as ISOLanguage,
+    };
+  });
+
   languages.forEach((lang) => {
     writeJSONFile(
       `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaireId}/translations/${lang.id}.json`,
