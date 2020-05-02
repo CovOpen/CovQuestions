@@ -1,7 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { QuestionnaireMeta } from "covquestions-js/models/questionnaire";
-import { Questionnaire } from "../models/questionnaire";
+import { Questionnaire, QuestionnaireMeta } from "../models/questionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
@@ -109,7 +108,14 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       state.questionnaire[section][index + 1] = tmp;
     })
     .addCase(editMeta, (state, { payload: { changedMeta, hasErrors } }) => {
-      state.questionnaire.meta = changedMeta;
+      const metaProperties = Object.getOwnPropertyNames(state.questionnaire.meta);
+      const rootProperties = Object.getOwnPropertyNames(changedMeta).filter(item => metaProperties.indexOf(item) === -1);
+      for (const property of metaProperties) {
+        Reflect.set(state.questionnaire.meta, property, Reflect.get(changedMeta, property));
+      }
+      for (const property of rootProperties) {
+        Reflect.set(state.questionnaire, property, Reflect.get(changedMeta, property));
+      }
       state.hasErrors = hasErrors;
     })
     .addCase(editQuestion, (state, { payload: { index, changedQuestion, hasErrors } }) => {
