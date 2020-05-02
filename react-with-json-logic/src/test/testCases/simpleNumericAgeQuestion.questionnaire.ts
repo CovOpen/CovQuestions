@@ -43,7 +43,18 @@ const testQuestionnaire: Questionnaire = {
       ],
     },
   ],
-  testCases: [],
+  testCases: [
+    {
+      description: "Age below 18 should lead to the AGE_CHILD result",
+      answers: [["q1_age", 6]],
+      results: [["rc_age", "AGE_CHILD"]],
+    },
+    {
+      description: "Age above 18 should lead to the AGE_ADULT result",
+      answers: [["q1_age", 21]],
+      results: [["rc_age", "AGE_ADULT"]],
+    },
+  ],
 };
 
 export default testQuestionnaire;

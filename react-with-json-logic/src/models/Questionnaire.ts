@@ -225,7 +225,7 @@ export interface QuestionnaireMeta {
 export type TestCase = {
   description: string;
   fillInDate?: string;
-  answers: [string, any][];
+  answers: ([string, any] | [string])[];
   results: [string, string][];
 };
 
