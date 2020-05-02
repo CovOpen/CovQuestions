@@ -2,10 +2,11 @@
   "id": "covapp_original",
   "schemaVersion": "0.0.0.1",
   "version": "0.0.0.1",
+  "language": "de",
+  "title": "Example",
   "meta": {
     "author": "Alexander Thieme, CovQuestions Team",
-    "language": "DE",
-    "title": "Example",
+    "availableLanguages": ["en"],
     "creationDate": "2020-04-19T20:32:05+0000"
   },
   "questions": [
@@ -113,7 +114,7 @@
       "id": "q8_contact_date",
       "text": "What day was the last contact?",
       "type": "date",
-      "enableWhen": {
+      "enableWhenExpression": {
         "var": "q7_contact.value"
       }
     },
@@ -156,7 +157,7 @@
           "value": "dont_know"
         }
       ],
-      "enableWhen": {
+      "enableWhenExpression": {
         "var": "q9_fever.value"
       }
     },
@@ -220,7 +221,7 @@
       "id": "q17_symptoms_date",
       "text": "With regard to all questions about symptoms: since when have you had the symptoms you specified?",
       "type": "date",
-      "enableWhen": {
+      "enableWhenExpression": {
         "var": "v_symptoms.value"
       }
     },
@@ -360,13 +361,13 @@
   "variables": [
     {
       "id": "v_symptoms",
-      "value": {
+      "expression": {
         "var": "q12_symptoms.symptoms"
       }
     },
     {
       "id": "v_contact_relevant",
-      "value": {
+      "expression": {
         "<=": [
           {
             "-": [
@@ -384,7 +385,7 @@
     },
     {
       "id": "v_symptoms",
-      "value": {
+      "expression": {
         "or": [
           {
             "var": "q9_fever.value"
@@ -417,7 +418,7 @@
     },
     {
       "id": "v_risk_group",
-      "value": {
+      "expression": {
         "or": [
           {
             "var": "q6_pregnant.value"
@@ -447,7 +448,7 @@
     },
     {
       "id": "v_symptoms_after_contact",
-      "value": {
+      "expression": {
         "<": [
           {
             "var": "q8_contact_date.value"
@@ -460,7 +461,7 @@
     },
     {
       "id": "v_respiratory_symptoms",
-      "value": {
+      "expression": {
         "or": [
           {
             "var": "q13_cough.value"
@@ -483,7 +484,7 @@
         {
           "id": "HIGH_RISK",
           "text": "High Risk of SARS-Cov-2",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_symptoms.value"
@@ -500,7 +501,7 @@
         {
           "id": "MEDIUM_RISK_A",
           "text": "Typical symptoms of SARS-Cov-2 without contact.",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_symptoms.value"
@@ -514,7 +515,7 @@
         {
           "id": "MEDIUM_RISK_B",
           "text": "No symptoms, but contact with case.",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_contact_relevant.value"
@@ -530,7 +531,7 @@
         {
           "id": "LOW_RISK",
           "text": "Symptoms indicate a cold.",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "v_symptoms.value"
@@ -546,7 +547,7 @@
         {
           "id": "NO_RISK",
           "text": "No risk",
-          "value": {
+          "expression": {
             "and": [
               {
                 "!": {
@@ -570,7 +571,7 @@
         {
           "id": "SHOW_MEDICAL_ADVISORY",
           "text": "You work in the medical field.",
-          "value": {
+          "expression": {
             "==": [
               {
                 "var": "q4_work.value"
@@ -588,7 +589,7 @@
         {
           "id": "SHOW_CONTACT_ADVISORY",
           "text": "Contact was irrellevant.",
-          "value": {
+          "expression": {
             "and": [
               {
                 "var": "q8_contact_date.value"
@@ -615,7 +616,7 @@
         {
           "id": "SHOW_RISK_GROUP_ADVISORY",
           "text": "You belong to the risk group",
-          "value": {
+          "expression": {
             "var": "v_risk_group.value"
           }
         }
@@ -628,7 +629,7 @@
         {
           "id": "SHOW_SHORTNESS_OF_BREATH_ADVISORY",
           "text": "You reported shortness of breath.",
-          "value": {
+          "expression": {
             "var": "q16_breath.value"
           }
         }
