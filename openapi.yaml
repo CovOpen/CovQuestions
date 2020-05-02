@@ -122,19 +122,8 @@ paths:
                   properties:
                     id:
                       type: string
-                    availableLanguages:
-                      type: array
-                      items:
-                        type: string
                     meta:
-                      type: object
-                      properties:
-                        author:
-                          type: string
-                        title:
-                          type: string
-                        creationDate:
-                          type: string
+                      $ref: '#/components/schemas/QuestionnaireMeta'
                     path:
                       type: string
                     version:
@@ -142,6 +131,28 @@ paths:
       operationId: get-views-questionnaires
       description: Lists all Questionnaires
     parameters: []
+  '/questionnaires/{id}/latest':
+    get:
+      summary: Get specific Questionnaire
+      operationId: get-views-questionnaires-id-latest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionnaire'
+      description: 'Get a questionnaire. '
+      tags:
+        - views
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: The id of the questionnaire
+        example: covapp_original
 components:
   schemas:
     ISOLanguage: &ref_30
