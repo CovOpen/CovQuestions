@@ -9,8 +9,8 @@ import {
   QuestionType,
   ResultCategory,
   Variable,
+  LogicExpression,
 } from "./models/questionnaire";
-import { LogicExpression } from "./models/logicExpression";
 import { Primitive } from "./primitive";
 
 export type Result = {
@@ -24,29 +24,29 @@ export class Question {
   text: string;
   options?: Option[];
   numericOption?: NumericOption;
-  enableWhen?: LogicExpression;
+  enableWhenExpression?: LogicExpression;
   optional?: boolean;
 
   constructor(question: AnyQuestion) {
     this.id = question.id;
     this.type = question.type;
     this.text = question.text;
-    this.enableWhen = question.enableWhen;
+    this.enableWhenExpression = question.enableWhenExpression;
     this.optional = question.optional;
     if (
-      question.type === QuestionType.Select ||
-      question.type === QuestionType.Multiselect
+      question.type === "select" ||
+      question.type === "multiselect"
     ) {
       this.options = question.options;
     }
-    if (question.type === QuestionType.Number) {
+    if (question.type === "number") {
       this.numericOption = question.numericOptions;
     }
   }
 
   public check(data: {}): boolean {
-    if (this.enableWhen !== undefined) {
-      return jsonLogic.apply(this.enableWhen, data);
+    if (this.enableWhenExpression !== undefined) {
+      return jsonLogic.apply(this.enableWhenExpression, data);
     } else {
       return true;
     }
@@ -103,7 +103,7 @@ export class QuestionnaireEngine {
     let question = this.getQuestionById(questionId);
     if (question !== undefined) {
       switch (question.type) {
-        case QuestionType.Multiselect:
+        case "multiselect":
           let array = (value || []) as Array<Primitive>;
           answer.selectedCount = array !== undefined ? array.length : 0;
           answer.count = question.options?.length || 0;
@@ -132,7 +132,7 @@ export class QuestionnaireEngine {
     this.variables.forEach((variable) => {
       try {
         this.data[variable.id] = {
-          value: jsonLogic.apply(variable.value, this.data),
+          value: jsonLogic.apply(variable.expression, this.data),
         };
       } catch (e) {}
     });
@@ -146,7 +146,7 @@ export class QuestionnaireEngine {
     this.updateComputableVariables();
     const results = this.resultCategories.map((resultCategory) => {
       const resultInCategory = resultCategory.results.find((possibleResult) =>
-        jsonLogic.apply(possibleResult.value, this.data)
+        jsonLogic.apply(possibleResult.expression, this.data)
       );
       if (resultInCategory !== undefined) {
         return {
