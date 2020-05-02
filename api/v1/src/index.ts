@@ -139,12 +139,14 @@ export function buildQuestionnaire(
     // Write latest Questionnaire File (with translation Ids)
     writeJSONFile(
       `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/latest.json`,
-      index.reduce((prev, curr) => {
-        if (prev.version > curr.version) {
-          return prev;
-        }
-        return curr;
-      }, index[0])
+      translateQuestionnaire(
+        index.reduce((prev, curr) => {
+          if (prev.version > curr.version) {
+            return prev;
+          }
+          return curr;
+        }, index[0])
+      )
     );
   });
 
