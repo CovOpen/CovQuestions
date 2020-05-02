@@ -1,0 +1,44 @@
+{
+  "id": "testQuestionnaire1",
+  "schemaVersion": "1",
+  "version": 1,
+  "language": "none",
+  "title": "125410ed17b62eaf46409e964c569c2d",
+  "meta": {
+    "author": "Someone",
+    "availableLanguages": [
+      "de",
+      "en"
+    ],
+    "creationDate": "2020-04-13T14:48:48+0000"
+  },
+  "questions": [
+    {
+      "id": "q1_text",
+      "text": "345e803d7d45817da360af2d0d8463c6",
+      "type": "text",
+      "optional": true
+    }
+  ],
+  "variables": [],
+  "resultCategories": [
+    {
+      "id": "rc_text",
+      "description": "9dffbf69ffba8bc38bc4e01abf4b1675",
+      "results": [
+        {
+          "id": "TEXT",
+          "text": "bf82275deefdc1b8e31d0458c01d995d",
+          "expression": {
+            "==": [
+              {
+                "var": "q1_text.value"
+              },
+              "test"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

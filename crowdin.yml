@@ -1,0 +1,3 @@
+files:
+  - source: /api/v1/src/data/questionnaires/*/i18n/*.en.xlf
+    translation: /%original_path%/translation.%two_letters_code%.xlf

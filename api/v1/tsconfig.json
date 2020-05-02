@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017"]
+  }
+}
