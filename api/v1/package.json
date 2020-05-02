@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "pre-build": "ts-node scripts/pre_build.ts",
+    "pre-build": "npm run pre-build-add && npm run pre-build-trans",
+    "pre-build-add": "ts-node scripts/pre_build_add_new_file.ts",
+    "pre-build-trans": "ts-node scripts/pre_build_fixate_translations.ts",
     "build": "ts-node ./index.ts && npm run build-swagger",
     "build-swagger": "copyfiles -f ./src/swagger/index.html ./dist/swagger/ && copyfiles ./openapi.json ./dist/swagger/",
     "build-test": "rimraf dist && ts-node ./index.ts",
