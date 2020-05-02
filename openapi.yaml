@@ -175,9 +175,8 @@ components:
             type: string
           type: array
       required:
-        - title
         - author
-        - language
+        - availableLanguages
         - creationDate
       type: object
     LogicExpression: &ref_14
@@ -628,6 +627,8 @@ components:
         - questions
         - variables
         - resultCategories
+        - title
+        - language
       type: object
       x-definitions:
         QuestionBase: *ref_0
