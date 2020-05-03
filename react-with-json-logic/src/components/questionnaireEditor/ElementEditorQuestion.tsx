@@ -2,7 +2,7 @@ import { EditorAnyQuestion } from "../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
-import { convertLogicExpressionToString } from "./converters";
+import { convertStringToLogicExpression } from "./converters";
 import { editQuestion, questionInEditorSelector } from "../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -43,12 +43,21 @@ export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
     dispatch(editQuestion({ index: props.index, changedQuestion: formData, hasErrors: hasErrors }));
   };
 
+  const validate = (formData: QuestionInStringRepresentation, errors: any) => {
+    try {
+      convertStringToLogicExpression(formData.enableWhenExpressionString);
+    } catch (error) {
+      errors.enableWhenExpressionString.addError(error.message);
+    }
+  };
+
   return (
     <ElementEditor
       schema={questionSchema as any}
       formData={convertToStringRepresentation(question)}
       onChange={onChange}
       uiSchema={uiSchema}
+      addAdditionalValidationErrors={validate}
     />
   );
 }

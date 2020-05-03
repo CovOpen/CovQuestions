@@ -2,7 +2,7 @@ import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
 import { EditorResult, EditorResultCategory } from "../../models/editorQuestionnaire";
-import { convertLogicExpressionToString } from "./converters";
+import { convertStringToLogicExpression } from "./converters";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { editResultCategory, resultCategoryInEditorSelector } from "../../store/questionnaireInEditor";
@@ -47,12 +47,27 @@ export function ElementEditorResultCategory(props: ElementEditorResultProps) {
     dispatch(editResultCategory({ index: props.index, changedResultCategory: formData, hasErrors: hasErrors }));
   };
 
+  const validate = (formData: ResultCategoryInStringRepresentation, errors: any) => {
+    if (formData.results === undefined) {
+      return;
+    }
+    for (let i = 0; i < formData.results.length; i++) {
+      const result = formData.results[i];
+      try {
+        convertStringToLogicExpression(result.expressionString);
+      } catch (error) {
+        errors.results[i].expressionString.addError(error.message);
+      }
+    }
+  };
+
   return (
     <ElementEditor
       schema={resultCategorySchema as any}
       formData={convertToStringRepresentation(resultCategory)}
       onChange={onChange}
       uiSchema={uiSchema}
+      addAdditionalValidationErrors={validate}
     />
   );
 }
