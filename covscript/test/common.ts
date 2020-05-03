@@ -7,9 +7,8 @@ const parser = new CovscriptToJsonLogicConverter();
 const generator = new CovscriptGenerator();
 
 /**
- * Assert equal expression
+ * Assert equal expression after parsing.
  */
-// TODO(ejoebstl) remove any here as soon as div and mult are added to logic module.
 export function expectEx(text: string, logic: LogicExpression | null | any) {
   test(`Parse ${text.replace(/\s+/g, " ")} correctly`, () => {
     const parsed = parser.parse(text);
@@ -23,6 +22,9 @@ export function expectEx(text: string, logic: LogicExpression | null | any) {
   });
 }
 
+/**
+ * Assert equal text after generation.
+ */
 export function expectGen(logic: LogicExpression | any, text: string | null) {
   test(`Render ${JSON.stringify(logic)} correctly`, () => {
     const rendered = generator.generate(logic);
@@ -36,6 +38,15 @@ export function expectGen(logic: LogicExpression | any, text: string | null) {
   });
 }
 
+/**
+ * Assert consistent rendering/parsing.
+ * 
+ * Parse -> Render -> Parse, both parse results must be equal, rendered
+ * must be equal to given rendered representation.
+ * @param input The input text.
+ * @param text The "formatted" result. Might be slightly different, since our
+ * parser is a bit flexible.
+ */
 export function expectE2E(input: string, text: string | null) {
   const parsed = parser.parse(input);
   const rendered = generator.generate(parsed);
@@ -45,5 +56,8 @@ export function expectE2E(input: string, text: string | null) {
     console.log(rendered);
   } else {
     expect(rendered).toEqual(text);
+
+    const reParsed = parser.parse(rendered)
+    expect(reParsed).toEqual(parsed)
   }
 }

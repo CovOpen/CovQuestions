@@ -23,9 +23,9 @@ The following binary operations are supported:
 - In-Operator for lists (`in`)
 - Unary logical negation (`!`)
 
-Also, there is an inline `If`
+Also, there is an inline `If`, parantheses are supported.
 
-The operator precedence follow JavaScript or C++ precedence.
+The operator precedence follows [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table) precedence, or in other words, it does what you would expect.
 
 ## Examples
 
