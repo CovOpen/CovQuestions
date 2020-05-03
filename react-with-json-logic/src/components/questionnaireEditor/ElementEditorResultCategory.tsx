@@ -21,9 +21,9 @@ const uiSchema = {
   "ui:order": ["", "", "*"],
   results: {
     items: {
-      "ui:order": ["id", "text", "valueString", "*"],
+      "ui:order": ["id", "text", "expressionString", "*"],
       expression: uiSchemaLogicReadOnly(),
-      valueString: uiSchemaLogic(),
+      expressionString: uiSchemaLogic(),
     },
   },
 };

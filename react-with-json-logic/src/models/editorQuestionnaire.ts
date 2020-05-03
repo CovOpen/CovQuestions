@@ -15,7 +15,7 @@ export interface EditorQuestionnaire extends Questionnaire {
 }
 
 export type EditorAnyQuestion = AnyQuestion & {
-  enableWhenString?: string;
+  enableWhenExpressionString?: string;
 };
 
 export interface EditorResultCategory extends ResultCategory {
@@ -23,11 +23,11 @@ export interface EditorResultCategory extends ResultCategory {
 }
 
 export interface EditorResult extends Result {
-  valueString?: string; // TODO: Maybe we can come up with a better name than value.
+  expressionString?: string;
 }
 
 export interface EditorVariable extends Variable {
-  valueString?: string; // TODO: Maybe we can come up with a better name than value.
+  expressionString?: string;
 }
 
 export interface EditorQuestionnaireMeta extends QuestionnaireMeta {

@@ -14,7 +14,7 @@
           "type": "string",
           "description": "Logic expression used to compute this variable."
         },
-        "valueString": {
+        "expressionString": {
           "type": "string",
           "description": "Logic expression used to compute this variable."
         }

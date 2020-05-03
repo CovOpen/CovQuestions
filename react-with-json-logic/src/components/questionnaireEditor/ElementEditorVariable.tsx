@@ -15,9 +15,9 @@ type ElementEditorVariableProps = {
 };
 
 const uiSchema = {
-  "ui:order": ["id", "valueString", "*"],
+  "ui:order": ["id", "expressionString", "*"],
   expression: uiSchemaLogicReadOnly(),
-  valueString: uiSchemaLogic(),
+  expressionString: uiSchemaLogic(),
 };
 
 function convertToStringRepresentation(formData: EditorVariable): VariableInStringRepresentation {

@@ -17,12 +17,12 @@ type ElementEditorQuestionProps = {
 };
 
 const uiSchema = {
-  "ui:order": ["type", "text", "details", "id", "optional", "enableWhenString", "*"],
+  "ui:order": ["type", "text", "details", "id", "optional", "enableWhenExpressionString", "*"],
   enableWhenExpression: uiSchemaLogicReadOnly(),
-  enableWhenString: uiSchemaLogic(),
+  enableWhenExpressionString: uiSchemaLogic(),
   options: {
     items: {
-      "ui:order": ["text", "enableWhenString", "*"],
+      "ui:order": ["text", "enableWhenExpressionString", "*"],
     },
   },
 };

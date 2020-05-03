@@ -123,7 +123,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     .addCase(editQuestion, (state, { payload: { index, changedQuestion, hasErrors } }) => {
       state.questionnaire.questions[index] = {
         ...changedQuestion,
-        enableWhenExpression: convertStringToLogicExpression(changedQuestion.enableWhenString),
+        enableWhenExpression: convertStringToLogicExpression(changedQuestion.enableWhenExpressionString),
       };
       state.hasErrors = hasErrors;
     })
@@ -132,7 +132,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         ...changedResultCategory,
         results: changedResultCategory.results.map((result) => ({
           ...result,
-          expression: convertStringToLogicExpression(result.valueString) || "",
+          expression: convertStringToLogicExpression(result.expressionString) || "",
         })),
       };
       state.hasErrors = hasErrors;
@@ -140,7 +140,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     .addCase(editVariable, (state, { payload: { index, changedVariable, hasErrors } }) => {
       state.questionnaire.variables[index] = {
         ...changedVariable,
-        expression: convertStringToLogicExpression(changedVariable.valueString) || "",
+        expression: convertStringToLogicExpression(changedVariable.expressionString) || "",
       };
       state.hasErrors = hasErrors;
     })
