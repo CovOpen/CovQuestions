@@ -155,9 +155,9 @@ paths:
         example: covapp_original
 components:
   schemas:
-    ISOLanguage: &ref_30
+    ISOLanguage: &ref_31
       description: >-
-        Language of this, as ISO 639-1 code. Additonally 'none' for no
+        Language of this, as ISO 639-1 code. Additionally 'none' for no
         language. 
       type: string
       enum:
@@ -378,13 +378,13 @@ components:
         - availableLanguages
         - creationDate
       type: object
-    LogicExpression: &ref_14
+    LogicExpression: &ref_15
       anyOf:
         - $ref: '#/components/schemas/LogicOperator'
         - $ref: '#/components/schemas/LogicVariable'
         - $ref: '#/components/schemas/LogicConstant'
       description: Logic expression used to compute this variable. Defaults to true.
-    LogicIf: &ref_17
+    LogicIf: &ref_18
       properties:
         if:
           items:
@@ -396,7 +396,7 @@ components:
         - if
       title: LogicIf
       type: object
-    LogicReduce: &ref_26
+    LogicReduce: &ref_27
       properties:
         reduce:
           items:
@@ -408,7 +408,7 @@ components:
         - reduce
       title: LogicReduce
       type: object
-    LogicSome: &ref_27
+    LogicSome: &ref_28
       properties:
         some:
           items:
@@ -420,7 +420,7 @@ components:
         - some
       title: LogicSome
       type: object
-    LogicEquals: &ref_13
+    LogicEquals: &ref_14
       properties:
         ==:
           items:
@@ -432,7 +432,7 @@ components:
         - ==
       title: LogicEquals
       type: object
-    LogicGreaterEqual: &ref_16
+    LogicGreaterEqual: &ref_17
       properties:
         '>=':
           items:
@@ -444,7 +444,7 @@ components:
         - '>='
       title: LogicGreaterEqual
       type: object
-    LogicNot: &ref_22
+    LogicNot: &ref_23
       properties:
         '!':
           anyOf:
@@ -456,7 +456,7 @@ components:
         - '!'
       title: LogicNot
       type: object
-    LogicLessEqual: &ref_20
+    LogicLessEqual: &ref_21
       properties:
         <=:
           items:
@@ -468,7 +468,7 @@ components:
         - <=
       title: LogicLessEqual
       type: object
-    LogicPlus: &ref_25
+    LogicPlus: &ref_26
       properties:
         +:
           items:
@@ -480,7 +480,7 @@ components:
         - +
       title: LogicPlus
       type: object
-    LogicMinus: &ref_21
+    LogicMinus: &ref_22
       properties:
         '-':
           items:
@@ -492,7 +492,7 @@ components:
         - '-'
       title: LogicMinus
       type: object
-    LogicAnd: &ref_11
+    LogicAnd: &ref_12
       properties:
         and:
           items:
@@ -502,7 +502,7 @@ components:
         - and
       title: LogicAnd
       type: object
-    LogicOr: &ref_24
+    LogicOr: &ref_25
       properties:
         or:
           items:
@@ -512,7 +512,7 @@ components:
         - or
       title: LogicOr
       type: object
-    LogicIn: &ref_18
+    LogicIn: &ref_19
       properties:
         in:
           items:
@@ -528,7 +528,7 @@ components:
         - in
       title: LogicIn
       type: object
-    LogicGreater: &ref_15
+    LogicGreater: &ref_16
       properties:
         '>':
           items:
@@ -540,7 +540,7 @@ components:
         - '>'
       title: LogicGreater
       type: object
-    LogicLess: &ref_19
+    LogicLess: &ref_20
       properties:
         <:
           items:
@@ -552,7 +552,7 @@ components:
         - <
       title: LogicLess
       type: object
-    LogicOperator: &ref_23
+    LogicOperator: &ref_24
       anyOf:
         - $ref: '#/components/schemas/LogicIf'
         - $ref: '#/components/schemas/LogicReduce'
@@ -568,19 +568,19 @@ components:
         - $ref: '#/components/schemas/LogicIn'
         - $ref: '#/components/schemas/LogicGreater'
         - $ref: '#/components/schemas/LogicLess'
-    LogicVariable: &ref_28
+    LogicVariable: &ref_29
       properties:
         var:
           type: string
       required:
         - var
       type: object
-    LogicConstant: &ref_12
+    LogicConstant: &ref_13
       anyOf:
         - type: number
         - type: string
         - type: boolean
-    QuestionType: &ref_29
+    QuestionType: &ref_30
       description: Type of the question.
       type: string
       enum:
@@ -778,6 +778,68 @@ components:
       required:
         - id
         - expression
+    TestCase: &ref_11
+      description: >-
+        One test case that simulates a virtual patient and the results they
+        should receive.
+      type: object
+      properties:
+        description:
+          description: The description of the test case.
+          type: string
+        answers:
+          description: >-
+            Object of given answers in the form: 'questionId: answer'. Answer
+            can be the answerId for selects, a value, or an array for
+            multi-selects.
+          type: object
+          additionalProperties: true
+        results:
+          description: >-
+            Object of obtained results in the form: 'resultCategoryId:
+            resultId'.
+          type: object
+          additionalProperties:
+            type: string
+        options:
+          description: Options to configure the behavior of the test case runner.
+          type: object
+          properties:
+            fillInDate:
+              description: >-
+                The simulated time of execution. Important for date questions,
+                where the evaluation looks for time periods, like the last 14
+                days. Example: '2020-03-18'
+              type: string
+            questionMode:
+              description: >-
+                If not set, ignores answers that are provided in the test case,
+                but were not needed in the questionnaire. It also tries to
+                'skip' optional questions if no answer is provided. In strict
+                mode, each appearing question has to be set in the test case and
+                each answer in the test case has to be given in the
+                questionnaire. In random mode, answers that are not provided are
+                randomly chosen, answers that were provided, but not used are
+                ignored.
+              type: string
+              enum:
+                - strict
+                - random
+            resultsMode:
+              description: >-
+                If not set, the provided results have to appear after the
+                questionnaire execution, additional results are allowed. If set,
+                exactly the provided results has to appear.
+              type: string
+              enum:
+                - strict
+            randomRuns:
+              description: Number of random runs of the test case if questionMode is random
+              type: number
+      required:
+        - description
+        - answers
+        - results
     questionnaire:
       title: Questionnaire
       description: The questionnaire.
@@ -815,6 +877,11 @@ components:
         version:
           description: Version of this question in semver.
           type: number
+        testCases:
+          description: Test cases for this questionnaire.
+          items:
+            $ref: '#/components/schemas/TestCase'
+          type: array
       required:
         - id
         - schemaVersion
@@ -838,23 +905,24 @@ components:
         Result: *ref_8
         ResultCategory: *ref_9
         Variable: *ref_10
-        LogicAnd: *ref_11
-        LogicConstant: *ref_12
-        LogicEquals: *ref_13
-        LogicExpression: *ref_14
-        LogicGreater: *ref_15
-        LogicGreaterEqual: *ref_16
-        LogicIf: *ref_17
-        LogicIn: *ref_18
-        LogicLess: *ref_19
-        LogicLessEqual: *ref_20
-        LogicMinus: *ref_21
-        LogicNot: *ref_22
-        LogicOperator: *ref_23
-        LogicOr: *ref_24
-        LogicPlus: *ref_25
-        LogicReduce: *ref_26
-        LogicSome: *ref_27
-        LogicVariable: *ref_28
-        QuestionType: *ref_29
-        ISOLanguage: *ref_30
+        TestCase: *ref_11
+        LogicAnd: *ref_12
+        LogicConstant: *ref_13
+        LogicEquals: *ref_14
+        LogicExpression: *ref_15
+        LogicGreater: *ref_16
+        LogicGreaterEqual: *ref_17
+        LogicIf: *ref_18
+        LogicIn: *ref_19
+        LogicLess: *ref_20
+        LogicLessEqual: *ref_21
+        LogicMinus: *ref_22
+        LogicNot: *ref_23
+        LogicOperator: *ref_24
+        LogicOr: *ref_25
+        LogicPlus: *ref_26
+        LogicReduce: *ref_27
+        LogicSome: *ref_28
+        LogicVariable: *ref_29
+        QuestionType: *ref_30
+        ISOLanguage: *ref_31
