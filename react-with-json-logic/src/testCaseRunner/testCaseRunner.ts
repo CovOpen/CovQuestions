@@ -1,5 +1,5 @@
-import { Questionnaire, QuestionType, TestCase } from "covquestions-js/models/questionnaire";
 import { QuestionnaireEngine, Result } from "covquestions-js";
+import { Questionnaire, TestCase } from "covquestions-js/models/Questionnaire.generated";
 
 type TestResultSuccess = {
   description: string;
@@ -61,10 +61,10 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
 
     if (answerValue !== undefined) {
       // answer was provided in test case
-      if (question.type !== QuestionType.Date) {
+      if (question.type !== "date") {
         engine.setAnswer(question.id, answerValue);
       } else {
-        engine.setAnswer(question.id, Date.parse(answerValue) / 1000);
+        engine.setAnswer(question.id, Date.parse(answerValue as string) / 1000);
       }
       givenAnswers.push(question.id);
     } else {
