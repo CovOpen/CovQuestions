@@ -1,5 +1,6 @@
 import { runOneTestCase, runTestCases } from "./testCaseRunner";
-import contactQuestionWithDateVariableAndSkippingQuestion from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
+import contactQuestionWithDateVariableAndSkippingQuestion
+  from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
 import simpleNumericAgeQuestion from "../test/testCases/simpleNumericAgeQuestion.questionnaire";
@@ -68,7 +69,7 @@ describe("testCaseRunner", () => {
       });
     });
 
-    it("should fail to run in strict mode, if not all answers are provided", () => {
+    it("should succeed to run in strict mode, if not all optional answers are provided", () => {
       const result = runOneTestCase(simpleTextQuestion, {
         ...testCaseWithMissingOptionalAnswers,
         options: { questionMode: "strict" },
@@ -76,8 +77,7 @@ describe("testCaseRunner", () => {
 
       expect(result).toEqual({
         description: testCaseWithMissingOptionalAnswers.description,
-        errorMessage: 'No answer for question with ID "q1_text" was provided, while questionMode is strict.',
-        success: false,
+        success: true,
       });
     });
 
@@ -99,6 +99,21 @@ describe("testCaseRunner", () => {
       expect(result).toEqual({
         description: testCaseWithTooManyAnswer.description,
         errorMessage: 'Not all provided answer were needed to fill the questionnaire: ["someOtherId"]',
+        success: false,
+      });
+    });
+
+    it("should fail to run, if not optional answers are not provided", () => {
+      const result = runOneTestCase(simpleBooleanContactQuestion, {
+        description: "some description",
+        answers: {},
+        results: {},
+      });
+
+      expect(result).toEqual({
+        description: "some description",
+        errorMessage:
+          'No answer for question with ID "q1_contact" was provided, while questionMode is not random and the question is not optional.',
         success: false,
       });
     });

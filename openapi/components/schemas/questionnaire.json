@@ -343,7 +343,7 @@
               "type": "string"
             },
             "questionMode": {
-              "description": "If not set, ignores answers that are provided in the test case, but were not needed in the questionnaire. It also tries to 'skip' optional questions if no answer is provided. In strict mode, each appearing question has to be set in the test case and each answer in the test case has to be given in the questionnaire. In random mode, answers that are not provided are randomly chosen, answers that were provided, but not used are ignored.",
+              "description": "In normal and strict mode, optional questions are skipped (answered with undefined), if they are not explicitly set. In strict mode, each answer in the test case has to be requested during the questionnaire execution. In random mode, answers that are not provided are randomly chosen, answers that were provided, but not used are ignored.",
               "type": "string",
               "enum": ["strict", "random"]
             },

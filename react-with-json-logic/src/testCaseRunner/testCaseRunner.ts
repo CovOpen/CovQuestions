@@ -43,9 +43,9 @@ export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestC
   return { description: testCase.description, success: true };
 }
 
-function findUnusedElements(arrayWithPossibleUnusedElements: string[], otherArray: string[]): string[] {
-  if (otherArray.length !== arrayWithPossibleUnusedElements.length) {
-    return arrayWithPossibleUnusedElements.filter((it) => !otherArray.includes(it));
+function findUnusedElements(arrayWithPossibleUnusedElements: string[], subSetOfFirstArray: string[]): string[] {
+  if (subSetOfFirstArray.length !== arrayWithPossibleUnusedElements.length) {
+    return arrayWithPossibleUnusedElements.filter((it) => !subSetOfFirstArray.includes(it));
   }
 
   return [];
@@ -72,18 +72,11 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
       givenAnswers.push(question.id);
     } else {
       // answer was not provided in test case
-      if (questionMode === "strict") {
-        return {
-          description,
-          success: false,
-          errorMessage: `No answer for question with ID "${question.id}" was provided, while questionMode is strict.`,
-        };
-      }
       if (!question.isOptional()) {
         return {
           description,
           success: false,
-          errorMessage: `No answer for question with ID "${question.id}" was provided, while questionMode is normal and the question is not optional.`,
+          errorMessage: `No answer for question with ID "${question.id}" was provided, while questionMode is not random and the question is not optional.`,
         };
       }
       engine.setAnswer(question.id, undefined);
