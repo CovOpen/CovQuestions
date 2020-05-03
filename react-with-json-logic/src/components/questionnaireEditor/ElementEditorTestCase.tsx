@@ -24,7 +24,7 @@ export function ElementEditorTestCase(props: ElementEditorTestCaseProps) {
   const dispatch = useAppDispatch();
   const classes = useStyles();
 
-  const questionnaireJson = useSelector(questionnaireJsonSelector)
+  const questionnaireJson = useSelector(questionnaireJsonSelector);
   const testCase = useSelector((state: RootState) => testCaseInEditorSelector(state, props));
 
   if (!testCase) {
@@ -35,8 +35,7 @@ export function ElementEditorTestCase(props: ElementEditorTestCaseProps) {
     try {
       const changedTestCase = JSON.parse(event.target.value);
       dispatch(editTestCase({ index: props.index, changedTestCase: changedTestCase, hasErrors: false }));
-    } catch (e) {
-    }
+    } catch (e) {}
   };
 
   const stringifyTestCase = (testCase: TestCase) => JSON.stringify(testCase, undefined, 2);
@@ -44,10 +43,10 @@ export function ElementEditorTestCase(props: ElementEditorTestCaseProps) {
   return (
     <Grid container className={classes.testCaseForm} direction={"column"} spacing={2}>
       <Grid item>
-        <TextField value={stringifyTestCase(testCase)} onChange={onChange} multiline={true} fullWidth={true}/>
+        <TextField value={stringifyTestCase(testCase)} onChange={onChange} multiline={true} fullWidth={true} />
       </Grid>
       <Grid item>
-        <TestResultComponent testResult={runOneTestCase(questionnaireJson, testCase)}/>
+        <TestResultComponent testResult={runOneTestCase(questionnaireJson, testCase)} />
       </Grid>
     </Grid>
   );
@@ -68,15 +67,15 @@ export const TestResultComponent: React.FC<{
         color: "red",
       },
       paperComponent: {
-        padding: 12
-      }
+        padding: 12,
+      },
     })
   );
 
   const classes = useStyles();
 
   if (testResult === undefined) {
-    return null
+    return null;
   }
 
   return (
@@ -85,9 +84,12 @@ export const TestResultComponent: React.FC<{
         <Typography className={classes.runResultHeading}>{testResult.description}</Typography>
       </div>
       <div>
-        {testResult.success ? <Typography className={classes.runResultSuccess}>test run successful</Typography> :
-          <Typography className={classes.runResultError}>{testResult.errorMessage}</Typography>}
+        {testResult.success ? (
+          <Typography className={classes.runResultSuccess}>test run successful</Typography>
+        ) : (
+          <Typography className={classes.runResultError}>{testResult.errorMessage}</Typography>
+        )}
       </div>
     </Paper>
-  )
-}
+  );
+};

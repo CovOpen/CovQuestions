@@ -1,14 +1,15 @@
 import React from "react";
 import { TextField, Typography } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
+import { dateInSecondsTimestamp } from "../../utils/date";
 
 export const DatePicker: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   const handleChange = (e: any) => {
-    const dateInSecondsTimestamp = Math.round(Date.parse(e.target.value) / 1000);
-    if (isNaN(dateInSecondsTimestamp)) {
+    const dateInSeconds = dateInSecondsTimestamp(e.target.value);
+    if (isNaN(dateInSeconds)) {
       onChange(undefined);
     } else {
-      onChange(dateInSecondsTimestamp);
+      onChange(dateInSeconds);
     }
   };
 

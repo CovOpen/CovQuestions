@@ -1,5 +1,6 @@
 import { QuestionnaireEngine, Result } from "covquestions-js";
 import { Questionnaire, TestCase } from "covquestions-js/models/Questionnaire.generated";
+import { dateInSecondsTimestamp } from "../utils/date";
 
 type TestResultSuccess = {
   description: string;
@@ -23,7 +24,9 @@ export function runTestCases(testQuestionnaire: Questionnaire): TestResult[] {
 }
 
 export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestCase): TestResult {
-  const timeOfExecution = testCase.options?.fillInDate ? Date.parse(testCase.options?.fillInDate) / 1000 : undefined;
+  const timeOfExecution = testCase.options?.fillInDate
+    ? dateInSecondsTimestamp(testCase.options?.fillInDate)
+    : undefined;
 
   const engine = new QuestionnaireEngine(testQuestionnaire, timeOfExecution);
 
@@ -64,7 +67,7 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
       if (question.type !== "date") {
         engine.setAnswer(question.id, answerValue);
       } else {
-        engine.setAnswer(question.id, Date.parse(answerValue as string) / 1000);
+        engine.setAnswer(question.id, dateInSecondsTimestamp(answerValue as string));
       }
       givenAnswers.push(question.id);
     } else {
