@@ -41,7 +41,7 @@ export function expectGen(logic: LogicExpression | any, text: string | null) {
 
 /**
  * Assert consistent rendering/parsing.
- * 
+ *
  * Parse -> Render -> Parse, both parse results must be equal, rendered
  * must be equal to given rendered representation.
  * @param input The input text.
@@ -59,10 +59,10 @@ export function expectE2E(input: string, text: string | null) {
     } else {
       expect(rendered).toEqual(text);
 
-      const reParsed = parser.parse(rendered)
-      expect(reParsed).toEqual(parsed)
+      const reParsed = parser.parse(rendered);
+      expect(reParsed).toEqual(parsed);
     }
-  })
+  });
 }
 
 /**
@@ -74,8 +74,8 @@ export function expectE2E(input: string, text: string | null) {
 export function expectEval(input: string, variables: any, truth: any) {
   test(`Evaluate ${input} consistently.`, () => {
     const parsed = parser.parse(input);
-    const result = jsonLogic.apply(parsed, variables)
+    const result = jsonLogic.apply(parsed, variables);
 
-    expect(result).toEqual(truth)
-  })
+    expect(result).toEqual(truth);
+  });
 }

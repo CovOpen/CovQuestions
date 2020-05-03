@@ -20,7 +20,7 @@ type BinaryOperator =
 type UnaryOperator = "!";
 
 function isAssoicative(op: BinaryOperator | UnaryOperator) {
-  return op === 'and' || op === 'or' || op === '+' || op === '*'
+  return op === "and" || op === "or" || op === "+" || op === "*";
 }
 
 export class ToJsonLogicTransformer {
@@ -102,10 +102,10 @@ export class ToJsonLogicTransformer {
     } else {
       // Any other clause
 
-      if(self[op] !== undefined && isAssoicative(op)) {
+      if (self[op] !== undefined && isAssoicative(op)) {
         // Special case: Associative operation. We can add it to a single
         // statement to allow a more compact representation.
-        self[op] = [...self[op], this.toLogic(lhs)]
+        self[op] = [...self[op], this.toLogic(lhs)];
 
         return this.packList([rhs, ...tail], opTail, self);
       } else {
