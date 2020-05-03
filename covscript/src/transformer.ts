@@ -19,6 +19,10 @@ type BinaryOperator =
   | "%";
 type UnaryOperator = "!";
 
+function isAssoicative(op: BinaryOperator | UnaryOperator) {
+  return op === 'and' || op === 'or' || op === '+' || op === '*'
+}
+
 export class ToJsonLogicTransformer {
   /**
    * Converts a leaf node to JSON-Logic.
@@ -92,14 +96,24 @@ export class ToJsonLogicTransformer {
     const expr = {} as L.LogicExpression;
 
     if (self === null) {
-      // Left-most expression (bottom of the output tree)
+      // Left-most clause (bottom of the output tree)
       expr[op] = [this.toLogic(lhs), this.toLogic(rhs)];
       return this.packList(tail, opTail, expr);
     } else {
-      // Any other expression
-      expr[op] = [self, this.toLogic(lhs)];
+      // Any other clause
 
-      return this.packList([rhs, ...tail], opTail, expr);
+      if(self[op] !== undefined && isAssoicative(op)) {
+        // Special case: Associative operation. We can add it to a single
+        // statement to allow a more compact representation.
+        self[op] = [...self[op], this.toLogic(lhs)]
+
+        return this.packList([rhs, ...tail], opTail, self);
+      } else {
+        // General case: Non-Associative. We nest in the correct order.
+        expr[op] = [self, this.toLogic(lhs)];
+
+        return this.packList([rhs, ...tail], opTail, expr);
+      }
     }
   }
 
