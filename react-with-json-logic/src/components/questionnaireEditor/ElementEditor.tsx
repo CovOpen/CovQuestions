@@ -8,6 +8,7 @@ type ElementEditorProps<T> = {
   formData: T;
   onChange: (formData: T, hasErrors: boolean) => void;
   uiSchema?: any;
+  className?: string;
 };
 
 export function ElementEditor<T>(props: ElementEditorProps<T>) {
@@ -17,6 +18,7 @@ export function ElementEditor<T>(props: ElementEditorProps<T>) {
 
   return (
     <MuiForm
+      className={props.className}
       schema={props.schema}
       formData={props.formData}
       onChange={(event: IChangeEvent) => {

@@ -5,7 +5,7 @@ import { ElementEditorResultCategory } from "./ElementEditorResultCategory";
 import { ElementEditorVariable } from "./ElementEditorVariable";
 import { ActiveItem, SectionType } from "./QuestionnaireFormEditor";
 import { exhaustiveCheck } from "../../utils/exhaustiveCheck";
-import { ElementEditorTestCase } from "./ElementEditorTestCase";
+import { ElementEditorTestCase } from "./formEditor/testCaseEditor/ElementEditorTestCase";
 
 type ElementEditorSwitchProps = { activeItem: ActiveItem };
 
