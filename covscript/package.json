@@ -4,7 +4,7 @@
   "description": "Converts simple logic expressions to JSON logic and back",
   "scripts": {
     "test": "npx jest --runInBand",
-    "build": "tsc -p ."
+    "build": "tsc -p . && cp package.json dist/"
   },
   "author": "",
   "license": "ISC",
