@@ -327,7 +327,7 @@
         "answers": {
           "description": "Object of given answers in the form: 'questionId: answer'. Answer can be the answerId for selects, a value, or an array for multi-selects.",
           "type": "object",
-          "additionalProperties": {"type": ["string", "number", "boolean", "array"]}
+          "additionalProperties": true
         },
         "results": {
           "description": "Object of obtained results in the form: 'resultCategoryId: resultId'.",
@@ -339,9 +339,8 @@
           "type": "object",
           "properties": {
             "fillInDate": {
-              "description": "The simulated time of execution. Important for date questions, where the evaluation looks for time periods, like the last 14 days.",
-              "type": "string",
-              "example": "2020-03-18"
+              "description": "The simulated time of execution. Important for date questions, where the evaluation looks for time periods, like the last 14 days. Example: '2020-03-18'",
+              "type": "string"
             },
             "questionMode": {
               "description": "If not set, ignores answers that are provided in the test case, but were not needed in the questionnaire. It also tries to 'skip' optional questions if no answer is provided. In strict mode, each appearing question has to be set in the test case and each answer in the test case has to be given in the questionnaire. In random mode, answers that are not provided are randomly chosen, answers that were provided, but not used are ignored.",
@@ -359,7 +358,6 @@
             }
           }
         }
-
       },
       "required": ["description", "answers", "results"]
     },

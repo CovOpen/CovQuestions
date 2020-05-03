@@ -4,6 +4,10 @@
     "path": "api/contactQuestionWithDateVariableAndSkippingQuestion.json"
   },
   {
+    "name": "CovApp - similar example",
+    "path": "api/covapp_original.json"
+  },
+  {
     "name": "Example",
     "path": "api/example1.json"
   },
@@ -26,9 +30,5 @@
   {
     "name": "Simple text question",
     "path": "api/simpleTextQuestion.json"
-  },
-  {
-    "name": "Covapp Example",
-    "path": "api/covapp_original.json"
   }
 ]

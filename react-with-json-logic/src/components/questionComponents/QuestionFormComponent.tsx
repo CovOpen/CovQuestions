@@ -6,6 +6,7 @@ import { DatePicker } from "./DatePicker";
 import { Primitive } from "covquestions-js/primitive";
 import { TextInput } from "./TextInput";
 import { Question } from "covquestions-js";
+import { exhaustiveCheck } from "../../utils/exhaustiveCheck";
 
 export type QuestionFormComponentProps = {
   currentQuestion: Question;
@@ -29,8 +30,4 @@ export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({ cu
       exhaustiveCheck(currentQuestion.type);
       return null;
   }
-};
-
-const exhaustiveCheck = (_: never): void => {
-  return;
 };

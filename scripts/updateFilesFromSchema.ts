@@ -1,8 +1,7 @@
 import * as fs from "fs";
-
-let jsonSchema = require("../openapi/components/schemas/questionnaire.json");
+import { loadSchema } from "./loadSchema";
 
 fs.writeFileSync(
   "./react-with-json-logic/src/schemas/questionnaire.json",
-  JSON.stringify(jsonSchema, null, 2)
+  JSON.stringify(loadSchema(), null, 2)
 );

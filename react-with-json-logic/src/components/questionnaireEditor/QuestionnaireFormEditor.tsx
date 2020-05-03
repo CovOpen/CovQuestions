@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import {
   addNewQuestion,
   addNewResultCategory,
+  addNewTestCase,
   addNewVariable,
   questionnaireInEditorSelector,
   removeItem,
@@ -36,6 +37,7 @@ export enum SectionType {
   QUESTIONS = "questions",
   RESULT_CATEGORIES = "resultCategories",
   VARIABLES = "variables",
+  TEST_CASES = "testCases",
 }
 
 export type ActiveItem = {
@@ -115,9 +117,10 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
       return;
     }
 
-    const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section].length;
-    if (lengthOfActiveSection === 0) {
+    const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section]?.length;
+    if (lengthOfActiveSection === undefined || lengthOfActiveSection === 0) {
       setActiveItem({ section: SectionType.META, index: 0 });
+      return;
     }
     if (activeItem.index >= lengthOfActiveSection) {
       setActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
@@ -261,6 +264,39 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 </Button>
               </ListItem>
             </List>
+            <Divider className={classes.selectionListDivider} />
+            <List className={classes.selectionList}>
+              {(questionnaireInEditor.questionnaire.testCases ?? []).map((item, index) => (
+                <ListItem
+                  button
+                  className={classes.listItem}
+                  selected={activeItem.section === SectionType.TEST_CASES && activeItem.index === index}
+                  onClick={() => handleActiveItemChange(SectionType.TEST_CASES, index)}
+                  key={index}
+                >
+                  <ListItemText primary={item.description} />
+                </ListItem>
+              ))}
+              <ListItem className={classes.listItem}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => {
+                    if (questionnaireInEditor.hasErrors) {
+                      setShowSnackbar(true);
+                      return;
+                    }
+                    dispatch(addNewTestCase());
+                    handleActiveItemChange(
+                      SectionType.TEST_CASES,
+                      (questionnaireInEditor.questionnaire.testCases ?? []).length
+                    );
+                  }}
+                >
+                  Add Test Case
+                </Button>
+              </ListItem>
+            </List>
           </Grid>
           <Grid container item xs={9} className={classes.formContainer}>
             {activeItem.section !== SectionType.META ? (
@@ -270,7 +306,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 </IconButton>
                 <IconButton
                   aria-label="move-down"
-                  disabled={activeItem.index >= questionnaireInEditor.questionnaire[activeItem.section].length - 1}
+                  disabled={
+                    activeItem.index >= (questionnaireInEditor.questionnaire[activeItem.section]?.length ?? 0) - 1
+                  }
                   onClick={handleMoveDown}
                 >
                   <ArrowDownwardIcon />

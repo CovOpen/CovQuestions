@@ -480,7 +480,7 @@ export interface TestCase {
    * Object of given answers in the form: 'questionId: answer'. Answer can be the answerId for selects, a value, or an array for multi-selects.
    */
   answers: {
-    [k: string]: string | number | boolean | any[];
+    [k: string]: any;
   };
   /**
    * Object of obtained results in the form: 'resultCategoryId: resultId'.
@@ -493,7 +493,7 @@ export interface TestCase {
    */
   options?: {
     /**
-     * The simulated time of execution. Important for date questions, where the evaluation looks for time periods, like the last 14 days.
+     * The simulated time of execution. Important for date questions, where the evaluation looks for time periods, like the last 14 days. Example: '2020-03-18'
      */
     fillInDate?: string;
     /**

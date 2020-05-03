@@ -1,17 +1,8 @@
 import * as fs from "fs";
 import { compile } from "json-schema-to-typescript";
+import { loadSchema } from "./loadSchema";
 
 export const generatedTypesOutputPath = "dist/Questionnaire.generated.ts";
-
-function loadSchema(): Object {
-  return JSON.parse(
-    fs
-      .readFileSync("./openapi/components/schemas/questionnaire.json", {
-        encoding: "utf-8",
-      })
-      .replace(/x-definitions/gm, "definitions")
-  );
-}
 
 function addAdditionalProperties(schema: object): { [key: string]: any } {
   if (Array.isArray(schema)) {

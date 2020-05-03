@@ -6,16 +6,15 @@ import "brace/mode/json";
 import "brace/theme/github";
 // @ts-ignore
 import { JsonEditor as Editor } from "jsoneditor-react";
-// @ts-ignore
-import jsonschema from "jsonschema";
+import { JSONSchema7 } from "json-schema";
 import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setQuestionnaireInEditor, setHasErrors } from "../../store/questionnaireInEditor";
+import { questionnaireJsonSelector, setHasErrors, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
-  schema: jsonschema.Schema;
+  schema: JSONSchema7;
 };
 
 const ajv = new Ajv({ allErrors: true, verbose: true });

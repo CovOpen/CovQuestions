@@ -5,13 +5,14 @@ import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
 import questionnaireSchema from "../../schemas/questionnaire.json";
 import { useSelector } from "react-redux";
 import { questionnaireJsonSelector } from "../../store/questionnaireInEditor";
+import { JSONSchema7 } from "json-schema";
 
 type QuestionnaireEditorProps = {
   resetQuestionnaire: () => void;
   isJsonMode: boolean;
 };
 
-const heightWithoutEditor = 125;
+export const heightWithoutEditor = 125;
 const useStyles = makeStyles(() =>
   createStyles({
     formContainer: {
@@ -80,7 +81,10 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
       <style>{style}</style>
       <Grid item xs={12} className="grid-row">
         {props.isJsonMode ? (
-          <QuestionnaireJsonEditor heightWithoutEditor={heightWithoutEditor} schema={questionnaireSchema} />
+          <QuestionnaireJsonEditor
+            heightWithoutEditor={heightWithoutEditor}
+            schema={questionnaireSchema as JSONSchema7}
+          />
         ) : (
           <QuestionnaireFormEditor heightWithoutEditor={heightWithoutEditor} />
         )}
