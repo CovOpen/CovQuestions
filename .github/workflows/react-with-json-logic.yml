@@ -28,11 +28,11 @@ jobs:
     - name: Link covquestions package to React App
       run: npm link ../covquestions-js/dist
       working-directory: react-with-json-logic/
-    - name: Link covquestions package to  covquestions-logic-parser
-      run: npm link ../covquestions-js/dist
-      working-directory: covscript/
     - name: Install covquestions-logic-parser Packages
       run: npm install
+      working-directory: covscript/
+    - name: Link covquestions package to  covquestions-logic-parser
+      run: npm link ../covquestions-js/dist
       working-directory: covscript/
     - name: Build covquestions-logic-parser package
       run: npm run build
