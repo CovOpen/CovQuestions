@@ -1,7 +1,6 @@
 import React from "react";
 import { RadioSelect } from "./RadioSelect";
 import { NumericInput } from "./NumericInput";
-import { QuestionType } from "covquestions-js/models/questionnaire";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
 import { Primitive } from "covquestions-js/primitive";
@@ -15,16 +14,16 @@ export type QuestionFormComponentProps = {
 
 export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
   switch (currentQuestion.type) {
-    case QuestionType.Select:
-    case QuestionType.Boolean:
+    case "select":
+    case "boolean":
       return <RadioSelect key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
-    case QuestionType.Multiselect:
+    case "multiselect":
       return <MultiSelect key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
-    case QuestionType.Date:
+    case "date":
       return <DatePicker key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
-    case QuestionType.Number:
+    case "number":
       return <NumericInput key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
-    case QuestionType.Text:
+    case "text":
       return <TextInput key={currentQuestion.id} currentQuestion={currentQuestion} onChange={onChange} />;
     default:
       exhaustiveCheck(currentQuestion.type);

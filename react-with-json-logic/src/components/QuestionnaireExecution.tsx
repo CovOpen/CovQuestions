@@ -4,7 +4,7 @@ import { Alert } from "@material-ui/lab";
 import { Question, QuestionnaireEngine, Result } from "covquestions-js";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 import { Primitive } from "covquestions-js/primitive";
 import "typeface-fira-sans";
 

@@ -18,7 +18,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import "./App.css";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 import { useAppDispatch } from "./store/store";
 import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
 import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";

@@ -10,11 +10,11 @@
           "description": "Unique id for referring this variable in logic expressions.",
           "type": "string"
         },
-        "value": {
+        "expression": {
           "type": "string",
           "description": "Logic expression used to compute this variable."
         },
-        "valueString": {
+        "expressionString": {
           "type": "string",
           "description": "Logic expression used to compute this variable."
         }

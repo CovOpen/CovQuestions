@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "jsoneditor-react/es/editor.min.css";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 import "brace";
 import "brace/mode/json";
 import "brace/theme/github";

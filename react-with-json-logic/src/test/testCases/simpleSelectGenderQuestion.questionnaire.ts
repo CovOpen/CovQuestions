@@ -1,20 +1,21 @@
-import { Questionnaire, QuestionType } from "covquestions-js/models/questionnaire";
+import { Questionnaire, QuestionType } from "covquestions-js/models/Questionnaire.generated";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleSelectGenderQuestion",
   schemaVersion: "1",
-  version: "1",
+  version: 1,
+  language: "en",
+  title: "Simple select gender question",
   meta: {
     author: "Someone",
-    language: "DE",
-    title: "Simple select gender question",
+    availableLanguages: ["en"],
     creationDate: "2020-04-13T13:48:48+0000",
   },
   questions: [
     {
       id: "q1_gender",
       text: "Geben Sie bitte ihr Geschlecht an?",
-      type: QuestionType.Select,
+      type: "select",
       options: [
         {
           text: "weiblich",
@@ -40,21 +41,21 @@ const testQuestionnaire: Questionnaire = {
         {
           id: "GENDER_FEMALE",
           text: "Sie haben als Geschlecht 'weiblich' angegeben.",
-          value: {
+          expression: {
             "==": [{ var: "q1_gender.value" }, "female"],
           },
         },
         {
           id: "GENDER_MALE",
           text: "Sie haben als Geschlecht 'männlich' angegeben.",
-          value: {
+          expression: {
             "==": [{ var: "q1_gender.value" }, "male"],
           },
         },
         {
           id: "GENDER_DIVERSE",
           text: "Sie haben als Geschlecht 'divers' angegeben.",
-          value: {
+          expression: {
             "==": [{ var: "q1_gender.value" }, "diverse"],
           },
         },
