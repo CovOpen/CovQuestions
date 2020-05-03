@@ -1,24 +1,23 @@
-import { Expression } from "../../logic-parser/parser";
+import { CovscriptToJsonLogicConverter, CovscriptGenerator } from "covquestions-logic-parser";
 import { LogicExpression, Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 import { EditorQuestionnaire } from "../../models/editorQuestionnaire";
 
-export function convertLogicExpressionToString(value?: LogicExpression) {
-  return JSON.stringify(value, undefined, 2) ?? "";
+export function convertLogicExpressionToString(value?: LogicExpression): string {
+  const generator = new CovscriptGenerator();
+  if (value === undefined) {
+    return "";
+  }
+
+  return generator.generate(value);
 }
 
 export function convertStringToLogicExpression(value?: string): LogicExpression | undefined {
   if (value === undefined || value === "") {
     return undefined;
   }
-  try {
-    return JSON.parse(value);
-  } catch (e) {}
+  const parser = new CovscriptToJsonLogicConverter();
 
-  try {
-    return new Expression(value).toJSONLogic();
-  } catch (e) {}
-
-  return undefined;
+  return parser.parse(value);
 }
 
 export function addStringRepresentationToQuestionnaire(questionnaire: Questionnaire): EditorQuestionnaire {
