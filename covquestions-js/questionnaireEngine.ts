@@ -126,7 +126,9 @@ export class QuestionnaireEngine {
   }
 
   private updateComputableVariables() {
-    this.data["g_now"] = { value: Math.round(this.timeOfExecution ?? Date.now() / 1000) };
+    this.data["g_now"] = {
+      value: Math.round(this.timeOfExecution ?? Date.now() / 1000),
+    };
 
     this.variables.forEach((variable) => {
       try {

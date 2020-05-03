@@ -332,7 +332,7 @@
         "results": {
           "description": "Object of obtained results in the form: 'resultCategoryId: resultId'.",
           "type": "object",
-          "additionalProperties": {"type": "string"}
+          "additionalProperties": { "type": "string" }
         },
         "options": {
           "description": "Options to configure the behavior of the test case runner.",

@@ -1,6 +1,5 @@
 import { runOneTestCase, runTestCases } from "./testCaseRunner";
-import contactQuestionWithDateVariableAndSkippingQuestion
-  from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
+import contactQuestionWithDateVariableAndSkippingQuestion from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
 import simpleNumericAgeQuestion from "../test/testCases/simpleNumericAgeQuestion.questionnaire";
