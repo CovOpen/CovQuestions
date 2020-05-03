@@ -30,20 +30,22 @@ The operator precedence follows [JavaScript](https://developer.mozilla.org/en-US
 ## Examples
 
 ```
-If 3 + 2 Then
-    "True"
+If work.value == "medical" Then
+    "ShowMedicalAdvisory"
 Else
-    If 8 > 4 + 2 Then
-        "Totally not True"
+    If has_fever.value Then
+        "ShowHighRisk"
     Else
-        8 in [1, 2, 3, 4]
+        "ShowLowRisk"
     EndIf
 EndIf
 ```
 
 ```
-5 < 2 AND (0 * 8 > 2 + 7 OR 1 < 2)
+If contact_date.value > symptoms_date.value Then "StayHome" Else "AlsoStayHome" EndIf
 ```
+
+For more examples, please have a look at the unit tests.
 
 ## Using the Parser
 
