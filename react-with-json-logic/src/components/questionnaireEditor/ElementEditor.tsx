@@ -11,6 +11,11 @@ type ElementEditorProps<T> = {
 };
 
 export function ElementEditor<T>(props: ElementEditorProps<T>) {
+  const onValidate = (formData: T, errors: any) => {
+    props.addAdditionalValidationErrors(formData, errors);
+
+  };
+
   if (props.schema === undefined) {
     return null;
   }
@@ -25,6 +30,7 @@ export function ElementEditor<T>(props: ElementEditorProps<T>) {
       uiSchema={props.uiSchema}
       liveValidate={true}
       showErrorList={false}
+      validate={onValidate}
     >
       <div>{/* Empty div to hide submit button of MuiForm */}</div>
     </MuiForm>
