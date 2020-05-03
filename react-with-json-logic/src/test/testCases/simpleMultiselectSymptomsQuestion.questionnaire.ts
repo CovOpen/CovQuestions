@@ -1,20 +1,21 @@
-import { Questionnaire, QuestionType } from "covquestions-js/models/questionnaire";
+import { Questionnaire, QuestionType } from "covquestions-js/models/Questionnaire.generated";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleMultiselectSymptomsQuestion",
   schemaVersion: "1",
-  version: "1",
+  version: 1,
+  language: "en",
+  title: "Simple multiselect symptoms question",
   meta: {
     author: "Someone",
-    language: "DE",
-    title: "Simple multiselect symptoms question",
+    availableLanguages: ["en"],
     creationDate: "2020-04-13T13:48:48+0000",
   },
   questions: [
     {
       id: "q1_symptoms",
       text: "Welche der folgenden Symptome haben Sie?",
-      type: QuestionType.Multiselect,
+      type: "multiselect",
       optional: true,
       options: [
         {
@@ -45,14 +46,14 @@ const testQuestionnaire: Questionnaire = {
         {
           id: "MANY_SYMPTOMS",
           text: "Sie haben drei oder mehr Symptome.",
-          value: {
+          expression: {
             ">=": [{ var: "q1_symptoms.selectedCount" }, 3],
           },
         },
         {
           id: "FEW_SYMPTOMS",
           text: "Sie haben ein oder zwei Symptome.",
-          value: {
+          expression: {
             or: [
               {
                 "==": [{ var: "q1_symptoms.selectedCount" }, 1],
@@ -66,7 +67,7 @@ const testQuestionnaire: Questionnaire = {
         {
           id: "NO_SYMPTOMS",
           text: "Sie haben keine Symptome.",
-          value: {
+          expression: {
             "==": [{ var: "q1_symptoms.selectedCount" }, 0],
           },
         },

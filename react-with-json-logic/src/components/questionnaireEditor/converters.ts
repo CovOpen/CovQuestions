@@ -1,6 +1,6 @@
-import { LogicExpression } from "covquestions-js/models/logicExpression";
 import { Expression } from "../../logic-parser/parser";
-import { Questionnaire } from "covquestions-js/models/questionnaire";
+import { LogicExpression, Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { EditorQuestionnaire } from "../../models/editorQuestionnaire";
 
 export function convertLogicExpressionToString(value?: LogicExpression) {
   return JSON.stringify(value, undefined, 2) ?? "";
@@ -21,43 +21,43 @@ export function convertStringToLogicExpression(value?: string): LogicExpression 
   return undefined;
 }
 
-export function addStringRepresentationToQuestionnaire(questionnaire: Questionnaire): Questionnaire {
+export function addStringRepresentationToQuestionnaire(questionnaire: Questionnaire): EditorQuestionnaire {
   return {
     ...questionnaire,
     questions: questionnaire.questions.map((question) => ({
       ...question,
-      enableWhenString: convertLogicExpressionToString(question.enableWhen),
+      enableWhenExpressionString: convertLogicExpressionToString(question.enableWhenExpression),
     })),
     resultCategories: questionnaire.resultCategories.map((resultCategory) => ({
       ...resultCategory,
       results: resultCategory.results.map((result) => ({
         ...result,
-        valueString: convertLogicExpressionToString(result.value),
+        expressionString: convertLogicExpressionToString(result.expression),
       })),
     })),
     variables: questionnaire.variables.map((variable) => ({
       ...variable,
-      valueString: convertLogicExpressionToString(variable.value),
+      expressionString: convertLogicExpressionToString(variable.expression),
     })),
   };
 }
 
-export function removeStringRepresentationFromQuestionnaire(questionnaire: Questionnaire): Questionnaire {
+export function removeStringRepresentationFromQuestionnaire(questionnaire: EditorQuestionnaire): Questionnaire {
   return {
     ...questionnaire,
     questions: questionnaire.questions.map((question) => {
-      const { enableWhenString, ...rest } = question;
+      const { enableWhenExpressionString, ...rest } = question;
       return rest;
     }),
     resultCategories: questionnaire.resultCategories.map((resultCategory) => ({
       ...resultCategory,
       results: resultCategory.results.map((result) => {
-        const { valueString, ...rest } = result;
+        const { expressionString, ...rest } = result;
         return rest;
       }),
     })),
     variables: questionnaire.variables.map((variable) => {
-      const { valueString, ...rest } = variable;
+      const { expressionString, ...rest } = variable;
       return rest;
     }),
   };

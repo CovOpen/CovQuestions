@@ -1,4 +1,4 @@
-import { Variable } from "covquestions-js/models/questionnaire";
+import { EditorVariable } from "../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";
@@ -8,20 +8,20 @@ import { useSelector } from "react-redux";
 import { editVariable, variableInEditorSelector } from "../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-export type VariableInStringRepresentation = Omit<Variable, "value"> & { value: string };
+export type VariableInStringRepresentation = Omit<EditorVariable, "expression"> & { expression: string };
 
 type ElementEditorVariableProps = {
   index: number;
 };
 
 const uiSchema = {
-  "ui:order": ["id", "valueString", "*"],
-  value: uiSchemaLogicReadOnly(),
-  valueString: uiSchemaLogic(),
+  "ui:order": ["id", "expressionString", "*"],
+  expression: uiSchemaLogicReadOnly(),
+  expressionString: uiSchemaLogic(),
 };
 
-function convertToStringRepresentation(formData: Variable): VariableInStringRepresentation {
-  return { ...formData, value: convertLogicExpressionToString(formData?.value) };
+function convertToStringRepresentation(formData: EditorVariable): VariableInStringRepresentation {
+  return { ...formData, expression: convertLogicExpressionToString(formData?.expression) };
 }
 
 export function ElementEditorVariable(props: ElementEditorVariableProps) {

@@ -9,11 +9,11 @@
           "description": "Optional human-readable details or clarifiation about this question.",
           "type": "string"
         },
-        "enableWhen": {
+        "enableWhenExpression": {
           "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true.",
           "type": "string"
         },
-        "enableWhenString": {
+        "enableWhenExpressionString": {
           "description": "Logic expression in string representation",
           "type": "string"
         },

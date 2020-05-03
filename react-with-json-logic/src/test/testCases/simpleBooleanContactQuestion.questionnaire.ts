@@ -1,20 +1,21 @@
-import { Questionnaire, QuestionType } from "covquestions-js/models/questionnaire";
+import { Questionnaire, QuestionType } from "covquestions-js/models/Questionnaire.generated";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleBooleanContactQuestion",
   schemaVersion: "1",
-  version: "1",
+  version: 1,
+  language: "en",
+  title: "Simple boolean contact question",
   meta: {
     author: "Someone",
-    language: "DE",
-    title: "Simple boolean contact question",
+    availableLanguages: ["en"],
     creationDate: "2020-04-10T18:48:48+0000",
   },
   questions: [
     {
       id: "q1_contact",
       text: "Gab es Kontakt zu bestätigten Fällen?",
-      type: QuestionType.Boolean,
+      type: "boolean",
     },
   ],
   variables: [],
@@ -26,14 +27,14 @@ const testQuestionnaire: Questionnaire = {
         {
           id: "CONTACT_YES",
           text: "Sie hatten Kontakt.",
-          value: {
+          expression: {
             var: "q1_contact.value",
           },
         },
         {
           id: "CONTACT_NO",
           text: "Sie hatten keinen Kontakt.",
-          value: {
+          expression: {
             "!": {
               var: "q1_contact.value",
             },

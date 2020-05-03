@@ -1,15 +1,15 @@
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
-import { Result, ResultCategory } from "covquestions-js/models/questionnaire";
+import { EditorResult, EditorResultCategory } from "../../models/editorQuestionnaire";
 import { convertLogicExpressionToString } from "./converters";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { editResultCategory, resultCategoryInEditorSelector } from "../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-type ResultInStringRepresentation = Omit<Result, "value"> & { value: string };
-export type ResultCategoryInStringRepresentation = Omit<ResultCategory, "results"> & {
+type ResultInStringRepresentation = Omit<EditorResult, "expression"> & { expression: string };
+export type ResultCategoryInStringRepresentation = Omit<EditorResultCategory, "results"> & {
   results: ResultInStringRepresentation[];
 };
 
@@ -21,19 +21,19 @@ const uiSchema = {
   "ui:order": ["", "", "*"],
   results: {
     items: {
-      "ui:order": ["id", "text", "valueString", "*"],
-      value: uiSchemaLogicReadOnly(),
-      valueString: uiSchemaLogic(),
+      "ui:order": ["id", "text", "expressionString", "*"],
+      expression: uiSchemaLogicReadOnly(),
+      expressionString: uiSchemaLogic(),
     },
   },
 };
 
-function convertToStringRepresentation(formData: ResultCategory): ResultCategoryInStringRepresentation {
+function convertToStringRepresentation(formData: EditorResultCategory): ResultCategoryInStringRepresentation {
   return {
     ...formData,
     results: formData?.results?.map((result) => {
-      let value = convertLogicExpressionToString(result.value);
-      return { ...result, value };
+      let expression = convertLogicExpressionToString(result.expression);
+      return { ...result, expression };
     }),
   };
 }

@@ -1,4 +1,4 @@
-import { AnyQuestion } from "covquestions-js/models/questionnaire";
+import { EditorAnyQuestion } from "../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "./formEditorSchemas/question.json";
 import React from "react";
@@ -8,25 +8,27 @@ import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-export type QuestionInStringRepresentation = Omit<AnyQuestion, "enableWhen"> & { enableWhen: string };
+export type QuestionInStringRepresentation = Omit<EditorAnyQuestion, "enableWhenExpression"> & {
+  enableWhenExpression: string;
+};
 
 type ElementEditorQuestionProps = {
   index: number;
 };
 
 const uiSchema = {
-  "ui:order": ["type", "text", "details", "id", "optional", "enableWhenString", "*"],
-  enableWhen: uiSchemaLogicReadOnly(),
-  enableWhenString: uiSchemaLogic(),
+  "ui:order": ["type", "text", "details", "id", "optional", "enableWhenExpressionString", "*"],
+  enableWhenExpression: uiSchemaLogicReadOnly(),
+  enableWhenExpressionString: uiSchemaLogic(),
   options: {
     items: {
-      "ui:order": ["text", "value", "*"],
+      "ui:order": ["text", "enableWhenExpressionString", "*"],
     },
   },
 };
 
-function convertToStringRepresentation(formData: AnyQuestion): QuestionInStringRepresentation {
-  return { ...formData, enableWhen: convertLogicExpressionToString(formData?.enableWhen) };
+function convertToStringRepresentation(formData: EditorAnyQuestion): QuestionInStringRepresentation {
+  return { ...formData, enableWhenExpression: convertLogicExpressionToString(formData?.enableWhenExpression) };
 }
 
 export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
