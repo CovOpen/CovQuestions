@@ -28,7 +28,10 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: EditorAnyQuestion): QuestionInStringRepresentation {
-  return { ...formData, enableWhenExpression: convertLogicExpressionToString(formData?.enableWhenExpression) };
+  return {
+    ...formData,
+    enableWhenExpression: JSON.stringify(formData.enableWhenExpression, null, 2),
+  };
 }
 
 export function ElementEditorQuestion(props: ElementEditorQuestionProps) {

@@ -21,7 +21,7 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: EditorVariable): VariableInStringRepresentation {
-  return { ...formData, expression: convertLogicExpressionToString(formData?.expression) };
+  return { ...formData, expression: JSON.stringify(formData?.expression, null, 2) };
 }
 
 export function ElementEditorVariable(props: ElementEditorVariableProps) {

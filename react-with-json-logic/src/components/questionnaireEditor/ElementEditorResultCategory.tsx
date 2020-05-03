@@ -32,7 +32,7 @@ function convertToStringRepresentation(formData: EditorResultCategory): ResultCa
   return {
     ...formData,
     results: formData?.results?.map((result) => {
-      let expression = convertLogicExpressionToString(result.expression);
+      let expression = JSON.stringify(result.expression, null, 2);
       return { ...result, expression };
     }),
   };
