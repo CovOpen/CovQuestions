@@ -134,12 +134,12 @@ export const LessEqual = createToken({
   categories: ComparisonOperator,
 });
 export const Equal = createToken({
-  name: "GreaterEqual",
+  name: "Equal",
   pattern: /==/,
   categories: ComparisonOperator,
 });
 export const NotEqual = createToken({
-  name: "LessEqual",
+  name: "NotEqual",
   pattern: /!=/,
   categories: ComparisonOperator,
 });
