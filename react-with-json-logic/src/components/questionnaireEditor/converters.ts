@@ -23,21 +23,45 @@ export function convertStringToLogicExpression(value?: string): LogicExpression 
 export function addStringRepresentationToQuestionnaire(questionnaire: Questionnaire): EditorQuestionnaire {
   return {
     ...questionnaire,
-    questions: questionnaire.questions.map((question) => ({
-      ...question,
-      enableWhenExpressionString: convertLogicExpressionToString(question.enableWhenExpression),
-    })),
+    questions: questionnaire.questions.map((question) => {
+      let enableWhenExpressionString;
+      try {
+        enableWhenExpressionString = convertLogicExpressionToString(question.enableWhenExpression);
+      } catch (error) {
+        console.log("Cannot convert expression of question to string", error);
+      }
+      return {
+        ...question,
+        enableWhenExpressionString,
+      };
+    }),
     resultCategories: questionnaire.resultCategories.map((resultCategory) => ({
       ...resultCategory,
-      results: resultCategory.results.map((result) => ({
-        ...result,
-        expressionString: convertLogicExpressionToString(result.expression),
-      })),
+      results: resultCategory.results.map((result) => {
+        let expressionString;
+        try {
+          expressionString = convertLogicExpressionToString(result.expression);
+        } catch (error) {
+          console.log("Cannot convert expression of result to string", error);
+        }
+        return {
+          ...result,
+          expressionString,
+        };
+      }),
     })),
-    variables: questionnaire.variables.map((variable) => ({
-      ...variable,
-      expressionString: convertLogicExpressionToString(variable.expression),
-    })),
+    variables: questionnaire.variables.map((variable) => {
+      let expressionString;
+      try {
+        expressionString = convertLogicExpressionToString(variable.expression);
+      } catch (error) {
+        console.log("Cannot convert expression of variable to string", error);
+      }
+      return {
+        ...variable,
+        expressionString,
+      };
+    }),
   };
 }
 
