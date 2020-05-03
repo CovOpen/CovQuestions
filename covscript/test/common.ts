@@ -2,6 +2,7 @@ import { CovscriptToJsonLogicConverter } from "../src";
 import { LogicExpression } from "covquestions-js/models/logicExpression";
 import { inspect } from "util";
 import { CovscriptGenerator } from "../src/generator";
+import * as jsonLogic from "json-logic-js";
 
 const parser = new CovscriptToJsonLogicConverter();
 const generator = new CovscriptGenerator();
@@ -48,16 +49,33 @@ export function expectGen(logic: LogicExpression | any, text: string | null) {
  * parser is a bit flexible.
  */
 export function expectE2E(input: string, text: string | null) {
-  const parsed = parser.parse(input);
-  const rendered = generator.generate(parsed);
+  test(`Parse ${input} consistently (end to end)`, () => {
+    const parsed = parser.parse(input);
+    const rendered = generator.generate(parsed);
 
-  if (text === null) {
-    // Use this to generate test cases
-    console.log(rendered);
-  } else {
-    expect(rendered).toEqual(text);
+    if (text === null) {
+      // Use this to generate test cases
+      console.log(rendered);
+    } else {
+      expect(rendered).toEqual(text);
 
-    const reParsed = parser.parse(rendered)
-    expect(reParsed).toEqual(parsed)
-  }
+      const reParsed = parser.parse(rendered)
+      expect(reParsed).toEqual(parsed)
+    }
+  })
+}
+
+/**
+ * Asserts parsing and evaluation of a covscript expression.
+ * @param input The input expression.
+ * @param variables Variables to inject.
+ * @param result The result.
+ */
+export function expectEval(input: string, variables: any, truth: any) {
+  test(`Evaluate ${input} consistently.`, () => {
+    const parsed = parser.parse(input);
+    const result = jsonLogic.apply(parsed, variables)
+
+    expect(result).toEqual(truth)
+  })
 }

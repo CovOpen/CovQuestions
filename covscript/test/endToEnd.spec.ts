@@ -1,7 +1,7 @@
 import { expectE2E } from "./common";
 
 // Those tests utilize the parser to create an end-to-end situation!
-describe("Covscript generator complex tests", () => {
+describe("Generator/Parser End-To-End Tests", () => {
   expectE2E(
     "5 < 2 AND (0 * 8 > 2 + 7 OR 1 < 2)",
     "5 < 2 and (0 * 8 > 2 + 7 or 1 < 2)"
@@ -23,6 +23,11 @@ describe("Covscript generator complex tests", () => {
     '"test" in [1, 2, 3, 4 + 2 - 3, 5]',
     '"test" in [1, 2, 3, 4 + 2 - 3, 5]'
   );
+  expectE2E(
+    '1 > 0 AND 7 - 2 % 3 == 1 OR "Test" != Test',
+    '1 > 0 and 7 - 2 % 3 == 1 or "Test" != Test'
+  );
+
   expectE2E(
     '1 > 0 AND 7 - 2 % 3 == 1 OR "Test" != Test',
     '1 > 0 and 7 - 2 % 3 == 1 or "Test" != Test'
