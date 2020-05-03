@@ -1,4 +1,4 @@
-import { LogicExpression } from "covquestions-js/models/logicExpression";
+import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
 
 type LE = LogicExpression;
 

@@ -1,5 +1,5 @@
 import { CovscriptToJsonLogicConverter } from "../src";
-import { LogicExpression } from "covquestions-js/models/logicExpression";
+import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
 import { inspect } from "util";
 import { CovscriptGenerator } from "../src/generator";
 import * as jsonLogic from "json-logic-js";
