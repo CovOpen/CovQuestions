@@ -1,6 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { Questionnaire, QuestionnaireMeta } from "../models/questionnaire";
+import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../models/editorQuestionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
@@ -13,7 +13,7 @@ import { VariableInStringRepresentation } from "../components/questionnaireEdito
 
 type ArraySection = SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
 
-export const setQuestionnaireInEditor = createAction<Questionnaire>("setQuestionnaireInEditor");
+export const setQuestionnaireInEditor = createAction<EditorQuestionnaire>("setQuestionnaireInEditor");
 export const setHasErrors = createAction<boolean>("setHasErrors");
 export const addNewQuestion = createAction("addNewQuestion");
 export const addNewResultCategory = createAction("addNewResultCategory");
@@ -29,7 +29,7 @@ export const swapItemWithNextOne = createAction<{
   index: number;
 }>("swapItemWithNextOne");
 
-export const editMeta = createAction<{ changedMeta: QuestionnaireMeta; hasErrors: boolean }>("editMeta");
+export const editMeta = createAction<{ changedMeta: EditorQuestionnaireMeta; hasErrors: boolean }>("editMeta");
 export const editQuestion = createAction<{
   index: number;
   changedQuestion: QuestionInStringRepresentation;
@@ -47,7 +47,7 @@ export const editVariable = createAction<{
 }>("editVariable");
 
 export type QuestionnaireWrapper = {
-  questionnaire: Questionnaire;
+  questionnaire: EditorQuestionnaire;
   hasErrors: boolean;
 };
 

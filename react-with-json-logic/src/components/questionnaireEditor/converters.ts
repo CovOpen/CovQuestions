@@ -1,6 +1,6 @@
 import { Expression } from "../../logic-parser/parser";
-import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
-import { Questionnaire } from "../../models/questionnaire";
+import { LogicExpression, Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { EditorQuestionnaire } from "../../models/editorQuestionnaire";
 
 export function convertLogicExpressionToString(value?: LogicExpression) {
   return JSON.stringify(value, undefined, 2) ?? "";
@@ -21,7 +21,7 @@ export function convertStringToLogicExpression(value?: string): LogicExpression 
   return undefined;
 }
 
-export function addStringRepresentationToQuestionnaire(questionnaire: Questionnaire): Questionnaire {
+export function addStringRepresentationToQuestionnaire(questionnaire: Questionnaire): EditorQuestionnaire {
   return {
     ...questionnaire,
     questions: questionnaire.questions.map((question) => ({
@@ -42,7 +42,7 @@ export function addStringRepresentationToQuestionnaire(questionnaire: Questionna
   };
 }
 
-export function removeStringRepresentationFromQuestionnaire(questionnaire: Questionnaire): Questionnaire {
+export function removeStringRepresentationFromQuestionnaire(questionnaire: EditorQuestionnaire): Questionnaire {
   return {
     ...questionnaire,
     questions: questionnaire.questions.map((question) => {

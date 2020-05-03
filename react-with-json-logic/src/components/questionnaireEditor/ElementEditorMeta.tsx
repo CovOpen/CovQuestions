@@ -4,13 +4,14 @@ import React from "react";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { editMeta, questionnaireInEditorSelector } from "../../store/questionnaireInEditor";
-import { QuestionnaireMeta, Questionnaire } from "../../models/questionnaire";
+import { EditorQuestionnaireMeta } from "../../models/editorQuestionnaire";
+import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 
 const uiSchema = {
   "ui:order": ["title", "*"],
 };
 
-function convertToFormEditorRepresentation(questionnaire: Questionnaire): QuestionnaireMeta {
+function convertToFormEditorRepresentation(questionnaire: Questionnaire): EditorQuestionnaireMeta {
   return {
     ...questionnaire.meta,
     language: questionnaire.language,

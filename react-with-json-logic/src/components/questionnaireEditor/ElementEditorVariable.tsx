@@ -1,4 +1,4 @@
-import { Variable } from "../../models/questionnaire";
+import { EditorVariable } from "../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";
@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { editVariable, variableInEditorSelector } from "../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
 
-export type VariableInStringRepresentation = Omit<Variable, "expression"> & { expression: string };
+export type VariableInStringRepresentation = Omit<EditorVariable, "expression"> & { expression: string };
 
 type ElementEditorVariableProps = {
   index: number;
@@ -20,7 +20,7 @@ const uiSchema = {
   valueString: uiSchemaLogic(),
 };
 
-function convertToStringRepresentation(formData: Variable): VariableInStringRepresentation {
+function convertToStringRepresentation(formData: EditorVariable): VariableInStringRepresentation {
   return { ...formData, expression: convertLogicExpressionToString(formData?.expression) };
 }
 
