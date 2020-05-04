@@ -189,24 +189,27 @@ export class ToJsonLogicTransformer {
     const op = this.parseOperator(operator[0].image);
     let expr = {} as L.LogicExpression;
 
-    const child = this.toLogic(expression[0])
+    const child = this.toLogic(expression[0]);
 
-    switch(op) {
+    switch (op) {
       // Negation
-      case '!': expr[op] = child
-      break
+      case "!":
+        expr[op] = child;
+        break;
       // Unary plus (which is a no-op)
-      case '+': expr = child
-      break
+      case "+":
+        expr = child;
+        break;
       // Unary minus
-      case '-': if(typeof child === 'number') {
+      case "-":
+        if (typeof child === "number") {
           // Simply negate number
-          expr = -child
+          expr = -child;
         } else {
           // "Hack" a unary minus by subtracting from 0.
-          expr['-'] = [0, child]
+          expr["-"] = [0, child];
         }
-      break
+        break;
     }
 
     return expr;
