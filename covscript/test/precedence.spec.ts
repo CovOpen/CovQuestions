@@ -29,6 +29,10 @@ describe("Paranteses Tests", () => {
   expectEx("1 OR (3 AND 1)", { or: [1, { and: [3, 1] }] });
   expectEx("(1 OR 3) AND 1", { and: [{ or: [1, 3] }, 1] });
   expectEx("1 OR 3 AND 1", { or: [1, { and: [3, 1] }] });
+
+  // Note those two expressions are different!
+  expectEx('1 - (2 + 2)', { '-': [ 1, { '+': [ 2, 2 ] } ] })
+  expectEx('1 - 2 + 2', { '+': [ { '-': [ 1, 2 ] }, 2 ] })
 });
 
 describe("Nested Operator precedence tests", () => {

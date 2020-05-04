@@ -11,4 +11,17 @@ describe("Covscript generator basic tests", () => {
   expectGen(true, "true");
   expectGen(false, "false");
   expectGen("Hello", '"Hello"');
+})
+
+describe("Covscript generator brace insertion", () => {
+  // TODO(ejoebstl) - not sure if those test cases are even correct. Check what our
+  // parser generates for the givn expressions.
+  expectGen({ '+': [ 1, { '-': [ 2, 2 ] } ] }, '1 + 2 - 2')
+  expectGen({ '-': [ 1, { '+': [ 2, 2 ] } ] }, '1 - (2 + 2)')
+  expectGen({ '/': [ 1, { '*': [ 2, 2 ] } ] }, '1 / (2 * 2)')
+  expectGen({ '*': [ 1, { '/': [ 2, 2 ] } ] }, '1 * 2 / 2')
+})
+
+describe("Covscript generator simplification of unary minus expressions.", () => {
+  // TODO(ejoebstl) not implemented
 });
