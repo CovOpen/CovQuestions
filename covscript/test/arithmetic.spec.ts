@@ -11,5 +11,8 @@ describe("Arithmetic expressions", () => {
     expectEx("2 % 1", { "%": [2, 1] });
     expectEx("2 ÷ 1", { "/": [2, 1] });
     expectEx("-2 * 3", { "*": [-2, 3] });
+    expectEx("1+3", { "+": [1, 3] });
+    expectEx("1-3", { "-": [1, 3] }); // this one fails currently
+    expectEx("1--3", { "-": [1, -3] });
   });
 });
