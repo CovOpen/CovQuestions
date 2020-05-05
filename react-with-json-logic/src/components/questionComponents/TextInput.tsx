@@ -15,13 +15,7 @@ export const TextInput: React.FC<QuestionFormComponentProps> = ({ currentQuestio
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{currentQuestion.text}</FormLabel>
-      <TextField
-        id={currentQuestion.id}
-        autoFocus={true}
-        onChange={handleChange}
-        data-testid={"TextInput"}
-        value={value ?? ""}
-      />
+      <TextField id={currentQuestion.id} autoFocus={true} onChange={handleChange} value={value ?? ""} />
     </FormControl>
   );
 };
