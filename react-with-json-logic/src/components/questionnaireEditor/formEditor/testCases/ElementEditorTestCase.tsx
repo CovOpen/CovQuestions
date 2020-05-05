@@ -94,7 +94,6 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
         onChange={onTestCaseMetaChange}
         uiSchema={uiSchema}
       />
-      <TestCaseResult testResult={runOneTestCase(questionnaireJson, testCase)} />
       <Typography variant={"h6"}>Answers</Typography>
       <AnswerOrResultEditor
         key={"answerEditor"}
@@ -109,6 +108,7 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
         currentStoreItems={testCase.results}
         onItemChange={onResultItemChange}
       />
+      <TestCaseResult testResult={runOneTestCase(questionnaireJson, testCase)} />
     </Grid>
   );
 };
