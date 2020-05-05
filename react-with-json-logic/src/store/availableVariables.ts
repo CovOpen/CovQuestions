@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { questionnaireInEditorSelector } from "./questionnaireInEditor";
 
-export type AvailableItems = { itemId: string; possibleValues?: any[]; type?: string }[];
+export type AvailableItems = { itemId: string; possibleValues?: any[]; type: string }[];
 
 export const getQuestionIds = createSelector(
   questionnaireInEditorSelector,
@@ -36,6 +36,7 @@ export const getResultCategoryIds = createSelector(
     return questionnaire.resultCategories.map((resultCategory) => ({
       itemId: resultCategory.id,
       possibleValues: resultCategory.results.map((result) => result.id),
+      type: "select",
     }));
   }
 );
