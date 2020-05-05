@@ -23,14 +23,18 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { TestCase } from "covquestions-js/models/Questionnaire.generated";
+import {
+  AnyQuestion,
+  QuestionWithOptions,
+  ResultCategory,
+  TestCase,
+} from "covquestions-js/models/Questionnaire.generated";
 import { heightWithoutEditor } from "../../QuestionnaireEditor";
 import { runOneTestCase } from "../../../../testCaseRunner/testCaseRunner";
 import { TestCaseResult } from "./TestCaseResult";
 import { ElementEditor } from "../../ElementEditor";
 import { testCaseMetaSchema } from "./testCaseMeta";
-import { AvailableItems, getQuestionIds, getResultCategoryIds } from "../../../../store/availableVariables";
-import { notUndefined } from "../../../../utils/notUndefined";
+import { QuestionFormComponent } from "../../../questionComponents/QuestionFormComponent";
 
 type ElementEditorTestCaseProps = {
   index: number;
@@ -58,8 +62,15 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
 
   const questionnaireJson = useSelector(questionnaireJsonSelector);
   const testCase = useSelector((state: RootState) => testCaseInEditorSelector(state, props));
-  const availableResults = useSelector(getResultCategoryIds);
-  const availableQuestions = useSelector(getQuestionIds);
+  const availableResults = questionnaireJson.resultCategories.map(
+    (category: ResultCategory): QuestionWithOptions => ({
+      id: category.id,
+      type: "select",
+      text: category.description,
+      options: category.results.map((result) => ({ value: result.id, text: result.text })),
+    })
+  );
+  const availableQuestions = questionnaireJson.questions;
 
   if (!testCase) {
     return null;
@@ -113,10 +124,6 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
   );
 };
 
-function mapToInitialItems(currentValues: { [id: string]: any }): { id: string; value: any }[] {
-  return Object.entries(currentValues).map(([id, value]) => ({ id, value }));
-}
-
 const DropDownInput: React.FC<{
   onChange: (value: any) => void;
   id: string;
@@ -142,6 +149,7 @@ const DropDownInput: React.FC<{
         labelId={props.id + "-label"}
         value={props.value}
         onChange={(event) => props.onChange(event.target.value)}
+        onBlur={(event) => props.onChange(event.target.value)}
       >
         {props.availableItems.map((item) => (
           <MenuItem key={JSON.stringify(item)} value={(item as any).toString()}>
@@ -158,8 +166,8 @@ const OneItemRow: React.FC<{
   onChange: (value: unknown) => void;
   id: string;
   value?: any;
-  availableItems: string[];
   onDelete: () => void;
+  item: AnyQuestion;
 }> = (props) => {
   return (
     <TableRow key={props.id}>
@@ -167,12 +175,7 @@ const OneItemRow: React.FC<{
         <Typography component={"span"}>{props.label}</Typography>
       </TableCell>
       <TableCell key={"value"}>
-        <DropDownInput
-          onChange={props.onChange}
-          id={props.id}
-          availableItems={props.availableItems}
-          value={props.value}
-        />
+        <QuestionFormComponent onChange={props.onChange} currentQuestion={props.item} value={props.value} />
       </TableCell>
       <TableCell key={"deleteButton"}>
         <Button onClick={props.onDelete}>Delete</Button>
@@ -182,11 +185,11 @@ const OneItemRow: React.FC<{
 };
 
 const AnswerOrResultEditor: React.FC<{
-  availableItems: AvailableItems;
+  availableItems: AnyQuestion[];
   currentStoreItems: { [id: string]: any };
   onItemChange: OnItemChange;
 }> = ({ currentStoreItems, availableItems, onItemChange }) => {
-  const [currentItems, setCurrentItems] = useState(mapToInitialItems(currentStoreItems));
+  const [additionalItems, setAdditionalItems] = useState<string[]>([]);
 
   const useStyles = makeStyles(() => ({
     table: {
@@ -197,41 +200,41 @@ const AnswerOrResultEditor: React.FC<{
   const classes = useStyles();
 
   function onItemAdd(id: string) {
-    setCurrentItems((items) => [...items, { id, value: undefined }]);
+    setAdditionalItems((items) => [...items, id]);
   }
 
   function onItemDelete(id: string) {
-    setCurrentItems((items) => items.filter((item) => item.id !== id));
+    setAdditionalItems((items) => items.filter((item) => item !== id));
     onItemChange({ itemId: id, value: undefined });
   }
 
   function onValueChange(id: string, value: any) {
-    setCurrentItems((items) => items.map((item) => (item.id === id ? { id, value } : item)));
+    setAdditionalItems((items) => unique([...items, id]));
     onItemChange({ itemId: id, value: value as string });
   }
 
-  const unusedItemIds = availableItems
-    .map((it) => it.itemId)
-    .filter((it) => !currentItems.map(({ id }) => id).includes(it));
+  const itemIdInStoreWithDefinedValue = Object.entries(currentStoreItems)
+    .filter(([_, value]) => value !== undefined)
+    .map(([id, _]) => id);
+  const displayedItemIds = unique([...itemIdInStoreWithDefinedValue, ...additionalItems]);
 
-  const sortedCurrentItems = availableItems
-    .filter(({ itemId }) => currentItems.map(({ id }) => id).includes(itemId))
-    .map(({ itemId }) => currentItems.find(({ id }) => id === itemId))
-    .filter(notUndefined);
+  const unusedItemIds = availableItems.map((it) => it.id).filter((it) => !displayedItemIds.includes(it));
+
+  const sortedItemIds = availableItems.map(({ id }) => id).filter((id) => displayedItemIds.includes(id));
 
   return (
     <>
       <TableContainer component={Paper}>
         <Table className={classes.table} size="small">
           <TableBody>
-            {sortedCurrentItems.map(({ id, value }) => (
+            {sortedItemIds.map((id) => (
               <OneItemRow
                 id={id}
-                value={value}
+                value={currentStoreItems[id]}
                 label={id}
                 onChange={(value) => onValueChange(id, value)}
                 onDelete={() => onItemDelete(id)}
-                availableItems={availableItems.find((it) => it.itemId === id)?.possibleValues ?? []}
+                item={availableItems.find((it) => it.id === id)!}
               />
             ))}
           </TableBody>
@@ -243,3 +246,7 @@ const AnswerOrResultEditor: React.FC<{
     </>
   );
 };
+
+function unique(array: any[]) {
+  return array.filter((v, i, a) => a.indexOf(v) === i);
+}
