@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Question } from "covquestions-js";
-import { Button, Grid, Paper, makeStyles, createStyles } from "@material-ui/core";
+import { Button, createStyles, Grid, makeStyles, Paper } from "@material-ui/core";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
 import { Primitive } from "covquestions-js/primitive";
 
@@ -36,7 +36,7 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQue
     <Paper className={classes.root}>
       <Grid container direction="column" alignItems="stretch">
         <Grid item xs={12}>
-          <QuestionFormComponent currentQuestion={currentQuestion} onChange={setCurrentValue} />
+          <QuestionFormComponent currentQuestion={currentQuestion} onChange={setCurrentValue} value={currentValue} />
         </Grid>
         <Grid container item xs={12} justify="flex-end">
           <Grid item>
