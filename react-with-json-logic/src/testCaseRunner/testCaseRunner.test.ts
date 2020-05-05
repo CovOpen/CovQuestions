@@ -1,5 +1,5 @@
 import { runOneTestCase, runTestCases } from "./testCaseRunner";
-import contactQuestionWithDateVariableAndSkippingQuestion
+import contactQuestionWithDateAndSkipping
   from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
@@ -25,7 +25,7 @@ function runTestCasesFor(questionnaire: Questionnaire) {
 
 describe("testCaseRunner", () => {
   it("should run all test cases for contactQuestionWithDateVariableAndSkippingQuestion", () => {
-    runTestCasesFor(contactQuestionWithDateVariableAndSkippingQuestion);
+    runTestCasesFor(contactQuestionWithDateAndSkipping);
   });
   it("should run all test cases for simpleBooleanContactQuestion", () => {
     runTestCasesFor(simpleBooleanContactQuestion);

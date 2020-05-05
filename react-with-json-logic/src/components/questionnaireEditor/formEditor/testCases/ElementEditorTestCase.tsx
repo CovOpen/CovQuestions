@@ -81,12 +81,16 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
   };
 
   const onResultItemChange: OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => {
-    const changedTestCase: TestCase = { ...testCase, results: { ...testCase.results, [itemId]: value } };
+    const changedResults = { ...testCase.results, [itemId]: value };
+    removeUndefined(changedResults);
+    const changedTestCase: TestCase = { ...testCase, results: changedResults };
     dispatch(editTestCase({ index: props.index, changedTestCase, hasErrors: false }));
   };
 
   const onAnswerItemChange: OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => {
-    const changedTestCase: TestCase = { ...testCase, answers: { ...testCase.answers, [itemId]: value } };
+    const changedAnswers = { ...testCase.answers, [itemId]: value };
+    removeUndefined(changedAnswers);
+    const changedTestCase: TestCase = { ...testCase, answers: changedAnswers };
     dispatch(editTestCase({ index: props.index, changedTestCase, hasErrors: false }));
   };
 
@@ -249,4 +253,9 @@ const AnswerOrResultEditor: React.FC<{
 
 function unique(array: any[]) {
   return array.filter((v, i, a) => a.indexOf(v) === i);
+}
+
+function removeUndefined(obj: object) {
+  // @ts-ignore
+  Object.keys(obj).forEach((key) => (obj[key] === undefined ? delete obj[key] : {}));
 }
