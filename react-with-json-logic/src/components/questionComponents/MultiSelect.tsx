@@ -28,7 +28,7 @@ export const MultiSelect: React.FC<QuestionFormComponentProps> = ({
   const options = (currentQuestion.options || []).map(({ value, text }) => ({
     value,
     text,
-    checked: checkedValues?.includes(value),
+    checked: checkedValues?.includes(value) ?? false,
   }));
 
   return (

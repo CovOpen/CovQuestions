@@ -1,5 +1,6 @@
 import { runOneTestCase, runTestCases } from "./testCaseRunner";
-import contactQuestionWithDateVariableAndSkippingQuestion from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
+import contactQuestionWithDateVariableAndSkippingQuestion
+  from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
 import simpleNumericAgeQuestion from "../test/testCases/simpleNumericAgeQuestion.questionnaire";
@@ -170,7 +171,8 @@ describe("testCaseRunner", () => {
       expect(result).toEqual({
         description: "Failing test",
         success: false,
-        errorMessage: 'Wrong results "rc_text: TEXT" vs "rc_text: WRONG_RESULT_ID"',
+        errorMessage:
+          'Wrong results: expected "rc_text: WRONG_RESULT_ID", but the questionnaire resulted in "rc_text: TEXT"',
       });
     });
   });

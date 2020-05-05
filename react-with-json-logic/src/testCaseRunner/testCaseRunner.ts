@@ -114,7 +114,7 @@ function checkResults(executionResults: Result[], testCase: TestCase): TestResul
     return {
       description,
       success: false,
-      errorMessage: `Wrong results "${executionResultStrings}" vs "${testCaseResultStrings}"`,
+      errorMessage: `Wrong results: expected "${testCaseResultStrings}", but the questionnaire resulted in "${executionResultStrings}"`,
     };
   }
 

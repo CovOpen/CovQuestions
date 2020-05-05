@@ -128,7 +128,6 @@ const DropDownInput: React.FC<{
   onChange: (value: any) => void;
   id: string;
   availableItems: any[];
-  value?: any;
   label?: string;
 }> = (props) => {
   const useStyles = makeStyles((theme) => ({
@@ -147,7 +146,7 @@ const DropDownInput: React.FC<{
         key={props.id}
         id={props.id}
         labelId={props.id + "-label"}
-        value={props.value}
+        value={""}
         onChange={(event) => props.onChange(event.target.value)}
         onBlur={(event) => props.onChange(event.target.value)}
       >
@@ -170,7 +169,7 @@ const OneItemRow: React.FC<{
   item: AnyQuestion;
 }> = (props) => {
   return (
-    <TableRow key={props.id}>
+    <TableRow>
       <TableCell key={"itemId"}>
         <Typography component={"span"}>{props.label}</Typography>
       </TableCell>
@@ -230,6 +229,7 @@ const AnswerOrResultEditor: React.FC<{
             {sortedItemIds.map((id) => (
               <OneItemRow
                 id={id}
+                key={id}
                 value={currentStoreItems[id]}
                 label={id}
                 onChange={(value) => onValueChange(id, value)}

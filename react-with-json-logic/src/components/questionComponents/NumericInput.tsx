@@ -1,29 +1,26 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, Input, Slider, Typography } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
-export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange }) => {
+export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange, value }) => {
   const { min, max, step, defaultValue } = currentQuestion.numericOption || {};
   const fallbackValue = defaultValue ?? min ?? max ?? 0;
-  const [value, setValue] = React.useState<number>(fallbackValue);
 
   const handleSliderChange = (_e: React.ChangeEvent<{}>, newValue: number | number[]) => {
-    setValue(typeof newValue === "number" ? newValue : fallbackValue);
+    onChange(typeof newValue === "number" ? newValue : fallbackValue);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(e.target.value));
+    onChange(Number(e.target.value));
   };
 
   const handleBlur = () => {
     if (min !== undefined && value < min) {
-      setValue(min);
+      onChange(min);
     } else if (max !== undefined && value > max) {
-      setValue(max);
+      onChange(max);
     }
   };
-
-  useEffect(() => onChange(value), [value, onChange]);
 
   return (
     <>
@@ -33,7 +30,7 @@ export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQues
       <Grid container item spacing={2} alignItems="center" xs={12}>
         <Grid item xs>
           <Slider
-            value={value}
+            value={value ?? fallbackValue}
             min={min}
             max={max}
             step={step}
@@ -45,7 +42,7 @@ export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQues
         <Grid item xs>
           <Input
             data-testid={"NumericInput"}
-            value={value}
+            value={value ?? ""}
             onChange={handleInputChange}
             onBlur={handleBlur}
             inputProps={{
