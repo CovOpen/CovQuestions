@@ -34,18 +34,13 @@ describe("Generator/Parser End-To-End Tests", () => {
     '1 > 0 and 7 - 2 % 3 == 1 or "Test" != Test'
   );
 
-  expectE2E("1 - (2 + 2)", "1 - (2 + 2)");
   expectE2E("1 - 2 + 2", "1 - 2 + 2");
 
-  expectE2E("1 + (2 - 2)", "1 + 2 - 2");
   expectE2E("1 + 2 - 2", "1 + 2 - 2");
 
-  expectE2E("1 / (2 * 2)", "1 / (2 * 2)");
   expectE2E("1 / 2 * 2", "1 / 2 * 2");
 
-  expectE2E("1 * (2 / 2)", "1 * 2 / 2");
   expectE2E("1 * 2 / 2", "1 * 2 / 2");
 
-  expectE2E("1 * (2 % 2)", "1 * 2 % 2");
   expectE2E("1 * 2 % 2", "1 * 2 % 2");
 });
