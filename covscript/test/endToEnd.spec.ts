@@ -14,6 +14,7 @@ describe("Generator/Parser End-To-End Tests", () => {
     'If symptoms.husten.selected Then "categoryA" Else "CategoryB" EndIf',
     'If symptoms.husten.selected Then "categoryA" Else "CategoryB" EndIf'
   );
+  
 
   expectE2E(
     'If "husten" in symptoms.husten.values Then "categoryA" Else "CategoryB" EndIf',
