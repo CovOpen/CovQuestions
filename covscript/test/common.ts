@@ -49,7 +49,7 @@ export function expectGen(logic: LogicExpression | any, text: string | null) {
  * parser is a bit flexible.
  */
 export function expectE2E(input: string, text: string | null) {
-  test(`Parse ${input} consistently (end to end)`, () => {
+  test(`Parse ${input} and render to ${text} consistently (end to end)`, () => {
     const parsed = parser.parse(input);
     const rendered = generator.generate(parsed);
 

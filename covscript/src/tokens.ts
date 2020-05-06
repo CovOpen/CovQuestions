@@ -35,7 +35,7 @@ export const StringLiteral = createToken({
 export const NumberLiteral = createToken({
   name: "NumberLiteral",
   // All kinds of number, integer or decimal, negative or positive, exponential notation supported.
-  pattern: /-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?/,
+  pattern: /(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?/,
 });
 
 export const Identifier = createToken({
@@ -83,12 +83,12 @@ export const Comma = createToken({ name: "Comma", pattern: /,/ });
 export const Add = createToken({
   name: "Add",
   pattern: /\+/,
-  categories: AdditionOperator,
+  categories: [UnaryOperator, AdditionOperator],
 });
 export const Sub = createToken({
   name: "Sub",
   pattern: /-/,
-  categories: AdditionOperator,
+  categories: [UnaryOperator, AdditionOperator],
 });
 
 export const Mult = createToken({

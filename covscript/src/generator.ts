@@ -17,11 +17,11 @@ export class CovscriptGenerator {
 
   constructor() {
     this.handlers = [
-      ...this.multOps.map((op) => this.genBinaryHandler(op, 2)),
-      ...this.addOps.map((op) => this.genBinaryHandler(op, 3)),
-      ...this.compOps.map((op) => this.genBinaryHandler(op, 4)),
-      this.genBinaryHandler("and", 5),
-      this.genBinaryHandler("or", 6),
+      ...this.multOps.map(([op, p]) => this.genBinaryHandler(op, p)),
+      ...this.addOps.map(([op, p]) => this.genBinaryHandler(op, p)),
+      ...this.compOps.map(([op, p]) => this.genBinaryHandler(op, p)),
+      this.genBinaryHandler("and", 50),
+      this.genBinaryHandler("or", 60),
       { operator: "var", exec: (a, b) => this.varHandler(a, b) },
       { operator: "!", exec: (a, b) => this.notHandler(a, b) },
       { operator: "if", exec: (a, b) => this.ifHandler(a, b) },
@@ -29,14 +29,29 @@ export class CovscriptGenerator {
   }
 
   public generate(expression: LogicExpression): string {
-    const res = this.generateForNode(expression, 10);
+    const res = this.generateForNode(expression, 100);
 
     return res.join("").trim();
   }
 
-  private multOps = ["*", "/", "%"];
-  private addOps = ["+", "-"];
-  private compOps = [">", "<", ">=", "<=", "==", "!=", "in"];
+  private multOps = [
+    ["*", 20],
+    ["/", 20],
+    ["%", 20],
+  ] as [string, number][];
+  private addOps = [
+    ["+", 30],
+    ["-", 30],
+  ] as [string, number][];
+  private compOps = [
+    [">", 40],
+    ["<", 40],
+    [">=", 40],
+    ["<=", 40],
+    ["==", 40],
+    ["!=", 40],
+    ["in", 40],
+  ] as [string, number][];
 
   private genBinaryHandler(op: string, precedence: number) {
     return {
@@ -49,6 +64,7 @@ export class CovscriptGenerator {
         const rendered = children.map((c) =>
           this.generateForNode(c, precedence).join("")
         );
+
         const inner = [rendered.join(` ${op} `)];
 
         if (currentPrecedence < precedence) {
@@ -85,11 +101,11 @@ export class CovscriptGenerator {
     // If has fixed structure, resets all precedence.
     return [
       "If ",
-      ...this.generateForNode(condition, 10),
+      ...this.generateForNode(condition, 100),
       " Then ",
-      ...this.generateForNode(trueBranch, 10),
+      ...this.generateForNode(trueBranch, 100),
       " Else ",
-      ...this.generateForNode(falseBranch, 10),
+      ...this.generateForNode(falseBranch, 100),
       " EndIf ",
     ];
   }
@@ -108,7 +124,7 @@ export class CovscriptGenerator {
     }
 
     if (Array.isArray(expr)) {
-      const elems = expr.map((val) => this.generateForNode(val, 10));
+      const elems = expr.map((val) => this.generateForNode(val, 100));
       const flat = flatten(elems); // Flatten
 
       return [`[`, ...flat.join(", "), `]`];
