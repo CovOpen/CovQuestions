@@ -43,4 +43,3 @@ describe("Generator/Parser End-To-End Tests", () => {
 
   expectE2E("1 * 2 % 2", "1 * 2 % 2");
 });
-
