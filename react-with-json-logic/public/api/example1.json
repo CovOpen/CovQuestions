@@ -158,18 +158,11 @@
                       {
                         "and": [
                           {
-                            "some": [
+                            "in": [
                               {
                                 "var": "q_symptoms.value"
                               },
-                              {
-                                "==": [
-                                  {
-                                    "var": ""
-                                  },
-                                  "respiratory"
-                                ]
-                              }
+                              ["respiratory"]
                             ]
                           },
                           {

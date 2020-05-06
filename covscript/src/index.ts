@@ -1,7 +1,7 @@
 import { CovscriptParser } from "./parser";
 import { CovscriptLexer } from "./lexer";
 import { ToJsonLogicTransformer } from "./transformer";
-import { LogicExpression } from "covquestions-js/models/logicExpression";
+import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
 
 /**
  * Parses Covscript to JSON-logic

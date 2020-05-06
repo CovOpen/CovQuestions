@@ -19,7 +19,7 @@
           "description": "Logic expression used to compute this variable."
         }
       },
-      "required": ["id", "value"],
+      "required": ["id", "expression"],
       "type": "object"
     }
   }

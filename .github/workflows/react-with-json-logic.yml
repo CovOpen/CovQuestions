@@ -25,8 +25,24 @@ jobs:
       run: npm run build
       working-directory: covquestions-js/
       # npm needs to happen after npm install
-    - name: Link covquestions package
+    - name: Link covquestions package to React App
       run: npm link ../covquestions-js/dist
+      working-directory: react-with-json-logic/
+    - name: Install covquestions-logic-parser Packages
+      run: npm install
+      working-directory: covscript/
+    - name: Link covquestions package to covquestions-logic-parser
+      run: npm link ../covquestions-js/dist
+      working-directory: covscript/
+    - name: Run tests for covquestions-logic-parser
+      run: npm run test
+      working-directory: covscript/
+    - name: Build covquestions-logic-parser package
+      run: npm run build
+      working-directory: covscript/
+      # npm needs to happen after npm install
+    - name: Link covquestions-logic-parser package to React App
+      run: npm link ../covscript/dist
       working-directory: react-with-json-logic/
     - name: Check format
       run: npm run lint

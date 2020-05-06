@@ -2,7 +2,7 @@ import { EditorVariable } from "../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
 import variableSchema from "./formEditorSchemas/variable.json";
-import { convertLogicExpressionToString } from "./converters";
+import { convertStringToLogicExpression } from "./converters";
 import { RootState, useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { editVariable, variableInEditorSelector } from "../../store/questionnaireInEditor";
@@ -21,7 +21,7 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: EditorVariable): VariableInStringRepresentation {
-  return { ...formData, expression: convertLogicExpressionToString(formData?.expression) };
+  return { ...formData, expression: JSON.stringify(formData?.expression, null, 2) };
 }
 
 export function ElementEditorVariable(props: ElementEditorVariableProps) {
@@ -33,12 +33,21 @@ export function ElementEditorVariable(props: ElementEditorVariableProps) {
     dispatch(editVariable({ index: props.index, changedVariable: formData, hasErrors: hasErrors }));
   };
 
+  const onValidate = (formData: VariableInStringRepresentation, errors: any) => {
+    try {
+      convertStringToLogicExpression(formData?.expressionString);
+    } catch (error) {
+      errors.expressionString.addError(error.message);
+    }
+  };
+
   return (
     <ElementEditor
       schema={variableSchema as any}
       formData={convertToStringRepresentation(variable)}
       onChange={onChange}
       uiSchema={uiSchema}
+      addAdditionalValidationErrors={onValidate}
     />
   );
 }
