@@ -23,6 +23,7 @@ import { useAppDispatch } from "./store/store";
 import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
 import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
 import { useSelector } from "react-redux";
+import { getAllQuestionnaires } from "./api/api-client";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -82,11 +83,7 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch("/api/index.json").then((response) => {
-      if (response.ok) {
-        response.json().then((value) => setAllQuestionnaires(value));
-      }
-    });
+    getAllQuestionnaires().then((value) => setAllQuestionnaires(value));
   }, []);
 
   useEffect(() => {
