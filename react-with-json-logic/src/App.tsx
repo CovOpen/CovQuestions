@@ -23,7 +23,7 @@ import { useAppDispatch } from "./store/store";
 import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
 import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
 import { useSelector } from "react-redux";
-import { getAllQuestionnaires } from "./api/api-client";
+import { getAllQuestionnaires, getQuestionnaire } from "./api/api-client";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -88,13 +88,13 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     if (currentQuestionnairePath !== "") {
-      fetch(currentQuestionnairePath).then((response) => {
-        if (response.ok) {
-          response.json().then((value: Questionnaire) => {
-            setOriginalCurrentQuestionnaire(value);
-            dispatch(setQuestionnaireInEditor(value));
-            overwriteCurrentQuestionnaire(value);
-          });
+      getQuestionnaire(currentQuestionnairePath).then((value) => {
+        if (value !== undefined) {
+          setOriginalCurrentQuestionnaire(value);
+          dispatch(setQuestionnaireInEditor(value));
+          overwriteCurrentQuestionnaire(value);
+        } else {
+          console.error(`Cannot get questionnaire with path ${currentQuestionnairePath}`);
         }
       });
     }
