@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Contact question with date variable and skipping a question",
+    "path": "/contactQuestionWithDateVariableAndSkippingQuestion.json"
+  },
+  {
+    "name": "Example",
+    "path": "/covapp_original.json"
+  },
+  {
+    "name": "Example",
+    "path": "/example1.json"
+  },
+  {
+    "name": "Simple boolean contact question",
+    "path": "/simpleBooleanContactQuestion.json"
+  },
+  {
+    "name": "Simple multiselect symptoms question",
+    "path": "/simpleMultiselectSymptomsQuestion.json"
+  },
+  {
+    "name": "Simple numeric age question",
+    "path": "/simpleNumericAgeQuestion.json"
+  },
+  {
+    "name": "Simple select gender question",
+    "path": "/simpleSelectGenderQuestion.json"
+  },
+  {
+    "name": "Simple text question",
+    "path": "/simpleTextQuestion.json"
+  }
+]

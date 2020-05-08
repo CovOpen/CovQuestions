@@ -3,7 +3,7 @@ import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 const rootUrl = process.env.REACT_APP_API_URL || '';
 
 export async function getAllQuestionnaires (): Promise<any[]> {
-    let url = rootUrl + '/api/index';
+    let url = rootUrl + '/questionnaires';
     if (process.env.NODE_ENV !== 'production') {
         url += ".json";
     }
