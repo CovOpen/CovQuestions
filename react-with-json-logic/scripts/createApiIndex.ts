@@ -5,12 +5,12 @@ const apiBasePath = path.join(__dirname, "../public/api/");
 
 const fileNames = fs.readdirSync(apiBasePath);
 
-const indexJson = fileNames
-  .filter((fileName: string) => fileName !== "index.json")
+const questionnairesJson = fileNames
+  .filter((fileName: string) => fileName !== "questionnaires.json")
   .map((fileName: string) => {
     const questionnaire = require(apiBasePath + fileName);
-    return { name: questionnaire.meta.title, path: "api/" + fileName };
+    return { name: questionnaire.title, path: "/" + fileName };
   });
 
-const indexJsonPath = apiBasePath + "index.json";
-fs.writeFileSync(indexJsonPath, JSON.stringify(indexJson, undefined, 2));
+const questionnairesJsonPath = apiBasePath + "questionnaires.json";
+fs.writeFileSync(questionnairesJsonPath, JSON.stringify(questionnairesJson, undefined, 2));
