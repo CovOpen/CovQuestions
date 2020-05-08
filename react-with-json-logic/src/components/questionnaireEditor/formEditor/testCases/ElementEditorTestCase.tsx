@@ -44,6 +44,9 @@ type EditorTestCaseMeta = Omit<TestCase, "answers" | "results">;
 
 const useStyles = makeStyles(() =>
   createStyles({
+    container: {
+      paddingLeft: 10,
+    },
     testCaseForm: {
       height: `calc(100vh - ${heightWithoutEditor}px - 150px)`,
       overflowY: "auto",
@@ -53,8 +56,8 @@ const useStyles = makeStyles(() =>
       height: "auto",
     },
     testCaseResult: {
-      width: "100%"
-    }
+      width: "100%",
+    },
   })
 );
 
@@ -105,7 +108,7 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
   const getTestCaseMeta = ({ description, options }: TestCase): EditorTestCaseMeta => ({ description, options });
 
   return (
-    <Grid container item spacing={2} alignItems={"stretch"} xs={12}>
+    <Grid container item className={classes.container} spacing={2} alignItems={"stretch"} xs={12}>
       <div className={classes.testCaseForm}>
         <ElementEditor
           className={classes.testCaseMetaFormEditor}
