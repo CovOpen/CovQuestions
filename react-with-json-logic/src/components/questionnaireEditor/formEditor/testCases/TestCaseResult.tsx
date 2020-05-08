@@ -21,9 +21,10 @@ const useStyles = makeStyles(() =>
 
 type TestCaseResultProps = {
   testResult?: TestResult;
+  className?: string;
 };
 
-export const TestCaseResult: React.FC<TestCaseResultProps> = ({ testResult }) => {
+export const TestCaseResult: React.FC<TestCaseResultProps> = ({ testResult, className }) => {
   const classes = useStyles();
 
   if (testResult === undefined) {
@@ -31,7 +32,7 @@ export const TestCaseResult: React.FC<TestCaseResultProps> = ({ testResult }) =>
   }
 
   return (
-    <Paper className={classes.paperComponent}>
+    <Paper className={`${classes.paperComponent} ${className || ""}`}>
       <div>
         <Typography className={classes.runResultHeading}>{testResult.description}</Typography>
       </div>

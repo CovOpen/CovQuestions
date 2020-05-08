@@ -44,12 +44,19 @@ type EditorTestCaseMeta = Omit<TestCase, "answers" | "results">;
 
 const useStyles = makeStyles(() =>
   createStyles({
+    container: {
+      paddingLeft: 10,
+    },
     testCaseForm: {
-      paddingLeft: "10px",
-      height: `calc(100vh - ${heightWithoutEditor}px)`,
+      height: `calc(100vh - ${heightWithoutEditor}px - 150px)`,
+      overflowY: "auto",
+      overflowX: "hidden",
     },
     testCaseMetaFormEditor: {
       height: "auto",
+    },
+    testCaseResult: {
+      width: "100%",
     },
   })
 );
@@ -101,29 +108,33 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
   const getTestCaseMeta = ({ description, options }: TestCase): EditorTestCaseMeta => ({ description, options });
 
   return (
-    <Grid container item direction={"column"} spacing={2} alignItems={"stretch"} xs={12}>
-      <ElementEditor
-        className={classes.testCaseMetaFormEditor}
-        schema={testCaseMetaSchema}
-        formData={getTestCaseMeta(testCase)}
-        onChange={onTestCaseMetaChange}
-        uiSchema={uiSchema}
-      />
-      <Typography variant={"h6"}>Answers</Typography>
-      <AnswerOrResultEditor
-        key={"answerEditor"}
-        availableItems={availableQuestions}
-        currentStoreItems={testCase.answers}
-        onItemChange={onAnswerItemChange}
-      />
-      <Typography variant={"h6"}>Results</Typography>
-      <AnswerOrResultEditor
-        key={"resultEditor"}
-        availableItems={availableResults}
-        currentStoreItems={testCase.results}
-        onItemChange={onResultItemChange}
-      />
-      <TestCaseResult testResult={runOneTestCase(questionnaireJson, testCase)} />
+    <Grid container item className={classes.container} spacing={2} alignItems={"stretch"} xs={12}>
+      <div className={classes.testCaseForm}>
+        <ElementEditor
+          className={classes.testCaseMetaFormEditor}
+          schema={testCaseMetaSchema}
+          formData={getTestCaseMeta(testCase)}
+          onChange={onTestCaseMetaChange}
+          uiSchema={uiSchema}
+        />
+        <Grid container item direction={"column"} alignItems={"stretch"} xs={12}>
+          <Typography variant={"h6"}>Answers</Typography>
+          <AnswerOrResultEditor
+            key={"answerEditor"}
+            availableItems={availableQuestions}
+            currentStoreItems={testCase.answers}
+            onItemChange={onAnswerItemChange}
+          />
+          <Typography variant={"h6"}>Results</Typography>
+          <AnswerOrResultEditor
+            key={"resultEditor"}
+            availableItems={availableResults}
+            currentStoreItems={testCase.results}
+            onItemChange={onResultItemChange}
+          />
+        </Grid>
+      </div>
+      <TestCaseResult className={classes.testCaseResult} testResult={runOneTestCase(questionnaireJson, testCase)} />
     </Grid>
   );
 };
