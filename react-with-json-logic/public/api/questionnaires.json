@@ -6,9 +6,7 @@
     "version": 1,
     "meta": {
       "author": "Someone",
-      "availableLanguages": [
-        "de"
-      ]
+      "availableLanguages": ["de"]
     }
   },
   {
@@ -18,9 +16,7 @@
     "version": 1,
     "meta": {
       "author": "Alexander Thieme, CovQuestions Team",
-      "availableLanguages": [
-        "en"
-      ]
+      "availableLanguages": ["en"]
     }
   },
   {
@@ -30,9 +26,7 @@
     "version": 1,
     "meta": {
       "author": "Alexander",
-      "availableLanguages": [
-        "de"
-      ]
+      "availableLanguages": ["de"]
     }
   },
   {
@@ -42,9 +36,7 @@
     "version": 1,
     "meta": {
       "author": "Someone",
-      "availableLanguages": [
-        "en"
-      ]
+      "availableLanguages": ["en"]
     }
   },
   {
@@ -54,9 +46,7 @@
     "version": 1,
     "meta": {
       "author": "Someone",
-      "availableLanguages": [
-        "en"
-      ]
+      "availableLanguages": ["en"]
     }
   },
   {
@@ -66,9 +56,7 @@
     "version": 1,
     "meta": {
       "author": "Someone",
-      "availableLanguages": [
-        "en"
-      ]
+      "availableLanguages": ["en"]
     }
   },
   {
@@ -78,9 +66,7 @@
     "version": 1,
     "meta": {
       "author": "Someone",
-      "availableLanguages": [
-        "en"
-      ]
+      "availableLanguages": ["en"]
     }
   },
   {
@@ -90,9 +76,7 @@
     "version": 1,
     "meta": {
       "author": "Someone",
-      "availableLanguages": [
-        "en"
-      ]
+      "availableLanguages": ["en"]
     }
   }
 ]

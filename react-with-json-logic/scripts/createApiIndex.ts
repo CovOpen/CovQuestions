@@ -9,7 +9,13 @@ const questionnairesJson = fileNames
   .filter((fileName: string) => fileName !== "questionnaires.json")
   .map((fileName: string) => {
     const questionnaire = require(apiBasePath + fileName);
-    return { id: questionnaire.id, title: questionnaire.title, path: "/" + fileName, version: questionnaire.version, meta: {author: questionnaire.meta.author, availableLanguages: questionnaire.meta.availableLanguages} };
+    return {
+      id: questionnaire.id,
+      title: questionnaire.title,
+      path: "/" + fileName,
+      version: questionnaire.version,
+      meta: { author: questionnaire.meta.author, availableLanguages: questionnaire.meta.availableLanguages },
+    };
   });
 
 const questionnairesJsonPath = apiBasePath + "questionnaires.json";
