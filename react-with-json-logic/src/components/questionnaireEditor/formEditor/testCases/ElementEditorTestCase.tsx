@@ -116,6 +116,7 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
           formData={getTestCaseMeta(testCase)}
           onChange={onTestCaseMetaChange}
           uiSchema={uiSchema}
+          addAdditionalValidationErrors={() => {}}
         />
         <Grid container item direction={"column"} alignItems={"stretch"} xs={12}>
           <Typography variant={"h6"}>Answers</Typography>

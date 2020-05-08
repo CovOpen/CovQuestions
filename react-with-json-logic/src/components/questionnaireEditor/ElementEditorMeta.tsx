@@ -32,6 +32,7 @@ export function ElementEditorMeta() {
         dispatch(editMeta({ changedMeta: formData, hasErrors }));
       }}
       uiSchema={uiSchema}
+      addAdditionalValidationErrors={() => {}}
     />
   );
 }

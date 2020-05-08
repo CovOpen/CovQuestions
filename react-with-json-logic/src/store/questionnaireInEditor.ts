@@ -1,4 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
+import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
 import { RootState } from "./store";
 import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../models/editorQuestionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
@@ -151,26 +152,40 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       state.hasErrors = hasErrors;
     })
     .addCase(editQuestion, (state, { payload: { index, changedQuestion, hasErrors } }) => {
+      let expression: LogicExpression | undefined = undefined;
+      try {
+        expression = convertStringToLogicExpression(changedQuestion.enableWhenExpressionString);
+      } catch {}
       state.questionnaire.questions[index] = {
         ...changedQuestion,
-        enableWhenExpression: convertStringToLogicExpression(changedQuestion.enableWhenExpressionString),
+        enableWhenExpression: expression,
       };
       state.hasErrors = hasErrors;
     })
     .addCase(editResultCategory, (state, { payload: { index, changedResultCategory, hasErrors } }) => {
       state.questionnaire.resultCategories[index] = {
         ...changedResultCategory,
-        results: changedResultCategory.results.map((result) => ({
-          ...result,
-          expression: convertStringToLogicExpression(result.expressionString) || "",
-        })),
+        results: changedResultCategory.results.map((result) => {
+          let expression: LogicExpression = "";
+          try {
+            expression = convertStringToLogicExpression(result.expressionString) || "";
+          } catch {}
+          return {
+            ...result,
+            expression,
+          };
+        }),
       };
       state.hasErrors = hasErrors;
     })
     .addCase(editVariable, (state, { payload: { index, changedVariable, hasErrors } }) => {
+      let expression: LogicExpression = "";
+      try {
+        expression = convertStringToLogicExpression(changedVariable.expressionString) || "";
+      } catch {}
       state.questionnaire.variables[index] = {
         ...changedVariable,
-        expression: convertStringToLogicExpression(changedVariable.expressionString) || "",
+        expression,
       };
       state.hasErrors = hasErrors;
     })
