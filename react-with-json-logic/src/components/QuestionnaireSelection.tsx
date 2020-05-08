@@ -31,7 +31,7 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
       <List>
         {allQuestionnaires.map((it) => (
           <ListItem onClick={() => handleChange(it.path)} selected={selectedValue === it.path} button key={it.path}>
-            <ListItemText primary={it.name} />
+            <ListItemText primary={it.title} />
           </ListItem>
         ))}
       </List>

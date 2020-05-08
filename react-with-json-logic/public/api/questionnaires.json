@@ -1,34 +1,98 @@
 [
   {
-    "name": "Contact question with date variable and skipping a question",
-    "path": "/contactQuestionWithDateVariableAndSkippingQuestion.json"
+    "id": "contactQuestionWithDateVariableAndSkippingQuestion",
+    "title": "Contact question with date variable and skipping a question",
+    "path": "/contactQuestionWithDateVariableAndSkippingQuestion.json",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "de"
+      ]
+    }
   },
   {
-    "name": "Example",
-    "path": "/covapp_original.json"
+    "id": "covapp_original",
+    "title": "Example CovApp",
+    "path": "/covapp_original.json",
+    "version": 1,
+    "meta": {
+      "author": "Alexander Thieme, CovQuestions Team",
+      "availableLanguages": [
+        "en"
+      ]
+    }
   },
   {
-    "name": "Example",
-    "path": "/example1.json"
+    "id": "aa43ae11-2b3c-46dd-ac01-c901c3d36a3e",
+    "title": "Example",
+    "path": "/example1.json",
+    "version": 1,
+    "meta": {
+      "author": "Alexander",
+      "availableLanguages": [
+        "de"
+      ]
+    }
   },
   {
-    "name": "Simple boolean contact question",
-    "path": "/simpleBooleanContactQuestion.json"
+    "id": "simpleBooleanContactQuestion",
+    "title": "Simple boolean contact question",
+    "path": "/simpleBooleanContactQuestion.json",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "en"
+      ]
+    }
   },
   {
-    "name": "Simple multiselect symptoms question",
-    "path": "/simpleMultiselectSymptomsQuestion.json"
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/simpleMultiselectSymptomsQuestion.json",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "en"
+      ]
+    }
   },
   {
-    "name": "Simple numeric age question",
-    "path": "/simpleNumericAgeQuestion.json"
+    "id": "simpleNumericAgeQuestion",
+    "title": "Simple numeric age question",
+    "path": "/simpleNumericAgeQuestion.json",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "en"
+      ]
+    }
   },
   {
-    "name": "Simple select gender question",
-    "path": "/simpleSelectGenderQuestion.json"
+    "id": "simpleSelectGenderQuestion",
+    "title": "Simple select gender question",
+    "path": "/simpleSelectGenderQuestion.json",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "en"
+      ]
+    }
   },
   {
-    "name": "Simple text question",
-    "path": "/simpleTextQuestion.json"
+    "id": "simpleTextQuestion",
+    "title": "Simple text question",
+    "path": "/simpleTextQuestion.json",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "en"
+      ]
+    }
   }
 ]
