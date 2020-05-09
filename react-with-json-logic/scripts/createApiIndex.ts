@@ -9,7 +9,7 @@ const indexJson = fileNames
   .filter((fileName: string) => fileName !== "index.json")
   .map((fileName: string) => {
     const questionnaire = require(apiBasePath + fileName);
-    return { name: questionnaire.meta.title, path: "api/" + fileName };
+    return { name: questionnaire.title, path: "api/" + fileName };
   });
 
 const indexJsonPath = apiBasePath + "index.json";

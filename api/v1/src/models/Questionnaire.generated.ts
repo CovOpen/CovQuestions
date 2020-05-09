@@ -6,7 +6,7 @@
  */
 
 /**
- * Language of this, as ISO 639-1 code. Additonally 'none' for no language.
+ * Language of this, as ISO 639-1 code. Additionally 'none' for no language.
  */
 export type ISOLanguage =
   | "none"
@@ -290,6 +290,10 @@ export interface Questionnaire {
    * Version of this question in semver.
    */
   version: number;
+  /**
+   * Test cases for this questionnaire.
+   */
+  testCases?: TestCase[];
 }
 /**
  * Meta-Information for a questionnaire.
@@ -463,4 +467,46 @@ export interface Variable {
    */
   id: string;
   expression: LogicExpression;
+}
+/**
+ * One test case that simulates a virtual patient and the results they should receive.
+ */
+export interface TestCase {
+  /**
+   * The description of the test case.
+   */
+  description: string;
+  /**
+   * Object of given answers in the form: 'questionId: answer'. Answer can be the answerId for selects, a value, or an array for multi-selects.
+   */
+  answers: {
+    [k: string]: any;
+  };
+  /**
+   * Object of obtained results in the form: 'resultCategoryId: resultId'.
+   */
+  results: {
+    [k: string]: string;
+  };
+  /**
+   * Options to configure the behavior of the test case runner.
+   */
+  options?: {
+    /**
+     * The simulated time of execution. Important for date questions, where the evaluation looks for time periods, like the last 14 days. Example: '2020-03-18'
+     */
+    fillInDate?: string;
+    /**
+     * If not set, ignores answers that are provided in the test case, but were not needed in the questionnaire. It also tries to 'skip' optional questions if no answer is provided. In strict mode, each appearing question has to be set in the test case and each answer in the test case has to be given in the questionnaire. In random mode, answers that are not provided are randomly chosen, answers that were provided, but not used are ignored.
+     */
+    questionMode?: "strict" | "random";
+    /**
+     * If not set, the provided results have to appear after the questionnaire execution, additional results are allowed. If set, exactly the provided results has to appear.
+     */
+    resultsMode?: "strict";
+    /**
+     * Number of random runs of the test case if questionMode is random
+     */
+    randomRuns?: number;
+  };
 }

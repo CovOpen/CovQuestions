@@ -1,14 +1,15 @@
-// @ts-ignore
-import jsonschema from "jsonschema";
+import { JSONSchema7 } from "json-schema";
 import React from "react";
-import { MuiForm } from "rjsf-material-ui";
+import MuiForm from "@rjsf/material-ui";
+import { IChangeEvent } from "@rjsf/core";
 
 type ElementEditorProps<T> = {
-  schema: jsonschema.Schema;
+  schema: JSONSchema7;
   formData: T;
   onChange: (formData: T, hasErrors: boolean) => void;
   addAdditionalValidationErrors: (formData: T, errors: any) => void;
   uiSchema?: any;
+  className?: string;
 };
 
 export function ElementEditor<T>(props: ElementEditorProps<T>) {
@@ -24,10 +25,11 @@ export function ElementEditor<T>(props: ElementEditorProps<T>) {
 
   return (
     <MuiForm
+      className={props.className}
       schema={props.schema}
       formData={props.formData}
-      onChange={(value: { formData: T; errors: [] }) => {
-        props.onChange(value.formData, value.errors.length > 0);
+      onChange={(event: IChangeEvent) => {
+        props.onChange(event.formData, event.errors.length > 0);
       }}
       uiSchema={props.uiSchema}
       liveValidate={true}

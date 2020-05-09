@@ -35,6 +35,23 @@ const testQuestionnaire: Questionnaire = {
       ],
     },
   ],
+  testCases: [
+    {
+      description: "Text 'test' should lead to result",
+      answers: { q1_text: "test" },
+      results: { rc_text: "TEXT" },
+    },
+    {
+      description: "Wrong text should lead to no result",
+      answers: { q1_text: "Something else" },
+      results: {},
+    },
+    {
+      description: "Skipping the optional question should be possible",
+      answers: { q1_text: "" },
+      results: {},
+    },
+  ],
 };
 
 export default testQuestionnaire;
