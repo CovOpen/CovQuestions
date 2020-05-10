@@ -64,8 +64,8 @@ export class CovscriptGenerator {
         const rendered = children.map((c, i) => {
           // Special case: Left-most expression gets "upgraded" to a slightly higher precedence in operator group.
           // In other words, we ignore parantheses for left-to-right rules.
-          const p = i === 0 ? precedence + 1: precedence
-          return this.generateForNode(c, p).join("")
+          const p = i === 0 ? precedence + 1 : precedence;
+          return this.generateForNode(c, p).join("");
         });
 
         const inner = [rendered.join(` ${op} `)];
