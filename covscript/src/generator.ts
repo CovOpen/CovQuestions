@@ -35,12 +35,12 @@ export class CovscriptGenerator {
   }
 
   private multOps = [
-    ["*", 20],
+    ["*", 21],
     ["/", 20],
     ["%", 20],
   ] as [string, number][];
   private addOps = [
-    ["+", 30],
+    ["+", 31],
     ["-", 30],
   ] as [string, number][];
   private compOps = [
@@ -61,9 +61,12 @@ export class CovscriptGenerator {
           throw new Error(`Invalid binary op parametrization.`);
         }
 
-        const rendered = children.map((c) =>
-          this.generateForNode(c, precedence).join("")
-        );
+        const rendered = children.map((c, i) => {
+          // Special case: Left-most expression gets "upgraded" to a slightly higher precedence in operator group.
+          // In other words, we ignore parantheses for left-to-right rules.
+          const p = i === 0 ? precedence + 1 : precedence;
+          return this.generateForNode(c, p).join("");
+        });
 
         const inner = [rendered.join(` ${op} `)];
 

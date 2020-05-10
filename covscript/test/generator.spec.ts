@@ -14,11 +14,11 @@ describe("Covscript generator basic tests", () => {
 });
 
 describe("Covscript generator brace insertion", () => {
-  // TODO(ejoebstl) - not sure if those test cases are even correct. Check what our
-  // parser generates for the givn expressions.
   expectGen({ "+": [1, { "-": [2, 2] }] }, "1 + 2 - 2");
-  expectGen({ "-": [1, { "+": [2, 2] }] }, "1 - 2 + 2");
-  expectGen({ "/": [1, { "*": [2, 2] }] }, "1 / 2 * 2");
+  expectGen({ "-": [1, { "+": [2, 2] }] }, "1 - (2 + 2)");
+  expectGen({ "-": [1, { "+": [2, 2, 3, 8] }] }, "1 - (2 + 2 + 3 + 8)");
+  expectGen({ "/": [1, { "*": [2, 2] }] }, "1 / (2 * 2)");
+  expectGen({ "/": [1, { "*": [2, 2, 4, 5] }] }, "1 / (2 * 2 * 4 * 5)");
   expectGen({ "*": [1, { "/": [2, 2] }] }, "1 * 2 / 2");
 });
 
