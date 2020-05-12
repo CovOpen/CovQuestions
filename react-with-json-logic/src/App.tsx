@@ -21,9 +21,9 @@ import { QuestionnaireEditor } from "./components/questionnaireEditor/Questionna
 import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 import { useAppDispatch } from "./store/store";
 import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
-import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
+import { QuestionnaireSelectionDrawer, QuestionnaireSelection } from "./components/QuestionnaireSelection";
 import { useSelector } from "react-redux";
-import { getAllQuestionnaires, getQuestionnaire } from "./api/api-client";
+import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 
 type QuestionnairesList = Array<{ name: string; path: string }>;
 
@@ -62,7 +62,7 @@ export const App: React.FC = () => {
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
 
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
-  const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
+  const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined
   );
@@ -87,18 +87,26 @@ export const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (currentQuestionnairePath !== "") {
-      getQuestionnaire(currentQuestionnairePath).then((value) => {
+    if (
+      currentQuestionnaireSelection.id !== undefined &&
+      currentQuestionnaireSelection.version !== undefined &&
+      currentQuestionnaireSelection.language !== undefined
+    ) {
+      getQuestionnaireByIdVersionAndLanguage(
+        currentQuestionnaireSelection.id,
+        currentQuestionnaireSelection.version,
+        currentQuestionnaireSelection.language
+      ).then((value) => {
         if (value !== undefined) {
           setOriginalCurrentQuestionnaire(value);
           dispatch(setQuestionnaireInEditor(value));
           overwriteCurrentQuestionnaire(value);
         } else {
-          console.error(`Cannot get questionnaire with path ${currentQuestionnairePath}`);
+          console.error(`Cannot get questionnaire with values ${JSON.stringify(currentQuestionnaireSelection)}`);
         }
       });
     }
-  }, [dispatch, currentQuestionnairePath]);
+  }, [dispatch, currentQuestionnaireSelection]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -125,11 +133,11 @@ export const App: React.FC = () => {
               <Grid item xs={3}>
                 <QuestionnaireSelectionDrawer
                   handleChange={(value) => {
-                    setCurrentQuestionnairePath(value);
+                    setCurrentQuestionnaireSelection(value);
                     setShowMenu(false);
                   }}
                   allQuestionnaires={allQuestionnaires}
-                  selectedValue={currentQuestionnairePath}
+                  selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
                 />
               </Grid>
             ) : null}
