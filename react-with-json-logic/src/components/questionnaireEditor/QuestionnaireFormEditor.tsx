@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import {
   addNewQuestion,
   addNewResultCategory,
+  addNewTestCase,
   addNewVariable,
   questionnaireInEditorSelector,
   removeItem,
@@ -36,6 +37,12 @@ export enum SectionType {
   QUESTIONS = "questions",
   RESULT_CATEGORIES = "resultCategories",
   VARIABLES = "variables",
+  TEST_CASES = "testCases",
+  RUN_TEST_CASES = "runTestCases",
+}
+
+function isNonArraySection(section: SectionType): section is SectionType.META | SectionType.RUN_TEST_CASES {
+  return section === SectionType.META || section === SectionType.RUN_TEST_CASES;
 }
 
 export type ActiveItem = {
@@ -94,7 +101,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const style = `
     .rjsf > .MuiFormControl-root {
       height: calc(100vh - ${
-        activeItem.section === SectionType.META ? props.heightWithoutEditor : props.heightWithoutEditor + 48
+        isNonArraySection(activeItem.section) ? props.heightWithoutEditor : props.heightWithoutEditor + 48
       }px);
       overflow-x: hidden !important;
       overflow-x: auto;
@@ -111,13 +118,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     `;
 
   useEffect(() => {
-    if (activeItem.section === SectionType.META) {
+    if (isNonArraySection(activeItem.section)) {
       return;
     }
 
-    const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section].length;
-    if (lengthOfActiveSection === 0) {
+    const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section]?.length;
+    if (lengthOfActiveSection === undefined || lengthOfActiveSection === 0) {
       setActiveItem({ section: SectionType.META, index: 0 });
+      return;
     }
     if (activeItem.index >= lengthOfActiveSection) {
       setActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
@@ -125,21 +133,21 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   }, [activeItem, questionnaireInEditor]);
 
   const handleMoveUp = () => {
-    if (activeItem.section !== SectionType.META) {
+    if (!isNonArraySection(activeItem.section)) {
       dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index - 1 }));
       setActiveItem({ section: activeItem.section, index: activeItem.index - 1 });
     }
   };
 
   const handleMoveDown = () => {
-    if (activeItem.section !== SectionType.META) {
+    if (!isNonArraySection(activeItem.section)) {
       dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index }));
       setActiveItem({ section: activeItem.section, index: activeItem.index + 1 });
     }
   };
 
   const handleRemove = () => {
-    if (activeItem.section !== SectionType.META) {
+    if (!isNonArraySection(activeItem.section)) {
       dispatch(removeItem({ section: activeItem.section, index: activeItem.index }));
     }
   };
@@ -261,16 +269,62 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 </Button>
               </ListItem>
             </List>
+            <Divider className={classes.selectionListDivider} />
+            <List className={classes.selectionList}>
+              {(questionnaireInEditor.questionnaire.testCases ?? []).map((item, index) => (
+                <ListItem
+                  button
+                  className={classes.listItem}
+                  selected={activeItem.section === SectionType.TEST_CASES && activeItem.index === index}
+                  onClick={() => handleActiveItemChange(SectionType.TEST_CASES, index)}
+                  key={index}
+                >
+                  <ListItemText primary={item.description} />
+                </ListItem>
+              ))}
+              <ListItem className={classes.listItem}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => {
+                    if (questionnaireInEditor.hasErrors) {
+                      setShowSnackbar(true);
+                      return;
+                    }
+                    dispatch(addNewTestCase());
+                    handleActiveItemChange(
+                      SectionType.TEST_CASES,
+                      (questionnaireInEditor.questionnaire.testCases ?? []).length
+                    );
+                  }}
+                >
+                  Add Test Case
+                </Button>
+              </ListItem>
+            </List>
+            <Divider className={classes.selectionListDivider} />
+            <List className={classes.selectionList}>
+              <ListItem
+                className={classes.listItem}
+                button
+                selected={activeItem.section === SectionType.RUN_TEST_CASES}
+                onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, 0)}
+              >
+                <ListItemText primary="Run all test cases" />
+              </ListItem>
+            </List>
           </Grid>
           <Grid container item xs={9} className={classes.formContainer}>
-            {activeItem.section !== SectionType.META ? (
+            {!isNonArraySection(activeItem.section) ? (
               <div className={classes.alignRight}>
                 <IconButton aria-label="move-up" disabled={activeItem.index <= 0} onClick={handleMoveUp}>
                   <ArrowUpwardIcon />
                 </IconButton>
                 <IconButton
                   aria-label="move-down"
-                  disabled={activeItem.index >= questionnaireInEditor.questionnaire[activeItem.section].length - 1}
+                  disabled={
+                    activeItem.index >= (questionnaireInEditor.questionnaire[activeItem.section]?.length ?? 0) - 1
+                  }
                   onClick={handleMoveDown}
                 >
                   <ArrowDownwardIcon />

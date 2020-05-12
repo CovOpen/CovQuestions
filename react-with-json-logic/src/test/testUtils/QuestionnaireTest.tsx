@@ -32,7 +32,7 @@ export class QuestionnaireTest {
   }
 
   public async enterText(text: string) {
-    const numericInput = (await this.renderedApp.findByTestId("TextInput")).querySelector("input");
+    const numericInput = this.renderedApp.container.querySelector("input");
     fireEvent.change(numericInput!, { target: { value: text } });
   }
 

@@ -1,9 +1,9 @@
 {
   "id": "covapp_original",
-  "schemaVersion": "0.0.0.1",
+  "schemaVersion": "1",
   "version": 1,
-  "language": "de",
-  "title": "Example CovApp",
+  "language": "en",
+  "title": "CovApp - similar example",
   "meta": {
     "author": "Alexander Thieme, CovQuestions Team",
     "availableLanguages": ["en"],

@@ -47,8 +47,13 @@ export function expectGen(logic: LogicExpression | any, text: string | null) {
  * @param input The input text.
  * @param text The "formatted" result. Might be slightly different, since our
  * parser is a bit flexible.
+ * @param allowDifferentRepresentation Allows different JSON Logic representations, which can arise due to precedence rules. Does not check for equivalence.
  */
-export function expectE2E(input: string, text: string | null) {
+export function expectE2E(
+  input: string,
+  text: string | null,
+  allowDifferentRepresentation: boolean = false
+) {
   test(`Parse ${input} and render to ${text} consistently (end to end)`, () => {
     const parsed = parser.parse(input);
     const rendered = generator.generate(parsed);
@@ -60,7 +65,9 @@ export function expectE2E(input: string, text: string | null) {
       expect(rendered).toEqual(text);
 
       const reParsed = parser.parse(rendered);
-      expect(reParsed).toEqual(parsed);
+      if (!allowDifferentRepresentation) {
+        expect(reParsed).toEqual(parsed);
+      }
     }
   });
 }
