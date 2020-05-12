@@ -1,17 +1,17 @@
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire, ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
 
-const rootUrl = process.env.REACT_APP_API_URL || '';
+const rootUrl = process.env.REACT_APP_API_URL || "";
 
-export async function getAllQuestionnaires (): Promise<any[]> {
-    let url = rootUrl + '/questionnaires';
-    if (process.env.NODE_ENV !== 'production') {
-        url += ".json";
-    }
-    let response = await fetch(url);
-    if (response.ok) {
-        return await response.json();
-    }
-    return [];
+export async function getAllQuestionnaires(): Promise<any[]> {
+  let url = rootUrl + "/questionnaires";
+  if (process.env.NODE_ENV !== "production") {
+    url += ".json";
+  }
+  let response = await fetch(url);
+  if (response.ok) {
+    return await response.json();
+  }
+  return [];
 }
 
 export async function getQuestionnaireByIdVersionAndLanguage(
