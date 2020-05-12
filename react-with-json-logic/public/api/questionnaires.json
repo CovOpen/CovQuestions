@@ -1,5 +1,15 @@
 [
   {
+    "id": "aa43ae11-2b3c-46dd-ac01-c901c3d36a3e",
+    "title": "Example",
+    "path": "/aa43ae11-2b3c-46dd-ac01-c901c3d36a3e.json",
+    "version": 1,
+    "meta": {
+      "author": "Alexander",
+      "availableLanguages": ["de"]
+    }
+  },
+  {
     "id": "contactQuestionWithDateVariableAndSkippingQuestion",
     "title": "Contact question with date variable and skipping a question",
     "path": "/contactQuestionWithDateVariableAndSkippingQuestion.json",
@@ -17,16 +27,6 @@
     "meta": {
       "author": "Alexander Thieme, CovQuestions Team",
       "availableLanguages": ["en"]
-    }
-  },
-  {
-    "id": "aa43ae11-2b3c-46dd-ac01-c901c3d36a3e",
-    "title": "Example",
-    "path": "/example1.json",
-    "version": 1,
-    "meta": {
-      "author": "Alexander",
-      "availableLanguages": ["de"]
     }
   },
   {

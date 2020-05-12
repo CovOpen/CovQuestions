@@ -1,21 +1,31 @@
 import * as fs from "fs";
 import * as path from "path";
+import { QuestionnairesList } from "../src/models/QuestionnairesList";
 
 const testCasePath = path.join(__dirname, "../src/test/testCases/");
 
-const questionnairesBasePath = path.join(__dirname, "../public/api/questionnaires/");
+const apiBasePath = path.join(__dirname, "../public/api/");
+const questionnairesBasePath = `${apiBasePath}questionnaires/`;
 
 const fileNames = fs.readdirSync(testCasePath);
 
+const questionnairesIndex: QuestionnairesList = [];
+
 fileNames.forEach((fileName: string) => {
-  const questionnaire = require(testCasePath + fileName);
-  let path = `${questionnairesBasePath}${questionnaire.default.id}/`;
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path);
-  }
-  path = `${questionnairesBasePath}${questionnaire.default.id}/${questionnaire.default.version}/`;
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path);
-  }
-  fs.writeFileSync(`${path}${questionnaire.default.language}`, JSON.stringify(questionnaire.default, undefined, 2));
+  const { default: questionnaire } = require(testCasePath + fileName);
+
+  const path = `${questionnairesBasePath}${questionnaire.id}/${questionnaire.version}/`;
+  fs.mkdirSync(path, { recursive: true });
+
+  fs.writeFileSync(`${path}${questionnaire.language}`, JSON.stringify(questionnaire, undefined, 2));
+
+  questionnairesIndex.push({
+    id: questionnaire.id,
+    title: questionnaire.title,
+    path: "/" + fileName.replace(/\.questionnaire\.ts$/, ".json"),
+    version: questionnaire.version,
+    meta: { author: questionnaire.meta.author, availableLanguages: questionnaire.meta.availableLanguages },
+  });
 });
+
+fs.writeFileSync(`${apiBasePath}questionnaires.json`, JSON.stringify(questionnairesIndex, undefined, 2));

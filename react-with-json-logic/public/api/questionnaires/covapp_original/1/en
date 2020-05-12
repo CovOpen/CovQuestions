@@ -3,10 +3,12 @@
   "schemaVersion": "1",
   "version": 1,
   "language": "en",
-  "title": "CovApp - similar example",
+  "title": "Example CovApp",
   "meta": {
     "author": "Alexander Thieme, CovQuestions Team",
-    "availableLanguages": ["en"],
+    "availableLanguages": [
+      "en"
+    ],
     "creationDate": "2020-04-19T20:32:05+0000"
   },
   "questions": [
@@ -440,7 +442,11 @@
               {
                 "var": "q1_age.value"
               },
-              ["70", "80", "80+"]
+              [
+                "70",
+                "80",
+                "80+"
+              ]
             ]
           }
         ]
