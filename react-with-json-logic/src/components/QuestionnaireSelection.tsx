@@ -33,12 +33,26 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
 }) => {
   const classes = useStyles();
 
+  const handleOnClick = (questionnaireData: any) => {
+    const browserLanguage = navigator.language.split("-")[0] as ISOLanguage;
+    const selection: QuestionnaireSelection = { id: questionnaireData.id, version: questionnaireData.version };
+    const availableLanguages = questionnaireData.meta.availableLanguages;
+    if (availableLanguages.indexOf(browserLanguage) > -1) {
+      selection.language = browserLanguage;
+    } else if (availableLanguages.indexOf("en") > -1) {
+      selection.language = "en";
+    } else {
+      selection.language = availableLanguages[0];
+    }
+    handleChange(selection);
+  };
+
   return (
     <div className={classes.root}>
       <List>
         {allQuestionnaires.map((it) => (
           <ListItem
-            onClick={() => handleChange({ id: it.id, version: it.version, language: "de" })}
+            onClick={() => handleOnClick(it)}
             selected={
               selectedValue.id === it.id &&
               selectedValue.version === it.version &&
