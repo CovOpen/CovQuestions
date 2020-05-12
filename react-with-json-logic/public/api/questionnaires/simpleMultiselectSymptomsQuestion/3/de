@@ -1,21 +1,20 @@
 {
   "id": "simpleMultiselectSymptomsQuestion",
   "schemaVersion": "1",
-  "version": 1,
-  "language": "en",
+  "version": 3,
+  "language": "de",
   "title": "Simple multiselect symptoms question",
   "meta": {
     "author": "Someone",
     "availableLanguages": [
-      "de",
-      "en"
+      "de"
     ],
     "creationDate": "2020-04-13T13:48:48+0000"
   },
   "questions": [
     {
       "id": "q1_symptoms",
-      "text": "Which of the following symptoms do you show?",
+      "text": "Welche der folgenden Symptome haben Sie? Frage V3",
       "type": "multiselect",
       "optional": true,
       "options": [

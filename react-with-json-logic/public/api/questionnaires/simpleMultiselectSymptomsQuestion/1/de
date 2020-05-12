@@ -2,7 +2,7 @@
   "id": "simpleMultiselectSymptomsQuestion",
   "schemaVersion": "1",
   "version": 1,
-  "language": "en",
+  "language": "de",
   "title": "Simple multiselect symptoms question",
   "meta": {
     "author": "Someone",
@@ -15,7 +15,7 @@
   "questions": [
     {
       "id": "q1_symptoms",
-      "text": "Which of the following symptoms do you show?",
+      "text": "Welche der folgenden Symptome haben Sie?",
       "type": "multiselect",
       "optional": true,
       "options": [

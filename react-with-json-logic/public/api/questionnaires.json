@@ -46,7 +46,47 @@
     "version": 1,
     "meta": {
       "author": "Someone",
-      "availableLanguages": ["en"]
+      "availableLanguages": ["de", "en"]
+    }
+  },
+  {
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/simpleMultiselectV1en.json",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de", "en"]
+    }
+  },
+  {
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/simpleMultiselectV2.json",
+    "version": 2,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de", "en"]
+    }
+  },
+  {
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/simpleMultiselectV2en.json",
+    "version": 2,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de", "en"]
+    }
+  },
+  {
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/simpleMultiselectV3.json",
+    "version": 3,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de"]
     }
   },
   {

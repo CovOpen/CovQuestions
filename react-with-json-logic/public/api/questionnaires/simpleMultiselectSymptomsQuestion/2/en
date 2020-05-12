@@ -1,7 +1,7 @@
 {
   "id": "simpleMultiselectSymptomsQuestion",
   "schemaVersion": "1",
-  "version": 1,
+  "version": 2,
   "language": "en",
   "title": "Simple multiselect symptoms question",
   "meta": {
@@ -15,7 +15,7 @@
   "questions": [
     {
       "id": "q1_symptoms",
-      "text": "Which of the following symptoms do you show?",
+      "text": "Which of the following symptoms do you show? Question V2",
       "type": "multiselect",
       "optional": true,
       "options": [
