@@ -1,4 +1,4 @@
-import { Questionnaire, ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
+import { ISOLanguage, Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 
 const rootUrl = process.env.REACT_APP_API_URL || "";
 
@@ -19,10 +19,9 @@ export async function getQuestionnaireByIdVersionAndLanguage(
   version: number,
   language: ISOLanguage
 ): Promise<Questionnaire | undefined> {
-  let response = await fetch(`${rootUrl}/questionnaires/${id}/${version}/${language}`);
+  const response = await fetch(`${rootUrl}/questionnaires/${id}/${version}/${language}`);
   if (response.ok) {
-    let result: Questionnaire = await response.json();
-    return result;
+    return response.json();
   }
   return undefined;
 }

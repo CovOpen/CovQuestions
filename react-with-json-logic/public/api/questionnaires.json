@@ -2,7 +2,7 @@
   {
     "id": "aa43ae11-2b3c-46dd-ac01-c901c3d36a3e",
     "title": "Example",
-    "path": "/aa43ae11-2b3c-46dd-ac01-c901c3d36a3e.json",
+    "path": "/questionnaires/aa43ae11-2b3c-46dd-ac01-c901c3d36a3e/1/de",
     "version": 1,
     "meta": {
       "author": "Alexander",
@@ -12,7 +12,7 @@
   {
     "id": "contactQuestionWithDateVariableAndSkippingQuestion",
     "title": "Contact question with date variable and skipping a question",
-    "path": "/contactQuestionWithDateVariableAndSkippingQuestion.json",
+    "path": "/questionnaires/contactQuestionWithDateVariableAndSkippingQuestion/1/de",
     "version": 1,
     "meta": {
       "author": "Someone",
@@ -22,7 +22,7 @@
   {
     "id": "covapp_original",
     "title": "Example CovApp",
-    "path": "/covapp_original.json",
+    "path": "/questionnaires/covapp_original/1/en",
     "version": 1,
     "meta": {
       "author": "Alexander Thieme, CovQuestions Team",
@@ -32,7 +32,7 @@
   {
     "id": "simpleBooleanContactQuestion",
     "title": "Simple boolean contact question",
-    "path": "/simpleBooleanContactQuestion.json",
+    "path": "/questionnaires/simpleBooleanContactQuestion/1/en",
     "version": 1,
     "meta": {
       "author": "Someone",
@@ -42,7 +42,7 @@
   {
     "id": "simpleMultiselectSymptomsQuestion",
     "title": "Simple multiselect symptoms question",
-    "path": "/simpleMultiselectSymptomsQuestion.json",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/1/de",
     "version": 1,
     "meta": {
       "author": "Someone",
@@ -52,7 +52,7 @@
   {
     "id": "simpleMultiselectSymptomsQuestion",
     "title": "Simple multiselect symptoms question",
-    "path": "/simpleMultiselectV1en.json",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/1/en",
     "version": 1,
     "meta": {
       "author": "Someone",
@@ -62,7 +62,7 @@
   {
     "id": "simpleMultiselectSymptomsQuestion",
     "title": "Simple multiselect symptoms question",
-    "path": "/simpleMultiselectV2.json",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/2/de",
     "version": 2,
     "meta": {
       "author": "Someone",
@@ -72,7 +72,7 @@
   {
     "id": "simpleMultiselectSymptomsQuestion",
     "title": "Simple multiselect symptoms question",
-    "path": "/simpleMultiselectV2en.json",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/2/en",
     "version": 2,
     "meta": {
       "author": "Someone",
@@ -82,7 +82,7 @@
   {
     "id": "simpleMultiselectSymptomsQuestion",
     "title": "Simple multiselect symptoms question",
-    "path": "/simpleMultiselectV3.json",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/3/de",
     "version": 3,
     "meta": {
       "author": "Someone",
@@ -92,7 +92,7 @@
   {
     "id": "simpleNumericAgeQuestion",
     "title": "Simple numeric age question",
-    "path": "/simpleNumericAgeQuestion.json",
+    "path": "/questionnaires/simpleNumericAgeQuestion/1/en",
     "version": 1,
     "meta": {
       "author": "Someone",
@@ -102,7 +102,7 @@
   {
     "id": "simpleSelectGenderQuestion",
     "title": "Simple select gender question",
-    "path": "/simpleSelectGenderQuestion.json",
+    "path": "/questionnaires/simpleSelectGenderQuestion/1/en",
     "version": 1,
     "meta": {
       "author": "Someone",
@@ -112,7 +112,7 @@
   {
     "id": "simpleTextQuestion",
     "title": "Simple text question",
-    "path": "/simpleTextQuestion.json",
+    "path": "/questionnaires/simpleTextQuestion/1/en",
     "version": 1,
     "meta": {
       "author": "Someone",

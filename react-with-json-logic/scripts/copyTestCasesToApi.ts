@@ -22,7 +22,7 @@ fileNames.forEach((fileName: string) => {
   questionnairesIndex.push({
     id: questionnaire.id,
     title: questionnaire.title,
-    path: "/" + fileName.replace(/\.questionnaire\.ts$/, ".json"),
+    path: `/questionnaires/${questionnaire.id}/${questionnaire.version}/${questionnaire.language}`,
     version: questionnaire.version,
     meta: { author: questionnaire.meta.author, availableLanguages: questionnaire.meta.availableLanguages },
   });
