@@ -1,10 +1,17 @@
 import React from "react";
 import { List, ListItem, ListItemText, makeStyles, Theme, createStyles } from "@material-ui/core";
+import { ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
+
+export type QuestionnaireSelection = {
+  id?: string;
+  version?: number;
+  language?: ISOLanguage;
+};
 
 type QuestionnaireSelectionProps = {
-  handleChange: React.Dispatch<React.SetStateAction<string>>;
+  handleChange: React.Dispatch<React.SetStateAction<QuestionnaireSelection>>;
   allQuestionnaires: any[];
-  selectedValue: string;
+  selectedValue: QuestionnaireSelection;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,7 +37,16 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
     <div className={classes.root}>
       <List>
         {allQuestionnaires.map((it) => (
-          <ListItem onClick={() => handleChange(it.path)} selected={selectedValue === it.path} button key={it.path}>
+          <ListItem
+            onClick={() => handleChange({ id: it.id, version: it.version, language: "de" })}
+            selected={
+              selectedValue.id === it.id &&
+              selectedValue.version === it.version &&
+              selectedValue.language === it.language
+            }
+            button
+            key={it.path}
+          >
             <ListItemText primary={it.title} />
           </ListItem>
         ))}

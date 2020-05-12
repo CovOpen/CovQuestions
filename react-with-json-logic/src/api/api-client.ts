@@ -14,8 +14,12 @@ export async function getAllQuestionnaires(): Promise<any[]> {
   return [];
 }
 
-export async function getQuestionnaire(path: string): Promise<Questionnaire | undefined> {
-  let response = await fetch(`${rootUrl}${path}`);
+export async function getQuestionnaireByIdVersionAndLanguage(
+  id: string,
+  version: number,
+  language: ISOLanguage
+): Promise<Questionnaire | undefined> {
+  let response = await fetch(`${rootUrl}/questionnaires/${id}/${version}/${language}`);
   if (response.ok) {
     let result: Questionnaire = await response.json();
     return result;
