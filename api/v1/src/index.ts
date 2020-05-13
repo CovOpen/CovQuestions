@@ -50,7 +50,10 @@ export function main(pwd: string = './src/data', outputDir: string = './dist') {
   writeJSONFile(
     `${outputDir}${API_PATHS.QUESTIONNAIRES}.json`,
     Object.keys(indexMap).map((key) =>
-      translateObject(indexMap[key], index.find((q) => q.id === indexMap[key].id).languages.en)
+      translateObject(
+        indexMap[key],
+        index.find((q) => q.id === indexMap[key].id && q.version === indexMap[key].version).languages.en
+      )
     )
   );
 
@@ -81,7 +84,8 @@ export function buildQuestionnaire(
 ): QuestionnaireWithLanguages[] {
   let questionnaireFilePaths = glob.sync(`${sourceBaseDir}/${questionnaireId}/**/*.json`);
 
-  let index: QuestionnaireWithLanguages[] = [];
+  let index: Questionnaire[] = [];
+  let indexWithLanguages: QuestionnaireWithLanguages[] = [];
   /**
    * Generate the questionnaire JSON files
    */
@@ -119,12 +123,17 @@ export function buildQuestionnaire(
       try {
         const translatedQuestionnaire = translateQuestionnaire(questionnaire, lang);
 
-        index.push({
-          ...questionnaire,
-          languages: languages.reduce((acc, lang) => {
-            return { ...acc, [lang.id]: lang };
-          }, {}),
-        });
+        index.push(JSON.parse(JSON.stringify(questionnaire)));
+        indexWithLanguages.push(
+          JSON.parse(
+            JSON.stringify({
+              ...questionnaire,
+              languages: languages.reduce((acc, lang) => {
+                return { ...acc, [lang.id]: lang };
+              }, {}),
+            })
+          )
+        );
         writeJSONFile(
           `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
           translatedQuestionnaire
@@ -178,7 +187,7 @@ export function buildQuestionnaire(
       lang.translations
     );
   });
-  return index;
+  return indexWithLanguages;
 }
 
 export function translateQuestionnaire(

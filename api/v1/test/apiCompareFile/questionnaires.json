@@ -1,6 +1,7 @@
 [
   {
     "id": "testQuestionnaire1",
+    "title": "test questionnaire 1",
     "meta": {
       "author": "Someone",
       "availableLanguages": [
@@ -14,6 +15,7 @@
   },
   {
     "id": "testQuestionnaire1",
+    "title": "test questionnaire 2",
     "meta": {
       "author": "Someone",
       "availableLanguages": [
