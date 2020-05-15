@@ -60,7 +60,7 @@ export const App: React.FC = () => {
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
 
-  const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
+  const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList | undefined>(undefined);
   const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined

@@ -1,6 +1,7 @@
 import React from "react";
 import { List, ListItem, ListItemText, makeStyles, Theme, createStyles } from "@material-ui/core";
 import { ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
+import { QuestionnairesList, QuestionnaireBaseData } from "../models/QuestionnairesList";
 
 export type QuestionnaireSelection = {
   id?: string;
@@ -10,7 +11,7 @@ export type QuestionnaireSelection = {
 
 type QuestionnaireSelectionProps = {
   handleChange: React.Dispatch<React.SetStateAction<QuestionnaireSelection>>;
-  allQuestionnaires: any[];
+  allQuestionnaires: QuestionnairesList | undefined;
   selectedValue: QuestionnaireSelection;
 };
 
@@ -47,23 +48,39 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
     handleChange(selection);
   };
 
+  const getLatestVersion = (list: QuestionnaireBaseData[]): QuestionnaireBaseData | undefined => {
+    const versions = list.map((it) => it.version);
+    const latest = Math.max(...versions);
+    const filtered = list.filter((it) => it.version === latest);
+    if (filtered.length > 0) {
+      return filtered[0];
+    }
+    return undefined;
+  };
+
+  if (allQuestionnaires === undefined || Object.keys(allQuestionnaires).length === 0) {
+    return <div className={classes.root}>No questionnaires available</div>;
+  }
+
   return (
     <div className={classes.root}>
       <List>
-        {allQuestionnaires.map((it) => (
-          <ListItem
-            onClick={() => handleOnClick(it)}
-            selected={
-              selectedValue.id === it.id &&
-              selectedValue.version === it.version &&
-              selectedValue.language === it.language
-            }
-            button
-            key={it.path}
-          >
-            <ListItemText primary={it.title} />
-          </ListItem>
-        ))}
+        {Object.keys(allQuestionnaires).map((id) => {
+          const latest = getLatestVersion(allQuestionnaires[id]);
+          if (latest === undefined) {
+            return <></>;
+          }
+          return (
+            <ListItem
+              onClick={() => handleOnClick(latest)}
+              selected={selectedValue.id === latest.id && selectedValue.version === latest.version}
+              button
+              key={latest.path}
+            >
+              <ListItemText primary={latest.title} />
+            </ListItem>
+          );
+        })}
       </List>
     </div>
   );
