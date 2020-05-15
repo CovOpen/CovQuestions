@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { List, ListItem, ListItemText, makeStyles, Theme, createStyles } from "@material-ui/core";
 import { ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
-import { QuestionnairesList, QuestionnaireBaseData } from "../models/QuestionnairesList";
+import { QuestionnaireBaseData } from "../models/QuestionnairesList";
 
 export type QuestionnaireSelection = {
   id?: string;
@@ -11,7 +11,7 @@ export type QuestionnaireSelection = {
 
 type QuestionnaireSelectionProps = {
   handleChange: React.Dispatch<React.SetStateAction<QuestionnaireSelection>>;
-  allQuestionnaires: QuestionnairesList | undefined;
+  allQuestionnaires: QuestionnaireBaseData[];
   selectedValue: QuestionnaireSelection;
 };
 
@@ -33,6 +33,18 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
   selectedValue,
 }) => {
   const classes = useStyles();
+  const [orderedLatestQuestionnaires, setOrderedLatestQuestionnaires] = useState<QuestionnaireBaseData[]>([]);
+
+  useEffect(() => {
+    const groupedObj: { [id: string]: QuestionnaireBaseData[] } = {};
+    for (let questionnaire of allQuestionnaires) {
+      groupedObj[questionnaire.id] = groupedObj[questionnaire.id] || [];
+      groupedObj[questionnaire.id].push(questionnaire);
+    }
+    const latestQuestionnaires = Object.keys(groupedObj).map((id) => getLatestVersion(groupedObj[id]));
+    const result = latestQuestionnaires.sort((a, b) => a.title.localeCompare(b.title));
+    setOrderedLatestQuestionnaires(result);
+  }, [allQuestionnaires]);
 
   const handleOnClick = (questionnaireData: any) => {
     const browserLanguage = navigator.language.split("-")[0] as ISOLanguage;
@@ -48,36 +60,29 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
     handleChange(selection);
   };
 
-  const getLatestVersion = (list: QuestionnaireBaseData[]): QuestionnaireBaseData | undefined => {
+  const getLatestVersion = (list: QuestionnaireBaseData[]): QuestionnaireBaseData => {
     const versions = list.map((it) => it.version);
     const latest = Math.max(...versions);
     const filtered = list.filter((it) => it.version === latest);
-    if (filtered.length > 0) {
-      return filtered[0];
-    }
-    return undefined;
+    return filtered[0];
   };
 
-  if (allQuestionnaires === undefined || Object.keys(allQuestionnaires).length === 0) {
+  if (orderedLatestQuestionnaires.length === 0) {
     return <div className={classes.root}>No questionnaires available</div>;
   }
 
   return (
     <div className={classes.root}>
       <List>
-        {Object.keys(allQuestionnaires).map((id) => {
-          const latest = getLatestVersion(allQuestionnaires[id]);
-          if (latest === undefined) {
-            return <></>;
-          }
+        {orderedLatestQuestionnaires.map((it) => {
           return (
             <ListItem
-              onClick={() => handleOnClick(latest)}
-              selected={selectedValue.id === latest.id && selectedValue.version === latest.version}
+              onClick={() => handleOnClick(it)}
+              selected={selectedValue.id === it.id && selectedValue.version === it.version}
               button
-              key={latest.path}
+              key={it.path}
             >
-              <ListItemText primary={latest.title} />
+              <ListItemText primary={it.title} />
             </ListItem>
           );
         })}

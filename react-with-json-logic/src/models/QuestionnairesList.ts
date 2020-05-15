@@ -10,7 +10,3 @@ export type QuestionnaireBaseData = {
     availableLanguages: ISOLanguage[];
   };
 };
-
-export type QuestionnairesList = {
-  [id: string]: QuestionnaireBaseData[];
-};

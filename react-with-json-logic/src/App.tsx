@@ -24,7 +24,7 @@ import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "./store
 import { QuestionnaireSelection, QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
 import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
-import { QuestionnairesList } from "./models/QuestionnairesList";
+import { QuestionnaireBaseData } from "./models/QuestionnairesList";
 
 const theme = createMuiTheme({
   palette: {
@@ -60,7 +60,7 @@ export const App: React.FC = () => {
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
 
-  const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList | undefined>(undefined);
+  const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnaireBaseData[]>([]);
   const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined
