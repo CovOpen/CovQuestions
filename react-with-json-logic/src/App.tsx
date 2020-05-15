@@ -123,6 +123,20 @@ export const App: React.FC = () => {
             CovQuestions
           </Typography>
           <div className={classes.settings}>
+            {currentQuestionnaireSelection.language !== undefined &&
+            currentQuestionnaireSelection.availableLanguages !== undefined ? (
+              <SettingSelection
+                title="Language"
+                values={currentQuestionnaireSelection.availableLanguages}
+                selectedValue={currentQuestionnaireSelection.language}
+                handleChange={(value) => {
+                  setCurrentQuestionnaireSelection({
+                    ...currentQuestionnaireSelection,
+                    ...{ language: value as ISOLanguage },
+                  });
+                }}
+              ></SettingSelection>
+            ) : null}
             {currentQuestionnaireSelection.version !== undefined &&
             currentQuestionnaireSelection.availableVersions !== undefined ? (
               <SettingSelection

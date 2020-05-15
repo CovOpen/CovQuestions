@@ -8,6 +8,7 @@ export type QuestionnaireSelection = {
   version?: number;
   language?: ISOLanguage;
   availableVersions?: number[];
+  availableLanguages?: ISOLanguage[];
 };
 
 type QuestionnaireSelectionProps = {
@@ -54,6 +55,7 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
       id: questionnaireData.id,
       version: questionnaireData.version,
       availableVersions: versions,
+      availableLanguages: questionnaireData.meta.availableLanguages
     };
     const availableLanguages = questionnaireData.meta.availableLanguages;
     if (availableLanguages.indexOf(browserLanguage) > -1) {
