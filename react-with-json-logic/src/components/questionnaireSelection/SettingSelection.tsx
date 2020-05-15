@@ -1,10 +1,11 @@
 import React from "react";
 import { makeStyles, Theme, createStyles, Select, MenuItem, Typography } from "@material-ui/core";
 
-type VersionSelectionProps = {
-  handleChange: (value: number) => void;
-  availableVersions: number[];
-  selectedValue: number;
+type SettingSelectionProps = {
+  handleChange: (value: number | string) => void;
+  values: number[] | string[];
+  selectedValue: number | string;
+  title: string;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -13,7 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       display: "inline-flex",
       marginRight: theme.spacing(2),
-      marginLeft: theme.spacing(2),
     },
     label: {
       marginRight: theme.spacing(1),
@@ -33,25 +33,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const VersionSelection: React.FC<VersionSelectionProps> = ({
+export const SettingSelection: React.FC<SettingSelectionProps> = ({
   handleChange,
-  availableVersions,
+  values,
   selectedValue,
+  title
 }) => {
   const classes = useStyles();
 
-  if (availableVersions.length === 0) {
+  if (values.length === 0) {
     return null;
   }
 
   return (
     <div className={classes.formControl}>
-      <Typography className={classes.label}>Version</Typography>
+      <Typography className={classes.label}>{title}</Typography>
       <Select
         labelId="version-label"
         id="version-select"
         value={selectedValue}
-        onChange={(event: React.ChangeEvent<{ value: unknown }>) => handleChange(event.target.value as number)}
+        onChange={(event: React.ChangeEvent<{ value: unknown }>) => handleChange(event.target.value as number | string)}
         className={classes.select}
         inputProps={{
           classes: {
@@ -59,7 +60,7 @@ export const VersionSelection: React.FC<VersionSelectionProps> = ({
           },
         }}
       >
-        {availableVersions.map((it) => (
+        {(values as []).map((it) => (
           <MenuItem key={it} value={it}>
             {it}
           </MenuItem>

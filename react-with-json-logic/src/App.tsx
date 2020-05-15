@@ -28,7 +28,7 @@ import {
 import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
-import { VersionSelection } from "./components/questionnaireSelection/VersionSelection";
+import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
 
 const theme = createMuiTheme({
   palette: {
@@ -125,13 +125,14 @@ export const App: React.FC = () => {
           <div className={classes.settings}>
             {currentQuestionnaireSelection.version !== undefined &&
             currentQuestionnaireSelection.availableVersions !== undefined ? (
-              <VersionSelection
-                availableVersions={currentQuestionnaireSelection.availableVersions}
+              <SettingSelection
+                title="Version"
+                values={currentQuestionnaireSelection.availableVersions}
                 selectedValue={currentQuestionnaireSelection.version}
                 handleChange={(value) => {
-                  setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...{ version: value } });
+                  setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...{ version: value as number } });
                 }}
-              ></VersionSelection>
+              ></SettingSelection>
             ) : null}
             <FormControlLabel
               control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
