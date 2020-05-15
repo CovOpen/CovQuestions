@@ -18,7 +18,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import "./App.css";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire, ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
 import { useAppDispatch } from "./store/store";
 import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
 import {
@@ -86,6 +86,28 @@ export const App: React.FC = () => {
     setIsJsonMode(event.target.checked);
   };
 
+  const handleVersionChanged = (newVersion: number) => {
+    const questionnaire = allQuestionnaires.filter(
+      (it) => it.id === currentQuestionnaireSelection.id && it.version === newVersion
+    )[0];
+    const changedValues = {
+      version: newVersion,
+      availableLanguages: questionnaire.meta.availableLanguages,
+      language: currentQuestionnaireSelection.language,
+    };
+    if (
+      currentQuestionnaireSelection.language !== undefined &&
+      changedValues.availableLanguages.indexOf(currentQuestionnaireSelection.language) === -1
+    ) {
+      if (changedValues.availableLanguages.indexOf("en") > -1) {
+        changedValues.language = "en";
+      } else {
+        changedValues.language = changedValues.availableLanguages[0];
+      }
+    }
+    setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...changedValues });
+  };
+
   useEffect(() => {
     getAllQuestionnaires().then((value) => setAllQuestionnaires(value));
   }, []);
@@ -144,7 +166,7 @@ export const App: React.FC = () => {
                 values={currentQuestionnaireSelection.availableVersions}
                 selectedValue={currentQuestionnaireSelection.version}
                 handleChange={(value) => {
-                  setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...{ version: value as number } });
+                  handleVersionChanged(value as number);
                 }}
               ></SettingSelection>
             ) : null}
