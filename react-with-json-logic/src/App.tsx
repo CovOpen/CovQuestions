@@ -28,6 +28,7 @@ import {
 import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
+import { VersionSelection } from "./components/questionnaireSelection/VersionSelection";
 
 const theme = createMuiTheme({
   palette: {
@@ -51,7 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
       background: "#F7FAFC",
       boxShadow: "3px 0px 34px rgba(0, 0, 0, 0.06)",
     },
-    jsonMode: {
+    settings: {
+      display: "inline-flex",
       position: "absolute",
       right: 0,
     },
@@ -120,11 +122,22 @@ export const App: React.FC = () => {
           <Typography variant="h6" noWrap>
             CovQuestions
           </Typography>
-          <FormControlLabel
-            className={classes.jsonMode}
-            control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
-            label="JSON Mode"
-          />
+          <div className={classes.settings}>
+            {currentQuestionnaireSelection.version !== undefined &&
+            currentQuestionnaireSelection.availableVersions !== undefined ? (
+              <VersionSelection
+                availableVersions={currentQuestionnaireSelection.availableVersions}
+                selectedValue={currentQuestionnaireSelection.version}
+                handleChange={(value) => {
+                  setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...{ version: value } });
+                }}
+              ></VersionSelection>
+            ) : null}
+            <FormControlLabel
+              control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
+              label="JSON Mode"
+            />
+          </div>
         </Toolbar>
       </AppBar>
 
