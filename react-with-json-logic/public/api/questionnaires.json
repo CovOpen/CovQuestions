@@ -52,27 +52,7 @@
   {
     "id": "simpleMultiselectSymptomsQuestion",
     "title": "Simple multiselect symptoms question",
-    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/1/en",
-    "version": 1,
-    "meta": {
-      "author": "Someone",
-      "availableLanguages": ["de", "en"]
-    }
-  },
-  {
-    "id": "simpleMultiselectSymptomsQuestion",
-    "title": "Simple multiselect symptoms question",
     "path": "/questionnaires/simpleMultiselectSymptomsQuestion/2/de",
-    "version": 2,
-    "meta": {
-      "author": "Someone",
-      "availableLanguages": ["de", "en"]
-    }
-  },
-  {
-    "id": "simpleMultiselectSymptomsQuestion",
-    "title": "Simple multiselect symptoms question",
-    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/2/en",
     "version": 2,
     "meta": {
       "author": "Someone",
