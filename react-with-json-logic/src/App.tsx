@@ -21,7 +21,10 @@ import { QuestionnaireEditor } from "./components/questionnaireEditor/Questionna
 import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 import { useAppDispatch } from "./store/store";
 import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
-import { QuestionnaireSelection, QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
+import {
+  QuestionnaireSelection,
+  QuestionnaireSelectionDrawer,
+} from "./components/questionnaireSelection/QuestionnaireSelection";
 import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";

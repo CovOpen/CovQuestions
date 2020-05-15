@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { List, ListItem, ListItemText, makeStyles, Theme, createStyles } from "@material-ui/core";
 import { ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
-import { QuestionnaireBaseData } from "../models/QuestionnairesList";
+import { QuestionnaireBaseData } from "../../models/QuestionnairesList";
 
 export type QuestionnaireSelection = {
   id?: string;
   version?: number;
   language?: ISOLanguage;
+  availableVersions?: number[];
 };
 
 type QuestionnaireSelectionProps = {
@@ -46,9 +47,14 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
     setOrderedLatestQuestionnaires(result);
   }, [allQuestionnaires]);
 
-  const handleOnClick = (questionnaireData: any) => {
+  const handleOnClick = (questionnaireData: QuestionnaireBaseData) => {
     const browserLanguage = navigator.language.split("-")[0] as ISOLanguage;
-    const selection: QuestionnaireSelection = { id: questionnaireData.id, version: questionnaireData.version };
+    const versions = getVersions(questionnaireData.id);
+    const selection: QuestionnaireSelection = {
+      id: questionnaireData.id,
+      version: questionnaireData.version,
+      availableVersions: versions,
+    };
     const availableLanguages = questionnaireData.meta.availableLanguages;
     if (availableLanguages.indexOf(browserLanguage) > -1) {
       selection.language = browserLanguage;
@@ -67,6 +73,12 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
     return filtered[0];
   };
 
+  const getVersions = (id: string): number[] => {
+    const questionnaires = allQuestionnaires.filter((it) => it.id === id);
+    const versions = questionnaires.map((it) => it.version);
+    return versions.sort();
+  };
+
   if (orderedLatestQuestionnaires.length === 0) {
     return <div className={classes.root}>No questionnaires available</div>;
   }
@@ -76,12 +88,7 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
       <List>
         {orderedLatestQuestionnaires.map((it) => {
           return (
-            <ListItem
-              onClick={() => handleOnClick(it)}
-              selected={selectedValue.id === it.id && selectedValue.version === it.version}
-              button
-              key={it.path}
-            >
+            <ListItem onClick={() => handleOnClick(it)} selected={selectedValue.id === it.id} button key={it.path}>
               <ListItemText primary={it.title} />
             </ListItem>
           );
