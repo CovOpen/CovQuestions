@@ -33,12 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const SettingSelection: React.FC<SettingSelectionProps> = ({
-  handleChange,
-  values,
-  selectedValue,
-  title
-}) => {
+export const SettingSelection: React.FC<SettingSelectionProps> = ({ handleChange, values, selectedValue, title }) => {
   const classes = useStyles();
 
   if (values.length === 0) {
