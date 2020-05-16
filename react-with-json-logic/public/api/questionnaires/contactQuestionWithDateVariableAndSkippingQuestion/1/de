@@ -6,7 +6,9 @@
   "title": "Contact question with date variable and skipping a question",
   "meta": {
     "author": "Someone",
-    "availableLanguages": ["de"],
+    "availableLanguages": [
+      "de"
+    ],
     "creationDate": "2020-04-12T14:23:00+0000"
   },
   "questions": [

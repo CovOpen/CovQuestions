@@ -1,30 +1,34 @@
 import React, { useEffect, useState } from "react";
 import {
-  Container,
-  Grid,
-  createMuiTheme,
-  ThemeProvider,
   AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  makeStyles,
-  Theme,
+  Container,
+  createMuiTheme,
   createStyles,
   FormControlLabel,
+  Grid,
+  IconButton,
+  makeStyles,
   Switch,
+  Theme,
+  ThemeProvider,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import "./App.css";
 import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire, ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
 import { useAppDispatch } from "./store/store";
-import { setQuestionnaireInEditor, questionnaireInEditorSelector } from "./store/questionnaireInEditor";
-import { QuestionnaireSelectionDrawer } from "./components/QuestionnaireSelection";
+import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
+import {
+  QuestionnaireSelection,
+  QuestionnaireSelectionDrawer,
+} from "./components/questionnaireSelection/QuestionnaireSelection";
 import { useSelector } from "react-redux";
-
-type QuestionnairesList = Array<{ name: string; path: string }>;
+import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
+import { QuestionnaireBaseData } from "./models/QuestionnairesList";
+import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
 
 const theme = createMuiTheme({
   palette: {
@@ -48,7 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
       background: "#F7FAFC",
       boxShadow: "3px 0px 34px rgba(0, 0, 0, 0.06)",
     },
-    jsonMode: {
+    settings: {
+      display: "inline-flex",
       position: "absolute",
       right: 0,
     },
@@ -60,8 +65,8 @@ export const App: React.FC = () => {
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
 
-  const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnairesList>([]);
-  const [currentQuestionnairePath, setCurrentQuestionnairePath] = useState<string>("");
+  const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnaireBaseData[]>([]);
+  const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined
   );
@@ -81,27 +86,53 @@ export const App: React.FC = () => {
     setIsJsonMode(event.target.checked);
   };
 
-  useEffect(() => {
-    fetch("/api/index.json").then((response) => {
-      if (response.ok) {
-        response.json().then((value) => setAllQuestionnaires(value));
+  const handleVersionChanged = (newVersion: number) => {
+    const questionnaire = allQuestionnaires.filter(
+      (it) => it.id === currentQuestionnaireSelection.id && it.version === newVersion
+    )[0];
+    const changedValues = {
+      version: newVersion,
+      availableLanguages: questionnaire.meta.availableLanguages,
+      language: currentQuestionnaireSelection.language,
+    };
+    if (
+      currentQuestionnaireSelection.language !== undefined &&
+      changedValues.availableLanguages.indexOf(currentQuestionnaireSelection.language) === -1
+    ) {
+      if (changedValues.availableLanguages.indexOf("en") > -1) {
+        changedValues.language = "en";
+      } else {
+        changedValues.language = changedValues.availableLanguages[0];
       }
-    });
+    }
+    setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...changedValues });
+  };
+
+  useEffect(() => {
+    getAllQuestionnaires().then((value) => setAllQuestionnaires(value));
   }, []);
 
   useEffect(() => {
-    if (currentQuestionnairePath !== "") {
-      fetch(currentQuestionnairePath).then((response) => {
-        if (response.ok) {
-          response.json().then((value: Questionnaire) => {
-            setOriginalCurrentQuestionnaire(value);
-            dispatch(setQuestionnaireInEditor(value));
-            overwriteCurrentQuestionnaire(value);
-          });
+    if (
+      currentQuestionnaireSelection.id !== undefined &&
+      currentQuestionnaireSelection.version !== undefined &&
+      currentQuestionnaireSelection.language !== undefined
+    ) {
+      getQuestionnaireByIdVersionAndLanguage(
+        currentQuestionnaireSelection.id,
+        currentQuestionnaireSelection.version,
+        currentQuestionnaireSelection.language
+      ).then((value) => {
+        if (value !== undefined) {
+          setOriginalCurrentQuestionnaire(value);
+          dispatch(setQuestionnaireInEditor(value));
+          overwriteCurrentQuestionnaire(value);
+        } else {
+          console.error(`Cannot get questionnaire with values ${JSON.stringify(currentQuestionnaireSelection)}`);
         }
       });
     }
-  }, [dispatch, currentQuestionnairePath]);
+  }, [dispatch, currentQuestionnaireSelection]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -113,11 +144,37 @@ export const App: React.FC = () => {
           <Typography variant="h6" noWrap>
             CovQuestions
           </Typography>
-          <FormControlLabel
-            className={classes.jsonMode}
-            control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
-            label="JSON Mode"
-          />
+          <div className={classes.settings}>
+            {currentQuestionnaireSelection.language !== undefined &&
+            currentQuestionnaireSelection.availableLanguages !== undefined ? (
+              <SettingSelection
+                title="Language"
+                values={currentQuestionnaireSelection.availableLanguages}
+                selectedValue={currentQuestionnaireSelection.language}
+                handleChange={(value) => {
+                  setCurrentQuestionnaireSelection({
+                    ...currentQuestionnaireSelection,
+                    ...{ language: value as ISOLanguage },
+                  });
+                }}
+              ></SettingSelection>
+            ) : null}
+            {currentQuestionnaireSelection.version !== undefined &&
+            currentQuestionnaireSelection.availableVersions !== undefined ? (
+              <SettingSelection
+                title="Version"
+                values={currentQuestionnaireSelection.availableVersions}
+                selectedValue={currentQuestionnaireSelection.version}
+                handleChange={(value) => {
+                  handleVersionChanged(value as number);
+                }}
+              ></SettingSelection>
+            ) : null}
+            <FormControlLabel
+              control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
+              label="JSON Mode"
+            />
+          </div>
         </Toolbar>
       </AppBar>
 
@@ -128,11 +185,11 @@ export const App: React.FC = () => {
               <Grid item xs={3}>
                 <QuestionnaireSelectionDrawer
                   handleChange={(value) => {
-                    setCurrentQuestionnairePath(value);
+                    setCurrentQuestionnaireSelection(value);
                     setShowMenu(false);
                   }}
                   allQuestionnaires={allQuestionnaires}
-                  selectedValue={currentQuestionnairePath}
+                  selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
                 />
               </Grid>
             ) : null}

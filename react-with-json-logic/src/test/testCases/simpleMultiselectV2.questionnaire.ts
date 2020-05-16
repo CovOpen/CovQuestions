@@ -3,7 +3,7 @@ import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 const testQuestionnaire: Questionnaire = {
   id: "simpleMultiselectSymptomsQuestion",
   schemaVersion: "1",
-  version: 1,
+  version: 2,
   language: "de",
   title: "Simple multiselect symptoms question",
   meta: {
@@ -14,7 +14,7 @@ const testQuestionnaire: Questionnaire = {
   questions: [
     {
       id: "q1_symptoms",
-      text: "Welche der folgenden Symptome haben Sie?",
+      text: "Welche der folgenden Symptome haben Sie? Frage V2",
       type: "multiselect",
       optional: true,
       options: [

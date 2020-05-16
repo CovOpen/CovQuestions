@@ -4,7 +4,7 @@ const testQuestionnaire: Questionnaire = {
   id: "simpleMultiselectSymptomsQuestion",
   schemaVersion: "1",
   version: 1,
-  language: "de",
+  language: "en",
   title: "Simple multiselect symptoms question",
   meta: {
     author: "Someone",
@@ -14,7 +14,7 @@ const testQuestionnaire: Questionnaire = {
   questions: [
     {
       id: "q1_symptoms",
-      text: "Welche der folgenden Symptome haben Sie?",
+      text: "Which of the following symptoms do you show?",
       type: "multiselect",
       optional: true,
       options: [

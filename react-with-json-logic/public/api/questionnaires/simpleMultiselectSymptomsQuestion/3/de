@@ -1,18 +1,20 @@
 {
   "id": "simpleMultiselectSymptomsQuestion",
   "schemaVersion": "1",
-  "version": 1,
-  "language": "en",
+  "version": 3,
+  "language": "de",
   "title": "Simple multiselect symptoms question",
   "meta": {
     "author": "Someone",
-    "availableLanguages": ["en"],
+    "availableLanguages": [
+      "de"
+    ],
     "creationDate": "2020-04-13T13:48:48+0000"
   },
   "questions": [
     {
       "id": "q1_symptoms",
-      "text": "Welche der folgenden Symptome haben Sie?",
+      "text": "Welche der folgenden Symptome haben Sie? Frage V3",
       "type": "multiselect",
       "optional": true,
       "options": [
@@ -96,7 +98,11 @@
     {
       "description": "Three symptoms",
       "answers": {
-        "q1_symptoms": ["cough", "fever", "breathlessness"]
+        "q1_symptoms": [
+          "cough",
+          "fever",
+          "breathlessness"
+        ]
       },
       "results": {
         "rc_symptoms": "MANY_SYMPTOMS"
@@ -105,7 +111,10 @@
     {
       "description": "Two symptoms",
       "answers": {
-        "q1_symptoms": ["fever", "breathlessness"]
+        "q1_symptoms": [
+          "fever",
+          "breathlessness"
+        ]
       },
       "results": {
         "rc_symptoms": "FEW_SYMPTOMS"
