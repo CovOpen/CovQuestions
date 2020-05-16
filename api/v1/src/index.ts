@@ -10,7 +10,6 @@ import { validate } from "./validate";
 import {
   readI18nFile,
   doOnEachTranslation,
-  md5,
   getStringRessource,
   writeJSONFile,
   getDirectories,
@@ -37,7 +36,7 @@ export function main(pwd: string = "./src/data", outputDir: string = "./dist") {
   console.log("Validating the Questionnaires...");
   glob.sync(`${pwd}/**/*.json`).forEach((q) => validate(q));
 
-  let index: Questionnaire[] = [];
+  let index: QuestionnaireWithLanguages[] = [];
 
   // Build all Questionnaires
   console.log("Building the static API:");
@@ -61,6 +60,7 @@ export function main(pwd: string = "./src/data", outputDir: string = "./dist") {
     let slug = `${current.id}${current.version}`;
     accumulator[slug] = {
       id: current.id,
+      title: current.title,
       meta: { ...current.meta },
       version: current.version,
       path: `${API_PATHS.QUESTIONNAIRES}/${current.id}/${current.version}`,
@@ -69,7 +69,15 @@ export function main(pwd: string = "./src/data", outputDir: string = "./dist") {
   }, {} as { [key: string]: QuestionIndexEntry });
   writeJSONFile(
     `${outputDir}${API_PATHS.QUESTIONNAIRES}.json`,
-    Object.keys(indexMap).map((key) => translateObject(indexMap[key]))
+    Object.keys(indexMap).map((key) =>
+      translateObject(
+        indexMap[key],
+        index.find(
+          (q) =>
+            q.id === indexMap[key].id && q.version === indexMap[key].version
+        ).languages.en
+      )
+    )
   );
 
   /**
@@ -96,12 +104,13 @@ export function buildQuestionnaire(
   sourceBaseDir: string,
   questionnaireId: string,
   outputPath: string
-): Questionnaire[] {
+): QuestionnaireWithLanguages[] {
   let questionnaireFilePaths = glob.sync(
     `${sourceBaseDir}/${questionnaireId}/**/*.json`
   );
 
   let index: Questionnaire[] = [];
+  let indexWithLanguages: QuestionnaireWithLanguages[] = [];
   /**
    * Generate the questionnaire JSON files
    */
@@ -149,6 +158,16 @@ export function buildQuestionnaire(
         );
 
         index.push(JSON.parse(JSON.stringify(questionnaire)));
+        indexWithLanguages.push(
+          JSON.parse(
+            JSON.stringify({
+              ...questionnaire,
+              languages: languages.reduce((acc, lang) => {
+                return { ...acc, [lang.id]: lang };
+              }, {}),
+            })
+          )
+        );
         writeJSONFile(
           `${outputPath}${API_PATHS.QUESTIONNAIRES}/${questionnaire.id}/${questionnaire.version}/${lang.id}.json`,
           translatedQuestionnaire
@@ -204,7 +223,7 @@ export function buildQuestionnaire(
       lang.translations
     );
   });
-  return index;
+  return indexWithLanguages;
 }
 
 export function translateQuestionnaire(
@@ -258,7 +277,12 @@ interface Language {
 
 interface QuestionIndexEntry {
   id: string;
+  title: string;
   version: number;
   meta: QuestionnaireMeta;
   path: string;
+}
+
+interface QuestionnaireWithLanguages extends Questionnaire {
+  languages: { [lang: string]: Language };
 }
