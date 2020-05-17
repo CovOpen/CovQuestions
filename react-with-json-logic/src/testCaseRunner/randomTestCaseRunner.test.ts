@@ -108,7 +108,6 @@ describe("testCaseRunner", () => {
       answers: {},
       results: {},
       options: {
-        questionMode: "random",
         randomRuns: 1,
         fillInDate: "2020-01-01",
       },

@@ -28,7 +28,7 @@ export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestC
     ? dateInSecondsTimestamp(testCase.options?.fillInDate)
     : Date.now() / 1000;
 
-  if (testCase.options?.questionMode === "random") {
+  if (isRandomTestCase(testCase)) {
     return runOneTestCaseRandomly(testQuestionnaire, testCase, timeOfExecution);
   }
 
@@ -87,11 +87,12 @@ function findUnusedElements(arrayWithPossibleUnusedElements: string[], subSetOfF
   return [];
 }
 
+function isRandomTestCase(testCase: TestCase) {
+  return testCase.options?.randomRuns ?? 0 > 0;
+}
+
 function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestResultError | undefined {
   const { description } = testCase;
-  const questionMode = testCase.options?.questionMode;
-
-  const givenAnswers: string[] = [];
 
   let question = engine.nextQuestion();
 
@@ -105,10 +106,9 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
       } else {
         engine.setAnswer(question.id, dateInSecondsTimestamp(answerValue as string));
       }
-      givenAnswers.push(question.id);
     } else {
       // answer was not provided in test case
-      if (questionMode === "random") {
+      if (isRandomTestCase(testCase)) {
         const randomAnswer = createRandomAnswer(question, testCase);
         engine.setAnswer(question.id, randomAnswer);
       } else if (question.isOptional()) {
@@ -124,16 +124,6 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
 
     question = engine.nextQuestion();
   }
-
-  const unusedAnswers = findUnusedElements(Object.keys(testCase.answers), givenAnswers);
-  if (questionMode === "strict" && unusedAnswers.length > 0) {
-    return {
-      description,
-      success: false,
-      errorMessage: `Not all provided answer were needed to fill the questionnaire: ${JSON.stringify(unusedAnswers)}`,
-    };
-  }
-
   return undefined;
 }
 
@@ -187,7 +177,6 @@ function getRandomInRange(min: number, max: number, step: number = 1) {
 
 function checkResults(executionResults: Result[], testCase: TestCase): TestResultError | undefined {
   const { description } = testCase;
-  const resultsMode = testCase.options?.resultsMode;
 
   const executionResultStrings = executionResults.map((it) => it.resultCategory.id + ": " + it.result.id);
   const testCaseResultStrings = Object.entries(testCase.results).map(
@@ -206,7 +195,7 @@ function checkResults(executionResults: Result[], testCase: TestCase): TestResul
     };
   }
 
-  if (resultsMode !== "strict") {
+  if (!testCase.options?.strictResults) {
     return undefined;
   }
 

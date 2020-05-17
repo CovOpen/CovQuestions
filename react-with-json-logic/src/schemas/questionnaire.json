@@ -92,11 +92,7 @@
           "$ref": "#/definitions/QuestionType"
         }
       },
-      "required": [
-        "id",
-        "text",
-        "type"
-      ],
+      "required": ["id", "text", "type"],
       "title": "Common question fields",
       "type": "object"
     },
@@ -137,15 +133,11 @@
             },
             "type": {
               "description": "Type of the question.",
-              "enum": [
-                "number"
-              ],
+              "enum": ["number"],
               "type": "string"
             }
           },
-          "required": [
-            "type"
-          ]
+          "required": ["type"]
         }
       ]
     },
@@ -165,10 +157,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "text",
-        "value"
-      ],
+      "required": ["text", "value"],
       "type": "object"
     },
     "Question": {
@@ -204,17 +193,12 @@
               "type": "array"
             },
             "type": {
-              "enum": [
-                "select",
-                "multiselect"
-              ],
+              "enum": ["select", "multiselect"],
               "type": "string",
               "description": "Type of the question."
             }
           },
-          "required": [
-            "type"
-          ]
+          "required": ["type"]
         }
       ]
     },
@@ -230,17 +214,11 @@
           "properties": {
             "type": {
               "type": "string",
-              "enum": [
-                "boolean",
-                "date",
-                "text"
-              ],
+              "enum": ["boolean", "date", "text"],
               "description": "Type of the question."
             }
           },
-          "required": [
-            "type"
-          ]
+          "required": ["type"]
         }
       ]
     },
@@ -279,11 +257,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "author",
-        "availableLanguages",
-        "creationDate"
-      ],
+      "required": ["author", "availableLanguages", "creationDate"],
       "type": "object"
     },
     "Result": {
@@ -302,11 +276,7 @@
           "$ref": "#/definitions/LogicExpression"
         }
       },
-      "required": [
-        "id",
-        "text",
-        "expression"
-      ],
+      "required": ["id", "text", "expression"],
       "type": "object"
     },
     "ResultCategory": {
@@ -329,11 +299,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "id",
-        "description",
-        "results"
-      ],
+      "required": ["id", "description", "results"],
       "type": "object"
     },
     "Variable": {
@@ -348,10 +314,7 @@
           "$ref": "#/definitions/LogicExpression"
         }
       },
-      "required": [
-        "id",
-        "expression"
-      ]
+      "required": ["id", "expression"]
     },
     "TestCase": {
       "description": "One test case that simulates a virtual patient and the results they should receive.",
@@ -392,11 +355,7 @@
           }
         }
       },
-      "required": [
-        "description",
-        "answers",
-        "results"
-      ]
+      "required": ["description", "answers", "results"]
     },
     "LogicAnd": {
       "properties": {
@@ -407,9 +366,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "and"
-      ],
+      "required": ["and"],
       "title": "LogicAnd",
       "type": "object"
     },
@@ -437,9 +394,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "=="
-      ],
+      "required": ["=="],
       "title": "LogicEquals",
       "type": "object"
     },
@@ -468,9 +423,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">"
-      ],
+      "required": [">"],
       "title": "LogicGreater",
       "type": "object"
     },
@@ -485,9 +438,7 @@
           "type": "array"
         }
       },
-      "required": [
-        ">="
-      ],
+      "required": [">="],
       "title": "LogicGreaterEqual",
       "type": "object"
     },
@@ -502,9 +453,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "if"
-      ],
+      "required": ["if"],
       "title": "LogicIf",
       "type": "object"
     },
@@ -529,9 +478,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "in"
-      ],
+      "required": ["in"],
       "title": "LogicIn",
       "type": "object"
     },
@@ -546,9 +493,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<"
-      ],
+      "required": ["<"],
       "title": "LogicLess",
       "type": "object"
     },
@@ -563,9 +508,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "<="
-      ],
+      "required": ["<="],
       "title": "LogicLessEqual",
       "type": "object"
     },
@@ -580,9 +523,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "-"
-      ],
+      "required": ["-"],
       "title": "LogicMinus",
       "type": "object"
     },
@@ -602,9 +543,7 @@
           ]
         }
       },
-      "required": [
-        "!"
-      ],
+      "required": ["!"],
       "title": "LogicNot",
       "type": "object"
     },
@@ -663,9 +602,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "or"
-      ],
+      "required": ["or"],
       "title": "LogicOr",
       "type": "object"
     },
@@ -680,9 +617,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "+"
-      ],
+      "required": ["+"],
       "title": "LogicPlus",
       "type": "object"
     },
@@ -697,9 +632,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "reduce"
-      ],
+      "required": ["reduce"],
       "title": "LogicReduce",
       "type": "object"
     },
@@ -714,9 +647,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "some"
-      ],
+      "required": ["some"],
       "title": "LogicSome",
       "type": "object"
     },
@@ -726,22 +657,13 @@
           "type": "string"
         }
       },
-      "required": [
-        "var"
-      ],
+      "required": ["var"],
       "type": "object"
     },
     "QuestionType": {
       "description": "Type of the question.",
       "type": "string",
-      "enum": [
-        "boolean",
-        "date",
-        "text",
-        "number",
-        "select",
-        "multiselect"
-      ]
+      "enum": ["boolean", "date", "text", "number", "select", "multiselect"]
     },
     "ISOLanguage": {
       "description": "Language of this, as ISO 639-1 code. Additionally 'none' for no language. ",
