@@ -1,6 +1,6 @@
-import { Question, QuestionnaireEngine, Result } from "covquestions-js";
-import { Option, Questionnaire, TestCase } from "covquestions-js/models/Questionnaire.generated";
-import { dateInSecondsTimestamp } from "../utils/date";
+import { Question, QuestionnaireEngine, Result } from "../questionnaireEngine";
+import { Option, Questionnaire, TestCase } from "../models/Questionnaire.generated";
+import { dateInSecondsTimestamp } from "../../react-with-json-logic/src/utils/date";
 
 type TestResultSuccess = {
   description: string;

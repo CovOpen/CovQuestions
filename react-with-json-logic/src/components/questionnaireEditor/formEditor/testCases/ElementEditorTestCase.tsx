@@ -30,7 +30,7 @@ import {
   TestCase,
 } from "covquestions-js/models/Questionnaire.generated";
 import { heightWithoutEditor } from "../../QuestionnaireEditor";
-import { runOneTestCase } from "../../../../testCaseRunner/testCaseRunner";
+import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { TestCaseResult } from "./TestCaseResult";
 import { ElementEditor } from "../../ElementEditor";
 import { testCaseMetaSchema } from "./testCaseMeta";

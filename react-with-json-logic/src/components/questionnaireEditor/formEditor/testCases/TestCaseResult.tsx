@@ -1,5 +1,5 @@
 import React from "react";
-import { TestResult } from "../../../../testCaseRunner/testCaseRunner";
+import { TestResult } from "covquestions-js/src/testCaseRunner";
 import { createStyles, makeStyles, Paper, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>

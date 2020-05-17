@@ -1,4 +1,4 @@
-import { runOneTestCase } from "./testCaseRunner";
+import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { Questionnaire, TestCase } from "covquestions-js/models/Questionnaire.generated";
 
 const testQuestionnaire: Questionnaire = {
