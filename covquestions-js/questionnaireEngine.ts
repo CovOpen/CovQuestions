@@ -99,11 +99,13 @@ export class QuestionnaireEngine {
   ) {
     const question = this.getQuestionById(questionId);
     if (question === undefined) {
-      throw new Error(`You cannot set the answer to a question that does not exist. QuestionId: ${questionId}`)
+      throw new Error(
+        `You cannot set the answer to a question that does not exist. QuestionId: ${questionId}`
+      );
     }
 
-    if(!question.isOptional() && value === undefined) {
-      throw new Error(`This question is not optional: ${questionId}`)
+    if (!question.isOptional() && value === undefined) {
+      throw new Error(`This question is not optional: ${questionId}`);
     }
 
     const answer: QuestionResponse = { value };
@@ -140,8 +142,7 @@ export class QuestionnaireEngine {
         this.data[variable.id] = {
           value: jsonLogic.apply(variable.expression, this.data),
         };
-      } catch (e) {
-      }
+      } catch (e) {}
     });
   }
 
