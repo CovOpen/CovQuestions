@@ -1,6 +1,5 @@
 import { runOneTestCase, runTestCases } from "covquestions-js/src/testCaseRunner";
-import contactQuestionWithDateAndSkipping
-  from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
+import contactQuestionWithDateAndSkipping from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
 import simpleNumericAgeQuestion from "../test/testCases/simpleNumericAgeQuestion.questionnaire";

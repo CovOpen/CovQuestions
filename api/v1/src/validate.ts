@@ -12,10 +12,7 @@ export function validate(path: string) {
 
   const questionnaire = JSON.parse(fs.readFileSync(path, "utf8"));
 
-  var valid = jsonValidator.validate(
-    "schema.json",
-    questionnaire
-  );
+  var valid = jsonValidator.validate("schema.json", questionnaire);
   if (!valid)
     throw Error(
       `File ${path} does not match the JSON-Schema: \n${JSON.stringify(
@@ -25,12 +22,14 @@ export function validate(path: string) {
       )}`
     );
 
-  validateWithTestCases(questionnaire)
+  validateWithTestCases(questionnaire);
 }
 
 function validateWithTestCases(questionnaire: Questionnaire) {
-  const testResults = runTestCases(questionnaire)
-  if (testResults.some(testResult => testResult.success === false)) {
-    throw Error(`TestCases in questionnaire ${questionnaire.id} did not succeed.`)
+  const testResults = runTestCases(questionnaire);
+  if (testResults.some((testResult) => testResult.success === false)) {
+    throw Error(
+      `TestCases in questionnaire ${questionnaire.id} did not succeed.`
+    );
   }
 }
