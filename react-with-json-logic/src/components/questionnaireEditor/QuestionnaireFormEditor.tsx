@@ -9,11 +9,13 @@ import {
   ListItemText,
   makeStyles,
   Snackbar,
+  Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import {
@@ -81,6 +83,23 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
         display: "flex",
         justifyContent: "flex-end",
         width: "100%",
+      },
+      sectionHeader: {
+        alignItems: "center",
+        display: "inline-flex",
+        width: "100%",
+      },
+      title: {
+        fontWeight: "bold",
+        textTransform: "uppercase",
+      },
+      listItemText: {
+        fontSize: "0.9rem",
+        lineHeight: "1.25rem",
+        paddingLeft: 10,
+      },
+      addButton: {
+        marginLeft: "auto",
       },
     })
   );
@@ -166,6 +185,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
         <style>{style}</style>
         <Grid container>
           <Grid container item xs={3} className={classes.selection}>
+            <Typography className={classes.title}>General</Typography>
             <List className={classes.selectionList}>
               <ListItem
                 className={classes.listItem}
@@ -173,26 +193,16 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 selected={activeItem.section === SectionType.META}
                 onClick={() => handleActiveItemChange(SectionType.META, 0)}
               >
-                <ListItemText primary="Meta" />
+                <ListItemText classes={{ primary: classes.listItemText }} primary="Meta" />
               </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
             <List className={classes.selectionList}>
-              {questionnaireInEditor.questionnaire.questions.map((item, index) => (
-                <ListItem
-                  button
-                  className={classes.listItem}
-                  selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
-                  onClick={() => handleActiveItemChange(SectionType.QUESTIONS, index)}
-                  key={index}
-                >
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              ))}
-              <ListItem className={classes.listItem}>
-                <Button
-                  variant="contained"
-                  color="secondary"
+              <div className={classes.sectionHeader}>
+                <Typography className={classes.title}>Questions</Typography>
+                <IconButton
+                  className={classes.addButton}
+                  aria-label="add-question"
                   onClick={() => {
                     if (questionnaireInEditor.hasErrors) {
                       setShowSnackbar(true);
@@ -202,9 +212,20 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                     handleActiveItemChange(SectionType.QUESTIONS, questionnaireInEditor.questionnaire.questions.length);
                   }}
                 >
-                  Add Question
-                </Button>
-              </ListItem>
+                  <AddIcon />
+                </IconButton>
+              </div>
+              {questionnaireInEditor.questionnaire.questions.map((item, index) => (
+                <ListItem
+                  button
+                  className={classes.listItem}
+                  selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
+                  onClick={() => handleActiveItemChange(SectionType.QUESTIONS, index)}
+                  key={index}
+                >
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.text} />
+                </ListItem>
+              ))}
             </List>
             <Divider className={classes.selectionListDivider} />
             <List className={classes.selectionList}>
