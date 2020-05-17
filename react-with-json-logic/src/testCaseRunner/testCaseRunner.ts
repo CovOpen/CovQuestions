@@ -88,7 +88,7 @@ function findUnusedElements(arrayWithPossibleUnusedElements: string[], subSetOfF
 }
 
 function isRandomTestCase(testCase: TestCase) {
-  return testCase.options?.randomRuns ?? 0 > 0;
+  return (testCase.options?.randomRuns ?? 0) > 0;
 }
 
 function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestResultError | undefined {
