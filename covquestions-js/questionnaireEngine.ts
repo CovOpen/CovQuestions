@@ -113,7 +113,7 @@ export class QuestionnaireEngine {
     if (question.type === "multiselect") {
       const array = (value || []) as Array<Primitive>;
       answer.selectedCount = array !== undefined ? array.length : 0;
-      answer.count = question.options?.length || 0;
+      answer.count = question.options !== undefined && question.options.length || 0;
       answer.unselectedCount = answer.count - answer.selectedCount;
       answer.option = {};
       for (const option of question.options || []) {
@@ -134,7 +134,7 @@ export class QuestionnaireEngine {
 
   private updateComputableVariables() {
     this.data["g_now"] = {
-      value: Math.round(this.timeOfExecution ?? Date.now() / 1000),
+      value: Math.round(this.timeOfExecution || Date.now() / 1000),
     };
 
     this.variables.forEach((variable) => {

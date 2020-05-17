@@ -24,8 +24,8 @@ export function runTestCases(testQuestionnaire: Questionnaire): TestResult[] {
 }
 
 export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestCase): TestResult {
-  const timeOfExecution = testCase.options?.fillInDate
-    ? dateInSecondsTimestamp(testCase.options?.fillInDate)
+  const timeOfExecution = testCase.options !== undefined && testCase.options.fillInDate !== undefined
+    ? dateInSecondsTimestamp(testCase.options.fillInDate)
     : Date.now() / 1000;
 
   if (isRandomTestCase(testCase)) {
@@ -41,7 +41,7 @@ function runOneTestCaseRandomly(
   timeOfExecution: number | undefined
 ): TestResult {
   const results = [];
-  const randomRuns = testCase.options?.randomRuns ?? 1;
+  const randomRuns = testCase.options !== undefined && testCase.options.randomRuns !== undefined ? testCase.options.randomRuns : 1;
   for (let i = 0; i < randomRuns; i++) {
     const result = runOneTestCaseOnce(testQuestionnaire, testCase, timeOfExecution);
     results.push(result);
@@ -88,7 +88,7 @@ function findUnusedElements(arrayWithPossibleUnusedElements: string[], subSetOfF
 }
 
 function isRandomTestCase(testCase: TestCase) {
-  return (testCase.options?.randomRuns ?? 0) > 0;
+  return (testCase.options !== undefined && testCase.options.randomRuns !== undefined ? testCase.options.randomRuns : 0) > 0;
 }
 
 function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestResultError | undefined {
@@ -139,14 +139,14 @@ function createRandomAnswer(question: Question, testCase: TestCase) {
     case "multiselect":
       return getRandomOptionValues(question.options!);
     case "date":
-      return getRandomDate(testCase.options?.fillInDate);
+      return getRandomDate(testCase.options !== undefined ? testCase.options.fillInDate : undefined);
     case "boolean":
       return Math.random() < 0.5;
     case "number":
       return getRandomInRange(
-        question.numericOption?.min ?? 0,
-        question.numericOption?.max ?? 150,
-        question.numericOption?.step ?? 1
+        question.numericOption !== undefined && question.numericOption.min !== undefined ? question.numericOption.min : 0,
+        question.numericOption !== undefined && question.numericOption.max !== undefined ? question.numericOption.max : 150,
+        question.numericOption !== undefined && question.numericOption.step !== undefined ? question.numericOption.step : 1
       );
     case "text":
       return Math.random().toString(36).substring(2);
@@ -195,7 +195,7 @@ function checkResults(executionResults: Result[], testCase: TestCase): TestResul
     };
   }
 
-  if (!testCase.options?.strictResults) {
+  if (testCase.options === undefined || !testCase.options.strictResults) {
     return undefined;
   }
 
