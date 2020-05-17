@@ -228,6 +228,26 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
               ))}
             </List>
             <Divider className={classes.selectionListDivider} />
+            <div className={classes.sectionHeader}>
+              <Typography className={classes.title}>Result Categories</Typography>
+              <IconButton
+                className={classes.addButton}
+                aria-label="add-result-category"
+                onClick={() => {
+                  if (questionnaireInEditor.hasErrors) {
+                    setShowSnackbar(true);
+                    return;
+                  }
+                  dispatch(addNewResultCategory());
+                  handleActiveItemChange(
+                    SectionType.RESULT_CATEGORIES,
+                    questionnaireInEditor.questionnaire.resultCategories.length
+                  );
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
             <List className={classes.selectionList}>
               {questionnaireInEditor.questionnaire.resultCategories.map((item, index) => (
                 <ListItem
@@ -237,28 +257,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   onClick={() => handleActiveItemChange(SectionType.RESULT_CATEGORIES, index)}
                   key={index}
                 >
-                  <ListItemText primary={item.id} />
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
                 </ListItem>
               ))}
-              <ListItem className={classes.listItem}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    if (questionnaireInEditor.hasErrors) {
-                      setShowSnackbar(true);
-                      return;
-                    }
-                    dispatch(addNewResultCategory());
-                    handleActiveItemChange(
-                      SectionType.RESULT_CATEGORIES,
-                      questionnaireInEditor.questionnaire.resultCategories.length
-                    );
-                  }}
-                >
-                  Add Result
-                </Button>
-              </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
             <List className={classes.selectionList}>
