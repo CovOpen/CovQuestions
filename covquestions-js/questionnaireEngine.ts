@@ -3,13 +3,13 @@ import jsonLogic from "json-logic-js";
 
 import {
   AnyQuestion,
+  LogicExpression,
   NumericOption,
   Option,
   Questionnaire,
   QuestionType,
   ResultCategory,
   Variable,
-  LogicExpression,
 } from "./models/Questionnaire.generated";
 import { Primitive } from "./primitive";
 
@@ -97,26 +97,31 @@ export class QuestionnaireEngine {
     questionId: string,
     value: Primitive | Array<Primitive> | undefined
   ) {
-    let answer: QuestionResponse = { value };
+    const question = this.getQuestionById(questionId);
+    if (question === undefined) {
+      throw new Error(`You cannot set the answer to a question that does not exist. QuestionId: ${questionId}`)
+    }
 
-    let question = this.getQuestionById(questionId);
-    if (question !== undefined) {
-      switch (question.type) {
-        case "multiselect":
-          let array = (value || []) as Array<Primitive>;
-          answer.selectedCount = array !== undefined ? array.length : 0;
-          answer.count = question.options?.length || 0;
-          answer.unselectedCount = answer.count - answer.selectedCount;
-          answer.option = {};
-          for (const option of question.options || []) {
-            answer.option[option.value] = {
-              selected:
-                array !== undefined ? array.indexOf(option.value) > -1 : false,
-            };
-          }
-          break;
+    if(!question.isOptional() && value === undefined) {
+      throw new Error(`This question is not optional: ${questionId}`)
+    }
+
+    const answer: QuestionResponse = { value };
+
+    if (question.type === "multiselect") {
+      const array = (value || []) as Array<Primitive>;
+      answer.selectedCount = array !== undefined ? array.length : 0;
+      answer.count = question.options?.length || 0;
+      answer.unselectedCount = answer.count - answer.selectedCount;
+      answer.option = {};
+      for (const option of question.options || []) {
+        answer.option[option.value] = {
+          selected:
+            array !== undefined ? array.indexOf(option.value) > -1 : false,
+        };
       }
     }
+
     this.data[questionId] = answer;
     this.updateComputableVariables();
   }
@@ -135,7 +140,8 @@ export class QuestionnaireEngine {
         this.data[variable.id] = {
           value: jsonLogic.apply(variable.expression, this.data),
         };
-      } catch (e) {}
+      } catch (e) {
+      }
     });
   }
 

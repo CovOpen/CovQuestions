@@ -1,5 +1,5 @@
-import { QuestionnaireEngine, Result } from "covquestions-js";
-import { Questionnaire, TestCase } from "covquestions-js/models/Questionnaire.generated";
+import { Question, QuestionnaireEngine, Result } from "covquestions-js";
+import { Option, Questionnaire, TestCase } from "covquestions-js/models/Questionnaire.generated";
 import { dateInSecondsTimestamp } from "../utils/date";
 
 type TestResultSuccess = {
@@ -72,14 +72,18 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
       givenAnswers.push(question.id);
     } else {
       // answer was not provided in test case
-      if (!question.isOptional()) {
+      if (questionMode === "random") {
+        const randomAnswer = createRandomAnswer(question, testCase);
+        engine.setAnswer(question.id, randomAnswer);
+      } else if (question.isOptional()) {
+        engine.setAnswer(question.id, undefined);
+      } else {
         return {
           description,
           success: false,
           errorMessage: `No answer for question with ID "${question.id}" was provided, while questionMode is not random and the question is not optional.`,
         };
       }
-      engine.setAnswer(question.id, undefined);
     }
 
     question = engine.nextQuestion();
@@ -95,6 +99,54 @@ function checkQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestRe
   }
 
   return undefined;
+}
+
+function createRandomAnswer(question: Question, testCase: TestCase) {
+  const percentageOfOptionalQuestionsThatAreNotAnswered = 0.2;
+  if (question.isOptional() && Math.random() < percentageOfOptionalQuestionsThatAreNotAnswered) {
+    return undefined;
+  }
+
+  switch (question.type) {
+    case "select":
+      return getRandomElementFromArray(question.options!).value;
+    case "multiselect":
+      return getRandomOptionValues(question.options!);
+    case "date":
+      return getRandomDate(testCase.options?.fillInDate);
+    case "boolean":
+      return Math.random() < 0.5;
+    case "number":
+      return getRandomInRange(
+        question.numericOption?.min ?? 0,
+        question.numericOption?.max ?? 150,
+        question.numericOption?.step ?? 1
+      );
+    case "text":
+      return Math.random().toString(36).substring(2);
+  }
+}
+
+function getRandomElementFromArray(array: any[]): any {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function getRandomOptionValues(options: Option[]) {
+  return options.reduce(
+    (selectedValues: string[], option) => (Math.random() < 0.5 ? [...selectedValues, option.value] : selectedValues),
+    []
+  );
+}
+
+function getRandomDate(fillInDate?: string) {
+  const executionDate = fillInDate !== undefined ? dateInSecondsTimestamp(fillInDate) : Date.now() / 1000;
+  const daysBeforeOrAfterExecution = getRandomInRange(-30, 30);
+  return Math.round(executionDate + daysBeforeOrAfterExecution * 24 * 3600);
+}
+
+function getRandomInRange(min: number, max: number, step: number = 1) {
+  const numberInRange = Math.random() * (max - min) + min;
+  return Math.round(numberInRange / step) * step;
 }
 
 function checkResults(executionResults: Result[], testCase: TestCase): TestResultError | undefined {
