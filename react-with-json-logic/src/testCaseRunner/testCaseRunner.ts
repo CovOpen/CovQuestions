@@ -26,8 +26,44 @@ export function runTestCases(testQuestionnaire: Questionnaire): TestResult[] {
 export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestCase): TestResult {
   const timeOfExecution = testCase.options?.fillInDate
     ? dateInSecondsTimestamp(testCase.options?.fillInDate)
-    : undefined;
+    : Date.now() / 1000;
 
+  if (testCase.options?.questionMode === "random") {
+    return runOneTestCaseRandomly(testQuestionnaire, testCase, timeOfExecution);
+  }
+
+  return runOneTestCaseOnce(testQuestionnaire, testCase, timeOfExecution);
+}
+
+function runOneTestCaseRandomly(
+  testQuestionnaire: Questionnaire,
+  testCase: TestCase,
+  timeOfExecution: number | undefined
+): TestResult {
+  const results = [];
+  const randomRuns = testCase.options?.randomRuns ?? 1;
+  for (let i = 0; i < randomRuns; i++) {
+    const result = runOneTestCaseOnce(testQuestionnaire, testCase, timeOfExecution);
+    results.push(result);
+  }
+  if (results.every((result) => result.success === true)) {
+    return { success: true, description: testCase.description };
+  } else {
+    const numberOfFailures = results.filter((result) => result.success === false).length;
+    const firstFailure = results.find((result) => result.success === false) as TestResultError;
+    return {
+      success: false,
+      description: testCase.description,
+      errorMessage: `Failed ${numberOfFailures} out of ${randomRuns} times. First failure: ${firstFailure.errorMessage}`,
+    };
+  }
+}
+
+function runOneTestCaseOnce(
+  testQuestionnaire: Questionnaire,
+  testCase: TestCase,
+  timeOfExecution: number | undefined
+): TestResult {
   const engine = new QuestionnaireEngine(testQuestionnaire, timeOfExecution);
 
   const questionCheck = checkQuestions(engine, testCase);
