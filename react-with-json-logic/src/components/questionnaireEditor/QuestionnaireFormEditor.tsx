@@ -325,18 +325,17 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.description} />
                 </ListItem>
               ))}
-            </List>
-            <Divider className={classes.selectionListDivider} />
-            <List className={classes.selectionList}>
-              <ListItem
-                className={classes.listItem}
-                button
-                selected={activeItem.section === SectionType.RUN_TEST_CASES}
-                onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, 0)}
-              >
-                <ListItemText primary="Run all test cases" />
+              <ListItem className={classes.listItem}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, 0)}
+                >
+                  Run all test cases
+                </Button>
               </ListItem>
             </List>
+            <Divider className={classes.selectionListDivider} />
           </Grid>
           <Grid container item xs={9} className={classes.formContainer}>
             {!isNonArraySection(activeItem.section) ? (
