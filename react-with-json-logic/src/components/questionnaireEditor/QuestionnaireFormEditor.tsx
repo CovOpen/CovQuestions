@@ -293,6 +293,26 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
               ))}
             </List>
             <Divider className={classes.selectionListDivider} />
+            <div className={classes.sectionHeader}>
+              <Typography className={classes.title}>Test Cases</Typography>
+              <IconButton
+                className={classes.addButton}
+                aria-label="add-test-case"
+                onClick={() => {
+                  if (questionnaireInEditor.hasErrors) {
+                    setShowSnackbar(true);
+                    return;
+                  }
+                  dispatch(addNewTestCase());
+                  handleActiveItemChange(
+                    SectionType.TEST_CASES,
+                    (questionnaireInEditor.questionnaire.testCases ?? []).length
+                  );
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
             <List className={classes.selectionList}>
               {(questionnaireInEditor.questionnaire.testCases ?? []).map((item, index) => (
                 <ListItem
@@ -302,28 +322,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   onClick={() => handleActiveItemChange(SectionType.TEST_CASES, index)}
                   key={index}
                 >
-                  <ListItemText primary={item.description} />
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.description} />
                 </ListItem>
               ))}
-              <ListItem className={classes.listItem}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    if (questionnaireInEditor.hasErrors) {
-                      setShowSnackbar(true);
-                      return;
-                    }
-                    dispatch(addNewTestCase());
-                    handleActiveItemChange(
-                      SectionType.TEST_CASES,
-                      (questionnaireInEditor.questionnaire.testCases ?? []).length
-                    );
-                  }}
-                >
-                  Add Test Case
-                </Button>
-              </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
             <List className={classes.selectionList}>
