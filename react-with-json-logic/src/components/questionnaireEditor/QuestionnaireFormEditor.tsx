@@ -262,6 +262,23 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
               ))}
             </List>
             <Divider className={classes.selectionListDivider} />
+            <div className={classes.sectionHeader}>
+              <Typography className={classes.title}>Variables</Typography>
+              <IconButton
+                className={classes.addButton}
+                aria-label="add-variable"
+                onClick={() => {
+                  if (questionnaireInEditor.hasErrors) {
+                    setShowSnackbar(true);
+                    return;
+                  }
+                  dispatch(addNewVariable());
+                  handleActiveItemChange(SectionType.VARIABLES, questionnaireInEditor.questionnaire.variables.length);
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
             <List className={classes.selectionList}>
               {questionnaireInEditor.questionnaire.variables.map((item, index) => (
                 <ListItem
@@ -271,25 +288,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   onClick={() => handleActiveItemChange(SectionType.VARIABLES, index)}
                   key={index}
                 >
-                  <ListItemText primary={item.id} />
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
                 </ListItem>
               ))}
-              <ListItem className={classes.listItem}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    if (questionnaireInEditor.hasErrors) {
-                      setShowSnackbar(true);
-                      return;
-                    }
-                    dispatch(addNewVariable());
-                    handleActiveItemChange(SectionType.VARIABLES, questionnaireInEditor.questionnaire.variables.length);
-                  }}
-                >
-                  Add Variable
-                </Button>
-              </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
             <List className={classes.selectionList}>
