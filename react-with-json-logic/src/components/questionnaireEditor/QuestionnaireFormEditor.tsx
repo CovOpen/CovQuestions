@@ -9,11 +9,13 @@ import {
   ListItemText,
   makeStyles,
   Snackbar,
+  Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import {
@@ -81,6 +83,23 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
         display: "flex",
         justifyContent: "flex-end",
         width: "100%",
+      },
+      sectionHeader: {
+        alignItems: "center",
+        display: "inline-flex",
+        width: "100%",
+      },
+      title: {
+        fontWeight: "bold",
+        textTransform: "uppercase",
+      },
+      listItemText: {
+        fontSize: "0.9rem",
+        lineHeight: "1.25rem",
+        paddingLeft: 10,
+      },
+      addButton: {
+        marginLeft: "auto",
       },
     })
   );
@@ -166,6 +185,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
         <style>{style}</style>
         <Grid container>
           <Grid container item xs={3} className={classes.selection}>
+            <Typography className={classes.title}>General</Typography>
             <List className={classes.selectionList}>
               <ListItem
                 className={classes.listItem}
@@ -173,26 +193,16 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 selected={activeItem.section === SectionType.META}
                 onClick={() => handleActiveItemChange(SectionType.META, 0)}
               >
-                <ListItemText primary="Meta" />
+                <ListItemText classes={{ primary: classes.listItemText }} primary="Meta" />
               </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
             <List className={classes.selectionList}>
-              {questionnaireInEditor.questionnaire.questions.map((item, index) => (
-                <ListItem
-                  button
-                  className={classes.listItem}
-                  selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
-                  onClick={() => handleActiveItemChange(SectionType.QUESTIONS, index)}
-                  key={index}
-                >
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              ))}
-              <ListItem className={classes.listItem}>
-                <Button
-                  variant="contained"
-                  color="secondary"
+              <div className={classes.sectionHeader}>
+                <Typography className={classes.title}>Questions</Typography>
+                <IconButton
+                  className={classes.addButton}
+                  aria-label="add-question"
                   onClick={() => {
                     if (questionnaireInEditor.hasErrors) {
                       setShowSnackbar(true);
@@ -202,11 +212,42 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                     handleActiveItemChange(SectionType.QUESTIONS, questionnaireInEditor.questionnaire.questions.length);
                   }}
                 >
-                  Add Question
-                </Button>
-              </ListItem>
+                  <AddIcon />
+                </IconButton>
+              </div>
+              {questionnaireInEditor.questionnaire.questions.map((item, index) => (
+                <ListItem
+                  button
+                  className={classes.listItem}
+                  selected={activeItem.section === SectionType.QUESTIONS && activeItem.index === index}
+                  onClick={() => handleActiveItemChange(SectionType.QUESTIONS, index)}
+                  key={index}
+                >
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.text} />
+                </ListItem>
+              ))}
             </List>
             <Divider className={classes.selectionListDivider} />
+            <div className={classes.sectionHeader}>
+              <Typography className={classes.title}>Result Categories</Typography>
+              <IconButton
+                className={classes.addButton}
+                aria-label="add-result-category"
+                onClick={() => {
+                  if (questionnaireInEditor.hasErrors) {
+                    setShowSnackbar(true);
+                    return;
+                  }
+                  dispatch(addNewResultCategory());
+                  handleActiveItemChange(
+                    SectionType.RESULT_CATEGORIES,
+                    questionnaireInEditor.questionnaire.resultCategories.length
+                  );
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
             <List className={classes.selectionList}>
               {questionnaireInEditor.questionnaire.resultCategories.map((item, index) => (
                 <ListItem
@@ -216,30 +257,28 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   onClick={() => handleActiveItemChange(SectionType.RESULT_CATEGORIES, index)}
                   key={index}
                 >
-                  <ListItemText primary={item.id} />
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
                 </ListItem>
               ))}
-              <ListItem className={classes.listItem}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    if (questionnaireInEditor.hasErrors) {
-                      setShowSnackbar(true);
-                      return;
-                    }
-                    dispatch(addNewResultCategory());
-                    handleActiveItemChange(
-                      SectionType.RESULT_CATEGORIES,
-                      questionnaireInEditor.questionnaire.resultCategories.length
-                    );
-                  }}
-                >
-                  Add Result
-                </Button>
-              </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
+            <div className={classes.sectionHeader}>
+              <Typography className={classes.title}>Variables</Typography>
+              <IconButton
+                className={classes.addButton}
+                aria-label="add-variable"
+                onClick={() => {
+                  if (questionnaireInEditor.hasErrors) {
+                    setShowSnackbar(true);
+                    return;
+                  }
+                  dispatch(addNewVariable());
+                  handleActiveItemChange(SectionType.VARIABLES, questionnaireInEditor.questionnaire.variables.length);
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
             <List className={classes.selectionList}>
               {questionnaireInEditor.questionnaire.variables.map((item, index) => (
                 <ListItem
@@ -249,27 +288,31 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   onClick={() => handleActiveItemChange(SectionType.VARIABLES, index)}
                   key={index}
                 >
-                  <ListItemText primary={item.id} />
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
                 </ListItem>
               ))}
-              <ListItem className={classes.listItem}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    if (questionnaireInEditor.hasErrors) {
-                      setShowSnackbar(true);
-                      return;
-                    }
-                    dispatch(addNewVariable());
-                    handleActiveItemChange(SectionType.VARIABLES, questionnaireInEditor.questionnaire.variables.length);
-                  }}
-                >
-                  Add Variable
-                </Button>
-              </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
+            <div className={classes.sectionHeader}>
+              <Typography className={classes.title}>Test Cases</Typography>
+              <IconButton
+                className={classes.addButton}
+                aria-label="add-test-case"
+                onClick={() => {
+                  if (questionnaireInEditor.hasErrors) {
+                    setShowSnackbar(true);
+                    return;
+                  }
+                  dispatch(addNewTestCase());
+                  handleActiveItemChange(
+                    SectionType.TEST_CASES,
+                    (questionnaireInEditor.questionnaire.testCases ?? []).length
+                  );
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
             <List className={classes.selectionList}>
               {(questionnaireInEditor.questionnaire.testCases ?? []).map((item, index) => (
                 <ListItem
@@ -279,40 +322,20 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   onClick={() => handleActiveItemChange(SectionType.TEST_CASES, index)}
                   key={index}
                 >
-                  <ListItemText primary={item.description} />
+                  <ListItemText classes={{ primary: classes.listItemText }} primary={item.description} />
                 </ListItem>
               ))}
               <ListItem className={classes.listItem}>
                 <Button
                   variant="contained"
                   color="secondary"
-                  onClick={() => {
-                    if (questionnaireInEditor.hasErrors) {
-                      setShowSnackbar(true);
-                      return;
-                    }
-                    dispatch(addNewTestCase());
-                    handleActiveItemChange(
-                      SectionType.TEST_CASES,
-                      (questionnaireInEditor.questionnaire.testCases ?? []).length
-                    );
-                  }}
+                  onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, 0)}
                 >
-                  Add Test Case
+                  Run all test cases
                 </Button>
               </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
-            <List className={classes.selectionList}>
-              <ListItem
-                className={classes.listItem}
-                button
-                selected={activeItem.section === SectionType.RUN_TEST_CASES}
-                onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, 0)}
-              >
-                <ListItemText primary="Run all test cases" />
-              </ListItem>
-            </List>
           </Grid>
           <Grid container item xs={9} className={classes.formContainer}>
             {!isNonArraySection(activeItem.section) ? (

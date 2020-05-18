@@ -1,63 +1,67 @@
 name: CI
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
     paths:
-    - 'react-with-json-logic/**'
+      - 'react-with-json-logic/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: Install Packages
-      run: npm install
-      working-directory: react-with-json-logic/
-    - name: Install covquestions Packages
-      run: npm install
-      working-directory: covquestions-js/
-    - name: Build covquestions package
-      run: npm run build
-      working-directory: covquestions-js/
-      # npm needs to happen after npm install
-    - name: Link covquestions package to React App
-      run: npm link ../covquestions-js/dist
-      working-directory: react-with-json-logic/
-    - name: Install covquestions-logic-parser Packages
-      run: npm install
-      working-directory: covscript/
-    - name: Link covquestions package to covquestions-logic-parser
-      run: npm link ../covquestions-js/dist
-      working-directory: covscript/
-    - name: Run tests for covquestions-logic-parser
-      run: npm run test
-      working-directory: covscript/
-    - name: Build covquestions-logic-parser package
-      run: npm run build
-      working-directory: covscript/
-      # npm needs to happen after npm install
-    - name: Link covquestions-logic-parser package to React App
-      run: npm link ../covscript/dist
-      working-directory: react-with-json-logic/
-    - name: Check format
-      run: npm run lint
-      working-directory: react-with-json-logic/
-    - name: Run tests
-      run: CI=true npm run test
-      working-directory: react-with-json-logic/
-    - name: Build App
-      run: npm run build
-      working-directory: react-with-json-logic/
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: react-app
-        # Directory containing files to upload
-        path: react-with-json-logic/build/
-      
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      ## Build Covquesitions Package
+      - name: Install covquestions Packages
+        run: npm install
+        working-directory: covquestions-js/
+      - name: Build covquestions package
+        run: npm run build
+        working-directory: covquestions-js/
+
+      ## Build Covscript Package
+      - name: Install covquestions-logic-parser Packages
+        run: npm install
+        working-directory: covscript/
+      - name: Link covquestions package to covquestions-logic-parser
+        run: npm link ../covquestions-js/dist
+        working-directory: covscript/
+      - name: Run tests for covquestions-logic-parser
+        run: npm run test
+        working-directory: covscript/
+      - name: Build covquestions-logic-parser package
+        run: npm run build
+        working-directory: covscript/
+
+        # npm link needs to happen after npm install
+      - name: Install Packages
+        run: npm install
+        working-directory: react-with-json-logic/
+      - name: Link covquestions-logic-parser package to React App
+        run: npm link ../covscript/dist
+        working-directory: react-with-json-logic/
+      - name: Link covquestions package to React App
+        run: npm link ../covquestions-js/dist
+        working-directory: react-with-json-logic/
+
+      - name: Check format
+        run: npm run lint
+        working-directory: react-with-json-logic/
+      - name: Run tests
+        run: CI=true npm run test
+        working-directory: react-with-json-logic/
+      - name: Build App
+        run: npm run build
+        working-directory: react-with-json-logic/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          # Artifact name
+          name: react-app
+          # Directory containing files to upload
+          path: react-with-json-logic/build/

@@ -2,9 +2,11 @@
 
 1. `npm install` (install dependecies)
 
-2. `npm start` (start the app)
+2. Go through the steps of [github Workflow to link the development packages](../.github/workflows/react-with-json-logic.yml)
 
-3. Access [http://localhost:3000](http://localhost:3000)
+3. `npm start` (start the app)
+
+4. Access [http://localhost:3000](http://localhost:3000)
 
 To run the tests, use:
 
@@ -54,4 +56,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-

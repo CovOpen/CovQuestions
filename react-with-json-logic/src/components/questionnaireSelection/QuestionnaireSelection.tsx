@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { List, ListItem, ListItemText, makeStyles, Theme, createStyles } from "@material-ui/core";
+import { List, ListItem, ListItemText, makeStyles, Theme, createStyles, Typography } from "@material-ui/core";
 import { ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
 import { QuestionnaireBaseData } from "../../models/QuestionnairesList";
 
@@ -19,12 +19,22 @@ type QuestionnaireSelectionProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    title: {
+      fontWeight: "bold",
+      paddingLeft: 14,
+      paddingTop: 2,
+      textTransform: "uppercase",
+    },
     root: {
       background: "rgba(237, 242, 247, 0.7)",
       height: "100%",
       border: "1.5px solid #CBD5E0",
       boxSizing: "border-box",
       borderRadius: 6,
+    },
+    listItemText: {
+      fontSize: "0.9rem",
+      lineHeight: "1.25rem",
     },
   })
 );
@@ -87,11 +97,12 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
 
   return (
     <div className={classes.root}>
+      <Typography className={classes.title}>Questionnaires</Typography>
       <List>
         {orderedLatestQuestionnaires.map((it) => {
           return (
             <ListItem onClick={() => handleOnClick(it)} selected={selectedValue.id === it.id} button key={it.path}>
-              <ListItemText primary={it.title} />
+              <ListItemText classes={{ primary: classes.listItemText }} primary={it.title} />
             </ListItem>
           );
         })}
