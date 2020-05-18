@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "strict": true,
-    "module": "esnext",
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
+    "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "sourceRoot": "src"
   },
-  "exclude": ["./dist"]
+  "exclude": ["dist", "examples", "node_modules", ".vscode", ".vs", ".git"]
 }
