@@ -1,4 +1,4 @@
-name: CI
+name: covscript - CI
 on:
   pull_request:
     paths:
@@ -40,4 +40,4 @@ jobs:
         name: react-app
         # Directory containing files to upload
         path: covscript/dist/
-      
+

@@ -1,4 +1,4 @@
-name: CI
+name: Editor - CI
 on:
   pull_request:
     branches: [ master ]
@@ -60,4 +60,4 @@ jobs:
         name: react-app
         # Directory containing files to upload
         path: react-with-json-logic/build/
-      
+
