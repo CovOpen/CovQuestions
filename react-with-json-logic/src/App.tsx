@@ -71,6 +71,7 @@ export const App: React.FC = () => {
     undefined
   );
   const [executedQuestionnaire, setExecutedQuestionnaire] = useState<Questionnaire | undefined>(undefined);
+  const [currentTitle, setCurrentTitle] = useState<string | undefined>(undefined);
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -134,6 +135,22 @@ export const App: React.FC = () => {
     }
   }, [dispatch, currentQuestionnaireSelection]);
 
+  useEffect(() => {
+    if (currentQuestionnaire === undefined) {
+      setCurrentTitle(undefined);
+      return;
+    }
+    if (currentQuestionnaire.questionnaire === undefined) {
+      setCurrentTitle(undefined);
+      return;
+    }
+    if (currentQuestionnaire.questionnaire.title === "") {
+      setCurrentTitle(undefined);
+      return;
+    }
+    setCurrentTitle(currentQuestionnaire.questionnaire.title);
+  }, [currentQuestionnaire]);
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static">
@@ -142,7 +159,7 @@ export const App: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            CovQuestions
+            CovQuestions {currentTitle !== undefined ? <> - {currentTitle}</> : null}
           </Typography>
           <div className={classes.settings}>
             {currentQuestionnaireSelection.language !== undefined &&
