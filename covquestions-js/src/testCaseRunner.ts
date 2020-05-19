@@ -1,10 +1,5 @@
 import { Question, QuestionnaireEngine, Result } from "../questionnaireEngine";
-import {
-  Option,
-  Questionnaire,
-  TestCase,
-} from "../models/Questionnaire.generated";
-import { dateInSecondsTimestamp } from "../../react-with-json-logic/src/utils/date";
+import { Option, Questionnaire, TestCase, } from "../models/Questionnaire.generated";
 
 type TestResultSuccess = {
   description: string;
@@ -275,4 +270,8 @@ function checkResults(
     };
   }
   return undefined;
+}
+
+function dateInSecondsTimestamp(dateString: string) {
+  return Math.round(Date.parse(dateString) / 1000);
 }
