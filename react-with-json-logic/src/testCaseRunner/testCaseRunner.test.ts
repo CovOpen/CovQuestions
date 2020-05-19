@@ -1,4 +1,4 @@
-import { runOneTestCase, runTestCases } from "./testCaseRunner";
+import { runOneTestCase, runTestCases } from "covquestions-js/src/testCaseRunner";
 import contactQuestionWithDateAndSkipping from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
@@ -71,7 +71,7 @@ describe("testCaseRunner", () => {
     it("should succeed to run in strict mode, if not all optional answers are provided", () => {
       const result = runOneTestCase(simpleTextQuestion, {
         ...testCaseWithMissingOptionalAnswers,
-        options: { questionMode: "strict" },
+        options: {},
       });
 
       expect(result).toEqual({
@@ -86,19 +86,6 @@ describe("testCaseRunner", () => {
       expect(result).toEqual({
         description: testCaseWithTooManyAnswer.description,
         success: true,
-      });
-    });
-
-    it("should fail to run in strict mode, if too many answers are provided", () => {
-      const result = runOneTestCase(simpleTextQuestion, {
-        ...testCaseWithTooManyAnswer,
-        options: { questionMode: "strict" },
-      });
-
-      expect(result).toEqual({
-        description: testCaseWithTooManyAnswer.description,
-        errorMessage: 'Not all provided answer were needed to fill the questionnaire: ["someOtherId"]',
-        success: false,
       });
     });
 
@@ -146,10 +133,10 @@ describe("testCaseRunner", () => {
       });
     });
 
-    it("should fail to run in strict mode, if too many answers are provided", () => {
+    it("should fail to run in strict mode, if too many results are provided", () => {
       const result = runOneTestCase(questionnaireWithTwoResultCategories, {
         ...testCaseWithoutAllResults,
-        options: { resultsMode: "strict" },
+        options: { strictResults: true },
       });
 
       expect(result).toEqual({

@@ -45,7 +45,8 @@
     "eject": "react-scripts eject",
     "format": "prettier --config .prettierrc --ignore-path .gitignore --write **/*.{ts,tsx,json}",
     "lint": "prettier --config .prettierrc --ignore-path .gitignore --check **/*.{ts,tsx,json}",
-    "copyTestCases": "ts-node --compiler-options={\"\\\"module\"\\\":\"\\\"commonJS\"\\\"} scripts/copyTestCasesToApi.ts && npm run format"
+    "copyTestCases": "ts-node --compiler-options={\"\\\"module\"\\\":\"\\\"commonJS\"\\\"} scripts/copyTestCasesToApi.ts && npm run format",
+    "installAndLink": "(cd ../covquestions-js && npm install && npm run build) && (cd ../covscript && npm run installAndLink && npm run build) && npm install && npm link ../covquestions-js/dist ../covscript/dist"
   },
   "eslintConfig": {
     "extends": "react-app"

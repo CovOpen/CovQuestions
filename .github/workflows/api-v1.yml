@@ -19,6 +19,18 @@ jobs:
       - name: Install Packages
         run: npm install
         working-directory: api/v1/
+
+      ## Build CovQuestions Package
+      - name: Install covquestions
+        run: npm install
+        working-directory: covquestions-js/
+      - name: Build covquestions package
+        run: npm run build
+        working-directory: covquestions-js/
+      - name: Link covquestions package to api/v1/
+        run: npm link ../../covquestions-js/dist
+        working-directory: api/v1/
+
       - name: Test App
         run: npm run test
         working-directory: api/v1/

@@ -497,15 +497,11 @@ export interface TestCase {
      */
     fillInDate?: string;
     /**
-     * In normal and strict mode, optional questions are skipped (answered with undefined), if they are not explicitly set. In strict mode, each answer in the test case has to be requested during the questionnaire execution. In random mode, answers that are not provided are randomly chosen, answers that were provided, but not used are ignored.
+     * If false (default), the provided results have to appear after the questionnaire execution, additional results are allowed. If set, exactly the provided results have to appear.
      */
-    questionMode?: "strict" | "random";
+    strictResults?: boolean;
     /**
-     * If not set, the provided results have to appear after the questionnaire execution, additional results are allowed. If set, exactly the provided results has to appear.
-     */
-    resultsMode?: "strict";
-    /**
-     * Number of random runs of the test case if questionMode is random
+     * If set to 0 (default): missing answer in the test case are not answered. If set to >= 1: missing answers in the test case are randomly answered. The number decides the number of random runs of this test case.
      */
     randomRuns?: number;
   };

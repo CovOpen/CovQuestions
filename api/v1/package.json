@@ -8,7 +8,8 @@
     "pre-build-trans": "ts-node scripts/pre_build_fixate_translations.ts",
     "build": "rimraf dist && ts-node ./index.ts && npm run build-swagger",
     "build-swagger": "copyfiles -f ./src/swagger/index.html ./dist/swagger/ && copyfiles ./openapi.json ./dist/swagger/",
-    "test": "jest"
+    "test": "jest",
+    "installAndLink": "(cd ../../covquestions-js && npm install && npm run build) && npm install && npm link ../../covquestions-js/dist"
   },
   "author": "",
   "dependencies": {

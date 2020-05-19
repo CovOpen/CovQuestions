@@ -1,0 +1,25 @@
+name: covquestions-js - CI
+on:
+  pull_request:
+    paths:
+    - 'covquestions-js/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install covquestions Packages
+      run: npm install
+      working-directory: covquestions-js/
+    - name: Build covquestions package
+      run: npm run build
+      working-directory: covquestions-js/
+    - name: Run tests for covquestions package
+      run: npm run test
+      working-directory: covquestions-js/

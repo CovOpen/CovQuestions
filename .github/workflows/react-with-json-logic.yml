@@ -1,4 +1,4 @@
-name: CI
+name: Editor - CI
 on:
   pull_request:
     branches: [master]

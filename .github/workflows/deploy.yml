@@ -1,4 +1,4 @@
-name: Editor - CD
+name: Deploy - Editor - CD
 on:
   push:
     branches:
