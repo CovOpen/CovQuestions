@@ -1,10 +1,10 @@
 import { ElementEditor } from "./ElementEditor";
-import questionnaireMetaSchema from "./formEditorSchemas/questionnaireMeta.json";
+import questionnaireMetaSchema from "../schemas/questionnaireMeta.json";
 import React from "react";
-import { useAppDispatch } from "../../store/store";
+import { useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editMeta, questionnaireInEditorSelector } from "../../store/questionnaireInEditor";
-import { EditorQuestionnaireMeta } from "../../models/editorQuestionnaire";
+import { editMeta, questionnaireInEditorSelector } from "../../../../store/questionnaireInEditor";
+import { EditorQuestionnaireMeta } from "../../../../models/editorQuestionnaire";
 import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
 
 const uiSchema = {

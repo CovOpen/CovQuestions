@@ -8,9 +8,9 @@ import {
   convertStringToLogicExpression,
   removeStringRepresentationFromQuestionnaire,
 } from "../components/questionnaireEditor/converters";
-import { QuestionInStringRepresentation } from "../components/questionnaireEditor/ElementEditorQuestion";
-import { ResultCategoryInStringRepresentation } from "../components/questionnaireEditor/ElementEditorResultCategory";
-import { VariableInStringRepresentation } from "../components/questionnaireEditor/ElementEditorVariable";
+import { QuestionInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/ElementEditorQuestion";
+import { ResultCategoryInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/ElementEditorResultCategory";
+import { VariableInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/ElementEditorVariable";
 import { TestCase } from "covquestions-js/models/Questionnaire.generated";
 
 type ArraySection =

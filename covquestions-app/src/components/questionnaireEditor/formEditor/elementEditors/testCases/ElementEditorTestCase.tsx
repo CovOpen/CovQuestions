@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { RootState, useAppDispatch } from "../../../../store/store";
+import { RootState, useAppDispatch } from "../../../../../store/store";
 import { useSelector } from "react-redux";
 import {
   editTestCase,
   questionnaireJsonSelector,
   testCaseInEditorSelector,
-} from "../../../../store/questionnaireInEditor";
+} from "../../../../../store/questionnaireInEditor";
 import {
   Button,
   createStyles,
@@ -29,12 +29,12 @@ import {
   ResultCategory,
   TestCase,
 } from "covquestions-js/models/Questionnaire.generated";
-import { heightWithoutEditor } from "../../QuestionnaireEditor";
+import { heightWithoutEditor } from "../../../QuestionnaireEditor";
 import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { TestCaseResult } from "./TestCaseResult";
-import { ElementEditor } from "../../ElementEditor";
+import { ElementEditor } from "../ElementEditor";
 import { testCaseMetaSchema } from "./testCaseMeta";
-import { QuestionFormComponent } from "../../../questionComponents/QuestionFormComponent";
+import { QuestionFormComponent } from "../../../../questionComponents/QuestionFormComponent";
 
 type ElementEditorTestCaseProps = {
   index: number;

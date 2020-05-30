@@ -3,10 +3,10 @@ import { ElementEditorMeta } from "./ElementEditorMeta";
 import { ElementEditorQuestion } from "./ElementEditorQuestion";
 import { ElementEditorResultCategory } from "./ElementEditorResultCategory";
 import { ElementEditorVariable } from "./ElementEditorVariable";
-import { ActiveItem, SectionType } from "./QuestionnaireFormEditor";
-import { exhaustiveCheck } from "../../utils/exhaustiveCheck";
-import { AllTestCaseView } from "./formEditor/testCases/AllTestCaseView";
-import { ElementEditorTestCase } from "./formEditor/testCases/ElementEditorTestCase";
+import { ActiveItem, SectionType } from "../../QuestionnaireFormEditor";
+import { exhaustiveCheck } from "../../../../utils/exhaustiveCheck";
+import { AllTestCaseView } from "./testCases/AllTestCaseView";
+import { ElementEditorTestCase } from "./testCases/ElementEditorTestCase";
 
 type ElementEditorSwitchProps = { activeItem: ActiveItem };
 

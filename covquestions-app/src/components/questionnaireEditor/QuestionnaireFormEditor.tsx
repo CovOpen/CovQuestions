@@ -27,7 +27,7 @@ import {
   removeItem,
   swapItemWithNextOne,
 } from "../../store/questionnaireInEditor";
-import { ElementEditorSwitch } from "./ElementEditorSwitch";
+import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
 import { Alert } from "@material-ui/lab";
 
 type QuestionnaireFormEditorProps = {

@@ -2,7 +2,7 @@ import React from "react";
 import { TestCaseResult } from "./TestCaseResult";
 import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { useSelector } from "react-redux";
-import { questionnaireJsonSelector } from "../../../../store/questionnaireInEditor";
+import { questionnaireJsonSelector } from "../../../../../store/questionnaireInEditor";
 import { Grid } from "@material-ui/core";
 
 export const AllTestCaseView: React.FC = () => {

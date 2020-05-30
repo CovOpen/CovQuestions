@@ -1,12 +1,12 @@
-import { EditorVariable } from "../../models/editorQuestionnaire";
+import { EditorVariable } from "../../../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
-import variableSchema from "./formEditorSchemas/variable.json";
-import { convertStringToLogicExpression } from "./converters";
-import { RootState, useAppDispatch } from "../../store/store";
+import variableSchema from "../schemas/variable.json";
+import { convertStringToLogicExpression } from "../../converters";
+import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editVariable, variableInEditorSelector } from "../../store/questionnaireInEditor";
-import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
+import { editVariable, variableInEditorSelector } from "../../../../store/questionnaireInEditor";
+import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 export type VariableInStringRepresentation = Omit<EditorVariable, "expression"> & { expression: string };
 

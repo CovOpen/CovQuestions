@@ -1,12 +1,12 @@
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
-import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
-import { EditorResult, EditorResultCategory } from "../../models/editorQuestionnaire";
-import { convertStringToLogicExpression } from "./converters";
-import { RootState, useAppDispatch } from "../../store/store";
+import resultCategorySchema from "../schemas/resultCategory.json";
+import { EditorResult, EditorResultCategory } from "../../../../models/editorQuestionnaire";
+import { convertStringToLogicExpression } from "../../converters";
+import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editResultCategory, resultCategoryInEditorSelector } from "../../store/questionnaireInEditor";
-import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
+import { editResultCategory, resultCategoryInEditorSelector } from "../../../../store/questionnaireInEditor";
+import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 type ResultInStringRepresentation = Omit<EditorResult, "expression"> & { expression: string };
 export type ResultCategoryInStringRepresentation = Omit<EditorResultCategory, "results"> & {
