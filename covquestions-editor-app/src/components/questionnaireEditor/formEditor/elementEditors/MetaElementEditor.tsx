@@ -8,6 +8,9 @@ import { addRootPropertiesToMetaObject } from "../../converters";
 
 const uiSchema = {
   "ui:order": ["title", "*"],
+  creationDate: {
+    "ui:widget": "date",
+  },
 };
 
 export function MetaElementEditor() {
