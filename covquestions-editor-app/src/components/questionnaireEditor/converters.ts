@@ -1,6 +1,6 @@
 import { CovscriptToJsonLogicConverter, CovscriptGenerator } from "covquestions-logic-parser";
 import { LogicExpression, Questionnaire } from "covquestions-js/models/Questionnaire.generated";
-import { EditorQuestionnaire } from "../../models/editorQuestionnaire";
+import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../../models/editorQuestionnaire";
 
 export function convertLogicExpressionToString(value?: LogicExpression): string {
   const generator = new CovscriptGenerator();
@@ -84,4 +84,23 @@ export function removeStringRepresentationFromQuestionnaire(questionnaire: Edito
       return rest;
     }),
   };
+}
+
+export function addRootPropertiesToMetaObject(questionnaire: Questionnaire): EditorQuestionnaireMeta {
+  return {
+    ...questionnaire.meta,
+    language: questionnaire.language,
+    title: questionnaire.title,
+  };
+}
+
+export function moveRootPropertiesToQuestionnaire(
+  questionnaire: Questionnaire,
+  editorMeta: EditorQuestionnaireMeta
+): Questionnaire {
+  const { title, language, ...meta } = editorMeta;
+  questionnaire.meta = meta;
+  questionnaire.title = title;
+  questionnaire.language = language;
+  return questionnaire;
 }
