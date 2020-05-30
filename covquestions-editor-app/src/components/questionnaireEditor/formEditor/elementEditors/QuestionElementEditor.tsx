@@ -51,6 +51,10 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
     }
   };
 
+  if (question === undefined) {
+    return null;
+  }
+
   return (
     <ElementEditor
       schema={questionSchema as any}
