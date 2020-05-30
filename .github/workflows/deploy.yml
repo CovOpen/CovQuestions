@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - "covquestions-app/**"
+      - "covquestions-editor-app/**"
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
           node-version: 12.x
       - name: Install Packages
         run: npm install
-        working-directory: covquestions-app/
+        working-directory: covquestions-editor-app/
       - name: Install covquestions Packages
         run: npm install
         working-directory: covquestions-js/
@@ -37,24 +37,24 @@ jobs:
         # npm needs to happen after npm install
       - name: Link covquestions package to React App
         run: npm link ../covquestions-js/dist
-        working-directory: covquestions-app/
+        working-directory: covquestions-editor-app/
       - name: Link covquestions-logic-parser package to React App
         run: npm link ../covscript/dist
-        working-directory: covquestions-app/
+        working-directory: covquestions-editor-app/
       - name: Build App
         run: npm run build
-        working-directory: covquestions-app/
+        working-directory: covquestions-editor-app/
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
           # Artifact name
           name: react-app
           # Directory containing files to upload
-          path: covquestions-app/build/
+          path: covquestions-editor-app/build/
       - name: Publish to blob storage
         uses: bacongobbler/azure-blob-storage-upload@v1.0.0
         with:
-          source_dir: covquestions-app/build/
+          source_dir: covquestions-editor-app/build/
           container_name: $web
           connection_string: ${{ secrets.ConnectionString }}
           extra_args: ""

@@ -118,4 +118,4 @@ temp/
 .history
 
 # End of https://www.gitignore.io/api/web,node,visualstudiocode
-covquestions-app/.vscode/launch.json
+covquestions-editor-app/.vscode/launch.json
