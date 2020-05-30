@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { RootState, useAppDispatch } from "../../../../store/store";
+import { RootState, useAppDispatch } from "../../../../../store/store";
 import { useSelector } from "react-redux";
 import {
   editTestCase,
   questionnaireJsonSelector,
   testCaseInEditorSelector,
-} from "../../../../store/questionnaireInEditor";
+} from "../../../../../store/questionnaireInEditor";
 import {
   Button,
   createStyles,
@@ -29,18 +29,18 @@ import {
   ResultCategory,
   TestCase,
 } from "covquestions-js/models/Questionnaire.generated";
-import { heightWithoutEditor } from "../../QuestionnaireEditor";
+import { heightWithoutEditor } from "../../../QuestionnaireEditor";
 import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { TestCaseResult } from "./TestCaseResult";
-import { ElementEditor } from "../../ElementEditor";
+import { ElementEditor } from "../ElementEditor";
 import { testCaseMetaSchema } from "./testCaseMeta";
-import { QuestionFormComponent } from "../../../questionComponents/QuestionFormComponent";
+import { QuestionFormComponent } from "../../../../questionComponents/QuestionFormComponent";
 
-type ElementEditorTestCaseProps = {
+type TestCaseElementEditorProps = {
   index: number;
 };
 
-type EditorTestCaseMeta = Omit<TestCase, "answers" | "results">;
+type TestCaseMetaEditor = Omit<TestCase, "answers" | "results">;
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -63,7 +63,7 @@ const useStyles = makeStyles(() =>
 
 type OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => void;
 
-export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (props) => {
+export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (props) => {
   const dispatch = useAppDispatch();
   const classes = useStyles();
 
@@ -101,11 +101,11 @@ export const ElementEditorTestCase: React.FC<ElementEditorTestCaseProps> = (prop
     dispatch(editTestCase({ index: props.index, changedTestCase, hasErrors: false }));
   };
 
-  const onTestCaseMetaChange = (formData: EditorTestCaseMeta, hasErrors: boolean) => {
+  const onTestCaseMetaChange = (formData: TestCaseMetaEditor, hasErrors: boolean) => {
     dispatch(editTestCase({ index: props.index, changedTestCase: { ...testCase, ...formData }, hasErrors }));
   };
 
-  const getTestCaseMeta = ({ description, options }: TestCase): EditorTestCaseMeta => ({ description, options });
+  const getTestCaseMeta = ({ description, options }: TestCase): TestCaseMetaEditor => ({ description, options });
 
   return (
     <Grid container item className={classes.container} spacing={2} alignItems={"stretch"} xs={12}>

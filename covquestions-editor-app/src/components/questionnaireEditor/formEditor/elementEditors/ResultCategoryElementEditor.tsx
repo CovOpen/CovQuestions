@@ -1,19 +1,19 @@
 import { ElementEditor } from "./ElementEditor";
 import React from "react";
-import resultCategorySchema from "./formEditorSchemas/resultCategory.json";
-import { EditorResult, EditorResultCategory } from "../../models/editorQuestionnaire";
-import { convertStringToLogicExpression } from "./converters";
-import { RootState, useAppDispatch } from "../../store/store";
+import resultCategorySchema from "../schemas/resultCategory.json";
+import { EditorResult, EditorResultCategory } from "../../../../models/editorQuestionnaire";
+import { convertStringToLogicExpression } from "../../converters";
+import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editResultCategory, resultCategoryInEditorSelector } from "../../store/questionnaireInEditor";
-import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
+import { editResultCategory, resultCategoryInEditorSelector } from "../../../../store/questionnaireInEditor";
+import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 type ResultInStringRepresentation = Omit<EditorResult, "expression"> & { expression: string };
 export type ResultCategoryInStringRepresentation = Omit<EditorResultCategory, "results"> & {
   results: ResultInStringRepresentation[];
 };
 
-type ElementEditorResultProps = {
+type ResultElementEditorProps = {
   index: number;
 };
 
@@ -38,7 +38,7 @@ function convertToStringRepresentation(formData: EditorResultCategory): ResultCa
   };
 }
 
-export function ElementEditorResultCategory(props: ElementEditorResultProps) {
+export function ResultCategoryElementEditor(props: ResultElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const resultCategory = useSelector((state: RootState) => resultCategoryInEditorSelector(state, props));

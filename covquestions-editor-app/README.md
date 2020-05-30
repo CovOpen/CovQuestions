@@ -2,7 +2,7 @@
 
 1. `npm install` (install dependecies)
 
-2. Go through the steps of [github Workflow to link the development packages](../.github/workflows/react-with-json-logic.yml)
+2. Go through the steps of [github Workflow to link the development packages](../.github/workflows/covquestions-editor-app.yml)
 
 3. `npm start` (start the app)
 

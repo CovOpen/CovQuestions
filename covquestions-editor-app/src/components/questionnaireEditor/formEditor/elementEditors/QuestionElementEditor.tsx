@@ -1,18 +1,18 @@
-import { EditorAnyQuestion } from "../../models/editorQuestionnaire";
+import { EditorAnyQuestion } from "../../../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
-import questionSchema from "./formEditorSchemas/question.json";
+import questionSchema from "../schemas/question.json";
 import React from "react";
-import { convertStringToLogicExpression } from "./converters";
-import { editQuestion, questionInEditorSelector } from "../../store/questionnaireInEditor";
-import { RootState, useAppDispatch } from "../../store/store";
+import { convertStringToLogicExpression } from "../../converters";
+import { editQuestion, questionInEditorSelector } from "../../../../store/questionnaireInEditor";
+import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { uiSchemaLogic, uiSchemaLogicReadOnly } from "./formEditorSchemas/uiSchemaLogic";
+import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 export type QuestionInStringRepresentation = Omit<EditorAnyQuestion, "enableWhenExpression"> & {
   enableWhenExpression: string;
 };
 
-type ElementEditorQuestionProps = {
+type QuestionElementEditorProps = {
   index: number;
 };
 
@@ -34,7 +34,7 @@ function convertToStringRepresentation(formData: EditorAnyQuestion): QuestionInS
   };
 }
 
-export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
+export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
