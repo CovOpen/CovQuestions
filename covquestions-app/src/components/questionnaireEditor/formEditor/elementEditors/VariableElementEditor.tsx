@@ -10,7 +10,7 @@ import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 export type VariableInStringRepresentation = Omit<EditorVariable, "expression"> & { expression: string };
 
-type ElementEditorVariableProps = {
+type VariableElementEditorProps = {
   index: number;
 };
 
@@ -24,7 +24,7 @@ function convertToStringRepresentation(formData: EditorVariable): VariableInStri
   return { ...formData, expression: JSON.stringify(formData?.expression, null, 2) };
 }
 
-export function ElementEditorVariable(props: ElementEditorVariableProps) {
+export function VariableElementEditor(props: VariableElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const variable = useSelector((state: RootState) => variableInEditorSelector(state, props));

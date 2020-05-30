@@ -19,7 +19,7 @@ function convertToFormEditorRepresentation(questionnaire: Questionnaire): Editor
   };
 }
 
-export function ElementEditorMeta() {
+export function MetaElementEditor() {
   const dispatch = useAppDispatch();
 
   const questionnaire = useSelector(questionnaireInEditorSelector);

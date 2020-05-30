@@ -12,7 +12,7 @@ export type QuestionInStringRepresentation = Omit<EditorAnyQuestion, "enableWhen
   enableWhenExpression: string;
 };
 
-type ElementEditorQuestionProps = {
+type QuestionElementEditorProps = {
   index: number;
 };
 
@@ -34,7 +34,7 @@ function convertToStringRepresentation(formData: EditorAnyQuestion): QuestionInS
   };
 }
 
-export function ElementEditorQuestion(props: ElementEditorQuestionProps) {
+export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));

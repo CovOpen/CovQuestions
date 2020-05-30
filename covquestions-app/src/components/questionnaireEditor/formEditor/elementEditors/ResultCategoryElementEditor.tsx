@@ -13,7 +13,7 @@ export type ResultCategoryInStringRepresentation = Omit<EditorResultCategory, "r
   results: ResultInStringRepresentation[];
 };
 
-type ElementEditorResultProps = {
+type ResultElementEditorProps = {
   index: number;
 };
 
@@ -38,7 +38,7 @@ function convertToStringRepresentation(formData: EditorResultCategory): ResultCa
   };
 }
 
-export function ElementEditorResultCategory(props: ElementEditorResultProps) {
+export function ResultCategoryElementEditor(props: ResultElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const resultCategory = useSelector((state: RootState) => resultCategoryInEditorSelector(state, props));
