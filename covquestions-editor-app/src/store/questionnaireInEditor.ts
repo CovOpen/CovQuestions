@@ -206,3 +206,9 @@ export const testCaseInEditorSelector = (state: RootState, props: { index: numbe
   const testCases = state.questionnaireInEditor.questionnaire.testCases;
   return testCases ? testCases[props.index] : undefined;
 };
+
+export const questionsSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.questions;
+export const resultCategoriesSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.resultCategories;
+export const variablesSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.variables;
+
+export const hasErrors = (state: RootState) => state.questionnaireInEditor.hasErrors;
