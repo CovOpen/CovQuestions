@@ -136,19 +136,19 @@ export const App: React.FC = () => {
   }, [dispatch, currentQuestionnaireSelection]);
 
   useEffect(() => {
-    if (currentQuestionnaire === undefined) {
+    if (
+      currentQuestionnaire === undefined ||
+      currentQuestionnaire.questionnaire === undefined ||
+      currentQuestionnaire.questionnaire.title === ""
+    ) {
       setCurrentTitle(undefined);
-      return;
+    } else {
+      setCurrentTitle(currentQuestionnaire.questionnaire.title);
     }
-    if (currentQuestionnaire.questionnaire === undefined) {
-      setCurrentTitle(undefined);
-      return;
+
+    if (!currentQuestionnaire.hasErrors) {
+      setExecutedQuestionnaire(currentQuestionnaire.questionnaire);
     }
-    if (currentQuestionnaire.questionnaire.title === "") {
-      setCurrentTitle(undefined);
-      return;
-    }
-    setCurrentTitle(currentQuestionnaire.questionnaire.title);
   }, [currentQuestionnaire]);
 
   return (
@@ -224,7 +224,7 @@ export const App: React.FC = () => {
             <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
               {executedQuestionnaire !== undefined ? (
                 <QuestionnaireExecution
-                  currentQuestionnaire={currentQuestionnaire.questionnaire}
+                  currentQuestionnaire={executedQuestionnaire}
                   isJsonInvalid={currentQuestionnaire.hasErrors}
                 />
               ) : null}
