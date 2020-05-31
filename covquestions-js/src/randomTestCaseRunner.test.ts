@@ -59,7 +59,7 @@ const testQuestionnaire: Questionnaire = {
           id: "option1Result",
           text: "Option1Result",
           expression: {
-            "==": [{ var: "selectQuestion.value" }, "option1"],
+            "==": [{ var: "selectQuestion" }, "option1"],
           },
         },
       ],
@@ -80,7 +80,7 @@ const testQuestionnaire: Questionnaire = {
                 ],
               },
               {
-                "==": [{ var: "multiSelectQuestion.selectedCount" }, 1],
+                "==": [{ var: "multiSelectQuestion.selected_count" }, 1],
               },
             ],
           },
@@ -95,7 +95,7 @@ const testQuestionnaire: Questionnaire = {
           id: "dateBefore2020Result",
           text: "dateBefore2020Result",
           expression: {
-            "<": [{ var: "dateQuestion.value" }, 1577878770],
+            "<": [{ var: "dateQuestion" }, 1577878770],
           },
         },
       ],

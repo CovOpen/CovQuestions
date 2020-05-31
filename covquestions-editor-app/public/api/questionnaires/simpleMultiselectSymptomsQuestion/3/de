@@ -49,7 +49,7 @@
           "expression": {
             ">=": [
               {
-                "var": "q1_symptoms.selectedCount"
+                "var": "q1_symptoms.selected_count"
               },
               3
             ]
@@ -63,7 +63,7 @@
               {
                 "==": [
                   {
-                    "var": "q1_symptoms.selectedCount"
+                    "var": "q1_symptoms.selected_count"
                   },
                   1
                 ]
@@ -71,7 +71,7 @@
               {
                 "==": [
                   {
-                    "var": "q1_symptoms.selectedCount"
+                    "var": "q1_symptoms.selected_count"
                   },
                   2
                 ]
@@ -85,7 +85,7 @@
           "expression": {
             "==": [
               {
-                "var": "q1_symptoms.selectedCount"
+                "var": "q1_symptoms.selected_count"
               },
               0
             ]

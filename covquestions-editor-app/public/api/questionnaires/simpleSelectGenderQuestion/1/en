@@ -44,7 +44,7 @@
           "expression": {
             "==": [
               {
-                "var": "q1_gender.value"
+                "var": "q1_gender"
               },
               "female"
             ]
@@ -56,7 +56,7 @@
           "expression": {
             "==": [
               {
-                "var": "q1_gender.value"
+                "var": "q1_gender"
               },
               "male"
             ]
@@ -68,7 +68,7 @@
           "expression": {
             "==": [
               {
-                "var": "q1_gender.value"
+                "var": "q1_gender"
               },
               "diverse"
             ]

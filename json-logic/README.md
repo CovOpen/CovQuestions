@@ -4,18 +4,19 @@ This is the draft of a custom questionaire format for the CovQuestions project.
 
 ## Requirements
 
-* Relatively easy to edit
-* Easy to use and implement
-* As platform-independend as possible
-* Describe questions, results, and result-computation logic
-* Questions might be shown or not depending in intermediate results
-* Support for multiple result categories, with their own results and computations
+- Relatively easy to edit
+- Easy to use and implement
+- As platform-independend as possible
+- Describe questions, results, and result-computation logic
+- Questions might be shown or not depending in intermediate results
+- Support for multiple result categories, with their own results and computations
 
 ## Considerations
 
 ### Result Format
 
-Two possible options: 
+Two possible options:
+
 1. "Flat" list of results with a expressione evaluating to a boolean
 2. Result categories with an expression that evaluate to a result id with a list of results per category.
 
@@ -23,7 +24,8 @@ We favor option 2 - with option 1 it is easy to accidentially show two results f
 
 ### Evaluation
 
-Two possible options: 
+Two possible options:
+
 1. Put all variables and questions into the same array and process them in order.
 2. Seperate variables and questions, process all questions in order and (re-)evaluate all variables after each update.
 
@@ -37,37 +39,33 @@ formatting and structuring.
 
 ### Dependencies between variables
 
-We favor a relatively simple logic and no automatic dependency resolution/re-ordering of questions or variables. 
+We favor a relatively simple logic and no automatic dependency resolution/re-ordering of questions or variables.
 If things are ordered incorrectly (e.g. the skipIf in a question refers a future question), the questionaire author should discover and repair the issue during testing.
 
 ### Answer Representation
 
-For each answered question, we expose multiple JSON-Logic variables prefixed with the question id:
+We expose each non-multi-select answer in JSON-Logic expressions by its question id:
 
 ```
-question_id.answered // Indicates if question was answered  (true) or skipped (false), boolean.
-question_id.value // Value of the answer, string, number, boolean, depending on type
+question_id // Value of the answer, string, number, boolean, depending on type
 ```
 
-For making multi-select questions easier to evaluate, we additionally expose the following properties:
+For making multi-select questions easier to evaluate, we expose the following properties there:
 
 ```
-question_id.value // Array of string, containing selected items.
-question_id.selectedCount // Count of selected options
+question_id.selected_count // Count of selected options
 question_id.count // Count of all (selected/unselected) options
-question_id.unselectedCount // Count of not-selected options
+question_id.unselected_count // Count of not-selected options
 question_id.option.option_id.selected // True or false, indicating if option_id was selected
 ```
 
-For date-specific questions, `value` is the date as unix timestamp.
-The `value` for timespans is the duration as seconds.
-
-Additionally, date answers expose `question_id.daysToNow` which gives the time difference to now as days.
+For date-specific questions, the value is the date as unix timestamp in seconds.
 
 ### Special variables
 
 The following variables are pre-defined and need are available in all logic expressions:
-* `NOW` current time as unix timestamp
+
+- `now` current time as unix timestamp
 
 ### Internationalization
 

@@ -115,7 +115,7 @@
       "text": "What day was the last contact?@@84095755cfece2813329d8b3cb363073",
       "type": "date",
       "enableWhenExpression": {
-        "var": "q_contact.value"
+        "var": "q_contact"
       }
     },
     {
@@ -158,7 +158,7 @@
         }
       ],
       "enableWhenExpression": {
-        "var": "q_fever.value"
+        "var": "q_fever"
       }
     },
     {
@@ -222,7 +222,7 @@
       "text": "With regard to all questions about symptoms: since when have you had the symptoms you specified?@@a0afce7eb5aa9e70f9bcf0cfdf473409",
       "type": "date",
       "enableWhenExpression": {
-        "var": "v_symptoms.value"
+        "var": "v_symptoms"
       }
     },
     {
@@ -372,10 +372,10 @@
           {
             "-": [
               {
-                "var": "g_now.value"
+                "var": "now"
               },
               {
-                "var": "q_contact_date.value"
+                "var": "q_contact_date"
               }
             ]
           },
@@ -388,30 +388,30 @@
       "expression": {
         "or": [
           {
-            "var": "q_fever.value"
+            "var": "q_fever"
           },
           {
-            "var": "q_chills.value"
+            "var": "q_chills"
           },
           {
             ">": [
               {
-                "var": "q_symptoms.selectedCount"
+                "var": "q_symptoms.selected_count"
               },
               0
             ]
           },
           {
-            "var": "q_cough.value"
+            "var": "q_cough"
           },
           {
-            "var": "q_runny_nose.value"
+            "var": "q_runny_nose"
           },
           {
-            "var": "q_sore_throat.value"
+            "var": "q_sore_throat"
           },
           {
-            "var": "q_breath.value"
+            "var": "q_breath"
           }
         ]
       }
@@ -421,24 +421,24 @@
       "expression": {
         "or": [
           {
-            "var": "q_pregnant.value"
+            "var": "q_pregnant"
           },
           {
-            "var": "q_lung_disease.value"
+            "var": "q_lung_disease"
           },
           {
-            "var": "q_diabetes.value"
+            "var": "q_diabetes"
           },
           {
-            "var": "q_obesity.value"
+            "var": "q_obesity"
           },
           {
-            "var": "q_steroids.value"
+            "var": "q_steroids"
           },
           {
             "in": [
               {
-                "var": "q_age.value"
+                "var": "q_age"
               },
               ["70", "80", "80+"]
             ]
@@ -451,10 +451,10 @@
       "expression": {
         "<": [
           {
-            "var": "q_contact_date.value"
+            "var": "q_contact_date"
           },
           {
-            "var": "q_symptoms_date.value"
+            "var": "q_symptoms_date"
           }
         ]
       }
@@ -464,13 +464,13 @@
       "expression": {
         "or": [
           {
-            "var": "q_cough.value"
+            "var": "q_cough"
           },
           {
-            "var": "q_sore_throat.value"
+            "var": "q_sore_throat"
           },
           {
-            "var": "q_breath.value"
+            "var": "q_breath"
           }
         ]
       }
@@ -487,13 +487,13 @@
           "expression": {
             "and": [
               {
-                "var": "v_symptoms.value"
+                "var": "v_symptoms"
               },
               {
-                "var": "v_contact.value"
+                "var": "v_contact"
               },
               {
-                "var": "v_symptoms_after_contact.value"
+                "var": "v_symptoms_after_contact"
               }
             ]
           }
@@ -504,10 +504,10 @@
           "expression": {
             "and": [
               {
-                "var": "v_symptoms.value"
+                "var": "v_symptoms"
               },
               {
-                "var": "v_respiratory_symptoms.value"
+                "var": "v_respiratory_symptoms"
               }
             ]
           }
@@ -518,11 +518,11 @@
           "expression": {
             "and": [
               {
-                "var": "v_contact_relevant.value"
+                "var": "v_contact_relevant"
               },
               {
                 "!": {
-                  "var": "v_symptoms.value"
+                  "var": "v_symptoms"
                 }
               }
             ]
@@ -534,11 +534,11 @@
           "expression": {
             "and": [
               {
-                "var": "v_symptoms.value"
+                "var": "v_symptoms"
               },
               {
                 "!": {
-                  "var": "v_respiratory_symptoms.value"
+                  "var": "v_respiratory_symptoms"
                 }
               }
             ]
@@ -551,12 +551,12 @@
             "and": [
               {
                 "!": {
-                  "var": "v_symptoms.value"
+                  "var": "v_symptoms"
                 }
               },
               {
                 "!": {
-                  "var": "v_contact.value"
+                  "var": "v_contact"
                 }
               }
             ]
@@ -574,7 +574,7 @@
           "expression": {
             "==": [
               {
-                "var": "q_work.value"
+                "var": "q_work"
               },
               "medical"
             ]
@@ -592,7 +592,7 @@
           "expression": {
             "and": [
               {
-                "var": "q_contact_date.value"
+                "var": "q_contact_date"
               },
               {
                 "!": {
@@ -617,7 +617,7 @@
           "id": "SHOW_RISK_GROUP_ADVISORY",
           "text": "You belong to the risk group@@1e2e26a223d4087c8352a460ad1f8a07",
           "expression": {
-            "var": "v_risk_group.value"
+            "var": "v_risk_group"
           }
         }
       ]
@@ -630,7 +630,7 @@
           "id": "SHOW_SHORTNESS_OF_BREATH_ADVISORY",
           "text": "You reported shortness of breath.@@b4a98c442f613dd85641af600b690199",
           "expression": {
-            "var": "q_breath.value"
+            "var": "q_breath"
           }
         }
       ]

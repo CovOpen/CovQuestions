@@ -22,7 +22,7 @@ const testQuestionnaire: Questionnaire = {
       text: "Wann trat der Kontakt auf?",
       type: "date",
       enableWhenExpression: {
-        var: "q_contact.value",
+        var: "q_contact",
       },
     },
     {
@@ -49,7 +49,7 @@ const testQuestionnaire: Questionnaire = {
       text: "Ab wann gab es Symptome?",
       type: "date",
       enableWhenExpression: {
-        var: "q_symptoms.value",
+        var: "q_symptoms",
       },
     },
     {
@@ -69,7 +69,7 @@ const testQuestionnaire: Questionnaire = {
       enableWhenExpression: {
         in: [
           {
-            var: "v_risk.value",
+            var: "v_risk",
           },
           ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"],
         ],
@@ -84,10 +84,10 @@ const testQuestionnaire: Questionnaire = {
           {
             "-": [
               {
-                var: "g_now.value",
+                var: "now",
               },
               {
-                var: "q_contact_when.value",
+                var: "q_contact_when",
               },
             ],
           },
@@ -111,7 +111,7 @@ const testQuestionnaire: Questionnaire = {
       expression: {
         if: [
           {
-            var: "q_contact.value",
+            var: "q_contact",
           },
           {
             if: [
@@ -127,10 +127,10 @@ const testQuestionnaire: Questionnaire = {
                           {
                             "-": [
                               {
-                                var: "q_contact_when.value",
+                                var: "q_contact_when",
                               },
                               {
-                                var: "q_symptoms_when.value",
+                                var: "q_symptoms_when",
                               },
                             ],
                           },
@@ -142,10 +142,10 @@ const testQuestionnaire: Questionnaire = {
                           {
                             "-": [
                               {
-                                var: "q_contact_when.value",
+                                var: "q_contact_when",
                               },
                               {
-                                var: "q_symptoms_when.value",
+                                var: "q_symptoms_when",
                               },
                             ],
                           },
@@ -162,7 +162,7 @@ const testQuestionnaire: Questionnaire = {
                           {
                             in: [
                               {
-                                var: "q_symptoms.value",
+                                var: "q_symptoms",
                               },
                               ["respiratory"],
                             ],
@@ -170,10 +170,10 @@ const testQuestionnaire: Questionnaire = {
                           {
                             or: [
                               {
-                                var: "q_risk_factors.value",
+                                var: "q_risk_factors",
                               },
                               {
-                                var: "q_chronic_afflictions.value",
+                                var: "q_chronic_afflictions",
                               },
                             ],
                           },
@@ -206,7 +206,7 @@ const testQuestionnaire: Questionnaire = {
                   {
                     in: [
                       {
-                        var: "q_symptoms.value",
+                        var: "q_symptoms",
                       },
                       ["respiratory"],
                     ],
@@ -233,7 +233,7 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             "==": [
               {
-                var: "v_risk.value",
+                var: "v_risk",
               },
               "MEDIUM_RISK_A",
             ],
@@ -245,7 +245,7 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             "==": [
               {
-                var: "v_risk.value",
+                var: "v_risk",
               },
               "MEDIUM_RISK_B",
             ],
@@ -257,7 +257,7 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             "==": [
               {
-                var: "v_risk.value",
+                var: "v_risk",
               },
               "HIGH_RISK",
             ],
@@ -269,7 +269,7 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             "==": [
               {
-                var: "v_risk.value",
+                var: "v_risk",
               },
               "NO_RISK",
             ],
@@ -285,7 +285,7 @@ const testQuestionnaire: Questionnaire = {
           id: "SHOW_MEDICAL_ADVISORY",
           text: "Hilfreiche Information.",
           expression: {
-            var: "q_medical_staff.value",
+            var: "q_medical_staff",
           },
         },
       ],
@@ -300,11 +300,11 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             and: [
               {
-                var: "q_contact.value",
+                var: "q_contact",
               },
               {
                 "!": {
-                  var: "v_contact_relevant.value",
+                  var: "v_contact_relevant",
                 },
               },
             ],
