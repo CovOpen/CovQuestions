@@ -53,12 +53,16 @@ export class Question {
   }
 }
 
-type QuestionResponse = {
-  selected_count?: number;
-  count?: number;
-  unselected_count?: number;
-  option?: { [optionId: string]: { selected: boolean } };
-} | Primitive | Array<Primitive> | undefined;
+type QuestionResponse =
+  | {
+      selected_count?: number;
+      count?: number;
+      unselected_count?: number;
+      option?: { [optionId: string]: { selected: boolean } };
+    }
+  | Primitive
+  | Array<Primitive>
+  | undefined;
 
 export class QuestionnaireEngine {
   private readonly questions: Question[] = [];
@@ -139,7 +143,10 @@ export class QuestionnaireEngine {
 
     this.variables.forEach((variable) => {
       try {
-        this.data[variable.id] = jsonLogic.apply(variable.expression, this.data);
+        this.data[variable.id] = jsonLogic.apply(
+          variable.expression,
+          this.data
+        );
       } catch (e) {}
     });
   }

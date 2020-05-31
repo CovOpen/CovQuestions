@@ -4,18 +4,19 @@ This is the draft of a custom questionaire format for the CovQuestions project.
 
 ## Requirements
 
-* Relatively easy to edit
-* Easy to use and implement
-* As platform-independend as possible
-* Describe questions, results, and result-computation logic
-* Questions might be shown or not depending in intermediate results
-* Support for multiple result categories, with their own results and computations
+- Relatively easy to edit
+- Easy to use and implement
+- As platform-independend as possible
+- Describe questions, results, and result-computation logic
+- Questions might be shown or not depending in intermediate results
+- Support for multiple result categories, with their own results and computations
 
 ## Considerations
 
 ### Result Format
 
-Two possible options: 
+Two possible options:
+
 1. "Flat" list of results with a expressione evaluating to a boolean
 2. Result categories with an expression that evaluate to a result id with a list of results per category.
 
@@ -23,7 +24,8 @@ We favor option 2 - with option 1 it is easy to accidentially show two results f
 
 ### Evaluation
 
-Two possible options: 
+Two possible options:
+
 1. Put all variables and questions into the same array and process them in order.
 2. Seperate variables and questions, process all questions in order and (re-)evaluate all variables after each update.
 
@@ -37,7 +39,7 @@ formatting and structuring.
 
 ### Dependencies between variables
 
-We favor a relatively simple logic and no automatic dependency resolution/re-ordering of questions or variables. 
+We favor a relatively simple logic and no automatic dependency resolution/re-ordering of questions or variables.
 If things are ordered incorrectly (e.g. the skipIf in a question refers a future question), the questionaire author should discover and repair the issue during testing.
 
 ### Answer Representation
@@ -62,7 +64,8 @@ For date-specific questions, the value is the date as unix timestamp in seconds.
 ### Special variables
 
 The following variables are pre-defined and need are available in all logic expressions:
-* `now` current time as unix timestamp
+
+- `now` current time as unix timestamp
 
 ### Internationalization
 
