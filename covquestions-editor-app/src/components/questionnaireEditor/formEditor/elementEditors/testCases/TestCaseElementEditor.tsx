@@ -134,7 +134,7 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
           />
         </Grid>
       </div>
-      <TestCaseResult className={classes.testCaseResult} testCase={testCase} />
+      <TestCaseResult className={classes.testCaseResult} testCase={testCase} runManually={true} />
     </Grid>
   );
 };

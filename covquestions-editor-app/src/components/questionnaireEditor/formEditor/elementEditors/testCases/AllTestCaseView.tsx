@@ -11,7 +11,7 @@ export const AllTestCaseView: React.FC = () => {
     <Grid container>
       {(questionnaireJson.testCases ?? []).map((testCase) => (
         <Grid item sm={12}>
-          <TestCaseResult testCase={testCase} />
+          <TestCaseResult testCase={testCase} runManually={false} />
         </Grid>
       ))}
     </Grid>
