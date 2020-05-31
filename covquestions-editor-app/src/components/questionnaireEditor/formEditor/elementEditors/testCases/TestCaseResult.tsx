@@ -1,6 +1,9 @@
 import React from "react";
-import { TestResult } from "covquestions-js/src/testCaseRunner";
+import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { createStyles, makeStyles, Paper, Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { questionnaireJsonSelector } from "../../../../../store/questionnaireInEditor";
+import { TestCase } from "covquestions-js/models/Questionnaire.generated";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -20,16 +23,19 @@ const useStyles = makeStyles(() =>
 );
 
 type TestCaseResultProps = {
-  testResult?: TestResult;
+  testCase?: TestCase;
   className?: string;
 };
 
-export const TestCaseResult: React.FC<TestCaseResultProps> = ({ testResult, className }) => {
+export const TestCaseResult: React.FC<TestCaseResultProps> = ({ testCase, className }) => {
+  const questionnaireJson = useSelector(questionnaireJsonSelector);
   const classes = useStyles();
 
-  if (testResult === undefined) {
+  if (testCase === undefined) {
     return null;
   }
+
+  const testResult = runOneTestCase(questionnaireJson, testCase);
 
   return (
     <Paper className={`${classes.paperComponent} ${className || ""}`}>

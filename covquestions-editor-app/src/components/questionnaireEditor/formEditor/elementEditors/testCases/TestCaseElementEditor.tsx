@@ -30,7 +30,6 @@ import {
   TestCase,
 } from "covquestions-js/models/Questionnaire.generated";
 import { heightWithoutEditor } from "../../../QuestionnaireEditor";
-import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { TestCaseResult } from "./TestCaseResult";
 import { ElementEditor } from "../ElementEditor";
 import { testCaseMetaSchema } from "./testCaseMeta";
@@ -135,7 +134,7 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
           />
         </Grid>
       </div>
-      <TestCaseResult className={classes.testCaseResult} testResult={runOneTestCase(questionnaireJson, testCase)} />
+      <TestCaseResult className={classes.testCaseResult} testCase={testCase} />
     </Grid>
   );
 };
