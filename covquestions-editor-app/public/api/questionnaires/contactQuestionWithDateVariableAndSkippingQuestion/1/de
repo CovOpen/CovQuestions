@@ -22,7 +22,7 @@
       "text": "Wann trat der Kontakt auf?",
       "type": "date",
       "enableWhenExpression": {
-        "var": "q1_contact.value"
+        "var": "q1_contact"
       }
     }
   ],
@@ -32,10 +32,10 @@
       "expression": {
         "-": [
           {
-            "var": "g_now.value"
+            "var": "now"
           },
           {
-            "var": "q2_contact_when.value"
+            "var": "q2_contact_when"
           }
         ]
       }
@@ -45,7 +45,7 @@
       "expression": {
         "<=": [
           {
-            "var": "v_seconds_since_contact.value"
+            "var": "v_seconds_since_contact"
           },
           1209600
         ]
@@ -61,7 +61,7 @@
           "id": "CONTACT_RELEVANT",
           "text": "Sie hatten einen relevanten Kontakt.",
           "expression": {
-            "var": "v_contact_during_last_two_weeks.value"
+            "var": "v_contact_during_last_two_weeks"
           }
         },
         {
@@ -70,11 +70,11 @@
           "expression": {
             "and": [
               {
-                "var": "q1_contact.value"
+                "var": "q1_contact"
               },
               {
                 "!": {
-                  "var": "v_contact_during_last_two_weeks.value"
+                  "var": "v_contact_during_last_two_weeks"
                 }
               }
             ]
@@ -108,8 +108,7 @@
         "rc_contact": "CONTACT_NOT_RELEVANT"
       },
       "options": {
-        "fillInDate": "2020-03-18",
-        "questionMode": "strict"
+        "fillInDate": "2020-03-18"
       }
     },
     {
@@ -122,8 +121,7 @@
         "rc_contact": "CONTACT_RELEVANT"
       },
       "options": {
-        "fillInDate": "2020-03-18",
-        "questionMode": "strict"
+        "fillInDate": "2020-03-18"
       }
     }
   ]

@@ -42,32 +42,27 @@ If things are ordered incorrectly (e.g. the skipIf in a question refers a future
 
 ### Answer Representation
 
-For each answered question, we expose multiple JSON-Logic variables prefixed with the question id:
+We expose each non-multi-select answer in JSON-Logic expressions by its question id:
 
 ```
-question_id.answered // Indicates if question was answered  (true) or skipped (false), boolean.
-question_id.value // Value of the answer, string, number, boolean, depending on type
+question_id // Value of the answer, string, number, boolean, depending on type
 ```
 
-For making multi-select questions easier to evaluate, we additionally expose the following properties:
+For making multi-select questions easier to evaluate, we expose the following properties there:
 
 ```
-question_id.value // Array of string, containing selected items.
-question_id.selectedCount // Count of selected options
+question_id.selected_count // Count of selected options
 question_id.count // Count of all (selected/unselected) options
-question_id.unselectedCount // Count of not-selected options
+question_id.unselected_count // Count of not-selected options
 question_id.option.option_id.selected // True or false, indicating if option_id was selected
 ```
 
-For date-specific questions, `value` is the date as unix timestamp.
-The `value` for timespans is the duration as seconds.
-
-Additionally, date answers expose `question_id.daysToNow` which gives the time difference to now as days.
+For date-specific questions, the value is the date as unix timestamp in seconds.
 
 ### Special variables
 
 The following variables are pre-defined and need are available in all logic expressions:
-* `NOW` current time as unix timestamp
+* `now` current time as unix timestamp
 
 ### Internationalization
 

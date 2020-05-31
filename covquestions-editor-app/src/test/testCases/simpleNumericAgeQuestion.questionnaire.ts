@@ -33,7 +33,7 @@ const testQuestionnaire: Questionnaire = {
           id: "AGE_CHILD",
           text: "Du bist ja noch ein Kind.",
           expression: {
-            "<": [{ var: "q1_age.value" }, 18],
+            "<": [{ var: "q1_age" }, 18],
           },
         },
         {

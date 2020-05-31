@@ -28,7 +28,7 @@
           "id": "CONTACT_YES",
           "text": "Sie hatten Kontakt.",
           "expression": {
-            "var": "q1_contact.value"
+            "var": "q1_contact"
           }
         },
         {
@@ -36,7 +36,7 @@
           "text": "Sie hatten keinen Kontakt.",
           "expression": {
             "!": {
-              "var": "q1_contact.value"
+              "var": "q1_contact"
             }
           }
         }

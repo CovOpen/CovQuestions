@@ -19,7 +19,7 @@
       "text": "Wann trat der Kontakt auf?",
       "type": "date",
       "enableWhen": {
-        "var": "q1_contact.value"
+        "var": "q1_contact"
       }
     },
     {
@@ -46,7 +46,7 @@
       "text": "Ab wann gab es Symptome?",
       "type": "date",
       "enableWhen": {
-        "var": "q3_symptoms.value"
+        "var": "q3_symptoms"
       }
     },
     {
@@ -66,7 +66,7 @@
       "enableWhen": {
         "in": [
           {
-            "var": "v1_risk.value"
+            "var": "v1_risk"
           },
           [
             "HIGH_RISK",
@@ -85,10 +85,10 @@
           {
             "-": [
               {
-                "var": "q2_contact_when.value"
+                "var": "q2_contact_when"
               },
               {
-                "var": "g_now.value"
+                "var": "now"
               }
             ]
           },
@@ -112,7 +112,7 @@
       "value": {
         "if": [
           {
-            "var": "q0_contact.value"
+            "var": "q0_contact"
           },
           {
             "if": [
@@ -126,10 +126,10 @@
                       {
                         "-": [
                           {
-                            "var": "q2_contact_when.value"
+                            "var": "q2_contact_when"
                           },
                           {
-                            "var": "q4_symptoms_when.value"
+                            "var": "q4_symptoms_when"
                           }
                         ]
                       },
@@ -144,7 +144,7 @@
                           {
                             "some": [
                               {
-                                "var": "q2_symptoms.value"
+                                "var": "q2_symptoms"
                               },
                               {
                                 "==": [
@@ -159,7 +159,7 @@
                           {
                             "some": [
                               {
-                                "var": "q2_symptoms.value"
+                                "var": "q2_symptoms"
                               },
                               {
                                 "==": [
@@ -174,10 +174,10 @@
                           {
                             "or": [
                               {
-                                "var": "q5_risk_factors.value"
+                                "var": "q5_risk_factors"
                               },
                               {
-                                "var": "q6_chronic_afflictions.value"
+                                "var": "q6_chronic_afflictions"
                               }
                             ]
                           }
@@ -210,7 +210,7 @@
                   {
                     "in": [
                       {
-                        "var": "q2_symptoms.value"
+                        "var": "q2_symptoms"
                       },
                       [
                         "respiratory"
@@ -279,7 +279,7 @@
           "id": "SHOW_MEDICAL_ADVISORY",
           "text": "Hilfreiche Information.",
           "value": {
-            "var": "q6_medical_staff.value"
+            "var": "q6_medical_staff"
           }
         }
       ]
@@ -294,7 +294,7 @@
           "value": {
             "and": [
               {
-                "var": "q0_contact.value"
+                "var": "q0_contact"
               },
               {
                 "!": {

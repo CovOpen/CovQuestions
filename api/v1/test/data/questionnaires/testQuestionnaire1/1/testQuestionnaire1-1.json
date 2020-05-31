@@ -29,7 +29,7 @@
           "expression": {
             "==": [
               {
-                "var": "q1_text.value"
+                "var": "q1_text"
               },
               "test"
             ]

@@ -54,12 +54,11 @@ export class Question {
 }
 
 type QuestionResponse = {
-  value: Primitive | Array<Primitive> | undefined;
-  selectedCount?: number;
+  selected_count?: number;
   count?: number;
-  unselectedCount?: number;
+  unselected_count?: number;
   option?: { [optionId: string]: { selected: boolean } };
-};
+} | Primitive | Array<Primitive> | undefined;
 
 export class QuestionnaireEngine {
   private readonly questions: Question[] = [];
@@ -107,14 +106,15 @@ export class QuestionnaireEngine {
       throw new Error(`This question is not optional: ${questionId}`);
     }
 
-    const answer: QuestionResponse = { value };
+    let answer: QuestionResponse;
 
     if (question.type === "multiselect") {
+      answer = {};
       const array = (value || []) as Array<Primitive>;
-      answer.selectedCount = array !== undefined ? array.length : 0;
+      answer.selected_count = array !== undefined ? array.length : 0;
       answer.count =
         (question.options !== undefined && question.options.length) || 0;
-      answer.unselectedCount = answer.count - answer.selectedCount;
+      answer.unselected_count = answer.count - answer.selected_count;
       answer.option = {};
       for (const option of question.options || []) {
         answer.option[option.value] = {
@@ -122,6 +122,8 @@ export class QuestionnaireEngine {
             array !== undefined ? array.indexOf(option.value) > -1 : false,
         };
       }
+    } else {
+      answer = value;
     }
 
     this.data[questionId] = answer;
@@ -133,15 +135,11 @@ export class QuestionnaireEngine {
   }
 
   private updateComputableVariables() {
-    this.data["g_now"] = {
-      value: Math.round(this.timeOfExecution || Date.now() / 1000),
-    };
+    this.data["now"] = Math.round(this.timeOfExecution || Date.now() / 1000);
 
     this.variables.forEach((variable) => {
       try {
-        this.data[variable.id] = {
-          value: jsonLogic.apply(variable.expression, this.data),
-        };
+        this.data[variable.id] = jsonLogic.apply(variable.expression, this.data);
       } catch (e) {}
     });
   }

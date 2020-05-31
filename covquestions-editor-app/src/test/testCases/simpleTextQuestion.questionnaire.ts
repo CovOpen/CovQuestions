@@ -29,7 +29,7 @@ const testQuestionnaire: Questionnaire = {
           id: "TEXT",
           text: "Sie können simple Anweisungen befolgen.",
           expression: {
-            "==": [{ var: "q1_text.value" }, "test"],
+            "==": [{ var: "q1_text" }, "test"],
           },
         },
       ],
