@@ -31,7 +31,6 @@ import {
 } from "../../store/questionnaireInEditor";
 import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
 
-
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
 };

@@ -10,7 +10,11 @@ import { JSONSchema7 } from "json-schema";
 import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setHasErrorsInJsonMode, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
+import {
+  questionnaireJsonSelector,
+  setHasErrorsInJsonMode,
+  setQuestionnaireInEditor,
+} from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
