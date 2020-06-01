@@ -10,7 +10,7 @@ import { JSONSchema7 } from "json-schema";
 import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
-import { questionnaireJsonSelector, setHasErrors, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
+import { questionnaireJsonSelector, setHasErrorsInJsonMode, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
@@ -66,7 +66,7 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
         onChange={(newQuestionnaire: Questionnaire) => dispatch(setQuestionnaireInEditor(newQuestionnaire))}
         onValidationError={(errors: []) => {
           const hasErrors = errors.length > 0;
-          dispatch(setHasErrors(hasErrors));
+          dispatch(setHasErrorsInJsonMode(hasErrors));
         }}
       />
     </div>

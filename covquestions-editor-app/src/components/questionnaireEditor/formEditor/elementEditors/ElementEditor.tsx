@@ -2,8 +2,6 @@ import { JSONSchema7 } from "json-schema";
 import React from "react";
 import MuiForm from "@rjsf/material-ui";
 import { IChangeEvent } from "@rjsf/core";
-import { setHasErrors, hasErrors } from "../../../../store/questionnaireInEditor";
-import { useAppDispatch } from "../../../../store/store";
 
 type ElementEditorProps<T> = {
   schema: JSONSchema7;
@@ -15,17 +13,8 @@ type ElementEditorProps<T> = {
 };
 
 export function ElementEditor<T>(props: ElementEditorProps<T>) {
-  const dispatch = useAppDispatch();
-
   const onValidate = (formData: T, errors: any) => {
     props.addAdditionalValidationErrors(formData, errors);
-
-    console.log(errors);
-    const hasErrorsCurrently = errors.__errors.length > 0;
-    // TODO check `_errors` of all properties
-    if (hasErrorsCurrently) {
-      dispatch(setHasErrors(hasErrorsCurrently));
-    }
 
     return errors;
   };

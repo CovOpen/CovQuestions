@@ -21,7 +21,7 @@ type ArraySection =
   | SectionType.TEST_CASES;
 
 export const setQuestionnaireInEditor = createAction<EditorQuestionnaire>("setQuestionnaireInEditor");
-export const setHasErrors = createAction<boolean>("setHasErrors");
+export const setHasErrorsInJsonMode = createAction<boolean>("setHasErrorsInJsonMode");
 export const addNewQuestion = createAction("addNewQuestion");
 export const addNewResultCategory = createAction("addNewResultCategory");
 export const addNewVariable = createAction("addNewVariable");
@@ -65,7 +65,16 @@ export const editTestCase = createAction<{
 
 export type QuestionnaireWrapper = {
   questionnaire: EditorQuestionnaire;
-  hasErrors: boolean;
+  errors: {
+    hasError: boolean;
+    formEditor: {
+      meta: boolean;
+      questions: { [key: number]: boolean };
+      resultCategories: { [key: number]: boolean };
+      variables: { [key: number]: boolean };
+      testCases: { [key: number]: boolean };
+    };
+  };
 };
 
 const initialQuestionnaireInEditor: QuestionnaireWrapper = {
@@ -84,7 +93,16 @@ const initialQuestionnaireInEditor: QuestionnaireWrapper = {
     resultCategories: [],
     variables: [],
   },
-  hasErrors: false,
+  errors: {
+    hasError: false,
+    formEditor: {
+      meta: false,
+      questions: {},
+      resultCategories: {},
+      variables: {},
+      testCases: {},
+    },
+  },
 };
 
 export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor, (builder) =>
@@ -92,8 +110,15 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     .addCase(setQuestionnaireInEditor, (state, action) => {
       state.questionnaire = addStringRepresentationToQuestionnaire(action.payload);
     })
-    .addCase(setHasErrors, (state, { payload }) => {
-      state.hasErrors = payload;
+    .addCase(setHasErrorsInJsonMode, (state, { payload }) => {
+      state.errors.hasError = payload;
+      state.errors.formEditor = {
+        meta: false,
+        questions: {},
+        resultCategories: {},
+        variables: {},
+        testCases: {},
+      };
     })
     .addCase(addNewQuestion, (state) => {
       state.questionnaire.questions.push({
@@ -129,6 +154,27 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       const questionnaireElement = state.questionnaire[section];
       if (questionnaireElement !== undefined) {
         questionnaireElement.splice(index, 1);
+        if (state.errors.formEditor[section][index] !== undefined) {
+          delete state.errors.formEditor[section][index];
+          let hasErrors = state.errors.formEditor.meta;
+          for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.questions)) {
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.questions, prop);
+            hasErrors = hasErrors || hasElementError;
+          }
+          for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.resultCategories)) {
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.resultCategories, prop);
+            hasErrors = hasErrors || hasElementError;
+          }
+          for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.variables)) {
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.variables, prop);
+            hasErrors = hasErrors || hasElementError;
+          }
+          for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.testCases)) {
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.testCases, prop);
+            hasErrors = hasErrors || hasElementError;
+          }
+          state.errors.hasError = hasErrors;
+        }
       }
     })
     .addCase(swapItemWithNextOne, (state, { payload: { section, index } }) => {
@@ -137,11 +183,15 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         const tmp = questionnaireElement[index];
         questionnaireElement[index] = questionnaireElement[index + 1];
         questionnaireElement[index + 1] = tmp;
+        const tmpError = state.errors.formEditor[section][index] ?? false;
+        state.errors.formEditor[section][index] = state.errors.formEditor[section][index + 1] ?? false;
+        state.errors.formEditor[section][index + 1] = tmpError;
       }
     })
     .addCase(editMeta, (state, { payload: { changedMeta, hasErrors } }) => {
       state.questionnaire = moveRootPropertiesToQuestionnaire(state.questionnaire, changedMeta);
-      state.hasErrors = hasErrors;
+      state.errors.formEditor.meta = hasErrors;
+      state.errors.hasError = state.errors.hasError || hasErrors;
     })
     .addCase(editQuestion, (state, { payload: { index, changedQuestion, hasErrors } }) => {
       let expression: LogicExpression | undefined = undefined;
@@ -152,7 +202,8 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         ...changedQuestion,
         enableWhenExpression: expression,
       };
-      state.hasErrors = hasErrors;
+      state.errors.formEditor.questions[index] = hasErrors;
+      state.errors.hasError = state.errors.hasError || hasErrors;
     })
     .addCase(editResultCategory, (state, { payload: { index, changedResultCategory, hasErrors } }) => {
       state.questionnaire.resultCategories[index] = {
@@ -168,7 +219,8 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
           };
         }),
       };
-      state.hasErrors = hasErrors;
+      state.errors.formEditor.resultCategories[index] = hasErrors;
+      state.errors.hasError = state.errors.hasError || hasErrors;
     })
     .addCase(editVariable, (state, { payload: { index, changedVariable, hasErrors } }) => {
       let expression: LogicExpression = "";
@@ -179,14 +231,16 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         ...changedVariable,
         expression,
       };
-      state.hasErrors = hasErrors;
+      state.errors.formEditor.resultCategories[index] = hasErrors;
+      state.errors.hasError = state.errors.hasError || hasErrors;
     })
     .addCase(editTestCase, (state, { payload: { index, changedTestCase, hasErrors } }) => {
       if (!state.questionnaire.testCases) {
         state.questionnaire.testCases = [];
       }
       state.questionnaire.testCases[index] = changedTestCase;
-      state.hasErrors = hasErrors;
+      state.errors.formEditor.testCases[index] = hasErrors;
+      state.errors.hasError = state.errors.hasError || hasErrors;
     })
 );
 
@@ -208,7 +262,10 @@ export const testCaseInEditorSelector = (state: RootState, props: { index: numbe
 };
 
 export const questionsSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.questions;
-export const resultCategoriesSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.resultCategories;
+export const resultCategoriesSelector = (state: RootState) =>
+  state.questionnaireInEditor.questionnaire.resultCategories;
 export const variablesSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.variables;
 
-export const hasErrors = (state: RootState) => state.questionnaireInEditor.hasErrors;
+export const hasErrorsSelector = (state: RootState) => state.questionnaireInEditor.errors.hasError;
+
+export const formErrorsSelector = (state: RootState) => state.questionnaireInEditor.errors.formEditor;

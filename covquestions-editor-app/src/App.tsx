@@ -146,7 +146,7 @@ export const App: React.FC = () => {
       setCurrentTitle(currentQuestionnaire.questionnaire.title);
     }
 
-    if (!currentQuestionnaire.hasErrors) {
+    if (!currentQuestionnaire.errors.hasError) {
       setExecutedQuestionnaire(currentQuestionnaire.questionnaire);
     }
   }, [currentQuestionnaire]);
@@ -225,7 +225,7 @@ export const App: React.FC = () => {
               {executedQuestionnaire !== undefined ? (
                 <QuestionnaireExecution
                   currentQuestionnaire={executedQuestionnaire}
-                  isJsonInvalid={currentQuestionnaire.hasErrors}
+                  isJsonInvalid={currentQuestionnaire.errors.hasError}
                 />
               ) : null}
             </Grid>
