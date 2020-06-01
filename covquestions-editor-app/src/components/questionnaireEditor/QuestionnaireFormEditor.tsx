@@ -27,6 +27,7 @@ import {
   removeItem,
   swapItemWithNextOne,
   formErrorsSelector,
+  ItemErrorInformation,
 } from "../../store/questionnaireInEditor";
 import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
 
@@ -168,6 +169,13 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     setActiveItem({ section, index });
   };
 
+  const hasError = (errorInformation?: ItemErrorInformation) => {
+    if (errorInformation === undefined) {
+      return false;
+    }
+    return errorInformation.hasError || errorInformation.hasDuplicatedId;
+  };
+
   return (
     <>
       <Grid container direction="column">
@@ -210,7 +218,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.text} />
-                  {formErrors.questions[index] ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.questions[index]) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>
@@ -241,7 +249,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
-                  {formErrors.resultCategories[index] ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.resultCategories[index]) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>
@@ -269,7 +277,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
-                  {formErrors.variables[index] ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.variables[index]) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>
@@ -300,7 +308,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.description} />
-                  {formErrors.testCases[index] ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.testCases[index]) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
               <ListItem className={classes.listItem}>

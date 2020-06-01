@@ -1,12 +1,18 @@
 import { EditorAnyQuestion } from "../../../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "../schemas/question.json";
-import React from "react";
+import React, { useEffect } from "react";
 import { convertStringToLogicExpression } from "../../converters";
-import { editQuestion, questionInEditorSelector, questionsSelector } from "../../../../store/questionnaireInEditor";
+import {
+  editQuestion,
+  questionInEditorSelector,
+  questionsSelector,
+  setDuplicatedIdInformation,
+} from "../../../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
+import { SectionType } from "../../QuestionnaireFormEditor";
 
 export type QuestionInStringRepresentation = Omit<EditorAnyQuestion, "enableWhenExpression"> & {
   enableWhenExpression: string;
@@ -40,8 +46,13 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
   const questions = useSelector((state: RootState) => questionsSelector(state));
 
+  useEffect(() => {
+    dispatch(setDuplicatedIdInformation({ section: SectionType.QUESTIONS }));
+  }, [question, dispatch]);
+
   const onChange = (formData: QuestionInStringRepresentation, hasErrors: boolean) => {
     dispatch(editQuestion({ index: props.index, changedQuestion: formData, hasErrors: hasErrors }));
+    dispatch(setDuplicatedIdInformation({ section: SectionType.QUESTIONS }));
   };
 
   const validate = (formData: QuestionInStringRepresentation, errors: any) => {
@@ -50,7 +61,7 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
     } catch (error) {
       errors.enableWhenExpressionString.addError(error.message);
     }
-    if (questions.filter(it => it.id === formData.id).length > 1) {
+    if (questions.filter((it) => it.id === formData.id).length > 1) {
       errors.id.addError("Value of ID is duplicated");
     }
   };
