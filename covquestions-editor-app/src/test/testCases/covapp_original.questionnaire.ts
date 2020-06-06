@@ -9,7 +9,7 @@ const testQuestionnaire: Questionnaire = {
   meta: {
     author: "Alexander Thieme, CovQuestions Team",
     availableLanguages: ["en"],
-    creationDate: "2020-04-19T20:32:05+0000",
+    creationDate: "2020-04-19",
   },
   questions: [
     {
