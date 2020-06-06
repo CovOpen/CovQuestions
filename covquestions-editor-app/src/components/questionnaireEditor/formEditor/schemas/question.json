@@ -19,7 +19,8 @@
         },
         "id": {
           "description": "Unique id for referring this question in logic expressions.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
         },
         "optional": {
           "description": "Boolean indicating whether the question is optional or not.",
