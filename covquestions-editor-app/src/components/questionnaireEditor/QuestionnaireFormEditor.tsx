@@ -192,7 +192,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
       }
     }
     return isDuplicate;
-  }
+  };
 
   return (
     <>
@@ -267,7 +267,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
-                  {hasError(formErrors.resultCategories[index], item.id) || hasResultDuplicatedId(item) ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.resultCategories[index], item.id) || hasResultDuplicatedId(item) ? (
+                    <WarningIcon color={"error"} />
+                  ) : null}
                 </ListItem>
               ))}
             </List>

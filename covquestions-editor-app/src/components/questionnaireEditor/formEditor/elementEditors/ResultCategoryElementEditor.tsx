@@ -5,7 +5,11 @@ import { EditorResult, EditorResultCategory } from "../../../../models/editorQue
 import { convertStringToLogicExpression } from "../../converters";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editResultCategory, resultCategoryInEditorSelector, duplicatedIdsSelector } from "../../../../store/questionnaireInEditor";
+import {
+  editResultCategory,
+  resultCategoryInEditorSelector,
+  duplicatedIdsSelector,
+} from "../../../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 type ResultInStringRepresentation = Omit<EditorResult, "expression"> & { expression: string };

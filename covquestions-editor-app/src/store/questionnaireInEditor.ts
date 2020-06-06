@@ -115,7 +115,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
       state.questionnaire = addStringRepresentationToQuestionnaire(action.payload);
     })
     .addCase(setHasErrorsInJsonMode, (state, { payload }) => {
-      state.errors.isJsonModeError = payload
+      state.errors.isJsonModeError = payload;
       state.errors.formEditor = {
         meta: false,
         questions: {},
@@ -244,38 +244,43 @@ export const testCaseInEditorSelector = (state: RootState, props: { index: numbe
 
 export const hasAnyErrorSelector = (state: RootState) => {
   const questionnaireErrors = state.questionnaireInEditor.errors;
-  const currentErrorValues:boolean[] = [];
+  const currentErrorValues: boolean[] = [];
   currentErrorValues.push(questionnaireErrors.isJsonModeError);
   currentErrorValues.push(questionnaireErrors.formEditor.meta);
-  
-  const sections = [questionnaireErrors.formEditor.questions, questionnaireErrors.formEditor.resultCategories, questionnaireErrors.formEditor.variables, questionnaireErrors.formEditor.testCases];
+
+  const sections = [
+    questionnaireErrors.formEditor.questions,
+    questionnaireErrors.formEditor.resultCategories,
+    questionnaireErrors.formEditor.variables,
+    questionnaireErrors.formEditor.testCases,
+  ];
   for (const section of sections) {
     for (const propertyName of Object.getOwnPropertyNames(section)) {
       currentErrorValues.push(section[parseInt(propertyName)]);
     }
   }
-  
-  return currentErrorValues.filter(it => it).length > 0;
+
+  return currentErrorValues.filter((it) => it).length > 0;
 };
 
 export const formErrorsSelector = (state: RootState) => state.questionnaireInEditor.errors.formEditor;
 
 export const duplicatedIdsSelector = (state: RootState) => {
   const questionnaire = state.questionnaireInEditor.questionnaire;
-  const ids:string[] = [];
+  const ids: string[] = [];
   if (questionnaire.questions !== undefined) {
-    ids.push(...questionnaire.questions.map(it => it.id));
+    ids.push(...questionnaire.questions.map((it) => it.id));
   }
   if (questionnaire.resultCategories !== undefined) {
     for (const resultCategory of questionnaire.resultCategories) {
       ids.push(resultCategory.id);
       if (resultCategory.results !== undefined) {
-        ids.push(...resultCategory.results.map(it => it.id));
-      }      
+        ids.push(...resultCategory.results.map((it) => it.id));
+      }
     }
   }
   if (questionnaire.variables !== undefined) {
-    ids.push(...questionnaire.variables.map(it => it.id));
+    ids.push(...questionnaire.variables.map((it) => it.id));
   }
-  return ids.filter((item, index) => item !== undefined && ids.indexOf(item) !== index)
-}
+  return ids.filter((item, index) => item !== undefined && ids.indexOf(item) !== index);
+};

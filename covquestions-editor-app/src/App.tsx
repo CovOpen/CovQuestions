@@ -20,7 +20,12 @@ import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { Questionnaire, ISOLanguage } from "covquestions-js/models/Questionnaire.generated";
 import { useAppDispatch } from "./store/store";
-import { questionnaireInEditorSelector, setQuestionnaireInEditor, duplicatedIdsSelector, hasAnyErrorSelector } from "./store/questionnaireInEditor";
+import {
+  questionnaireInEditorSelector,
+  setQuestionnaireInEditor,
+  duplicatedIdsSelector,
+  hasAnyErrorSelector,
+} from "./store/questionnaireInEditor";
 import {
   QuestionnaireSelection,
   QuestionnaireSelectionDrawer,
