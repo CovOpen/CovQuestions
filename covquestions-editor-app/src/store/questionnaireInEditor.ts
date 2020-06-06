@@ -1,4 +1,3 @@
-import { EditorAnyQuestion, EditorResultCategory, EditorVariable } from "./../models/editorQuestionnaire";
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
 import { RootState } from "./store";
@@ -68,21 +67,16 @@ export const setDuplicatedIdInformation = createAction<{
   section: SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
 }>("setDuplicatedIdInformation");
 
-export type ItemErrorInformation = {
-  hasError: boolean;
-  hasDuplicatedId: boolean;
-};
-
 export type QuestionnaireWrapper = {
   questionnaire: EditorQuestionnaire;
   errors: {
     hasError: boolean;
     formEditor: {
       meta: boolean;
-      questions: { [key: number]: ItemErrorInformation };
-      resultCategories: { [key: number]: ItemErrorInformation };
-      variables: { [key: number]: ItemErrorInformation };
-      testCases: { [key: number]: ItemErrorInformation };
+      questions: { [key: number]: boolean };
+      resultCategories: { [key: number]: boolean };
+      variables: { [key: number]: boolean };
+      testCases: { [key: number]: boolean };
     };
   };
 };
@@ -168,20 +162,20 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
           delete state.errors.formEditor[section][index];
           let hasErrors = state.errors.formEditor.meta;
           for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.questions)) {
-            const hasElementError: ItemErrorInformation = Reflect.get(state.errors.formEditor.questions, prop);
-            hasErrors = hasErrors || hasElementError.hasError || hasElementError.hasDuplicatedId;
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.questions, prop);
+            hasErrors = hasErrors || hasElementError;
           }
           for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.resultCategories)) {
-            const hasElementError: ItemErrorInformation = Reflect.get(state.errors.formEditor.resultCategories, prop);
-            hasErrors = hasErrors || hasElementError.hasError || hasElementError.hasDuplicatedId;
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.resultCategories, prop);
+            hasErrors = hasErrors || hasElementError;
           }
           for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.variables)) {
-            const hasElementError: ItemErrorInformation = Reflect.get(state.errors.formEditor.variables, prop);
-            hasErrors = hasErrors || hasElementError.hasError || hasElementError.hasDuplicatedId;
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.variables, prop);
+            hasErrors = hasErrors || hasElementError;
           }
           for (const prop of Object.getOwnPropertyNames(state.errors.formEditor.testCases)) {
-            const hasElementError: ItemErrorInformation = Reflect.get(state.errors.formEditor.testCases, prop);
-            hasErrors = hasErrors || hasElementError.hasError || hasElementError.hasDuplicatedId;
+            const hasElementError: boolean = Reflect.get(state.errors.formEditor.testCases, prop);
+            hasErrors = hasErrors || hasElementError;
           }
           state.errors.hasError = hasErrors;
         }
@@ -212,7 +206,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         ...changedQuestion,
         enableWhenExpression: expression,
       };
-      state.errors.formEditor.questions[index].hasError = hasErrors;
+      state.errors.formEditor.questions[index] = hasErrors;
       state.errors.hasError = state.errors.hasError || hasErrors;
     })
     .addCase(editResultCategory, (state, { payload: { index, changedResultCategory, hasErrors } }) => {
@@ -229,7 +223,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
           };
         }),
       };
-      state.errors.formEditor.resultCategories[index].hasError = hasErrors;
+      state.errors.formEditor.resultCategories[index] = hasErrors;
       state.errors.hasError = state.errors.hasError || hasErrors;
     })
     .addCase(editVariable, (state, { payload: { index, changedVariable, hasErrors } }) => {
@@ -241,7 +235,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         ...changedVariable,
         expression,
       };
-      state.errors.formEditor.resultCategories[index].hasError = hasErrors;
+      state.errors.formEditor.resultCategories[index] = hasErrors;
       state.errors.hasError = state.errors.hasError || hasErrors;
     })
     .addCase(editTestCase, (state, { payload: { index, changedTestCase, hasErrors } }) => {
@@ -249,34 +243,8 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         state.questionnaire.testCases = [];
       }
       state.questionnaire.testCases[index] = changedTestCase;
-      state.errors.formEditor.testCases[index].hasError = hasErrors;
+      state.errors.formEditor.testCases[index] = hasErrors;
       state.errors.hasError = state.errors.hasError || hasErrors;
-    })
-    .addCase(setDuplicatedIdInformation, (state, { payload: { section } }) => {
-      const currentSection: EditorAnyQuestion[] | EditorResultCategory[] | EditorVariable[] | undefined =
-        state.questionnaire[section];
-      if (currentSection !== undefined) {
-        const ids = new Array<string>();
-        for (const item of currentSection) {
-          ids.push(item.id);
-        }
-
-        for (let i = 0; i < ids.length; i++) {
-          if (state.errors.formEditor[section][i] !== undefined) {
-            state.errors.formEditor[section][i].hasDuplicatedId = false;
-          }
-        }
-        const distinctIds = new Set<string>(ids);
-        if (distinctIds.size !== ids.length) {
-          for (let i = 0; i < ids.length; i++) {
-            if (ids.filter((it) => it === ids[i]).length > 1) {
-              const tmp = state.errors.formEditor[section][i] || {};
-              tmp.hasDuplicatedId = true;
-              state.errors.formEditor[section][i] = tmp;
-            }
-          }
-        }
-      }
     })
 );
 
@@ -297,11 +265,26 @@ export const testCaseInEditorSelector = (state: RootState, props: { index: numbe
   return testCases ? testCases[props.index] : undefined;
 };
 
-export const questionsSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.questions;
-export const resultCategoriesSelector = (state: RootState) =>
-  state.questionnaireInEditor.questionnaire.resultCategories;
-export const variablesSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.variables;
-
 export const hasErrorsSelector = (state: RootState) => state.questionnaireInEditor.errors.hasError;
 
 export const formErrorsSelector = (state: RootState) => state.questionnaireInEditor.errors.formEditor;
+
+export const duplicatedIdsSelector = (state: RootState) => {
+  const questionnaire = state.questionnaireInEditor.questionnaire;
+  const ids:string[] = [];
+  if (questionnaire.questions !== undefined) {
+    ids.push(...questionnaire.questions.map(it => it.id));
+  }
+  if (questionnaire.resultCategories !== undefined) {
+    for (const resultCategory of questionnaire.resultCategories) {
+      ids.push(resultCategory.id);
+      if (resultCategory.results !== undefined) {
+        ids.push(...resultCategory.results.map(it => it.id));
+      }      
+    }
+  }
+  if (questionnaire.variables !== undefined) {
+    ids.push(...questionnaire.variables.map(it => it.id));
+  }
+  return ids.filter((item, index) => item !== undefined && ids.indexOf(item) !== index)
+}

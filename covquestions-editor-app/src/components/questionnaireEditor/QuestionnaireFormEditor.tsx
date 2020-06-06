@@ -27,9 +27,10 @@ import {
   removeItem,
   swapItemWithNextOne,
   formErrorsSelector,
-  ItemErrorInformation,
+  duplicatedIdsSelector,
 } from "../../store/questionnaireInEditor";
 import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
+import { EditorResultCategory } from "../../models/editorQuestionnaire";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
@@ -57,6 +58,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const dispatch = useAppDispatch();
   const questionnaireInEditor = useSelector(questionnaireInEditorSelector);
   const formErrors = useSelector(formErrorsSelector);
+  const duplicatedIds = useSelector(duplicatedIdsSelector);
 
   const useStyles = makeStyles(() =>
     createStyles({
@@ -168,12 +170,29 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     setActiveItem({ section, index });
   };
 
-  const hasError = (errorInformation?: ItemErrorInformation) => {
-    if (errorInformation === undefined) {
+  const hasError = (hasError: boolean, id?: string) => {
+    if (hasError) {
+      return true;
+    }
+    if (id !== undefined) {
+      return duplicatedIds.indexOf(id) > -1;
+    }
+    return false;
+  };
+
+  const hasResultDuplicatedId = (resultCategory: EditorResultCategory) => {
+    if (resultCategory.results === undefined) {
       return false;
     }
-    return errorInformation.hasError || errorInformation.hasDuplicatedId;
-  };
+    let isDuplicate = false;
+    for (const result of resultCategory.results) {
+      if (duplicatedIds.indexOf(result.id) > -1) {
+        isDuplicate = true;
+        break;
+      }
+    }
+    return isDuplicate;
+  }
 
   return (
     <>
@@ -217,7 +236,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.text} />
-                  {hasError(formErrors.questions[index]) ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.questions[index], item.id) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>
@@ -248,7 +267,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
-                  {hasError(formErrors.resultCategories[index]) ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.resultCategories[index], item.id) || hasResultDuplicatedId(item) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>
@@ -276,7 +295,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
-                  {hasError(formErrors.variables[index]) ? <WarningIcon color={"error"} /> : null}
+                  {hasError(formErrors.variables[index], item.id) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>

@@ -6,8 +6,8 @@ import { convertStringToLogicExpression } from "../../converters";
 import {
   editQuestion,
   questionInEditorSelector,
-  questionsSelector,
   setDuplicatedIdInformation,
+  duplicatedIdsSelector,
 } from "../../../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
@@ -44,7 +44,7 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
-  const questions = useSelector((state: RootState) => questionsSelector(state));
+  const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
   useEffect(() => {
     dispatch(setDuplicatedIdInformation({ section: SectionType.QUESTIONS }));
@@ -61,7 +61,7 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
     } catch (error) {
       errors.enableWhenExpressionString.addError(error.message);
     }
-    if (questions.filter((it) => it.id === formData.id).length > 1) {
+    if (duplicatedIds.indexOf(formData.id) > -1) {
       errors.id.addError("Value of ID is duplicated");
     }
   };
