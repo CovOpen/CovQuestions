@@ -126,21 +126,21 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     })
     .addCase(addNewQuestion, (state) => {
       state.questionnaire.questions.push({
-        id: "newQuestionId",
+        id: "new_question_id",
         text: "new question",
         type: "boolean",
       });
     })
     .addCase(addNewResultCategory, (state) => {
       state.questionnaire.resultCategories.push({
-        id: "newResultCategoryId",
+        id: "new_result_category_id",
         description: "",
         results: [],
       });
     })
     .addCase(addNewVariable, (state) => {
       state.questionnaire.variables.push({
-        id: "newVariableId",
+        id: "new_variable_id",
         expression: "",
       });
     })
