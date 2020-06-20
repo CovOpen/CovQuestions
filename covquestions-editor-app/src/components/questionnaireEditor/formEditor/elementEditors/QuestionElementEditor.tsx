@@ -1,18 +1,16 @@
 import { EditorAnyQuestion } from "../../../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "../schemas/question.json";
-import React, { useEffect } from "react";
+import React from "react";
 import { convertStringToLogicExpression } from "../../converters";
 import {
   editQuestion,
   questionInEditorSelector,
-  setDuplicatedIdInformation,
   duplicatedIdsSelector,
 } from "../../../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
-import { SectionType } from "../../QuestionnaireFormEditor";
 
 export type QuestionInStringRepresentation = Omit<EditorAnyQuestion, "enableWhenExpression"> & {
   enableWhenExpression: string;
@@ -46,13 +44,8 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
   const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
-  useEffect(() => {
-    dispatch(setDuplicatedIdInformation({ section: SectionType.QUESTIONS }));
-  }, [question, dispatch]);
-
-  const onChange = (formData: QuestionInStringRepresentation, hasErrors: boolean) => {
+   const onChange = (formData: QuestionInStringRepresentation, hasErrors: boolean) => {
     dispatch(editQuestion({ index: props.index, changedQuestion: formData, hasErrors: hasErrors }));
-    dispatch(setDuplicatedIdInformation({ section: SectionType.QUESTIONS }));
   };
 
   const validate = (formData: QuestionInStringRepresentation, errors: any) => {

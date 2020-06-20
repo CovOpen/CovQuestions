@@ -63,10 +63,6 @@ export const editTestCase = createAction<{
   hasErrors: boolean;
 }>("editTestCase");
 
-export const setDuplicatedIdInformation = createAction<{
-  section: SectionType.QUESTIONS | SectionType.RESULT_CATEGORIES | SectionType.VARIABLES;
-}>("setDuplicatedIdInformation");
-
 export type QuestionnaireWrapper = {
   questionnaire: EditorQuestionnaire;
   errors: {
