@@ -84,6 +84,11 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
 
   const uiSchema = {
     "ui:order": ["description", "*"],
+    "options": {
+      "strictResults": {
+        "ui:help": "If false (default), the provided results have to appear after the questionnaire execution, additional results are allowed. If set, exactly the provided results have to appear."
+      }
+    }
   };
 
   const onResultItemChange: OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => {
@@ -189,7 +194,7 @@ const OneItemRow: React.FC<{
         <Typography component={"span"}>{props.label}</Typography>
       </TableCell>
       <TableCell key={"value"}>
-        <QuestionFormComponent onChange={props.onChange} currentQuestion={props.item} value={props.value} />
+        <QuestionFormComponent onChange={props.onChange} currentQuestion={props.item} value={props.value}/>
       </TableCell>
       <TableCell key={"deleteButton"}>
         <Button onClick={props.onDelete}>Delete</Button>
@@ -256,7 +261,7 @@ const AnswerOrResultEditor: React.FC<{
         </Table>
       </TableContainer>
       {unusedItemIds.length > 0 ? (
-        <DropDownInput id={"newItem"} onChange={onItemAdd} availableItems={unusedItemIds} label={"Add item"} />
+        <DropDownInput id={"newItem"} onChange={onItemAdd} availableItems={unusedItemIds} label={"Add item"}/>
       ) : null}
     </>
   );
