@@ -3,11 +3,7 @@ import { ElementEditor } from "./ElementEditor";
 import questionSchema from "../schemas/question.json";
 import React from "react";
 import { convertStringToLogicExpression } from "../../converters";
-import {
-  editQuestion,
-  questionInEditorSelector,
-  duplicatedIdsSelector,
-} from "../../../../store/questionnaireInEditor";
+import { editQuestion, questionInEditorSelector, duplicatedIdsSelector } from "../../../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
@@ -44,7 +40,7 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const question = useSelector((state: RootState) => questionInEditorSelector(state, props));
   const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
-   const onChange = (formData: QuestionInStringRepresentation, hasErrors: boolean) => {
+  const onChange = (formData: QuestionInStringRepresentation, hasErrors: boolean) => {
     dispatch(editQuestion({ index: props.index, changedQuestion: formData, hasErrors: hasErrors }));
   };
 
