@@ -1,5 +1,8 @@
 name: API/v1 - CI
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
@@ -44,6 +47,7 @@ jobs:
           path: api/v1/dist
      
       - name: Deploy 🚀
+        if: github.ref == 'refs/heads/master'
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
