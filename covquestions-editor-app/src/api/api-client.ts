@@ -8,8 +8,8 @@ export async function getAllQuestionnaires(): Promise<QuestionnaireBaseData[]> {
   let url = rootUrl + "/questionnaires";
   if (process.env.NODE_ENV !== "production") {
     url += ".json";
-  }else{
-    url += urlSuffix
+  } else {
+    url += urlSuffix;
   }
   let response = await fetch(url);
   if (response.ok) {
