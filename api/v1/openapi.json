@@ -16,7 +16,7 @@
   },
   "servers": [
     {
-      "url": "https://v1.covquestions.aquiver.de",
+      "url": "https://covopen.github.io/CovQuestions",
       "description": "Test"
     },
     {
@@ -39,7 +39,7 @@
     }
   ],
   "paths": {
-    "/questionnaires/{id}/{version}/{lang}": {
+    "/questionnaires/{id}/{version}/{lang}.json": {
       "get": {
         "summary": "Get specific Questionnaire",
         "operationId": "get-views-questionnaires-id-version-lang",
@@ -92,7 +92,7 @@
         }
       ]
     },
-    "/questions": {
+    "/questions.json": {
       "get": {
         "summary": "List Questions",
         "responses": {
@@ -118,7 +118,7 @@
       },
       "parameters": []
     },
-    "/questionnaires/{id}/translations/{lang}": {
+    "/questionnaires/{id}/translations/{lang}.json": {
       "parameters": [
         {
           "schema": {
@@ -165,7 +165,7 @@
         ]
       }
     },
-    "/questionnaires": {
+    "/questionnaires.json": {
       "get": {
         "summary": "List Questionnaires",
         "tags": [
@@ -205,7 +205,7 @@
       },
       "parameters": []
     },
-    "/questionnaires/{id}/latest": {
+    "/questionnaires/{id}/latest.json": {
       "get": {
         "summary": "Get specific Questionnaire",
         "operationId": "get-views-questionnaires-id-latest",
