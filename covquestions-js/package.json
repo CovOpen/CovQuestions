@@ -5,13 +5,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p . && cp package.json dist/",
+    "build": "tsc -p . && copyfiles package.json dist/",
     "test": "jest"
   },
   "author": "Emanuel Jöbstl <emanuel.joebstl@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "json-logic-js": "^1.2.2"
+    "json-logic-js": "^1.2.2",
+    "copyfiles": "^2.2.0"
   },
   "devDependencies": {
     "@types/jest": "^25.2.2",
