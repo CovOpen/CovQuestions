@@ -7,11 +7,16 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "installCovQuestions": "(cd ../covquestions-js && npm install && npm run build) && npm install $(npm pack ../covquestions-js | tail -1)"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.11.0",
+    "covquestions-js": "file:covquestions-js-0.0.1.tgz",
     "react": "16.13.1",
-    "react-native": "0.63.2"
+    "react-native": "0.63.2",
+    "react-native-paper": "^4.0.1",
+    "react-native-vector-icons": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

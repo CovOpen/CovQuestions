@@ -8,104 +8,118 @@
  * @format
  */
 
-import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-declare const global: {HermesInternal: null | {}};
+import React, { useEffect, useState } from 'react';
+import { Button, SafeAreaView, Text, View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { startQuestionnaire } from './src/assets/startQuestionnaire';
+import { repeatedQuestionnaire } from './src/assets/repeatedQuestionnaire';
+import { QuestionnaireExecution } from "./src/components/QuestionnaireExecution";
+import { styles } from "./App.styles";
 
 const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
+  const [initialized, setInitialized] = useState(false);
+  const [profile, setProfile] = useState<any>({});
+  const [runQuestionnaire, setRunQuestionnaire] = useState(false);
+
+  useEffect(() => {
+    const doAsync = async () => {
+      try {
+        const p = await AsyncStorage.getItem('profile');
+        setProfile(JSON.parse(p ?? '{}'));
+        setInitialized(true);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    doAsync().then();
+  }, []);
+
+  const onInitialSetupFinished = async (data: any) => {
+    let newProfile = {...data, setup: true};
+    try {
+      await AsyncStorage.setItem('profile', JSON.stringify(newProfile));
+    } catch (e) {
+      console.log(e);
+    }
+    setProfile(newProfile);
+  };
+
+  const clearProfile = async () => {
+    try {
+      await AsyncStorage.removeItem('profile');
+      setProfile({});
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  if (!initialized) {
+    return <></>;
+  }
+
+  if (!profile.setup) {
+    return (
+      <>
+        <SafeAreaView>
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits.
-              </Text>
+              <Text style={styles.appTitle}>Initiales Setup</Text>
+              <QuestionnaireExecution
+                currentQuestionnaire={startQuestionnaire}
+                onFinishClick={onInitialSetupFinished}
+                showRestartButton={false}
+              />
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
           </View>
-        </ScrollView>
+        </SafeAreaView>
+      </>
+    );
+  }
+
+  if (!runQuestionnaire) {
+    return (
+      <>
+        <SafeAreaView>
+          <View style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.appTitle}>Tolle App</Text>
+              <View style={styles.body}>
+                <View style={styles.button}>
+                  <Button
+                    title={'Tägliche Befragung starten'}
+                    onPress={() => setRunQuestionnaire(true)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Button
+                    title={'Profil löschen'}
+                    onPress={clearProfile}
+                    color={'#f3837a'}
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+        </SafeAreaView>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <SafeAreaView>
+        <View style={styles.body}>
+          <View style={styles.sectionContainer}>
+            <QuestionnaireExecution
+              currentQuestionnaire={repeatedQuestionnaire}
+              onFinishClick={() => setRunQuestionnaire(false)}
+              showRestartButton={false}
+            />
+          </View>
+        </View>
       </SafeAreaView>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;
