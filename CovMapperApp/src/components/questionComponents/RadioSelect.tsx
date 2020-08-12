@@ -3,7 +3,7 @@ import { QuestionFormComponentProps } from './QuestionFormComponent';
 import { Option } from 'covquestions-js/models/Questionnaire.generated';
 
 import { RadioButton } from 'react-native-paper';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   question: {
@@ -12,12 +12,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000000',
   },
-  answerOptions: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: 'rgba(0,0,0,0.97)',
-  },
 });
 
 export const RadioSelect: React.FC<QuestionFormComponentProps> = ({
@@ -25,30 +19,20 @@ export const RadioSelect: React.FC<QuestionFormComponentProps> = ({
   onChange,
   value,
 }) => {
-  const handleChange = (value: any) => {
-    if (currentQuestion.type === 'boolean') {
-      onChange(value === 'true');
-    } else {
-      onChange(value);
-    }
-  };
-
-  const options: Option[] = currentQuestion.options ?? [
-    {value: 'true', text: 'yes'},
-    {value: 'false', text: 'no'},
-  ];
+  const options: Option[] = currentQuestion.options ?? [];
 
   return (
-    <RadioButton.Group onValueChange={handleChange} value={value}>
-      <View>
-        <Text style={styles.question}>{currentQuestion.text}</Text>
-      </View>
-      {options.map((answer) => (
-        <View key={answer.value} style={{flexDirection: 'row'}}>
-          <RadioButton value={answer.value} />
-          <Text style={styles.answerOptions}>{answer.text}</Text>
-        </View>
-      ))}
-    </RadioButton.Group>
+    <>
+      <Text style={styles.question}>{currentQuestion.text}</Text>
+      <RadioButton.Group onValueChange={onChange} value={value}>
+        {options.map((answer) => (
+          <RadioButton.Item
+            key={answer.value}
+            value={answer.value}
+            label={answer.text}
+          />
+        ))}
+      </RadioButton.Group>
+    </>
   );
 };

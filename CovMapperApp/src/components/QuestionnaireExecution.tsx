@@ -5,7 +5,7 @@ import { Questionnaire } from 'covquestions-js/models/Questionnaire.generated';
 import { Question, QuestionnaireEngine, Result, } from 'covquestions-js/questionnaireEngine';
 import { Primitive } from 'covquestions-js/primitive';
 import { Button, Text, View } from 'react-native';
-import { styles } from "../../App.styles";
+import { styles } from '../../App.styles';
 
 type QuestionnaireExecutionProps = {
   currentQuestionnaire: Questionnaire;

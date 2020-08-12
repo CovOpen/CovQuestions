@@ -9,12 +9,13 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Button, SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { startQuestionnaire } from './src/assets/startQuestionnaire';
 import { repeatedQuestionnaire } from './src/assets/repeatedQuestionnaire';
-import { QuestionnaireExecution } from "./src/components/QuestionnaireExecution";
-import { styles } from "./App.styles";
+import { QuestionnaireExecution } from './src/components/QuestionnaireExecution';
+import { styles } from './App.styles';
+import { InitialSetup } from './src/components/InitialSetup';
+import { HomePage } from './src/components/HomePage';
 
 const App = () => {
   const [initialized, setInitialized] = useState(false);
@@ -57,68 +58,35 @@ const App = () => {
     return <></>;
   }
 
-  if (!profile.setup) {
-    return (
-      <>
-        <SafeAreaView>
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.appTitle}>Initiales Setup</Text>
-              <QuestionnaireExecution
-                currentQuestionnaire={startQuestionnaire}
-                onFinishClick={onInitialSetupFinished}
-                showRestartButton={false}
-              />
-            </View>
-          </View>
-        </SafeAreaView>
-      </>
-    );
-  }
+  const renderMainComponent = () => {
+    if (!profile.setup) {
+      return <InitialSetup onFinishClick={onInitialSetupFinished} />;
+    }
 
-  if (!runQuestionnaire) {
+    if (runQuestionnaire) {
+      return (
+        <QuestionnaireExecution
+          currentQuestionnaire={repeatedQuestionnaire}
+          onFinishClick={() => setRunQuestionnaire(false)}
+          showRestartButton={false}
+        />
+      );
+    }
+
     return (
-      <>
-        <SafeAreaView>
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.appTitle}>Tolle App</Text>
-              <View style={styles.body}>
-                <View style={styles.button}>
-                  <Button
-                    title={'Tägliche Befragung starten'}
-                    onPress={() => setRunQuestionnaire(true)}
-                  />
-                </View>
-                <View style={styles.button}>
-                  <Button
-                    title={'Profil löschen'}
-                    onPress={clearProfile}
-                    color={'#f3837a'}
-                  />
-                </View>
-              </View>
-            </View>
-          </View>
-        </SafeAreaView>
-      </>
+      <HomePage
+        startDailyQuestionnaire={() => setRunQuestionnaire(true)}
+        deleteProfile={clearProfile}
+      />
     );
-  }
+  };
 
   return (
-    <>
-      <SafeAreaView>
-        <View style={styles.body}>
-          <View style={styles.sectionContainer}>
-            <QuestionnaireExecution
-              currentQuestionnaire={repeatedQuestionnaire}
-              onFinishClick={() => setRunQuestionnaire(false)}
-              showRestartButton={false}
-            />
-          </View>
-        </View>
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      <View style={styles.body}>
+        <View style={styles.sectionContainer}>{renderMainComponent()}</View>
+      </View>
+    </SafeAreaView>
   );
 };
 

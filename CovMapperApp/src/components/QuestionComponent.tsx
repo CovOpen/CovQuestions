@@ -3,7 +3,7 @@ import { QuestionFormComponent } from './questionComponents/QuestionFormComponen
 import { Question } from 'covquestions-js/questionnaireEngine';
 import { Primitive } from 'covquestions-js/primitive';
 import { Button, View } from 'react-native';
-import { styles } from "../../App.styles";
+import { styles } from '../../App.styles';
 
 type QuestionComponentProps = {
   currentQuestion: Question;

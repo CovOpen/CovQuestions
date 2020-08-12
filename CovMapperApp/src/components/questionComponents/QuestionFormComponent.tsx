@@ -40,7 +40,7 @@ export const QuestionFormComponent: React.FC<QuestionFormComponentProps> = ({
     case 'date':
     case 'number':
     case 'text':
-      console.log("Not implemented yet");
+      console.log('Not implemented yet');
       return null;
     default:
       exhaustiveCheck(currentQuestion.type);
