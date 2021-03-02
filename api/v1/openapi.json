@@ -529,8 +529,7 @@
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
-            "maxItems": 2,
-            "minItems": 2,
+            "minItems": 1,
             "type": "array"
           }
         },
@@ -585,6 +584,8 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
+                "maxItems": 1,
+                "minItems": 1,
                 "type": "array"
               }
             ]
@@ -619,7 +620,6 @@
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
-            "maxItems": 2,
             "minItems": 2,
             "type": "array"
           }
@@ -653,6 +653,7 @@
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
+            "minItems": 1,
             "type": "array"
           }
         },
@@ -668,6 +669,7 @@
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
+            "minItems": 1,
             "type": "array"
           }
         },
@@ -1516,6 +1518,7 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
+                "minItems": 1,
                 "type": "array"
               }
             },
@@ -1709,6 +1712,8 @@
                     "items": {
                       "$ref": "#/components/schemas/LogicExpression"
                     },
+                    "maxItems": 1,
+                    "minItems": 1,
                     "type": "array"
                   }
                 ]
@@ -1772,6 +1777,7 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
+                "minItems": 1,
                 "type": "array"
               }
             },
@@ -1787,7 +1793,6 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
-                "maxItems": 2,
                 "minItems": 2,
                 "type": "array"
               }
@@ -1821,8 +1826,7 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
-                "maxItems": 2,
-                "minItems": 2,
+                "minItems": 1,
                 "type": "array"
               }
             },

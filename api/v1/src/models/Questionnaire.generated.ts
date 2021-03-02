@@ -346,7 +346,7 @@ export interface LogicReduce {
   reduce: [LogicExpression, LogicExpression, LogicExpression];
 }
 export interface LogicSome {
-  some: [LogicExpression, LogicExpression];
+  some: [LogicExpression, ...LogicExpression[]];
 }
 export interface LogicEquals {
   "==": [LogicExpression, LogicExpression];
@@ -355,22 +355,22 @@ export interface LogicGreaterEqual {
   ">=": [LogicExpression, LogicExpression];
 }
 export interface LogicNot {
-  "!": LogicExpression | LogicExpression[];
+  "!": LogicExpression | [LogicExpression];
 }
 export interface LogicLessEqual {
   "<=": [LogicExpression, LogicExpression];
 }
 export interface LogicPlus {
-  "+": [LogicExpression, LogicExpression];
+  "+": [LogicExpression, LogicExpression, ...LogicExpression[]];
 }
 export interface LogicMinus {
   "-": [LogicExpression, LogicExpression];
 }
 export interface LogicAnd {
-  and: LogicExpression[];
+  and: [LogicExpression, ...LogicExpression[]];
 }
 export interface LogicOr {
-  or: LogicExpression[];
+  or: [LogicExpression, ...LogicExpression[]];
 }
 export interface LogicIn {
   in: [LogicExpression | LogicExpression[], LogicExpression | LogicExpression[]];

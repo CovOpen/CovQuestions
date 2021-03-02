@@ -361,6 +361,7 @@
           "items": {
             "$ref": "#/x-definitions/LogicExpression"
           },
+          "minItems": 1,
           "type": "array"
         }
       },
@@ -536,6 +537,8 @@
               "items": {
                 "$ref": "#/x-definitions/LogicExpression"
               },
+              "maxItems": 1,
+              "minItems": 1,
               "type": "array"
             }
           ]
@@ -597,6 +600,7 @@
           "items": {
             "$ref": "#/x-definitions/LogicExpression"
           },
+          "minItems": 1,
           "type": "array"
         }
       },
@@ -610,7 +614,6 @@
           "items": {
             "$ref": "#/x-definitions/LogicExpression"
           },
-          "maxItems": 2,
           "minItems": 2,
           "type": "array"
         }
@@ -640,8 +643,7 @@
           "items": {
             "$ref": "#/x-definitions/LogicExpression"
           },
-          "maxItems": 2,
-          "minItems": 2,
+          "minItems": 1,
           "type": "array"
         }
       },
