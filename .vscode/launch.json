@@ -52,7 +52,10 @@
       "request": "launch",
       "name": "Jest Test",
       "program": "${workspaceFolder}\\api\\v1\\node_modules\\jest\\bin\\jest",
-      "args": ["--runInBand", "--config=${workspaceFolder}\\api\\v1\\jest.config.js"],
+      "args": [
+        "--runInBand",
+        "--config=${workspaceFolder}\\api\\v1\\jest.config.js"
+      ],
       "cwd": "${workspaceRoot}\\api\\v1",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
