@@ -16,7 +16,7 @@ describe("Restart test", () => {
     await t.clickNext();
 
     const nextButton = await t.nextButton();
-    expect(nextButton).toBeDisabled();
+    expect(nextButton.parentElement).toBeDisabled();
 
     await t.clickOnAnswer("weiblich");
     await t.clickNext();

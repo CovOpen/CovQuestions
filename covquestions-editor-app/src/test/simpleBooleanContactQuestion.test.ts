@@ -29,7 +29,7 @@ describe("Simple boolean contact question", () => {
     await t.clickNext();
 
     const nextButton = await t.nextButton();
-    expect(nextButton).toBeDisabled();
+    expect(nextButton.parentElement).toBeDisabled();
 
     await t.clickOnAnswer("no");
     await t.clickNext();
