@@ -157,7 +157,7 @@
           "type": "string"
         },
         "scores": {
-          "description": "Array of score values for different score ids",
+          "title": "Scores",
           "type": "object",
           "additionalProperties": {
             "type": "number"

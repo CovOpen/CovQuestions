@@ -1,9 +1,5 @@
 import { Question, QuestionnaireEngine, Result } from "../questionnaireEngine";
-import {
-  Option,
-  Questionnaire,
-  TestCase,
-} from "../models/Questionnaire.generated";
+import { Option, Questionnaire, TestCase, } from "../models/Questionnaire.generated";
 
 type TestResultSuccess = {
   description: string;

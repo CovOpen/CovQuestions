@@ -402,12 +402,10 @@ export interface Option {
    * Value used for evaluating logic expressions.
    */
   value: string;
-  /**
-   * Array of score values for different score ids
-   */
-  scores?: {
-    [k: string]: number;
-  };
+  scores?: Scores;
+}
+export interface Scores {
+  [k: string]: number;
 }
 /**
  * Option for numeric questions.

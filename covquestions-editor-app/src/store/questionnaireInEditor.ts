@@ -1,18 +1,17 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { LogicExpression } from "covquestions-js/models/Questionnaire.generated";
+import { LogicExpression, TestCase } from "covquestions-js";
 import { RootState } from "./store";
 import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../models/editorQuestionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
   convertStringToLogicExpression,
-  removeStringRepresentationFromQuestionnaire,
   moveRootPropertiesToQuestionnaire,
+  removeStringRepresentationFromQuestionnaire,
 } from "../components/questionnaireEditor/converters";
 import { QuestionInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/QuestionElementEditor";
 import { ResultCategoryInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/ResultCategoryElementEditor";
 import { VariableInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/VariableElementEditor";
-import { TestCase } from "covquestions-js/models/Questionnaire.generated";
 
 type ArraySection =
   | SectionType.QUESTIONS
