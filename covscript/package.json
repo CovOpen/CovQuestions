@@ -19,7 +19,7 @@
     "typescript": "^3.8.3",
     "@types/node": "^13.13.4",
     "ts-jest": "^25.4.0",
-    "json-logic-js": "^1.2.2"
+    "json-logic-js": "^2.0.0"
   },
   "types": "dist/index.d.ts",
   "main": "dist/index.js"
