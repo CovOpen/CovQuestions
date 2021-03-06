@@ -23,7 +23,7 @@
     "copyfiles": "^2.2.0",
     "fast-deep-equal": "^3.1.1",
     "jest-date-mock": "^1.0.8",
-    "json-logic-js": "^1.2.2",
+    "json-logic-js": "^2.0.0",
     "json-schema": "^0.2.5",
     "jsoneditor": "^8.6.5",
     "jsoneditor-react": "^3.0.0",
