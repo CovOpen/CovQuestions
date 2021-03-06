@@ -106,7 +106,8 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const classes = useStyles();
 
-  const [activeItem, setActiveItem] = useState<ActiveItem>({ section: SectionType.META, index: 0 });
+  const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({ section: SectionType.META, index: 0 });
+  const [futureActiveItem, setFutureActiveItem] = useState<ActiveItem | undefined>(undefined);
   const [showSnackbar, setShowSnackbar] = React.useState(false);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -117,51 +118,49 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     setShowSnackbar(false);
   };
 
-  const style = `
-    .rjsf > .MuiFormControl-root {
-      height: calc(100vh - ${
-        isNonArraySection(activeItem.section) ? props.heightWithoutEditor : props.heightWithoutEditor + 48
-      }px);
-      overflow-x: hidden !important;
-      overflow-x: auto;
-    }
-    .rjsf .MuiGrid-item {
-      padding: 0px 8px 0px 8px;
-    }
-    .rjsf .MuiButton-textSecondary {
-      color: rgba(0, 0, 0, 0.87);
-    }
-    .rjsf .MuiPaper-root {
-      background: #F7FAFC;
-    }
-    `;
+  // enforce the re-rendering of the form editor by first unmounting it and then remounting it
+  const changeActiveItem = (futureItem: ActiveItem) => {
+    setActiveItem(undefined);
+    setFutureActiveItem(futureItem);
+  }
 
   useEffect(() => {
-    if (isNonArraySection(activeItem.section)) {
+    if (futureActiveItem !== undefined) {
+      setActiveItem(futureActiveItem);
+      setFutureActiveItem(undefined);
+    }
+  }, [futureActiveItem, setActiveItem])
+
+  useEffect(() => {
+    if (activeItem === undefined || isNonArraySection(activeItem.section)) {
       return;
     }
 
     const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section]?.length;
     if (lengthOfActiveSection === undefined || lengthOfActiveSection === 0) {
-      setActiveItem({ section: SectionType.META, index: 0 });
+      changeActiveItem({ section: SectionType.META, index: 0 });
       return;
     }
     if (activeItem.index >= lengthOfActiveSection) {
-      setActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
+      changeActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
     }
   }, [activeItem, questionnaireInEditor]);
+
+  if (activeItem === undefined) {
+    return null;
+  }
 
   const handleMoveUp = () => {
     if (!isNonArraySection(activeItem.section)) {
       dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index - 1 }));
-      setActiveItem({ section: activeItem.section, index: activeItem.index - 1 });
+      changeActiveItem({ section: activeItem.section, index: activeItem.index - 1 });
     }
   };
 
   const handleMoveDown = () => {
     if (!isNonArraySection(activeItem.section)) {
       dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index }));
-      setActiveItem({ section: activeItem.section, index: activeItem.index + 1 });
+      changeActiveItem({ section: activeItem.section, index: activeItem.index + 1 });
     }
   };
 
@@ -176,8 +175,27 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
       setShowSnackbar(true);
       return;
     }
-    setActiveItem({ section, index });
+    changeActiveItem({ section, index });
   };
+
+  const style = `
+    .rjsf > .MuiFormControl-root {
+      height: calc(100vh - ${
+    isNonArraySection(activeItem.section) ? props.heightWithoutEditor : props.heightWithoutEditor + 48
+  }px);
+      overflow-x: hidden !important;
+      overflow-x: auto;
+    }
+    .rjsf .MuiGrid-item {
+      padding: 0px 8px 0px 8px;
+    }
+    .rjsf .MuiButton-textSecondary {
+      color: rgba(0, 0, 0, 0.87);
+    }
+    .rjsf .MuiPaper-root {
+      background: #F7FAFC;
+    }
+    `;
 
   return (
     <>
