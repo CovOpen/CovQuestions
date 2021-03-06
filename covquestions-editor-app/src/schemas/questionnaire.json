@@ -587,6 +587,12 @@
           "$ref": "#/definitions/LogicMinus"
         },
         {
+          "$ref": "#/definitions/LogicTimes"
+        },
+        {
+          "$ref": "#/definitions/LogicDivide"
+        },
+        {
           "$ref": "#/definitions/LogicAnd"
         },
         {
@@ -629,6 +635,35 @@
       },
       "required": ["+"],
       "title": "LogicPlus",
+      "type": "object"
+    },
+    "LogicTimes": {
+      "properties": {
+        "*": {
+          "items": {
+            "$ref": "#/definitions/LogicExpression"
+          },
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": ["*"],
+      "title": "LogicTimes",
+      "type": "object"
+    },
+    "LogicDivide": {
+      "properties": {
+        "/": {
+          "items": {
+            "$ref": "#/definitions/LogicExpression"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "type": "array"
+        }
+      },
+      "required": ["/"],
+      "title": "LogicDivide",
       "type": "object"
     },
     "LogicReduce": {

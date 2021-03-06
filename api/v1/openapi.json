@@ -647,6 +647,39 @@
         "title": "LogicMinus",
         "type": "object"
       },
+      "LogicTimes": {
+        "properties": {
+          "*": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "*"
+        ],
+        "title": "LogicTimes",
+        "type": "object"
+      },
+      "LogicDivide": {
+        "properties": {
+          "/": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "/"
+        ],
+        "title": "LogicDivide",
+        "type": "object"
+      },
       "LogicAnd": {
         "properties": {
           "and": {
@@ -768,6 +801,12 @@
           },
           {
             "$ref": "#/components/schemas/LogicMinus"
+          },
+          {
+            "$ref": "#/components/schemas/LogicTimes"
+          },
+          {
+            "$ref": "#/components/schemas/LogicDivide"
           },
           {
             "$ref": "#/components/schemas/LogicAnd"
@@ -1769,6 +1808,12 @@
                 "$ref": "#/components/schemas/LogicMinus"
               },
               {
+                "$ref": "#/components/schemas/LogicTimes"
+              },
+              {
+                "$ref": "#/components/schemas/LogicDivide"
+              },
+              {
                 "$ref": "#/components/schemas/LogicAnd"
               },
               {
@@ -1815,6 +1860,39 @@
               "+"
             ],
             "title": "LogicPlus",
+            "type": "object"
+          },
+          "LogicTimes": {
+            "properties": {
+              "*": {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "*"
+            ],
+            "title": "LogicTimes",
+            "type": "object"
+          },
+          "LogicDivide": {
+            "properties": {
+              "/": {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "minItems": 2,
+                "maxItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "/"
+            ],
+            "title": "LogicDivide",
             "type": "object"
           },
           "LogicReduce": {

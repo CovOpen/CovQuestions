@@ -221,6 +221,8 @@ export type LogicOperator =
   | LogicLessEqual
   | LogicPlus
   | LogicMinus
+  | LogicTimes
+  | LogicDivide
   | LogicAnd
   | LogicOr
   | LogicIn
@@ -365,6 +367,12 @@ export interface LogicPlus {
 }
 export interface LogicMinus {
   "-": [LogicExpression, LogicExpression];
+}
+export interface LogicTimes {
+  "*": [LogicExpression, LogicExpression, ...LogicExpression[]];
+}
+export interface LogicDivide {
+  "/": [LogicExpression, LogicExpression];
 }
 export interface LogicAnd {
   and: [LogicExpression, ...LogicExpression[]];
