@@ -1,8 +1,8 @@
-import { CovscriptToJsonLogicConverter } from '../src';
-import { LogicExpression } from '@covopen/covquestions-js';
-import { inspect } from 'util';
-import { CovscriptGenerator } from '../src/generator';
-import * as jsonLogic from 'json-logic-js';
+import { CovscriptToJsonLogicConverter } from "../src";
+import { LogicExpression } from "@covopen/covquestions-js";
+import { inspect } from "util";
+import { CovscriptGenerator } from "../src/generator";
+import * as jsonLogic from "json-logic-js";
 
 const parser = new CovscriptToJsonLogicConverter();
 const generator = new CovscriptGenerator();
@@ -11,7 +11,7 @@ const generator = new CovscriptGenerator();
  * Assert equal expression after parsing.
  */
 export function expectEx(text: string, logic: LogicExpression | null | any) {
-  test(`Parse ${text.replace(/\s+/g, ' ')} correctly`, () => {
+  test(`Parse ${text.replace(/\s+/g, " ")} correctly`, () => {
     const parsed = parser.parse(text);
 
     if (logic === null) {
@@ -49,7 +49,11 @@ export function expectGen(logic: LogicExpression | any, text: string | null) {
  * parser is a bit flexible.
  * @param allowDifferentRepresentation Allows different JSON Logic representations, which can arise due to precedence rules. Does not check for equivalence.
  */
-export function expectE2E(input: string, text: string | null, allowDifferentRepresentation: boolean = false) {
+export function expectE2E(
+  input: string,
+  text: string | null,
+  allowDifferentRepresentation: boolean = false
+) {
   test(`Parse ${input} and render to ${text} consistently (end to end)`, () => {
     const parsed = parser.parse(input);
     const rendered = generator.generate(parsed);
