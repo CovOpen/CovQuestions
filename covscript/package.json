@@ -4,14 +4,13 @@
   "description": "Converts simple logic expressions to JSON logic and back",
   "scripts": {
     "test": "npx jest --runInBand",
-    "build": "tsc -p . && copyfiles package.json dist/",
-    "installAndLink": "(cd ../covquestions-js && npm install && npm run build) && npm install && npm link ../covquestions-js/dist"
+    "build": "tsc",
+    "installAndLink": "(cd ../covquestions-js && npm install && npm run build) && npm install && npm link ../covquestions-js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chevrotain": "^7.0.1",
-    "copyfiles": "^2.2.0"
+    "chevrotain": "^7.0.1"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
