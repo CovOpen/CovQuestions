@@ -24,7 +24,7 @@
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
     "test": "openapi validate",
     "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi",
-    "update-files": "npm run build && npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts && npm run copy-openapi",
+    "update-files": "npm run build && npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts && npm run copy-openapi && npm run format",
     "generateTypes": "ts-node scripts/generateTypes.ts && ts-node scripts/copyGeneratedTypes.ts",
     "copy-openapi": "copyfiles -f ./dist/openapi.json ./api/v1/"
   }
