@@ -1,26 +1,12 @@
-import { CstNode, IToken } from "chevrotain";
-import * as T from "./tokens";
-import { LogicExpression } from "covquestions-js";
+import { CstNode, IToken } from 'chevrotain';
+import * as T from './tokens';
+import { LogicExpression } from '@covopen/covquestions-js';
 
-type BinaryOperator =
-  | "in"
-  | "or"
-  | "and"
-  | "-"
-  | "+"
-  | "*"
-  | "/"
-  | "=="
-  | ">="
-  | "<="
-  | "!="
-  | "<"
-  | ">"
-  | "%";
-type UnaryOperator = "!";
+type BinaryOperator = 'in' | 'or' | 'and' | '-' | '+' | '*' | '/' | '==' | '>=' | '<=' | '!=' | '<' | '>' | '%';
+type UnaryOperator = '!';
 
 function isAssoicative(op: BinaryOperator | UnaryOperator) {
-  return op === "and" || op === "or" || op === "+" || op === "*";
+  return op === 'and' || op === 'or' || op === '+' || op === '*';
 }
 
 export class ToJsonLogicTransformer {
@@ -55,9 +41,7 @@ export class ToJsonLogicTransformer {
     const key = Object.keys(cst.children);
     const children = cst.children[key[0]];
     if (key.length > 1 || children.length > 1) {
-      throw new Error(
-        "CST node had more than one children. This is an internal error."
-      );
+      throw new Error('CST node had more than one children. This is an internal error.');
     }
 
     return this.parseTokenOrNode(children[0]);
@@ -68,7 +52,7 @@ export class ToJsonLogicTransformer {
    * @param child
    */
   private parseTokenOrNode(child: CstNode | IToken) {
-    if (child["name"] !== undefined) {
+    if (child['name'] !== undefined) {
       return this.toLogic(child as CstNode);
     } else {
       return this.tokenToLogic(child as IToken);
@@ -122,29 +106,25 @@ export class ToJsonLogicTransformer {
    * @param cst The expression node.
    */
   private binaryToLogic(cst: CstNode): LogicExpression {
-    const lhs = cst.children["lhs"] as CstNode[];
-    const rhs = cst.children["rhs"] as CstNode[];
+    const lhs = cst.children['lhs'] as CstNode[];
+    const rhs = cst.children['rhs'] as CstNode[];
 
     if (lhs.length !== 1) {
-      throw new Error(
-        "Left hand side of binary expression needs to have length one."
-      );
+      throw new Error('Left hand side of binary expression needs to have length one.');
     }
 
     if (rhs === undefined || rhs.length === 0) {
       // This was just a dummy node.
       return this.unwrap(cst);
     } else {
-      const operator = cst.children["operator"] as IToken[];
+      const operator = cst.children['operator'] as IToken[];
 
       if (operator === undefined) {
-        throw new Error("Operator for binary expression was undefined.");
+        throw new Error('Operator for binary expression was undefined.');
       }
 
       if (operator.length !== rhs.length + lhs.length - 1) {
-        throw new Error(
-          "Incorrect count of operators for binary expression list."
-        );
+        throw new Error('Incorrect count of operators for binary expression list.');
       }
 
       return this.packList([...lhs, ...rhs], operator);
@@ -157,14 +137,14 @@ export class ToJsonLogicTransformer {
    */
   private parseOperator(operator: string): UnaryOperator | BinaryOperator {
     switch (operator.toLowerCase()) {
-      case "and":
-        return "and";
-      case "or":
-        return "or";
-      case "in":
-        return "in";
-      case "÷":
-        return "/";
+      case 'and':
+        return 'and';
+      case 'or':
+        return 'or';
+      case 'in':
+        return 'in';
+      case '÷':
+        return '/';
       default:
         return operator as UnaryOperator | BinaryOperator;
     }
@@ -175,15 +155,15 @@ export class ToJsonLogicTransformer {
    * @param cst The expression node.
    */
   private unaryToLogic(cst: CstNode): LogicExpression {
-    const expression = cst.children["expression"] as CstNode[];
-    const operator = cst.children["operator"] as IToken[];
+    const expression = cst.children['expression'] as CstNode[];
+    const operator = cst.children['operator'] as IToken[];
 
     if (!expression && expression.length !== 1) {
-      throw new Error("Expected exactly one expression");
+      throw new Error('Expected exactly one expression');
     }
 
     if (!operator && operator.length !== 1) {
-      throw new Error("Expected exactly one operator");
+      throw new Error('Expected exactly one operator');
     }
 
     const op = this.parseOperator(operator[0].image);
@@ -193,21 +173,21 @@ export class ToJsonLogicTransformer {
 
     switch (op) {
       // Negation
-      case "!":
+      case '!':
         expr[op] = child;
         break;
       // Unary plus (which is a no-op)
-      case "+":
+      case '+':
         expr = child;
         break;
       // Unary minus
-      case "-":
-        if (typeof child === "number") {
+      case '-':
+        if (typeof child === 'number') {
           // Simply negate number
           expr = -child;
         } else {
           // "Hack" a unary minus by subtracting from 0.
-          expr["-"] = [0, child];
+          expr['-'] = [0, child];
         }
         break;
     }
@@ -221,10 +201,10 @@ export class ToJsonLogicTransformer {
    * @param cst The expression node.
    */
   private atomicToLogic(cst: CstNode): LogicExpression {
-    const expr = cst.children["expression"] as CstNode[];
+    const expr = cst.children['expression'] as CstNode[];
 
     if (!expr && expr.length !== 1) {
-      throw new Error("Expected exactly one expression");
+      throw new Error('Expected exactly one expression');
     }
 
     return this.toLogic(expr[0]);
@@ -235,10 +215,10 @@ export class ToJsonLogicTransformer {
    * @param cst
    */
   private arrayToLogic(cst: CstNode): LogicExpression {
-    const values = cst.children["value"];
+    const values = cst.children['value'];
 
     if (!values) {
-      throw new Error("Expected array values.");
+      throw new Error('Expected array values.');
     }
 
     // This cast is not completely legal, but our library can not do
@@ -251,18 +231,18 @@ export class ToJsonLogicTransformer {
    * @param cst
    */
   private conditionToLogic(cst: CstNode): LogicExpression {
-    const condition = cst.children["condition"];
-    const branchTrue = cst.children["branchTrue"];
-    const branchFalse = cst.children["branchFalse"];
+    const condition = cst.children['condition'];
+    const branchTrue = cst.children['branchTrue'];
+    const branchFalse = cst.children['branchFalse'];
 
     if (!condition || condition.length !== 1) {
-      throw new Error("Expected exactly one condition node.");
+      throw new Error('Expected exactly one condition node.');
     }
     if (!branchTrue || branchTrue.length !== 1) {
-      throw new Error("Expected exactly one positive branch node.");
+      throw new Error('Expected exactly one positive branch node.');
     }
     if (!branchFalse || branchFalse.length !== 1) {
-      throw new Error("Expected exactly one negative branch node.");
+      throw new Error('Expected exactly one negative branch node.');
     }
 
     return {
@@ -280,27 +260,27 @@ export class ToJsonLogicTransformer {
    */
   public toLogic(cst: CstNode): LogicExpression {
     switch (cst.name) {
-      case "expression":
+      case 'expression':
         return this.unwrap(cst);
-      case "valueInner":
+      case 'valueInner':
         return this.unwrap(cst);
-      case "logicOrExpression":
+      case 'logicOrExpression':
         return this.binaryToLogic(cst);
-      case "logicAndExpression":
+      case 'logicAndExpression':
         return this.binaryToLogic(cst);
-      case "additionExpression":
+      case 'additionExpression':
         return this.binaryToLogic(cst);
-      case "multiplicationExpression":
+      case 'multiplicationExpression':
         return this.binaryToLogic(cst);
-      case "comparisonExpression":
+      case 'comparisonExpression':
         return this.binaryToLogic(cst);
-      case "atomicExpression":
+      case 'atomicExpression':
         return this.atomicToLogic(cst);
-      case "unaryOperation":
+      case 'unaryOperation':
         return this.unaryToLogic(cst);
-      case "array":
+      case 'array':
         return this.arrayToLogic(cst);
-      case "condition":
+      case 'condition':
         return this.conditionToLogic(cst);
       default:
         throw new Error(`Unknown node type: ${cst.name}`);

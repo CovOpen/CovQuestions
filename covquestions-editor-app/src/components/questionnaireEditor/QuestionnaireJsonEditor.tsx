@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "jsoneditor-react/es/editor.min.css";
-import { Questionnaire } from "covquestions-js";
+import { Questionnaire } from "@covopen/covquestions-js";
 import "brace";
 import "brace/mode/json";
 import "brace/theme/github";

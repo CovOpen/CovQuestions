@@ -1,4 +1,4 @@
-import { ISOLanguage, Questionnaire } from "covquestions-js";
+import { ISOLanguage, Questionnaire } from "@covopen/covquestions-js";
 import { QuestionnaireBaseData } from "../models/QuestionnairesList";
 
 const rootUrl = process.env.REACT_APP_API_URL || "";

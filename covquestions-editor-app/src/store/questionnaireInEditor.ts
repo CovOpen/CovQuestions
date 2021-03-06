@@ -1,5 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { LogicExpression, TestCase } from "covquestions-js";
+import { LogicExpression, TestCase } from "@covopen/covquestions-js";
 import { RootState } from "./store";
 import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../models/editorQuestionnaire";
 import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";

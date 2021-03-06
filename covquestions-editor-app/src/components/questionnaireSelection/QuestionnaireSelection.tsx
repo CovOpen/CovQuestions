@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
-import { ISOLanguage } from "covquestions-js";
+import { ISOLanguage } from "@covopen/covquestions-js";
 import { QuestionnaireBaseData } from "../../models/QuestionnairesList";
 
 export type QuestionnaireSelection = {

@@ -1,4 +1,4 @@
-# Covscript
+# covscript
 
 This repo contains a parser and a generator for Covscript, a minimal language used for formulating Covquestions questionaires.
 
@@ -50,11 +50,11 @@ For more examples, please have a look at the unit tests.
 ## Using the Parser
 
 ```typescript
-import { CovscriptToJsonLogicConverter } from "../src";
+import { CovscriptToJsonLogicConverter } from '../src';
 
 const parser = new CovscriptToJsonLogicConverter();
 
-const res = parser.parse("1 + 2");
+const res = parser.parse('1 + 2');
 
 console.log(res); // { '+': [1, 2] }
 ```
@@ -62,11 +62,11 @@ console.log(res); // { '+': [1, 2] }
 ## Converting back to Covscript
 
 ```typescript
-import { CovscriptGenerator } from "../src/generator";
+import { CovscriptGenerator } from '../src/generator';
 
 const generator = new CovscriptGenerator();
 
-const rendered = generator.generate({ "+": [1, 2] });
+const rendered = generator.generate({ '+': [1, 2] });
 
 console.log(res); // '1 + 2'
 ```

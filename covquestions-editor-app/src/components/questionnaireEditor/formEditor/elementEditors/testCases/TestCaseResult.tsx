@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, createStyles, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { questionnaireJsonSelector } from "../../../../../store/questionnaireInEditor";
-import { runOneTestCase, TestCase, TestResult } from "covquestions-js";
+import { runOneTestCase, TestCase, TestResult } from "@covopen/covquestions-js";
 
 const useStyles = makeStyles(() =>
   createStyles({
