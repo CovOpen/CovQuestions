@@ -122,14 +122,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const changeActiveItem = (futureItem: ActiveItem) => {
     setActiveItem(undefined);
     setFutureActiveItem(futureItem);
-  }
+  };
 
   useEffect(() => {
     if (futureActiveItem !== undefined) {
       setActiveItem(futureActiveItem);
       setFutureActiveItem(undefined);
     }
-  }, [futureActiveItem, setActiveItem])
+  }, [futureActiveItem, setActiveItem]);
 
   useEffect(() => {
     if (activeItem === undefined || isNonArraySection(activeItem.section)) {
@@ -181,8 +181,8 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const style = `
     .rjsf > .MuiFormControl-root {
       height: calc(100vh - ${
-    isNonArraySection(activeItem.section) ? props.heightWithoutEditor : props.heightWithoutEditor + 48
-  }px);
+        isNonArraySection(activeItem.section) ? props.heightWithoutEditor : props.heightWithoutEditor + 48
+      }px);
       overflow-x: hidden !important;
       overflow-x: auto;
     }
