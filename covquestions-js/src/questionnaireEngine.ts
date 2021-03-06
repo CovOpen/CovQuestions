@@ -53,26 +53,31 @@ export class Question {
   }
 }
 
-type Scores = {
+type ScoreResponse = {
   [k: string]: number;
 };
+
+type OptionResponse = { [optionId: string]: boolean };
 
 type ResponseFromOptions = {
   selected_count: number;
   count: number;
   unselected_count: number;
-  option: { [optionId: string]: { selected: boolean } };
-  score: Scores;
+  option: OptionResponse;
+  score: ScoreResponse;
 };
 
 function isResponseFromOptions(value: unknown): value is ResponseFromOptions {
+  if (value === undefined || typeof value !== "object" || value === null) {
+    return false;
+  }
+
   return (
-    value !== undefined &&
-    value["score"] !== undefined &&
-    value["count"] !== undefined &&
-    value["selected_count"] !== undefined &&
-    value["unselected_count"] !== undefined &&
-    value["option"] !== undefined
+    value.hasOwnProperty("score") &&
+    value.hasOwnProperty("count") &&
+    value.hasOwnProperty("selected_count") &&
+    value.hasOwnProperty("unselected_count") &&
+    value.hasOwnProperty("option")
   );
 }
 
@@ -80,7 +85,7 @@ type DataObjectEntry =
   | ResponseFromOptions
   | Primitive
   | Array<Primitive>
-  | Scores
+  | ScoreResponse
   | undefined;
 
 export class QuestionnaireEngine {
@@ -151,24 +156,33 @@ export class QuestionnaireEngine {
     const selected_count = valueAsArray.length;
     const unselected_count = count - selected_count;
 
-    const option = {};
-    let score = {};
+    const optionResponse: OptionResponse = {};
+    let score: ScoreResponse = {};
     for (const option of question.options || []) {
       const isSelected = valueAsArray.indexOf(option.value) > -1;
-      option[option.value] = isSelected;
+      optionResponse[option.value] = isSelected;
       if (isSelected) {
         score = this.mergeScores(score, option.scores);
       }
     }
 
-    return { count, selected_count, unselected_count, option, score };
+    return {
+      count,
+      selected_count,
+      unselected_count,
+      option: optionResponse,
+      score,
+    };
   }
 
-  private mergeScores(scores1: Scores, scores2: Scores): Scores {
-    const combinedScores = scores1;
-    Object.entries(scores2).forEach(([scoreId, score]) => {
+  private mergeScores(
+    scores1?: ScoreResponse,
+    scores2?: ScoreResponse
+  ): ScoreResponse {
+    const combinedScores = scores1 ?? {};
+    Object.entries(scores2 ?? {}).forEach(([scoreId, score]) => {
       combinedScores[scoreId] = (combinedScores[scoreId] ?? 0) + score;
-    }, scores1);
+    });
     return combinedScores;
   }
 
@@ -182,7 +196,7 @@ export class QuestionnaireEngine {
     const givenOptionResponses = this.questions
       .map(({ id }) => this.data[id])
       .filter((it) => isResponseFromOptions(it)) as ResponseFromOptions[];
-    this.data.score = givenOptionResponses.reduce<Scores>(
+    this.data.score = givenOptionResponses.reduce<ScoreResponse>(
       (prev, curr) => this.mergeScores(prev, curr.score),
       {}
     );

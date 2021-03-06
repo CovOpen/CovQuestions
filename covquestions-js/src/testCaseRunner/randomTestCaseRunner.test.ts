@@ -59,7 +59,7 @@ const testQuestionnaire: Questionnaire = {
           id: "option1Result",
           text: "Option1Result",
           expression: {
-            "==": [{ var: "selectQuestion" }, "option1"],
+            var: "selectQuestion.option.option1",
           },
         },
       ],
@@ -74,10 +74,7 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             and: [
               {
-                "==": [
-                  { var: "multiSelectQuestion.option.option1.selected" },
-                  true,
-                ],
+                var: "multiSelectQuestion.option.option1",
               },
               {
                 "==": [{ var: "multiSelectQuestion.selected_count" }, 1],
