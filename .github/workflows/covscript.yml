@@ -25,7 +25,7 @@ jobs:
       run: npm install
       working-directory: covscript/
     - name: Link covquestions package to covquestions-logic-parser
-      run: npm link ../covquestions-js/dist
+      run: npm link ../covquestions-js
       working-directory: covscript/
     - name: Run tests for covquestions-logic-parser
       run: npm run test

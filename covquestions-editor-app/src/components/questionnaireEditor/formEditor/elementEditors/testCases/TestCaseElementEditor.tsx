@@ -28,7 +28,7 @@ import {
   QuestionWithOptions,
   ResultCategory,
   TestCase,
-} from "covquestions-js/models/Questionnaire.generated";
+} from "covquestions-js/src/models/Questionnaire.generated";
 import { heightWithoutEditor } from "../../../QuestionnaireEditor";
 import { TestCaseResult } from "./TestCaseResult";
 import { ElementEditor } from "../ElementEditor";

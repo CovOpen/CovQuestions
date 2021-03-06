@@ -7,7 +7,12 @@
     "moduleResolution": "node",
     "declaration": true,
     "outDir": "./dist",
-    "sourceRoot": "src"
+    "sourceRoot": "src",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["dist", "examples", "node_modules", ".vscode", ".vs", ".git"]
 }

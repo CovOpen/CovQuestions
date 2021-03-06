@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { Button, createStyles, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { questionnaireJsonSelector } from "../../../../../store/questionnaireInEditor";
-import { TestCase } from "covquestions-js/models/Questionnaire.generated";
-import { TestResult } from "../../../../../../../covquestions-js/src/testCaseRunner";
+import { runOneTestCase, TestCase, TestResult } from "covquestions-js";
 
 const useStyles = makeStyles(() =>
   createStyles({

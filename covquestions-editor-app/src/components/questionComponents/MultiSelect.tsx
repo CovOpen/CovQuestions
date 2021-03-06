@@ -1,7 +1,7 @@
 import React from "react";
 import { Checkbox, FormControlLabel, FormGroup, FormLabel } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
-import { isPrimitive } from "covquestions-js/primitive";
+import { isPrimitive } from "covquestions-js";
 
 export const MultiSelect: React.FC<QuestionFormComponentProps> = ({
   currentQuestion,

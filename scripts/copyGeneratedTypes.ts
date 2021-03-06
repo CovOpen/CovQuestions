@@ -3,7 +3,7 @@ import { generatedTypesOutputPath } from "./generateTypes";
 
 fs.copyFileSync(
   generatedTypesOutputPath,
-  "./covquestions-js/models/Questionnaire.generated.ts"
+  "./covquestions-js/src/models/Questionnaire.generated.ts"
 );
 
 fs.copyFileSync(
