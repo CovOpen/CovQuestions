@@ -1,6 +1,6 @@
 {
   "name": "@covopen/covscript",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Converts simple logic expressions to JSON logic and back",
   "scripts": {
     "test": "npx jest --runInBand",
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@covopen/covquestions-js": "^1.0.0",
+    "@covopen/covquestions-js": "^1.0.1",
     "chevrotain": "^8.0.1"
   },
   "devDependencies": {
