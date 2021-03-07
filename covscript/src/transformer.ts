@@ -1,6 +1,6 @@
 import { CstNode, IToken } from "chevrotain";
 import * as T from "./tokens";
-import { LogicExpression } from "covquestions-js";
+import { LogicExpression } from "@covopen/covquestions-js";
 
 type BinaryOperator =
   | "in"

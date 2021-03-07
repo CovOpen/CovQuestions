@@ -1,4 +1,4 @@
-# Covscript
+# covscript
 
 This repo contains a parser and a generator for Covscript, a minimal language used for formulating Covquestions questionaires.
 

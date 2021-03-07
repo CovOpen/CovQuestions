@@ -1,4 +1,4 @@
-import { Questionnaire, runOneTestCase, runTestCases, TestCase } from "covquestions-js";
+import { Questionnaire, runOneTestCase, runTestCases, TestCase } from "@covopen/covquestions-js";
 import contactQuestionWithDateAndSkipping from "../test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
 import simpleBooleanContactQuestion from "../test/testCases/simpleBooleanContactQuestion.questionnaire";
 import simpleMultiselectSymptomsQuestion from "../test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";

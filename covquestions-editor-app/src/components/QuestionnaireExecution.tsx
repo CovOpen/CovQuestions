@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, createStyles, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { Primitive, Question, Questionnaire, QuestionnaireEngine, Result } from "covquestions-js";
+import { Primitive, Question, Questionnaire, QuestionnaireEngine, Result } from "@covopen/covquestions-js";
 import { ResultComponent } from "./ResultComponent";
 import { QuestionComponent } from "./QuestionComponent";
 import "typeface-fira-sans";

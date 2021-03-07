@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js";
+import { Questionnaire } from "@covopen/covquestions-js";
 
 const testQuestionnaire: Questionnaire = {
   id: "contactQuestionWithDateVariableAndSkippingQuestion",

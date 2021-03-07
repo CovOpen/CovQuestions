@@ -6,7 +6,7 @@ import {
   Result,
   ResultCategory,
   Variable,
-} from "covquestions-js/src/models/Questionnaire.generated";
+} from "@covopen/covquestions-js/src/models/Questionnaire.generated";
 
 export interface EditorQuestionnaire extends Questionnaire {
   questions: EditorAnyQuestion[];

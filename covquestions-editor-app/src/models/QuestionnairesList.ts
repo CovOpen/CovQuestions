@@ -1,4 +1,4 @@
-import { ISOLanguage } from "covquestions-js";
+import { ISOLanguage } from "@covopen/covquestions-js";
 
 export type QuestionnaireBaseData = {
   id: string;
