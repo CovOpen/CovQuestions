@@ -96,7 +96,7 @@
       "title": "Common question fields",
       "type": "object"
     },
-    "NumericOption": {
+    "NumericOptions": {
       "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
       "properties": {
         "defaultValue": {
@@ -129,7 +129,7 @@
         {
           "properties": {
             "numericOptions": {
-              "$ref": "#/x-definitions/NumericOption"
+              "$ref": "#/x-definitions/NumericOptions"
             },
             "type": {
               "description": "Type of the question.",
@@ -168,7 +168,7 @@
       "type": "object"
     },
     "Question": {
-      "title": "AnyQuestion",
+      "title": "Question",
       "anyOf": [
         {
           "$ref": "#/x-definitions/QuestionWithoutOptions"

@@ -126,12 +126,12 @@ describe("questionnaireEngine", () => {
     expect(engine.getProgress()).toEqual(0);
 
     const question1 = engine.nextQuestion();
-    engine.setAnswer("question1id", ["Something"]);
+    engine.setAnswer("question1id", true);
     expect(engine.getProgress()).toEqual(0.5);
     expect(question1?.id).toEqual(question1id);
 
     const question2 = engine.nextQuestion();
-    engine.setAnswer("question1id", ["Something"]);
+    engine.setAnswer("question2id", 123);
     expect(engine.getProgress()).toEqual(1);
     expect(question2?.id).toEqual(question2id);
 

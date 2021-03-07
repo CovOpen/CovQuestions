@@ -1,11 +1,8 @@
-export {
-  QuestionnaireEngine,
-  Result,
-  Question,
-} from "./src/questionnaireEngine";
+export { QuestionnaireEngine, Result } from "./src/questionnaireEngine";
 
 export {
   Questionnaire,
+  Question,
   LogicExpression,
   ISOLanguage,
   TestCase,

@@ -1,4 +1,4 @@
-import { EditorAnyQuestion } from "../../../../models/editorQuestionnaire";
+import { EditorQuestion } from "../../../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
 import questionSchema from "../schemas/question.json";
 import React from "react";
@@ -8,7 +8,7 @@ import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
-export type QuestionInStringRepresentation = Omit<EditorAnyQuestion, "enableWhenExpression"> & {
+export type QuestionInStringRepresentation = Omit<EditorQuestion, "enableWhenExpression"> & {
   enableWhenExpression: string;
 };
 
@@ -27,7 +27,7 @@ const uiSchema = {
   },
 };
 
-function convertToStringRepresentation(formData: EditorAnyQuestion): QuestionInStringRepresentation {
+function convertToStringRepresentation(formData: EditorQuestion): QuestionInStringRepresentation {
   return {
     ...formData,
     enableWhenExpression: JSON.stringify(formData.enableWhenExpression, null, 2),
