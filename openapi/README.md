@@ -12,9 +12,6 @@ Here are some sections to pay attention to:
 - Tags: it's a good idea to organize each operation. Each tag can have a description. The description is used as a section description within the reference docs.
 - Servers: a list of your servers, each with a URL.
 
-
-
-
 ## Contribution Guide
 
 Below is a sample contribution guide. The tools
