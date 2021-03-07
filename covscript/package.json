@@ -7,8 +7,10 @@
     "build": "tsc",
     "installAndLink": "(cd ../covquestions-js && npm install && npm run build) && npm install && npm link ../covquestions-js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "CovOpen Team",
+  "contributors": [],
+  "license": "See license file",
+  "private": false,
   "dependencies": {
     "@covopen/covquestions-js": "^1.0.1",
     "chevrotain": "^8.0.1"
@@ -23,5 +25,9 @@
     "typescript": "^4.2.3"
   },
   "types": "dist/index.d.ts",
-  "main": "dist/index.js"
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js"
+  }
 }
