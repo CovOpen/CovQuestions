@@ -84,6 +84,12 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
 
   const uiSchema = {
     "ui:order": ["description", "*"],
+    options: {
+      strictResults: {
+        "ui:help":
+          "If false (default), the provided results have to appear after the questionnaire execution, additional results are allowed. If set, exactly the provided results have to appear.",
+      },
+    },
   };
 
   const onResultItemChange: OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => {
