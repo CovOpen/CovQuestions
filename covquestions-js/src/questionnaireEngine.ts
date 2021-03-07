@@ -1,12 +1,9 @@
 import * as jsonLogic from "json-logic-js";
 
 import {
-  AnyQuestion,
-  LogicExpression,
-  NumericOption,
-  Option,
+  Question,
   Questionnaire,
-  QuestionType,
+  QuestionWithOptions,
   ResultCategory,
   Variable,
 } from "./models/Questionnaire.generated";
@@ -17,49 +14,13 @@ export type Result = {
   result: { id: string; text: string };
 };
 
-export class Question {
-  id: string;
-  type: QuestionType;
-  text: string;
-  options?: Option[];
-  numericOption?: NumericOption;
-  enableWhenExpression?: LogicExpression;
-  optional?: boolean;
-
-  constructor(question: AnyQuestion) {
-    this.id = question.id;
-    this.type = question.type;
-    this.text = question.text;
-    this.enableWhenExpression = question.enableWhenExpression;
-    this.optional = question.optional;
-    if (question.type === "select" || question.type === "multiselect") {
-      this.options = question.options;
-    }
-    if (question.type === "number") {
-      this.numericOption = question.numericOptions;
-    }
-  }
-
-  public check(data: {}): boolean {
-    if (this.enableWhenExpression !== undefined) {
-      return jsonLogic.apply(this.enableWhenExpression, data);
-    } else {
-      return true;
-    }
-  }
-
-  public isOptional(): boolean {
-    return this.optional === true;
-  }
-}
-
 type ScoreResponse = {
   [k: string]: number;
 };
 
 type OptionResponse = { [optionId: string]: boolean };
 
-type ResponseFromOptions = {
+type AnswerFromOptions = {
   selected_count: number;
   count: number;
   unselected_count: number;
@@ -67,39 +28,33 @@ type ResponseFromOptions = {
   score: ScoreResponse;
 };
 
-function isResponseFromOptions(value: unknown): value is ResponseFromOptions {
-  if (value === undefined || typeof value !== "object" || value === null) {
-    return false;
-  }
+type DataObjectEntry = AnswerFromOptions | RawAnswer | ScoreResponse;
 
-  return (
-    value.hasOwnProperty("score") &&
-    value.hasOwnProperty("count") &&
-    value.hasOwnProperty("selected_count") &&
-    value.hasOwnProperty("unselected_count") &&
-    value.hasOwnProperty("option")
-  );
-}
+type GivenAnswer = {
+  questionId: string;
+  rawAnswer: RawAnswer;
+};
 
-type DataObjectEntry =
-  | ResponseFromOptions
-  | Primitive
-  | Array<Primitive>
-  | ScoreResponse
-  | undefined;
+type RawAnswer = Primitive | Primitive[] | undefined;
+
+type AnswersPersistence = {
+  answers: GivenAnswer[];
+  version: number;
+  timeOfExecution?: number;
+};
 
 export class QuestionnaireEngine {
+  private readonly questionnaire: Questionnaire;
   private readonly questions: Question[] = [];
   private variables: Variable[] = [];
   private resultCategories: ResultCategory[] = [];
   private data: { [key: string]: DataObjectEntry } = {};
-  private currentQuestionIndex = -1;
   private readonly timeOfExecution?: number;
+  private givenAnswers: GivenAnswer[] = [];
 
   constructor(newQuestionnaire: Questionnaire, timeOfExecution?: number) {
-    this.questions = newQuestionnaire.questions.map(
-      (question) => new Question(question)
-    );
+    this.questionnaire = newQuestionnaire;
+    this.questions = newQuestionnaire.questions;
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;
     this.timeOfExecution = timeOfExecution;
@@ -107,22 +62,47 @@ export class QuestionnaireEngine {
 
   public nextQuestion(): Question | undefined {
     const indexOfNextQuestion = this.questions.findIndex(
-      (question, index) =>
-        index > this.currentQuestionIndex && question.check(this.data)
+      ({ enableWhenExpression }, index) => {
+        const isAfterCurrentQuestion = index > this.getCurrentQuestionIndex();
+        const isEnabled =
+          enableWhenExpression === undefined ||
+          jsonLogic.apply(enableWhenExpression, this.data);
+        return isAfterCurrentQuestion && isEnabled;
+      }
     );
 
     if (indexOfNextQuestion > -1) {
-      this.currentQuestionIndex = indexOfNextQuestion;
       return this.questions[indexOfNextQuestion];
     }
 
     return undefined;
   }
 
-  public setAnswer(
-    questionId: string,
-    value: Primitive | Array<Primitive> | undefined
-  ) {
+  public previousQuestion(
+    currentQuestionId: string
+  ): { question: Question; answer?: RawAnswer } {
+    this.removeAnswersStartingFrom(currentQuestionId);
+    const previousAnswer = this.givenAnswers.pop();
+    this.recreateDataObject();
+
+    const previousQuestion = this.nextQuestion() ?? this.questions[0]!;
+
+    if (previousQuestion.id === previousAnswer?.questionId) {
+      return { question: previousQuestion, answer: previousAnswer.rawAnswer };
+    }
+    return { question: previousQuestion };
+  }
+
+  public getAnswersPersistence(): AnswersPersistence {
+    return { answers: this.givenAnswers, version: this.questionnaire.version };
+  }
+
+  public setAnswersPersistence(answersPersistence: AnswersPersistence) {
+    this.givenAnswers = answersPersistence.answers;
+    this.recreateDataObject();
+  }
+
+  public setAnswer(questionId: string, rawAnswer: RawAnswer) {
     const question = this.getQuestionById(questionId);
     if (question === undefined) {
       throw new Error(
@@ -130,31 +110,50 @@ export class QuestionnaireEngine {
       );
     }
 
-    if (!question.isOptional() && value === undefined) {
+    if (!question.optional && rawAnswer === undefined) {
       throw new Error(`This question is not optional: ${questionId}`);
     }
 
-    let answer: DataObjectEntry;
+    this.removeAnswersStartingFrom(questionId);
 
-    if (question.type === "multiselect" || question.type === "select") {
-      answer = this.processAnswerWithOptions(value, question);
-    } else {
-      answer = value;
+    this.givenAnswers.push({
+      questionId: questionId,
+      rawAnswer,
+    });
+
+    this.recreateDataObject();
+  }
+
+  private removeAnswersStartingFrom(questionId: string) {
+    const indexOfAnswer = this.givenAnswers.findIndex(
+      (answer) => answer.questionId === questionId
+    );
+
+    if (indexOfAnswer > -1) {
+      this.givenAnswers = this.givenAnswers.slice(0, indexOfAnswer);
     }
-
-    this.data[questionId] = answer;
-    this.updateComputableVariables();
   }
 
   public getProgress(): number {
-    return (this.currentQuestionIndex + 1) / this.questions.length;
+    return (this.getCurrentQuestionIndex() + 1) / this.questions.length;
+  }
+
+  private getCurrentQuestionIndex(): number {
+    return this.questions.findIndex(
+      ({ id }) => id === this.getCurrentQuestionId()
+    );
+  }
+
+  private getCurrentQuestionId(): string | undefined {
+    const lastAnswer = this.givenAnswers[this.givenAnswers.length - 1];
+    return lastAnswer?.questionId;
   }
 
   private processAnswerWithOptions(
-    value: Primitive | Array<Primitive> | undefined,
-    question: Question
-  ): ResponseFromOptions {
-    const valueAsArray = convertToPrimitiveArray(value);
+    rawAnswer: RawAnswer,
+    question: QuestionWithOptions
+  ): AnswerFromOptions {
+    const valueAsArray = convertToPrimitiveArray(rawAnswer);
 
     const count = question.options !== undefined ? question.options.length : 0;
     const selected_count = valueAsArray.length;
@@ -194,13 +193,28 @@ export class QuestionnaireEngine {
     return this.questions.find((question) => question.id === questionId);
   }
 
-  private updateComputableVariables() {
+  private recreateDataObject() {
+    this.data = {};
     this.data["now"] = Math.round(this.timeOfExecution || Date.now() / 1000);
 
-    const givenOptionResponses = this.questions
-      .map(({ id }) => this.data[id])
-      .filter((it) => isResponseFromOptions(it)) as ResponseFromOptions[];
-    this.data.score = givenOptionResponses.reduce<ScoreResponse>(
+    const answersFromOptionQuestions: AnswerFromOptions[] = [];
+
+    this.givenAnswers.forEach(({ questionId, rawAnswer }) => {
+      const question = this.questions.find(({ id }) => id === questionId);
+
+      if (question?.type === "multiselect" || question?.type === "select") {
+        const processedAnswer = this.processAnswerWithOptions(
+          rawAnswer,
+          question
+        );
+        answersFromOptionQuestions.push(processedAnswer);
+        this.data[questionId] = processedAnswer;
+      } else {
+        this.data[questionId] = rawAnswer;
+      }
+    });
+
+    this.data.score = answersFromOptionQuestions.reduce<ScoreResponse>(
       (prev, curr) => this.mergeScores(prev, curr.score),
       {}
     );
@@ -220,7 +234,7 @@ export class QuestionnaireEngine {
   }
 
   public getResults(): Result[] {
-    this.updateComputableVariables();
+    this.recreateDataObject();
     const results = this.resultCategories.map((resultCategory) => {
       const resultInCategory = resultCategory.results.find((possibleResult) =>
         jsonLogic.apply(possibleResult.expression, this.data)

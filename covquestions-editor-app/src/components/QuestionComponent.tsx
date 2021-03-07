@@ -43,7 +43,7 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQue
               onClick={next}
               variant="contained"
               color="primary"
-              disabled={!currentQuestion.isOptional() && currentValue === undefined}
+              disabled={!currentQuestion.optional && currentValue === undefined}
             >
               Next
             </Button>

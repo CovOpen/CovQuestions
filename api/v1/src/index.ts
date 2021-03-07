@@ -1,19 +1,20 @@
 import * as fs from "fs-extra";
 import {
+  ISOLanguage,
+  Question,
   Questionnaire,
   QuestionnaireMeta,
-  AnyQuestion,
-  ISOLanguage,
 } from "./models/Questionnaire.generated";
 import * as glob from "fast-glob";
 import { validate } from "./validate";
 import {
-  readI18nFile,
   doOnEachTranslation,
-  getStringRessource,
-  writeJSONFile,
   getDirectories,
+  getStringRessource,
+  readI18nFile,
+  writeJSONFile,
 } from "./utility";
+
 class TranslationNotCompleteError extends Error {
   constructor(m: string) {
     super(m);
@@ -83,7 +84,7 @@ export function main(pwd: string = "./src/data", outputDir: string = "./dist") {
   /**
    * Generate Questions
    */
-  let questions: AnyQuestion[] = [];
+  let questions: Question[] = [];
   index.forEach((questionnaire) => {
     questionnaire.questions.forEach((q) => {
       if (questions.findIndex((filterQ) => filterQ.id == q.id) === -1) {

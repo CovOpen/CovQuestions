@@ -982,7 +982,7 @@
           }
         ]
       },
-      "NumericOption": {
+      "NumericOptions": {
         "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
         "properties": {
           "defaultValue": {
@@ -1015,7 +1015,7 @@
           {
             "properties": {
               "numericOptions": {
-                "$ref": "#/components/schemas/NumericOption"
+                "$ref": "#/components/schemas/NumericOptions"
               },
               "type": {
                 "description": "Type of the question.",
@@ -1032,7 +1032,7 @@
         ]
       },
       "Question": {
-        "title": "AnyQuestion",
+        "title": "Question",
         "anyOf": [
           {
             "$ref": "#/components/schemas/QuestionWithoutOptions"
@@ -1260,7 +1260,7 @@
             "title": "Common question fields",
             "type": "object"
           },
-          "NumericOption": {
+          "NumericOptions": {
             "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
             "properties": {
               "defaultValue": {
@@ -1293,7 +1293,7 @@
               {
                 "properties": {
                   "numericOptions": {
-                    "$ref": "#/components/schemas/NumericOption"
+                    "$ref": "#/components/schemas/NumericOptions"
                   },
                   "type": {
                     "description": "Type of the question.",
@@ -1339,7 +1339,7 @@
             "type": "object"
           },
           "Question": {
-            "title": "AnyQuestion",
+            "title": "Question",
             "anyOf": [
               {
                 "$ref": "#/components/schemas/QuestionWithoutOptions"

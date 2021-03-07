@@ -9,10 +9,11 @@
     "build": "rimraf dist && ts-node ./index.ts && npm run build-swagger",
     "build-swagger": "copyfiles -f ./src/swagger/index.html ./dist/swagger/ && copyfiles ./openapi.json ./dist/swagger/",
     "test": "jest",
-    "installAndLink": "(cd ../../covquestions-js && npm install && npm run build) && npm install && npm link ../../covquestions-js/dist"
+    "installAndLink": "(cd ../../covquestions-js && npm install && npm run build) && npm install && npm link ../../covquestions-js"
   },
   "author": "",
   "dependencies": {
+    "@covopen/covquestions-js": "0.0.1-dev",
     "@types/fs-extra": "^8.1.0",
     "@types/node": "^13.11.1",
     "ajv": "^6.12.0",

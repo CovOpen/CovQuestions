@@ -1,5 +1,6 @@
 import { Questionnaire } from "./models/Questionnaire.generated";
 import { QuestionnaireEngine } from "./questionnaireEngine";
+import { emptyTestQuestionnaire } from "./testUtils/emptyTestQuestionnaire";
 
 describe("questionnaireEngine", () => {
   describe("should calculate scores for select and multiselect questions", () => {
@@ -126,12 +127,12 @@ describe("questionnaireEngine", () => {
     expect(engine.getProgress()).toEqual(0);
 
     const question1 = engine.nextQuestion();
-    engine.setAnswer("question1id", ["Something"]);
+    engine.setAnswer("question1id", true);
     expect(engine.getProgress()).toEqual(0.5);
     expect(question1?.id).toEqual(question1id);
 
     const question2 = engine.nextQuestion();
-    engine.setAnswer("question1id", ["Something"]);
+    engine.setAnswer("question2id", 123);
     expect(engine.getProgress()).toEqual(1);
     expect(question2?.id).toEqual(question2id);
 
@@ -139,20 +140,3 @@ describe("questionnaireEngine", () => {
     expect(afterLastQuestion).toEqual(undefined);
   });
 });
-
-const emptyTestQuestionnaire: Questionnaire = {
-  id: "allQuestionTypes",
-  schemaVersion: "1",
-  version: 1,
-  language: "en",
-  title: "All question types",
-  meta: {
-    author: "Someone",
-    availableLanguages: ["en"],
-    creationDate: "2020-04-13T13:48:48+0000",
-  },
-  questions: [],
-  variables: [],
-  resultCategories: [],
-  testCases: [],
-};

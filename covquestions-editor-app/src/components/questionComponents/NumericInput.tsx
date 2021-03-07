@@ -3,7 +3,7 @@ import { Grid, Input, Slider, Typography } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
 export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange, value }) => {
-  const { min, max, step, defaultValue } = currentQuestion.numericOption || {};
+  const { min, max, step, defaultValue } = currentQuestion.numericOptions || {};
   const fallbackValue = defaultValue ?? min ?? max ?? 0;
 
   const handleSliderChange = (_e: React.ChangeEvent<{}>, newValue: number | number[]) => {

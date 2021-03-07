@@ -1,6 +1,7 @@
-import { Question, QuestionnaireEngine, Result } from "../questionnaireEngine";
+import { QuestionnaireEngine, Result } from "../questionnaireEngine";
 import {
   Option,
+  Question,
   Questionnaire,
   TestCase,
 } from "../models/Questionnaire.generated";
@@ -149,7 +150,7 @@ function checkQuestions(
       if (isRandomTestCase(testCase)) {
         const randomAnswer = createRandomAnswer(question, testCase);
         engine.setAnswer(question.id, randomAnswer);
-      } else if (question.isOptional()) {
+      } else if (question.optional) {
         engine.setAnswer(question.id, undefined);
       } else {
         return {
@@ -168,7 +169,7 @@ function checkQuestions(
 function createRandomAnswer(question: Question, testCase: TestCase) {
   const percentageOfOptionalQuestionsThatAreNotAnswered = 0.2;
   if (
-    question.isOptional() &&
+    question.optional &&
     Math.random() < percentageOfOptionalQuestionsThatAreNotAnswered
   ) {
     return undefined;
@@ -187,17 +188,17 @@ function createRandomAnswer(question: Question, testCase: TestCase) {
       return Math.random() < 0.5;
     case "number":
       return getRandomInRange(
-        question.numericOption !== undefined &&
-          question.numericOption.min !== undefined
-          ? question.numericOption.min
+        question.numericOptions !== undefined &&
+          question.numericOptions.min !== undefined
+          ? question.numericOptions.min
           : 0,
-        question.numericOption !== undefined &&
-          question.numericOption.max !== undefined
-          ? question.numericOption.max
+        question.numericOptions !== undefined &&
+          question.numericOptions.max !== undefined
+          ? question.numericOptions.max
           : 150,
-        question.numericOption !== undefined &&
-          question.numericOption.step !== undefined
-          ? question.numericOption.step
+        question.numericOptions !== undefined &&
+          question.numericOptions.step !== undefined
+          ? question.numericOptions.step
           : 1
       );
     case "text":

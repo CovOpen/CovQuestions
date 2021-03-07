@@ -197,7 +197,7 @@ export type ISOLanguage =
 /**
  * Represents a single question of the questionnaire.
  */
-export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
+export type Question = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
 /**
  * Represents a question. The answer is a choice of yes/no, text or date.
  */
@@ -250,7 +250,7 @@ export type QuestionWithOptions = CommonQuestionFields & {
  * Represents a question with numeric answer.
  */
 export type NumericQuestion = CommonQuestionFields & {
-  numericOptions?: NumericOption;
+  numericOptions?: NumericOptions;
   /**
    * Type of the question.
    */
@@ -274,7 +274,7 @@ export interface Questionnaire {
   /**
    * All questions, shown one after another, in order.
    */
-  questions: AnyQuestion[];
+  questions: Question[];
   /**
    * All result categories. When all questions are answered,
    * the result for each result category is computed.
@@ -419,7 +419,7 @@ export interface Scores {
  * Option for numeric questions.
  * Answer options for Select/Multiselect questions.
  */
-export interface NumericOption {
+export interface NumericOptions {
   /**
    * Default value
    */

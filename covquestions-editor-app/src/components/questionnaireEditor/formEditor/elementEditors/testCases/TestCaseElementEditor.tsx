@@ -24,7 +24,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import {
-  AnyQuestion,
+  Question,
   QuestionWithOptions,
   ResultCategory,
   TestCase,
@@ -181,7 +181,7 @@ const OneItemRow: React.FC<{
   id: string;
   value?: any;
   onDelete: () => void;
-  item: AnyQuestion;
+  item: Question;
 }> = (props) => {
   return (
     <TableRow>
@@ -199,7 +199,7 @@ const OneItemRow: React.FC<{
 };
 
 const AnswerOrResultEditor: React.FC<{
-  availableItems: AnyQuestion[];
+  availableItems: Question[];
   currentStoreItems: { [id: string]: any };
   onItemChange: OnItemChange;
 }> = ({ currentStoreItems, availableItems, onItemChange }) => {
