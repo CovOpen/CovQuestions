@@ -1,6 +1,6 @@
 import React from "react";
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
-import { Option } from "covquestions-js/models/Questionnaire.generated";
+import { Option } from "@covopen/covquestions-js/src/models/Questionnaire.generated";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
 export const RadioSelect: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange, value }) => {

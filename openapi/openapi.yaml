@@ -11,7 +11,7 @@ info:
     url: 'https://github.com/CovOpen/CovQuestions/blob/master/LICENSE'
     name: Apache License 2.0
 servers:
-  - url: 'https://v1.covquestions.aquiver.de'
+  - url: 'https://covopen.github.io/CovQuestions'
     description: Test
   - description: Local
     url: 'http://localhost:80'
@@ -23,7 +23,7 @@ tags:
   - name: questions
     description: Questions
 paths:
-  '/questionnaires/{id}/{version}/{lang}':
+  '/questionnaires/{id}/{version}/{lang}.json':
     get:
       summary: Get specific Questionnaire
       operationId: get-views-questionnaires-id-version-lang
@@ -58,7 +58,7 @@ paths:
         in: path
         required: true
         description: The ISO language the questionnaire should be in
-  /questions:
+  '/questions.json':
     get:
       summary: List Questions
       responses:
@@ -75,7 +75,7 @@ paths:
       tags:
         - questions
     parameters: []
-  '/questionnaires/{id}/translations/{lang}':
+  '/questionnaires/{id}/translations/{lang}.json':
     parameters:
       - schema:
           type: string
@@ -105,7 +105,7 @@ paths:
       description: 'Returns all Translations for the {lang}'
       tags:
         - translations
-  /questionnaires:
+  '/questionnaires.json':
     get:
       summary: List Questionnaires
       tags:
@@ -131,7 +131,7 @@ paths:
       operationId: get-views-questionnaires
       description: Lists all Questionnaires
     parameters: []
-  '/questionnaires/{id}/latest':
+  '/questionnaires/{id}/latest.json':
     get:
       summary: Get specific Questionnaire
       operationId: get-views-questionnaires-id-latest

@@ -1,5 +1,10 @@
 name: API/v1 - CI
 on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'api/v1/**'
   pull_request:
     branches:
       - master
@@ -28,7 +33,7 @@ jobs:
         run: npm run build
         working-directory: covquestions-js/
       - name: Link covquestions package to api/v1/
-        run: npm link ../../covquestions-js/dist
+        run: npm link ../../covquestions-js
         working-directory: api/v1/
 
       - name: Test App
@@ -37,3 +42,17 @@ jobs:
       - name: Build App
         run: npm run build
         working-directory: api/v1/
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: API
+          path: api/v1/dist
+
+      - name: Deploy 🚀
+        if: github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: api/v1/dist
+          CLEAN: true

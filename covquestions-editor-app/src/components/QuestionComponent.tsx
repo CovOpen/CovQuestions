@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Question } from "covquestions-js";
+import { Primitive, Question } from "@covopen/covquestions-js";
 import { Button, createStyles, Grid, makeStyles, Paper } from "@material-ui/core";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
-import { Primitive } from "covquestions-js/primitive";
 
 type QuestionComponentProps = {
   currentQuestion: Question;
@@ -44,7 +43,7 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQue
               onClick={next}
               variant="contained"
               color="primary"
-              disabled={!currentQuestion.isOptional() && currentValue === undefined}
+              disabled={!currentQuestion.optional && currentValue === undefined}
             >
               Next
             </Button>

@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire } from "@covopen/covquestions-js";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleMultiselectSymptomsQuestion",
@@ -47,7 +47,7 @@ const testQuestionnaire: Questionnaire = {
           id: "MANY_SYMPTOMS",
           text: "Sie haben drei oder mehr Symptome.",
           expression: {
-            ">=": [{ var: "q1_symptoms.selectedCount" }, 3],
+            ">=": [{ var: "q1_symptoms.selected_count" }, 3],
           },
         },
         {
@@ -56,10 +56,10 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             or: [
               {
-                "==": [{ var: "q1_symptoms.selectedCount" }, 1],
+                "==": [{ var: "q1_symptoms.selected_count" }, 1],
               },
               {
-                "==": [{ var: "q1_symptoms.selectedCount" }, 2],
+                "==": [{ var: "q1_symptoms.selected_count" }, 2],
               },
             ],
           },
@@ -68,7 +68,7 @@ const testQuestionnaire: Questionnaire = {
           id: "NO_SYMPTOMS",
           text: "Sie haben keine Symptome.",
           expression: {
-            "==": [{ var: "q1_symptoms.selectedCount" }, 0],
+            "==": [{ var: "q1_symptoms.selected_count" }, 0],
           },
         },
       ],

@@ -1,20 +1,20 @@
 import {
-  AnyQuestion,
   ISOLanguage,
+  Question,
   Questionnaire,
   QuestionnaireMeta,
   Result,
   ResultCategory,
   Variable,
-} from "covquestions-js/models/Questionnaire.generated";
+} from "@covopen/covquestions-js/src/models/Questionnaire.generated";
 
 export interface EditorQuestionnaire extends Questionnaire {
-  questions: EditorAnyQuestion[];
+  questions: EditorQuestion[];
   resultCategories: EditorResultCategory[];
   variables: EditorVariable[];
 }
 
-export type EditorAnyQuestion = AnyQuestion & {
+export type EditorQuestion = Question & {
   enableWhenExpressionString?: string;
 };
 

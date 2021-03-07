@@ -110,7 +110,64 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const classes = useStyles();
 
-  const [activeItem, setActiveItem] = useState<ActiveItem>({ section: SectionType.META, index: 0 });
+  const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({ section: SectionType.META, index: 0 });
+  const [futureActiveItem, setFutureActiveItem] = useState<ActiveItem | undefined>(undefined);
+
+  // enforce the re-rendering of the form editor by first unmounting it and then remounting it
+  const changeActiveItem = (futureItem: ActiveItem) => {
+    setActiveItem(undefined);
+    setFutureActiveItem(futureItem);
+  };
+
+  useEffect(() => {
+    if (futureActiveItem !== undefined) {
+      setActiveItem(futureActiveItem);
+      setFutureActiveItem(undefined);
+    }
+  }, [futureActiveItem, setActiveItem]);
+
+  useEffect(() => {
+    if (activeItem === undefined || isNonArraySection(activeItem.section)) {
+      return;
+    }
+
+    const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section]?.length;
+    if (lengthOfActiveSection === undefined || lengthOfActiveSection === 0) {
+      changeActiveItem({ section: SectionType.META, index: 0 });
+      return;
+    }
+    if (activeItem.index >= lengthOfActiveSection) {
+      changeActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
+    }
+  }, [activeItem, questionnaireInEditor]);
+
+  if (activeItem === undefined) {
+    return null;
+  }
+
+  const handleMoveUp = () => {
+    if (!isNonArraySection(activeItem.section)) {
+      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index - 1 }));
+      changeActiveItem({ section: activeItem.section, index: activeItem.index - 1 });
+    }
+  };
+
+  const handleMoveDown = () => {
+    if (!isNonArraySection(activeItem.section)) {
+      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index }));
+      changeActiveItem({ section: activeItem.section, index: activeItem.index + 1 });
+    }
+  };
+
+  const handleRemove = () => {
+    if (!isNonArraySection(activeItem.section)) {
+      dispatch(removeItem({ section: activeItem.section, index: activeItem.index }));
+    }
+  };
+
+  const handleActiveItemChange = (section: SectionType, index: number) => {
+    changeActiveItem({ section, index });
+  };
 
   const style = `
     .rjsf > .MuiFormControl-root {
@@ -130,45 +187,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
       background: #F7FAFC;
     }
     `;
-
-  useEffect(() => {
-    if (isNonArraySection(activeItem.section)) {
-      return;
-    }
-
-    const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section]?.length;
-    if (lengthOfActiveSection === undefined || lengthOfActiveSection === 0) {
-      setActiveItem({ section: SectionType.META, index: 0 });
-      return;
-    }
-    if (activeItem.index >= lengthOfActiveSection) {
-      setActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
-    }
-  }, [activeItem, questionnaireInEditor]);
-
-  const handleMoveUp = () => {
-    if (!isNonArraySection(activeItem.section)) {
-      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index - 1 }));
-      setActiveItem({ section: activeItem.section, index: activeItem.index - 1 });
-    }
-  };
-
-  const handleMoveDown = () => {
-    if (!isNonArraySection(activeItem.section)) {
-      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index }));
-      setActiveItem({ section: activeItem.section, index: activeItem.index + 1 });
-    }
-  };
-
-  const handleRemove = () => {
-    if (!isNonArraySection(activeItem.section)) {
-      dispatch(removeItem({ section: activeItem.section, index: activeItem.index }));
-    }
-  };
-
-  const handleActiveItemChange = (section: SectionType, index: number) => {
-    setActiveItem({ section, index });
-  };
 
   const hasError = (hasError: boolean, id?: string) => {
     if (hasError) {

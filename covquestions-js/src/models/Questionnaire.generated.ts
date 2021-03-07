@@ -197,7 +197,7 @@ export type ISOLanguage =
 /**
  * Represents a single question of the questionnaire.
  */
-export type AnyQuestion = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
+export type Question = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
 /**
  * Represents a question. The answer is a choice of yes/no, text or date.
  */
@@ -221,6 +221,8 @@ export type LogicOperator =
   | LogicLessEqual
   | LogicPlus
   | LogicMinus
+  | LogicTimes
+  | LogicDivide
   | LogicAnd
   | LogicOr
   | LogicIn
@@ -248,7 +250,7 @@ export type QuestionWithOptions = CommonQuestionFields & {
  * Represents a question with numeric answer.
  */
 export type NumericQuestion = CommonQuestionFields & {
-  numericOptions?: NumericOption;
+  numericOptions?: NumericOptions;
   /**
    * Type of the question.
    */
@@ -272,7 +274,7 @@ export interface Questionnaire {
   /**
    * All questions, shown one after another, in order.
    */
-  questions: AnyQuestion[];
+  questions: Question[];
   /**
    * All result categories. When all questions are answered,
    * the result for each result category is computed.
@@ -346,7 +348,7 @@ export interface LogicReduce {
   reduce: [LogicExpression, LogicExpression, LogicExpression];
 }
 export interface LogicSome {
-  some: [LogicExpression, LogicExpression];
+  some: [LogicExpression, ...LogicExpression[]];
 }
 export interface LogicEquals {
   "==": [LogicExpression, LogicExpression];
@@ -355,22 +357,28 @@ export interface LogicGreaterEqual {
   ">=": [LogicExpression, LogicExpression];
 }
 export interface LogicNot {
-  "!": LogicExpression | LogicExpression[];
+  "!": LogicExpression | [LogicExpression];
 }
 export interface LogicLessEqual {
   "<=": [LogicExpression, LogicExpression];
 }
 export interface LogicPlus {
-  "+": [LogicExpression, LogicExpression];
+  "+": [LogicExpression, LogicExpression, ...LogicExpression[]];
 }
 export interface LogicMinus {
   "-": [LogicExpression, LogicExpression];
 }
+export interface LogicTimes {
+  "*": [LogicExpression, LogicExpression, ...LogicExpression[]];
+}
+export interface LogicDivide {
+  "/": [LogicExpression, LogicExpression];
+}
 export interface LogicAnd {
-  and: LogicExpression[];
+  and: [LogicExpression, ...LogicExpression[]];
 }
 export interface LogicOr {
-  or: LogicExpression[];
+  or: [LogicExpression, ...LogicExpression[]];
 }
 export interface LogicIn {
   in: [LogicExpression | LogicExpression[], LogicExpression | LogicExpression[]];
@@ -402,12 +410,16 @@ export interface Option {
    * Value used for evaluating logic expressions.
    */
   value: string;
+  scores?: Scores;
+}
+export interface Scores {
+  [k: string]: number;
 }
 /**
  * Option for numeric questions.
  * Answer options for Select/Multiselect questions.
  */
-export interface NumericOption {
+export interface NumericOptions {
   /**
    * Default value
    */

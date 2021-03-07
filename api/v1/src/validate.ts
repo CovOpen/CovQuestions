@@ -1,6 +1,6 @@
 import * as Ajv from "ajv";
 import * as fs from "fs-extra";
-import { runTestCases } from "covquestions-js/src/testCaseRunner";
+import { runTestCases } from "@covopen/covquestions-js";
 import { Questionnaire } from "./models/Questionnaire.generated";
 
 export function validate(path: string) {

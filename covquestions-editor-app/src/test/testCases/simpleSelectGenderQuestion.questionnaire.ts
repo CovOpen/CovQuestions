@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire } from "@covopen/covquestions-js";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleSelectGenderQuestion",
@@ -42,21 +42,21 @@ const testQuestionnaire: Questionnaire = {
           id: "GENDER_FEMALE",
           text: "Sie haben als Geschlecht 'weiblich' angegeben.",
           expression: {
-            "==": [{ var: "q1_gender.value" }, "female"],
+            var: "q1_gender.option.female",
           },
         },
         {
           id: "GENDER_MALE",
           text: "Sie haben als Geschlecht 'männlich' angegeben.",
           expression: {
-            "==": [{ var: "q1_gender.value" }, "male"],
+            var: "q1_gender.option.male",
           },
         },
         {
           id: "GENDER_DIVERSE",
           text: "Sie haben als Geschlecht 'divers' angegeben.",
           expression: {
-            "==": [{ var: "q1_gender.value" }, "diverse"],
+            var: "q1_gender.option.diverse",
           },
         },
       ],

@@ -16,7 +16,7 @@
   },
   "servers": [
     {
-      "url": "https://v1.covquestions.aquiver.de",
+      "url": "https://covopen.github.io/CovQuestions",
       "description": "Test"
     },
     {
@@ -39,7 +39,7 @@
     }
   ],
   "paths": {
-    "/questionnaires/{id}/{version}/{lang}": {
+    "/questionnaires/{id}/{version}/{lang}.json": {
       "get": {
         "summary": "Get specific Questionnaire",
         "operationId": "get-views-questionnaires-id-version-lang",
@@ -92,7 +92,7 @@
         }
       ]
     },
-    "/questions": {
+    "/questions.json": {
       "get": {
         "summary": "List Questions",
         "responses": {
@@ -118,7 +118,7 @@
       },
       "parameters": []
     },
-    "/questionnaires/{id}/translations/{lang}": {
+    "/questionnaires/{id}/translations/{lang}.json": {
       "parameters": [
         {
           "schema": {
@@ -165,7 +165,7 @@
         ]
       }
     },
-    "/questionnaires": {
+    "/questionnaires.json": {
       "get": {
         "summary": "List Questionnaires",
         "tags": [
@@ -205,7 +205,7 @@
       },
       "parameters": []
     },
-    "/questionnaires/{id}/latest": {
+    "/questionnaires/{id}/latest.json": {
       "get": {
         "summary": "Get specific Questionnaire",
         "operationId": "get-views-questionnaires-id-latest",
@@ -529,8 +529,7 @@
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
-            "maxItems": 2,
-            "minItems": 2,
+            "minItems": 1,
             "type": "array"
           }
         },
@@ -585,6 +584,8 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
+                "maxItems": 1,
+                "minItems": 1,
                 "type": "array"
               }
             ]
@@ -619,7 +620,6 @@
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
-            "maxItems": 2,
             "minItems": 2,
             "type": "array"
           }
@@ -647,12 +647,46 @@
         "title": "LogicMinus",
         "type": "object"
       },
+      "LogicTimes": {
+        "properties": {
+          "*": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "*"
+        ],
+        "title": "LogicTimes",
+        "type": "object"
+      },
+      "LogicDivide": {
+        "properties": {
+          "/": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "/"
+        ],
+        "title": "LogicDivide",
+        "type": "object"
+      },
       "LogicAnd": {
         "properties": {
           "and": {
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
+            "minItems": 1,
             "type": "array"
           }
         },
@@ -668,6 +702,7 @@
             "items": {
               "$ref": "#/components/schemas/LogicExpression"
             },
+            "minItems": 1,
             "type": "array"
           }
         },
@@ -766,6 +801,12 @@
           },
           {
             "$ref": "#/components/schemas/LogicMinus"
+          },
+          {
+            "$ref": "#/components/schemas/LogicTimes"
+          },
+          {
+            "$ref": "#/components/schemas/LogicDivide"
           },
           {
             "$ref": "#/components/schemas/LogicAnd"
@@ -894,6 +935,13 @@
           "value": {
             "description": "Value used for evaluating logic expressions.",
             "type": "string"
+          },
+          "scores": {
+            "title": "Scores",
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
           }
         },
         "required": [
@@ -934,7 +982,7 @@
           }
         ]
       },
-      "NumericOption": {
+      "NumericOptions": {
         "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
         "properties": {
           "defaultValue": {
@@ -967,7 +1015,7 @@
           {
             "properties": {
               "numericOptions": {
-                "$ref": "#/components/schemas/NumericOption"
+                "$ref": "#/components/schemas/NumericOptions"
               },
               "type": {
                 "description": "Type of the question.",
@@ -984,7 +1032,7 @@
         ]
       },
       "Question": {
-        "title": "AnyQuestion",
+        "title": "Question",
         "anyOf": [
           {
             "$ref": "#/components/schemas/QuestionWithoutOptions"
@@ -1212,7 +1260,7 @@
             "title": "Common question fields",
             "type": "object"
           },
-          "NumericOption": {
+          "NumericOptions": {
             "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
             "properties": {
               "defaultValue": {
@@ -1245,7 +1293,7 @@
               {
                 "properties": {
                   "numericOptions": {
-                    "$ref": "#/components/schemas/NumericOption"
+                    "$ref": "#/components/schemas/NumericOptions"
                   },
                   "type": {
                     "description": "Type of the question.",
@@ -1275,6 +1323,13 @@
               "value": {
                 "description": "Value used for evaluating logic expressions.",
                 "type": "string"
+              },
+              "scores": {
+                "title": "Scores",
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
               }
             },
             "required": [
@@ -1284,7 +1339,7 @@
             "type": "object"
           },
           "Question": {
-            "title": "AnyQuestion",
+            "title": "Question",
             "anyOf": [
               {
                 "$ref": "#/components/schemas/QuestionWithoutOptions"
@@ -1516,6 +1571,7 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
+                "minItems": 1,
                 "type": "array"
               }
             },
@@ -1709,6 +1765,8 @@
                     "items": {
                       "$ref": "#/components/schemas/LogicExpression"
                     },
+                    "maxItems": 1,
+                    "minItems": 1,
                     "type": "array"
                   }
                 ]
@@ -1750,6 +1808,12 @@
                 "$ref": "#/components/schemas/LogicMinus"
               },
               {
+                "$ref": "#/components/schemas/LogicTimes"
+              },
+              {
+                "$ref": "#/components/schemas/LogicDivide"
+              },
+              {
                 "$ref": "#/components/schemas/LogicAnd"
               },
               {
@@ -1772,6 +1836,7 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
+                "minItems": 1,
                 "type": "array"
               }
             },
@@ -1787,7 +1852,6 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
-                "maxItems": 2,
                 "minItems": 2,
                 "type": "array"
               }
@@ -1796,6 +1860,39 @@
               "+"
             ],
             "title": "LogicPlus",
+            "type": "object"
+          },
+          "LogicTimes": {
+            "properties": {
+              "*": {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "minItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "*"
+            ],
+            "title": "LogicTimes",
+            "type": "object"
+          },
+          "LogicDivide": {
+            "properties": {
+              "/": {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "minItems": 2,
+                "maxItems": 2,
+                "type": "array"
+              }
+            },
+            "required": [
+              "/"
+            ],
+            "title": "LogicDivide",
             "type": "object"
           },
           "LogicReduce": {
@@ -1821,8 +1918,7 @@
                 "items": {
                   "$ref": "#/components/schemas/LogicExpression"
                 },
-                "maxItems": 2,
-                "minItems": 2,
+                "minItems": 1,
                 "type": "array"
               }
             },

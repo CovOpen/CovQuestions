@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire } from "@covopen/covquestions-js";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleTextQuestion",
@@ -29,7 +29,7 @@ const testQuestionnaire: Questionnaire = {
           id: "TEXT",
           text: "Sie können simple Anweisungen befolgen.",
           expression: {
-            "==": [{ var: "q1_text.value" }, "test"],
+            "==": [{ var: "q1_text" }, "test"],
           },
         },
       ],

@@ -24,13 +24,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import {
-  AnyQuestion,
+  Question,
   QuestionWithOptions,
   ResultCategory,
   TestCase,
-} from "covquestions-js/models/Questionnaire.generated";
+} from "@covopen/covquestions-js/src/models/Questionnaire.generated";
 import { heightWithoutEditor } from "../../../QuestionnaireEditor";
-import { runOneTestCase } from "covquestions-js/src/testCaseRunner";
 import { TestCaseResult } from "./TestCaseResult";
 import { ElementEditor } from "../ElementEditor";
 import { testCaseMetaSchema } from "./testCaseMeta";
@@ -85,6 +84,12 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
 
   const uiSchema = {
     "ui:order": ["description", "*"],
+    options: {
+      strictResults: {
+        "ui:help":
+          "If false (default), the provided results have to appear after the questionnaire execution, additional results are allowed. If set, exactly the provided results have to appear.",
+      },
+    },
   };
 
   const onResultItemChange: OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => {
@@ -135,7 +140,7 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
           />
         </Grid>
       </div>
-      <TestCaseResult className={classes.testCaseResult} testResult={runOneTestCase(questionnaireJson, testCase)} />
+      <TestCaseResult className={classes.testCaseResult} testCase={testCase} runManually={true} />
     </Grid>
   );
 };
@@ -182,7 +187,7 @@ const OneItemRow: React.FC<{
   id: string;
   value?: any;
   onDelete: () => void;
-  item: AnyQuestion;
+  item: Question;
 }> = (props) => {
   return (
     <TableRow>
@@ -200,7 +205,7 @@ const OneItemRow: React.FC<{
 };
 
 const AnswerOrResultEditor: React.FC<{
-  availableItems: AnyQuestion[];
+  availableItems: Question[];
   currentStoreItems: { [id: string]: any };
   onItemChange: OnItemChange;
 }> = ({ currentStoreItems, availableItems, onItemChange }) => {

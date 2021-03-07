@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire } from "@covopen/covquestions-js";
 
 const testQuestionnaire: Questionnaire = {
   id: "simpleNumericAgeQuestion",
@@ -33,7 +33,7 @@ const testQuestionnaire: Questionnaire = {
           id: "AGE_CHILD",
           text: "Du bist ja noch ein Kind.",
           expression: {
-            "<": [{ var: "q1_age.value" }, 18],
+            "<": [{ var: "q1_age" }, 18],
           },
         },
         {

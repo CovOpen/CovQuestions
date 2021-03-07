@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire } from "@covopen/covquestions-js";
 
 const testQuestionnaire: Questionnaire = {
   id: "contactQuestionWithDateVariableAndSkippingQuestion",
@@ -22,7 +22,7 @@ const testQuestionnaire: Questionnaire = {
       text: "Wann trat der Kontakt auf?",
       type: "date",
       enableWhenExpression: {
-        var: "q1_contact.value",
+        var: "q1_contact",
       },
     },
   ],
@@ -32,10 +32,10 @@ const testQuestionnaire: Questionnaire = {
       expression: {
         "-": [
           {
-            var: "g_now.value",
+            var: "now",
           },
           {
-            var: "q2_contact_when.value",
+            var: "q2_contact_when",
           },
         ],
       },
@@ -45,7 +45,7 @@ const testQuestionnaire: Questionnaire = {
       expression: {
         "<=": [
           {
-            var: "v_seconds_since_contact.value",
+            var: "v_seconds_since_contact",
           },
           14 * 24 * 3600,
         ],
@@ -61,7 +61,7 @@ const testQuestionnaire: Questionnaire = {
           id: "CONTACT_RELEVANT",
           text: "Sie hatten einen relevanten Kontakt.",
           expression: {
-            var: "v_contact_during_last_two_weeks.value",
+            var: "v_contact_during_last_two_weeks",
           },
         },
         {
@@ -69,10 +69,10 @@ const testQuestionnaire: Questionnaire = {
           text: "Sie hatten keinen relevanten Kontakt.",
           expression: {
             and: [
-              { var: "q1_contact.value" },
+              { var: "q1_contact" },
               {
                 "!": {
-                  var: "v_contact_during_last_two_weeks.value",
+                  var: "v_contact_during_last_two_weeks",
                 },
               },
             ],

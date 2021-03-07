@@ -96,7 +96,7 @@
       "title": "Common question fields",
       "type": "object"
     },
-    "NumericOption": {
+    "NumericOptions": {
       "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
       "properties": {
         "defaultValue": {
@@ -129,7 +129,7 @@
         {
           "properties": {
             "numericOptions": {
-              "$ref": "#/definitions/NumericOption"
+              "$ref": "#/definitions/NumericOptions"
             },
             "type": {
               "description": "Type of the question.",
@@ -155,13 +155,20 @@
         "value": {
           "description": "Value used for evaluating logic expressions.",
           "type": "string"
+        },
+        "scores": {
+          "title": "Scores",
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
         }
       },
       "required": ["text", "value"],
       "type": "object"
     },
     "Question": {
-      "title": "AnyQuestion",
+      "title": "Question",
       "anyOf": [
         {
           "$ref": "#/definitions/QuestionWithoutOptions"
@@ -363,6 +370,7 @@
           "items": {
             "$ref": "#/definitions/LogicExpression"
           },
+          "minItems": 1,
           "type": "array"
         }
       },
@@ -538,6 +546,8 @@
               "items": {
                 "$ref": "#/definitions/LogicExpression"
               },
+              "maxItems": 1,
+              "minItems": 1,
               "type": "array"
             }
           ]
@@ -577,6 +587,12 @@
           "$ref": "#/definitions/LogicMinus"
         },
         {
+          "$ref": "#/definitions/LogicTimes"
+        },
+        {
+          "$ref": "#/definitions/LogicDivide"
+        },
+        {
           "$ref": "#/definitions/LogicAnd"
         },
         {
@@ -599,6 +615,7 @@
           "items": {
             "$ref": "#/definitions/LogicExpression"
           },
+          "minItems": 1,
           "type": "array"
         }
       },
@@ -612,13 +629,41 @@
           "items": {
             "$ref": "#/definitions/LogicExpression"
           },
-          "maxItems": 2,
           "minItems": 2,
           "type": "array"
         }
       },
       "required": ["+"],
       "title": "LogicPlus",
+      "type": "object"
+    },
+    "LogicTimes": {
+      "properties": {
+        "*": {
+          "items": {
+            "$ref": "#/definitions/LogicExpression"
+          },
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": ["*"],
+      "title": "LogicTimes",
+      "type": "object"
+    },
+    "LogicDivide": {
+      "properties": {
+        "/": {
+          "items": {
+            "$ref": "#/definitions/LogicExpression"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "type": "array"
+        }
+      },
+      "required": ["/"],
+      "title": "LogicDivide",
       "type": "object"
     },
     "LogicReduce": {
@@ -642,8 +687,7 @@
           "items": {
             "$ref": "#/definitions/LogicExpression"
           },
-          "maxItems": 2,
-          "minItems": 2,
+          "minItems": 1,
           "type": "array"
         }
       },

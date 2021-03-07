@@ -3,17 +3,17 @@ import { RadioSelect } from "./RadioSelect";
 import { NumericInput } from "./NumericInput";
 import { MultiSelect } from "./MultiSelect";
 import { DatePicker } from "./DatePicker";
-import { Primitive } from "covquestions-js/primitive";
+import { Primitive } from "@covopen/covquestions-js";
 import { TextInput } from "./TextInput";
 import { exhaustiveCheck } from "../../utils/exhaustiveCheck";
-import { NumericOption, Option, QuestionType } from "covquestions-js/models/Questionnaire.generated";
+import { NumericOptions, Option, QuestionType } from "@covopen/covquestions-js/src/models/Questionnaire.generated";
 
 type ReducedQuestionType = {
   id: string;
   type: QuestionType;
   text: string;
   options?: Option[];
-  numericOption?: NumericOption;
+  numericOptions?: NumericOptions;
 };
 
 export type QuestionFormComponentProps = {

@@ -3,6 +3,7 @@ import { main } from "../src";
 import * as glob from "fast-glob";
 import * as fs from "fs-extra";
 import * as Ajv from "ajv";
+
 const testDir = "./dist-test";
 const compareDir = "./test/apiCompareFile";
 
@@ -10,8 +11,8 @@ describe("Simple JSON API File Comparison", () => {
   glob.sync(`${compareDir}/**`).forEach((path) => {
     let comparisonPath = `${testDir}${path.slice(compareDir.length)}`;
     test(`compare ${path} with ${comparisonPath}`, () => {
-      expect(fs.readFileSync(path, { encoding: "utf-8" })).toBe(
-        fs.readFileSync(comparisonPath, { encoding: "utf-8" })
+      expect(fs.readFileSync(path, { encoding: "utf-8" }).trim()).toBe(
+        fs.readFileSync(comparisonPath, { encoding: "utf-8" }).trim()
       );
     });
   });

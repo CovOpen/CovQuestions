@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render, RenderResult } from "@testing-library/react";
 import UserEvent from "@testing-library/user-event";
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire } from "@covopen/covquestions-js";
 import { QuestionnaireExecution } from "../../components/QuestionnaireExecution";
 
 export class QuestionnaireTest {

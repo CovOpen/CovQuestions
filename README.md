@@ -1,14 +1,14 @@
-Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIvbIJmsb08GLVQt8iE?usp=sharing) | [OpenAPI Spec](https://covopen.github.io/CovQuestions/)
+Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIvbIJmsb08GLVQt8iE?usp=sharing) | [OpenAPI Spec](https://covopen.github.io/CovQuestions/swagger/index.html)
 
 # CovQuestions OpenAPI Definition and Tooling
 
-A webservice where users can interactively try existing SARS-CoV-2 related questionnaires, upload their own questionnaires and an API to provide questions and logic for frontends
+A web service to interactively create and evaluate SARS-CoV-2 related questionnaires and an API to provide questions and logic for frontends.
 
 # Demo
 
 Use the current master build as demo: https://covquestions.z16.web.core.windows.net/
 
-Explore the api: https://stoplight.io/p/docs/gh/covopen/covquestions/api/v1/CovQuestions.v1.json
+Explore the api: https://covopen.github.io/CovQuestions/swagger/index.html
 
 ## Planning
 

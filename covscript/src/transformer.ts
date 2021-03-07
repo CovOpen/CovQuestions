@@ -1,6 +1,6 @@
-import { IToken, CstNode } from "chevrotain";
+import { CstNode, IToken } from "chevrotain";
 import * as T from "./tokens";
-import * as L from "covquestions-js/models/Questionnaire.generated";
+import { LogicExpression } from "@covopen/covquestions-js";
 
 type BinaryOperator =
   | "in"
@@ -28,7 +28,7 @@ export class ToJsonLogicTransformer {
    * Converts a leaf node to JSON-Logic.
    * @param token The token to convert.
    */
-  private tokenToLogic(token: IToken): L.LogicExpression {
+  private tokenToLogic(token: IToken): LogicExpression {
     switch (token.tokenType) {
       case T.NumberLiteral:
         return parseFloat(token.image);
@@ -51,7 +51,7 @@ export class ToJsonLogicTransformer {
   /**
    * Safely gets the single child from a dummy node.
    */
-  private unwrap(cst: CstNode): L.LogicExpression {
+  private unwrap(cst: CstNode): LogicExpression {
     const key = Object.keys(cst.children);
     const children = cst.children[key[0]];
     if (key.length > 1 || children.length > 1) {
@@ -85,15 +85,15 @@ export class ToJsonLogicTransformer {
   private packList(
     [lhs, rhs, ...tail]: CstNode[],
     [opHead, ...opTail]: IToken[],
-    self: L.LogicExpression | null = null
-  ): L.LogicExpression {
+    self: LogicExpression | null = null
+  ): LogicExpression {
     if (opHead === undefined) {
       // finished!
       return self;
     }
 
     const op = this.parseOperator(opHead.image);
-    const expr = {} as L.LogicExpression;
+    const expr = {} as LogicExpression;
 
     if (self === null) {
       // Left-most clause (bottom of the output tree)
@@ -121,7 +121,7 @@ export class ToJsonLogicTransformer {
    * Recursively converts a binary expression to JSON-logic
    * @param cst The expression node.
    */
-  private binaryToLogic(cst: CstNode): L.LogicExpression {
+  private binaryToLogic(cst: CstNode): LogicExpression {
     const lhs = cst.children["lhs"] as CstNode[];
     const rhs = cst.children["rhs"] as CstNode[];
 
@@ -174,7 +174,7 @@ export class ToJsonLogicTransformer {
    * Recursively converts a unary expression to JSON logic.
    * @param cst The expression node.
    */
-  private unaryToLogic(cst: CstNode): L.LogicExpression {
+  private unaryToLogic(cst: CstNode): LogicExpression {
     const expression = cst.children["expression"] as CstNode[];
     const operator = cst.children["operator"] as IToken[];
 
@@ -187,7 +187,7 @@ export class ToJsonLogicTransformer {
     }
 
     const op = this.parseOperator(operator[0].image);
-    let expr = {} as L.LogicExpression;
+    let expr = {} as LogicExpression;
 
     const child = this.toLogic(expression[0]);
 
@@ -220,7 +220,7 @@ export class ToJsonLogicTransformer {
    * This happens by unwrapping.
    * @param cst The expression node.
    */
-  private atomicToLogic(cst: CstNode): L.LogicExpression {
+  private atomicToLogic(cst: CstNode): LogicExpression {
     const expr = cst.children["expression"] as CstNode[];
 
     if (!expr && expr.length !== 1) {
@@ -234,7 +234,7 @@ export class ToJsonLogicTransformer {
    * Converts an array, recusively.
    * @param cst
    */
-  private arrayToLogic(cst: CstNode): L.LogicExpression {
+  private arrayToLogic(cst: CstNode): LogicExpression {
     const values = cst.children["value"];
 
     if (!values) {
@@ -250,7 +250,7 @@ export class ToJsonLogicTransformer {
    * Converts a condition, recusively.
    * @param cst
    */
-  private conditionToLogic(cst: CstNode): L.LogicExpression {
+  private conditionToLogic(cst: CstNode): LogicExpression {
     const condition = cst.children["condition"];
     const branchTrue = cst.children["branchTrue"];
     const branchFalse = cst.children["branchFalse"];
@@ -278,7 +278,7 @@ export class ToJsonLogicTransformer {
    * Main Entrypoint.
    * Converts an expression to JSON-logic.
    */
-  public toLogic(cst: CstNode): L.LogicExpression {
+  public toLogic(cst: CstNode): LogicExpression {
     switch (cst.name) {
       case "expression":
         return this.unwrap(cst);

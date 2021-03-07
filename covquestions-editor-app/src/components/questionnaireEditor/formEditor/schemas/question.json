@@ -70,7 +70,7 @@
                 },
                 "numericOptions": {
                   "title": "Answer options for Numeric questions.",
-                  "$ref": "#/definitions/NumericOption"
+                  "$ref": "#/definitions/NumericOptions"
                 }
               }
             }
@@ -78,7 +78,7 @@
         }
       }
     },
-    "NumericOption": {
+    "NumericOptions": {
       "additionalProperties": false,
       "title": "",
       "properties": {
@@ -116,6 +116,13 @@
         "value": {
           "description": "Value used for evaluating logic expressions.",
           "type": "string"
+        },
+        "scores": {
+          "title": "Scores",
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
         }
       },
       "required": ["text", "value"],

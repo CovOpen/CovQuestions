@@ -1,4 +1,4 @@
-import { Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { Questionnaire } from "@covopen/covquestions-js";
 
 const testQuestionnaire: Questionnaire = {
   id: "covapp_original",
@@ -119,7 +119,7 @@ const testQuestionnaire: Questionnaire = {
       text: "What day was the last contact?",
       type: "date",
       enableWhenExpression: {
-        var: "q7_contact.value",
+        var: "q7_contact",
       },
     },
     {
@@ -162,7 +162,7 @@ const testQuestionnaire: Questionnaire = {
         },
       ],
       enableWhenExpression: {
-        var: "q9_fever.value",
+        var: "q9_fever",
       },
     },
     {
@@ -230,7 +230,7 @@ const testQuestionnaire: Questionnaire = {
       text: "With regard to all questions about symptoms: since when have you had the symptoms you specified?",
       type: "date",
       enableWhenExpression: {
-        var: "v_symptoms.value",
+        var: "v_symptoms",
       },
     },
     {
@@ -383,10 +383,10 @@ const testQuestionnaire: Questionnaire = {
           {
             "-": [
               {
-                var: "g_now.value",
+                var: "now",
               },
               {
-                var: "q8_contact_date.value",
+                var: "q8_contact_date",
               },
             ],
           },
@@ -399,30 +399,30 @@ const testQuestionnaire: Questionnaire = {
       expression: {
         or: [
           {
-            var: "q9_fever.value",
+            var: "q9_fever",
           },
           {
-            var: "q11_chills.value",
+            var: "q11_chills",
           },
           {
             ">": [
               {
-                var: "q12_symptoms.selectedCount",
+                var: "q12_symptoms.selected_count",
               },
               0,
             ],
           },
           {
-            var: "q13_cough.value",
+            var: "q13_cough",
           },
           {
-            var: "q14_runny_nose.value",
+            var: "q14_runny_nose",
           },
           {
-            var: "q15_sore_throat.value",
+            var: "q15_sore_throat",
           },
           {
-            var: "q16_breath.value",
+            var: "q16_breath",
           },
         ],
       },
@@ -432,24 +432,24 @@ const testQuestionnaire: Questionnaire = {
       expression: {
         or: [
           {
-            var: "q6_pregnant.value",
+            var: "q6_pregnant",
           },
           {
-            var: "q18_lung_disease.value",
+            var: "q18_lung_disease",
           },
           {
-            var: "q19_diabetes.value",
+            var: "q19_diabetes",
           },
           {
-            var: "q21_obesity.value",
+            var: "q21_obesity",
           },
           {
-            var: "q22_steroids.value",
+            var: "q22_steroids",
           },
           {
             in: [
               {
-                var: "q1_age.value",
+                var: "q1_age",
               },
               ["70", "80", "80+"],
             ],
@@ -462,10 +462,10 @@ const testQuestionnaire: Questionnaire = {
       expression: {
         "<": [
           {
-            var: "q8_contact_date.value",
+            var: "q8_contact_date",
           },
           {
-            var: "q17_symptoms_date.value",
+            var: "q17_symptoms_date",
           },
         ],
       },
@@ -475,13 +475,13 @@ const testQuestionnaire: Questionnaire = {
       expression: {
         or: [
           {
-            var: "q13_cough.value",
+            var: "q13_cough",
           },
           {
-            var: "q15_sore_throat.value",
+            var: "q15_sore_throat",
           },
           {
-            var: "q16_breath.value",
+            var: "q16_breath",
           },
         ],
       },
@@ -498,13 +498,13 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             and: [
               {
-                var: "v_symptoms.value",
+                var: "v_symptoms",
               },
               {
-                var: "v_contact.value",
+                var: "v_contact",
               },
               {
-                var: "v_symptoms_after_contact.value",
+                var: "v_symptoms_after_contact",
               },
             ],
           },
@@ -515,10 +515,10 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             and: [
               {
-                var: "v_symptoms.value",
+                var: "v_symptoms",
               },
               {
-                var: "v_respiratory_symptoms.value",
+                var: "v_respiratory_symptoms",
               },
             ],
           },
@@ -529,11 +529,11 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             and: [
               {
-                var: "v_contact_relevant.value",
+                var: "v_contact_relevant",
               },
               {
                 "!": {
-                  var: "v_symptoms.value",
+                  var: "v_symptoms",
                 },
               },
             ],
@@ -545,11 +545,11 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             and: [
               {
-                var: "v_symptoms.value",
+                var: "v_symptoms",
               },
               {
                 "!": {
-                  var: "v_respiratory_symptoms.value",
+                  var: "v_respiratory_symptoms",
                 },
               },
             ],
@@ -562,12 +562,12 @@ const testQuestionnaire: Questionnaire = {
             and: [
               {
                 "!": {
-                  var: "v_symptoms.value",
+                  var: "v_symptoms",
                 },
               },
               {
                 "!": {
-                  var: "v_contact.value",
+                  var: "v_contact",
                 },
               },
             ],
@@ -585,7 +585,7 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             "==": [
               {
-                var: "q4_work.value",
+                var: "q4_work",
               },
               "medical",
             ],
@@ -603,7 +603,7 @@ const testQuestionnaire: Questionnaire = {
           expression: {
             and: [
               {
-                var: "q8_contact_date.value",
+                var: "q8_contact_date",
               },
               {
                 "!": {
@@ -628,7 +628,7 @@ const testQuestionnaire: Questionnaire = {
           id: "SHOW_RISK_GROUP_ADVISORY",
           text: "You belong to the risk group",
           expression: {
-            var: "v_risk_group.value",
+            var: "v_risk_group",
           },
         },
       ],
@@ -641,7 +641,7 @@ const testQuestionnaire: Questionnaire = {
           id: "SHOW_SHORTNESS_OF_BREATH_ADVISORY",
           text: "You reported shortness of breath.",
           expression: {
-            var: "q16_breath.value",
+            var: "q16_breath",
           },
         },
       ],

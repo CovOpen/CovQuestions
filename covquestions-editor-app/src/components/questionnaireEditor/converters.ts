@@ -1,5 +1,5 @@
-import { CovscriptToJsonLogicConverter, CovscriptGenerator } from "covquestions-logic-parser";
-import { LogicExpression, Questionnaire } from "covquestions-js/models/Questionnaire.generated";
+import { CovscriptGenerator, CovscriptToJsonLogicConverter } from "@covopen/covscript";
+import { LogicExpression, Questionnaire } from "@covopen/covquestions-js";
 import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../../models/editorQuestionnaire";
 
 export function convertLogicExpressionToString(value?: LogicExpression): string {

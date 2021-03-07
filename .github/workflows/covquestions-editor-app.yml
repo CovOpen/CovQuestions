@@ -24,17 +24,17 @@ jobs:
         run: npm run build
         working-directory: covquestions-js/
 
-      ## Build Covscript Package
-      - name: Install covquestions-logic-parser Packages
+      ## Build covscript Package
+      - name: Install covscript Packages
         run: npm install
         working-directory: covscript/
-      - name: Link covquestions package to covquestions-logic-parser
-        run: npm link ../covquestions-js/dist
+      - name: Link covquestions package to covscript
+        run: npm link ../covquestions-js
         working-directory: covscript/
-      - name: Run tests for covquestions-logic-parser
+      - name: Run tests for covscript
         run: npm run test
         working-directory: covscript/
-      - name: Build covquestions-logic-parser package
+      - name: Build covscript package
         run: npm run build
         working-directory: covscript/
 
@@ -42,11 +42,11 @@ jobs:
       - name: Install Packages
         run: npm install
         working-directory: covquestions-editor-app/
-      - name: Link covquestions-logic-parser package to React App
-        run: npm link ../covscript/dist
+      - name: Link covscript package to React App
+        run: npm link ../covscript
         working-directory: covquestions-editor-app/
       - name: Link covquestions package to React App
-        run: npm link ../covquestions-js/dist
+        run: npm link ../covquestions-js
         working-directory: covquestions-editor-app/
 
       - name: Check format
