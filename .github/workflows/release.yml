@@ -1,0 +1,33 @@
+name: NPM - Release
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Packages
+        run: npm install
+
+      - name: Build all packages
+        run: npx lerna run build
+
+      - name: Setup NPM Authentication
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Release all packages
+        run: npx lerna release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
