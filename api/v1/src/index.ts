@@ -1,8 +1,19 @@
 import * as fs from "fs-extra";
-import { ISOLanguage, Question, Questionnaire, QuestionnaireMeta, } from "./models/Questionnaire.generated";
+import {
+  ISOLanguage,
+  Question,
+  Questionnaire,
+  QuestionnaireMeta,
+} from "./models/Questionnaire.generated";
 import * as glob from "fast-glob";
 import { validate } from "./validate";
-import { doOnEachTranslation, getDirectories, getStringRessource, readI18nFile, writeJSONFile, } from "./utility";
+import {
+  doOnEachTranslation,
+  getDirectories,
+  getStringRessource,
+  readI18nFile,
+  writeJSONFile,
+} from "./utility";
 
 class TranslationNotCompleteError extends Error {
   constructor(m: string) {
