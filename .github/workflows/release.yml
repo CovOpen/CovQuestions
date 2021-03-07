@@ -28,6 +28,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Release all packages
-        run: npx lerna publish
+        run: npx lerna publish --yes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
