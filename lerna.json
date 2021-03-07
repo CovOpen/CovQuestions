@@ -1,0 +1,11 @@
+{
+  "packages": ["covquestions-editor-app", "covquestions-js", "covscript"],
+  "version": "independent",
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "message": "chore(release): publish",
+      "registry": "https://npm.pkg.github.com/"
+    }
+  }
+}

@@ -5,16 +5,16 @@
     "@apidevtools/json-schema-ref-parser": "^9.0.1",
     "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
     "@redocly/openapi-cli": "^0.12.5",
+    "@types/node": "^13.11.1",
     "copyfiles": "^2.2.0",
     "json-schema-to-typescript": "^8.2.0",
+    "prettier": "^2.0.4",
     "quicktype": "^15.0.223",
     "quicktype-core": "^6.0.56",
     "redoc-cli": "^0.9.7",
     "rimraf": "^3.0.2",
     "ts-node": "^8.9.1",
-    "typescript": "^3.8.3",
-    "@types/node": "^13.11.1",
-    "prettier": "^2.0.4"
+    "typescript": "^3.8.3"
   },
   "private": true,
   "scripts": {
@@ -27,5 +27,8 @@
     "update-files": "npm run build && npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts && npm run copy-openapi && npm run format",
     "generateTypes": "ts-node scripts/generateTypes.ts && ts-node scripts/copyGeneratedTypes.ts",
     "copy-openapi": "copyfiles -f ./dist/openapi.json ./api/v1/"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
   }
 }
