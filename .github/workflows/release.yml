@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 12.x
       - name: Install Packages
-        run: npx lerna run install
+        run: lerna exec npm install
 
       - name: Build all packages
         run: npx lerna run build
