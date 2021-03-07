@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.0.3...@covopen/covscript@1.0.4) (2021-03-07)
+
+**Note:** Version bump only for package @covopen/covscript
+
+
+
+
+
 ## [1.0.3](https://github.com/CovOpen/CovQuestions/compare/@covopen/covscript@1.0.2...@covopen/covscript@1.0.3) (2021-03-07)
 
 **Note:** Version bump only for package @covopen/covscript
