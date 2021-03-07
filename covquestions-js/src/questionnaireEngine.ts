@@ -28,36 +28,36 @@ type AnswerFromOptions = {
   score: ScoreResponse;
 };
 
-type DataObjectEntry =
-  | AnswerFromOptions
-  | Primitive
-  | Array<Primitive>
-  | ScoreResponse
-  | undefined;
+type DataObjectEntry = AnswerFromOptions | RawAnswer | ScoreResponse;
 
-type Answer = {
+type GivenAnswer = {
   questionId: string;
-  rawAnswer: Primitive | Primitive[] | undefined;
+  rawAnswer: RawAnswer;
+};
+
+type RawAnswer = Primitive | Primitive[] | undefined;
+
+type AnswersPersistence = {
+  answers: GivenAnswer[];
+  version: number;
+  timeOfExecution?: number;
 };
 
 export class QuestionnaireEngine {
+  private readonly questionnaire: Questionnaire;
   private readonly questions: Question[] = [];
   private variables: Variable[] = [];
   private resultCategories: ResultCategory[] = [];
   private data: { [key: string]: DataObjectEntry } = {};
   private readonly timeOfExecution?: number;
-  private givenAnswers: Answer[] = [];
+  private givenAnswers: GivenAnswer[] = [];
 
   constructor(newQuestionnaire: Questionnaire, timeOfExecution?: number) {
+    this.questionnaire = newQuestionnaire;
     this.questions = newQuestionnaire.questions;
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;
     this.timeOfExecution = timeOfExecution;
-  }
-
-  private getCurrentQuestionIndex(): number {
-    const lastAnswer = this.givenAnswers[this.givenAnswers.length - 1];
-    return this.questions.findIndex(({ id }) => id === lastAnswer?.questionId);
   }
 
   public nextQuestion(): Question | undefined {
@@ -78,10 +78,31 @@ export class QuestionnaireEngine {
     return undefined;
   }
 
-  public setAnswer(
-    questionId: string,
-    rawAnswer: Primitive | Array<Primitive> | undefined
-  ) {
+  public previousQuestion(
+    currentQuestionId: string
+  ): { question: Question; answer?: RawAnswer } {
+    this.removeAnswersStartingFrom(currentQuestionId);
+    const previousAnswer = this.givenAnswers.pop();
+    this.recreateDataObject();
+
+    const previousQuestion = this.nextQuestion() ?? this.questions[0]!;
+
+    if (previousQuestion.id === previousAnswer?.questionId) {
+      return { question: previousQuestion, answer: previousAnswer.rawAnswer };
+    }
+    return { question: previousQuestion };
+  }
+
+  public getAnswersPersistence(): AnswersPersistence {
+    return { answers: this.givenAnswers, version: this.questionnaire.version };
+  }
+
+  public setAnswersPersistence(answersPersistence: AnswersPersistence) {
+    this.givenAnswers = answersPersistence.answers;
+    this.recreateDataObject();
+  }
+
+  public setAnswer(questionId: string, rawAnswer: RawAnswer) {
     const question = this.getQuestionById(questionId);
     if (question === undefined) {
       throw new Error(
@@ -93,34 +114,46 @@ export class QuestionnaireEngine {
       throw new Error(`This question is not optional: ${questionId}`);
     }
 
-    // Remove answers for this and any later questions
-    const indexOfGivenAnswerForThisQuestion = this.givenAnswers.findIndex(
-      ({ questionId }) => questionId === question.id
-    );
-    if (indexOfGivenAnswerForThisQuestion > -1) {
-      this.givenAnswers = this.givenAnswers.slice(
-        0,
-        indexOfGivenAnswerForThisQuestion
-      );
-    }
+    this.removeAnswersStartingFrom(questionId);
 
     this.givenAnswers.push({
-      questionId: question.id,
+      questionId: questionId,
       rawAnswer,
     });
 
     this.recreateDataObject();
   }
 
+  private removeAnswersStartingFrom(questionId: string) {
+    const indexOfAnswer = this.givenAnswers.findIndex(
+      (answer) => answer.questionId === questionId
+    );
+
+    if (indexOfAnswer > -1) {
+      this.givenAnswers = this.givenAnswers.slice(0, indexOfAnswer);
+    }
+  }
+
   public getProgress(): number {
     return (this.getCurrentQuestionIndex() + 1) / this.questions.length;
   }
 
+  private getCurrentQuestionIndex(): number {
+    return this.questions.findIndex(
+      ({ id }) => id === this.getCurrentQuestionId()
+    );
+  }
+
+  private getCurrentQuestionId(): string | undefined {
+    const lastAnswer = this.givenAnswers[this.givenAnswers.length - 1];
+    return lastAnswer?.questionId;
+  }
+
   private processAnswerWithOptions(
-    value: Primitive | Array<Primitive> | undefined,
+    rawAnswer: RawAnswer,
     question: QuestionWithOptions
   ): AnswerFromOptions {
-    const valueAsArray = convertToPrimitiveArray(value);
+    const valueAsArray = convertToPrimitiveArray(rawAnswer);
 
     const count = question.options !== undefined ? question.options.length : 0;
     const selected_count = valueAsArray.length;
