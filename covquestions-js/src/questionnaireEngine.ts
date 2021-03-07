@@ -146,6 +146,10 @@ export class QuestionnaireEngine {
     this.updateComputableVariables();
   }
 
+  public getProgress(): number {
+    return (this.currentQuestionIndex + 1) / this.questions.length;
+  }
+
   private processAnswerWithOptions(
     value: Primitive | Array<Primitive> | undefined,
     question: Question
