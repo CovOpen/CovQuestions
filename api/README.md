@@ -1,4 +1,6 @@
-# API
+## API
+
+An API to provide questions and logic for frontends.
 
 ## Development
 
