@@ -1,5 +1,9 @@
 # Contributing
 
+## Translate Questionnaires 
+
+[Head over to Crowdin and submit translations in any language you speak.](https://wevsvirushack.crowdin.com/covquestions)
+
 ## Create a Questionnaire
 
 Head over to our Questionnaire Creator (where you can also try out every Questionnaire from the API):
