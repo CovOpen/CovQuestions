@@ -27,4 +27,4 @@ The API supplies all questionnaires in a static way, versioned and in multiple l
 
 # Contribute
 
-Have a look at our [CONTRIBUTING.md]() to get started.
+Have a look at our [CONTRIBUTING.md](/CONTRIBUTING.md) to get started.
