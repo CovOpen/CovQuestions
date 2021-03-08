@@ -37,6 +37,9 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQue
         <Grid item xs={12}>
           <QuestionFormComponent currentQuestion={currentQuestion} onChange={setCurrentValue} value={currentValue} />
         </Grid>
+        <Grid item xs={12}>
+          <Grid item>{currentQuestion.details}</Grid>
+        </Grid>
         <Grid container item xs={12} justify="flex-end">
           <Grid item>
             <Button
