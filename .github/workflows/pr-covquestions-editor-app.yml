@@ -1,0 +1,96 @@
+name: Editor - CI
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'covquestions-editor-app/**'
+env:
+  RESSOURCE_GROUP: covapp
+  STORAGE_NAME: covquestionspr${{ github.event.pull_request.number }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      ## Build Covquesitions Package
+      - name: Install covquestions Packages
+        run: npm install
+        working-directory: covquestions-js/
+      - name: Build covquestions package
+        run: npm run build
+        working-directory: covquestions-js/
+
+      ## Build covscript Package
+      - name: Install covscript Packages
+        run: npm install
+        working-directory: covscript/
+      - name: Link covquestions package to covscript
+        run: npm link ../covquestions-js
+        working-directory: covscript/
+      - name: Run tests for covscript
+        run: npm run test
+        working-directory: covscript/
+      - name: Build covscript package
+        run: npm run build
+        working-directory: covscript/
+
+        # npm link needs to happen after npm install
+      - name: Install Packages
+        run: npm install
+        working-directory: covquestions-editor-app/
+      - name: Link covscript package to React App
+        run: npm link ../covscript
+        working-directory: covquestions-editor-app/
+      - name: Link covquestions package to React App
+        run: npm link ../covquestions-js
+        working-directory: covquestions-editor-app/
+
+      - name: Check format
+        run: npm run lint
+        working-directory: covquestions-editor-app/
+      - name: Run tests
+        run: CI=true npm run test
+        working-directory: covquestions-editor-app/
+      - name: Build App
+        run: npm run build
+        working-directory: covquestions-editor-app/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          # Artifact name
+          name: react-app
+          # Directory containing files to upload
+          path: covquestions-editor-app/build/
+
+
+      # Setup Preview
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az group deployment create --resource-group covapp --template-file .github/workflows/az-storage-template.json --parameters storageAccounts_name=${{ env.STORAGE_NAME }} --subscription ${{ SECRETS.AZURE_SUBSCRIPTION_ID }}
+            az storage blob service-properties update --account-name ${{ env.STORAGE_NAME }} --static-website  --index-document index.html --subscription ${{ SECRETS.AZURE_SUBSCRIPTION_ID }} --auth-mode login
+            az storage blob upload-batch -d ${{ env.STORAGE_NAME }} -s ./react-with-json-logic/build/ --auth-mode login
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            This PR is available as a preview [here][1].
+
+            [1]: https://${{ env.STORAGE_NAME }}.z16.web.core.windows.net/
+          reaction-type: "rocket"

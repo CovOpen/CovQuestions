@@ -1,0 +1,30 @@
+[
+  {
+    "id": "testQuestionnaire1",
+    "title": "test questionnaire 1",
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "de",
+        "en"
+      ],
+      "creationDate": "2020-04-13T14:48:48+0000"
+    },
+    "version": 1,
+    "path": "/questionnaires/testQuestionnaire1/1"
+  },
+  {
+    "id": "testQuestionnaire1",
+    "title": "test questionnaire 2",
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": [
+        "de",
+        "en"
+      ],
+      "creationDate": "2020-04-13T14:48:48+0000"
+    },
+    "version": 2,
+    "path": "/questionnaires/testQuestionnaire1/2"
+  }
+]

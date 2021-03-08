@@ -1,0 +1,33 @@
+{
+  "name": "@covopen/covscript",
+  "version": "1.0.4",
+  "description": "Converts simple logic expressions to JSON logic and back",
+  "scripts": {
+    "test": "npx jest --runInBand",
+    "build": "tsc",
+    "installAndLink": "(cd ../covquestions-js && npm install && npm run build) && npm install && npm link ../covquestions-js"
+  },
+  "author": "CovOpen Team",
+  "contributors": [],
+  "license": "See license file",
+  "private": false,
+  "dependencies": {
+    "@covopen/covquestions-js": "^1.0.1",
+    "chevrotain": "^8.0.1"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.31",
+    "jest": "^26.6.3",
+    "json-logic-js": "^2.0.0",
+    "ts-jest": "^26.5.3",
+    "typescript": "^4.2.3"
+  },
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js"
+  }
+}

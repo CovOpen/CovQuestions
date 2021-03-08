@@ -1,0 +1,102 @@
+[
+  {
+    "id": "aa43ae11-2b3c-46dd-ac01-c901c3d36a3e",
+    "title": "Example",
+    "path": "/questionnaires/aa43ae11-2b3c-46dd-ac01-c901c3d36a3e/1/de",
+    "version": 1,
+    "meta": {
+      "author": "Alexander",
+      "availableLanguages": ["de"]
+    }
+  },
+  {
+    "id": "contactQuestionWithDateVariableAndSkippingQuestion",
+    "title": "Contact question with date variable and skipping a question",
+    "path": "/questionnaires/contactQuestionWithDateVariableAndSkippingQuestion/1/de",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de"]
+    }
+  },
+  {
+    "id": "covapp_original",
+    "title": "Example CovApp",
+    "path": "/questionnaires/covapp_original/1/en",
+    "version": 1,
+    "meta": {
+      "author": "Alexander Thieme, CovQuestions Team",
+      "availableLanguages": ["en"]
+    }
+  },
+  {
+    "id": "simpleBooleanContactQuestion",
+    "title": "Simple boolean contact question",
+    "path": "/questionnaires/simpleBooleanContactQuestion/1/en",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["en"]
+    }
+  },
+  {
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/1/de",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de", "en"]
+    }
+  },
+  {
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/2/de",
+    "version": 2,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de", "en"]
+    }
+  },
+  {
+    "id": "simpleMultiselectSymptomsQuestion",
+    "title": "Simple multiselect symptoms question",
+    "path": "/questionnaires/simpleMultiselectSymptomsQuestion/3/de",
+    "version": 3,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["de"]
+    }
+  },
+  {
+    "id": "simpleNumericAgeQuestion",
+    "title": "Simple numeric age question",
+    "path": "/questionnaires/simpleNumericAgeQuestion/1/en",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["en"]
+    }
+  },
+  {
+    "id": "simpleSelectGenderQuestion",
+    "title": "Simple select gender question",
+    "path": "/questionnaires/simpleSelectGenderQuestion/1/en",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["en"]
+    }
+  },
+  {
+    "id": "simpleTextQuestion",
+    "title": "Simple text question",
+    "path": "/questionnaires/simpleTextQuestion/1/en",
+    "version": 1,
+    "meta": {
+      "author": "Someone",
+      "availableLanguages": ["en"]
+    }
+  }
+]

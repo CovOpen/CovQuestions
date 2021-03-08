@@ -1,0 +1,43 @@
+name: covscript - CI
+on:
+  pull_request:
+    paths:
+    - 'covscript/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install covquestions Packages
+      run: npm install
+      working-directory: covquestions-js/
+    - name: Build covquestions package
+      run: npm run build
+      working-directory: covquestions-js/
+      # npm needs to happen after npm install
+    - name: Install covscript Packages
+      run: npm install
+      working-directory: covscript/
+    - name: Link covquestions package to covscript
+      run: npm link ../covquestions-js
+      working-directory: covscript/
+    - name: Run tests for covscript
+      run: npm run test
+      working-directory: covscript/
+    - name: Build covscript package
+      run: npm run build
+      working-directory: covscript/
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: react-app
+        # Directory containing files to upload
+        path: covscript/dist/
+

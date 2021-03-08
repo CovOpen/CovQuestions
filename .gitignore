@@ -67,7 +67,6 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -79,8 +78,8 @@ typings/
 # nuxt.js build output
 .nuxt
 
-# rollup.js default build output
-dist/
+# build output
+**/dist/
 
 # Uncomment the public line if your project uses Gatsby
 # https://nextjs.org/blog/next-9-1#public-directory-support
@@ -119,4 +118,6 @@ temp/
 .history
 
 # End of https://www.gitignore.io/api/web,node,visualstudiocode
-react-with-json-logic/.vscode/launch.json
+covquestions-editor-app/.vscode/launch.json
+
+/.npmrc

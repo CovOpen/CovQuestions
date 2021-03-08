@@ -1,0 +1,64 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Index TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["index.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/api/v1/",
+      "protocol": "inspector",
+      "env": {
+        "DEVELOPMENT": "true"
+      }
+    },
+    {
+      "name": "Pre_Build TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["scripts/pre_build.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/api/v1/",
+      "protocol": "inspector"
+    },
+    {
+      "name": "Update Schemas TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["scripts/updateFilesFromSchema.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    },
+    {
+      "name": "Generate Types TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["scripts/generateTypes.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Test",
+      "program": "${workspaceFolder}\\api\\v1\\node_modules\\jest\\bin\\jest",
+      "args": [
+        "--runInBand",
+        "--config=${workspaceFolder}\\api\\v1\\jest.config.js"
+      ],
+      "cwd": "${workspaceRoot}\\api\\v1",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

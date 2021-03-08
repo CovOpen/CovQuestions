@@ -1,0 +1,34 @@
+{
+  "name": "covquestionsapi",
+  "version": "1.0.0",
+  "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^9.0.7",
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
+    "@redocly/openapi-cli": "^0.12.16",
+    "@types/node": "^13.13.45",
+    "copyfiles": "^2.4.1",
+    "json-schema-to-typescript": "^8.2.0",
+    "prettier": "^2.2.1",
+    "quicktype": "^15.0.260",
+    "quicktype-core": "^6.0.70",
+    "redoc-cli": "^0.9.13",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.9"
+  },
+  "private": true,
+  "scripts": {
+    "format": "prettier --write **/*.{ts,tsx,json}",
+    "start": "openapi preview-docs",
+    "build": "openapi bundle -o dist --ext json && openapi bundle -o dist --ext yaml",
+    "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
+    "test": "openapi validate",
+    "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi",
+    "update-files": "npm run build && npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts && npm run copy-openapi && npm run format",
+    "generateTypes": "ts-node scripts/generateTypes.ts && ts-node scripts/copyGeneratedTypes.ts",
+    "copy-openapi": "copyfiles -f ./dist/openapi.json ./api/v1/"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

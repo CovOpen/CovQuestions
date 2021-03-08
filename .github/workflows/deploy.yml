@@ -1,38 +1,60 @@
-name: CD
+name: Deploy - Editor - CD
 on:
   push:
     branches:
       - master
     paths:
-    - 'react-with-json-logic/**'
+      - "covquestions-editor-app/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: Install Packages
-      run: npm install
-      working-directory: react-with-json-logic/
-    - name: Build App
-      run: npm run build
-      working-directory: react-with-json-logic/
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: react-app
-        # Directory containing files to upload
-        path: react-with-json-logic/build/
-    - name: Publish to blob storage
-      uses: bacongobbler/azure-blob-storage-upload@v1.0.0
-      with:
-        source_dir: react-with-json-logic/build/
-        container_name: $web
-        connection_string: ${{ secrets.ConnectionString }}
-        extra_args: ''
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Packages
+        run: npm install
+        working-directory: covquestions-editor-app/
+      - name: Install covquestions Packages
+        run: npm install
+        working-directory: covquestions-js/
+      - name: Build covquestions Package
+        run: npm run build
+        working-directory: covquestions-js/
+      - name: Install covscript Packages
+        run: npm install
+        working-directory: covscript/
+      - name: Link covquestions package to covscript
+        run: npm link ../covquestions-js
+        working-directory: covscript/
+      - name: Build covscript package
+        run: npm run build
+        working-directory: covscript/
+        # npm needs to happen after npm install
+      - name: Link covquestions package to React App
+        run: npm link ../covquestions-js
+        working-directory: covquestions-editor-app/
+      - name: Link covscript package to React App
+        run: npm link ../covscript
+        working-directory: covquestions-editor-app/
+      - name: Build App
+        run: npm run build
+        working-directory: covquestions-editor-app/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          # Artifact name
+          name: react-app
+          # Directory containing files to upload
+          path: covquestions-editor-app/build/
+      - name: Publish to blob storage
+        uses: bacongobbler/azure-blob-storage-upload@v1.0.0
+        with:
+          source_dir: covquestions-editor-app/build/
+          container_name: $web
+          connection_string: ${{ secrets.ConnectionString }}
+          extra_args: ""

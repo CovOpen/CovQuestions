@@ -1,0 +1,68 @@
+{
+  "name": "covquestions-editor-app",
+  "version": "1.0.4",
+  "private": true,
+  "dependencies": {
+    "@covopen/covquestions-js": "^1.0.1",
+    "@covopen/covscript": "^1.0.4",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@reduxjs/toolkit": "^1.5.0",
+    "@rjsf/core": "^2.4.2",
+    "@rjsf/material-ui": "^2.4.2",
+    "@testing-library/dom": "^7.29.6",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.1",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.31",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "@types/react-redux": "^7.1.16",
+    "brace": "^0.11.1",
+    "clsx": "^1.1.1",
+    "copyfiles": "^2.4.1",
+    "fast-deep-equal": "^3.1.3",
+    "jest-date-mock": "^1.0.8",
+    "json-logic-js": "^2.0.0",
+    "json-schema": "^0.3.0",
+    "jsoneditor": "^9.2.0",
+    "jsoneditor-react": "^3.1.0",
+    "nock": "^13.0.10",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-jsonschema-form": "^1.8.1",
+    "react-redux": "^7.2.2",
+    "react-scripts": "^4.0.3",
+    "redux": "^4.0.5",
+    "typeface-fira-sans": "^1.1.13",
+    "typescript": "^4.2.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier --config .prettierrc --ignore-path .gitignore --write **/*.{ts,tsx,json}",
+    "lint": "prettier --config .prettierrc --ignore-path .gitignore --check **/*.{ts,tsx,json}",
+    "copyTestCases": "ts-node --compiler-options={\"\\\"module\"\\\":\"\\\"commonJS\"\\\"} scripts/copyTestCasesToApi.ts && npm run format",
+    "installAndLink": "(cd ../covquestions-js && npm install && npm run build) && (cd ../covscript && npm run installAndLink && npm run build) && npm install && npm link ../covquestions-js ../covscript"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
