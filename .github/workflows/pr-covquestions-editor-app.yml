@@ -83,14 +83,20 @@ jobs:
           inlineScript: |
             az group deployment create --resource-group covapp --template-file .github/workflows/az-storage-template.json --parameters storageAccounts_name=${{ env.STORAGE_NAME }} --subscription ${{ SECRETS.AZURE_SUBSCRIPTION_ID }}
             az storage blob service-properties update --account-name ${{ env.STORAGE_NAME }} --static-website  --index-document index.html --subscription ${{ SECRETS.AZURE_SUBSCRIPTION_ID }} --auth-mode login
-            az storage blob upload-batch -d ${{ env.STORAGE_NAME }} -s ./react-with-json-logic/build/ --auth-mode login
+            az storage blob upload-batch -d ${{ env.STORAGE_NAME }} -s ./covquestions-editor-app/build/ --auth-mode login
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: This PR is available as a preview
 
       - name: Create comment
+        if: ${{ steps.fc.outputs.comment-id == 0 }}
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            This PR is available as a preview [here][1].
-
-            [1]: https://${{ env.STORAGE_NAME }}.z16.web.core.windows.net/
+            This PR is available as a preview [here](https://${{ env.STORAGE_NAME }}.z16.web.core.windows.net).
           reaction-type: "rocket"
