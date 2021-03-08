@@ -18,6 +18,9 @@ const engine = new QuestionnaireEngine(currentQuestionnaire);
 const nextQuestion = engine.nextQuestion();
 questionnaireEngine.setAnswer(currentQuestion!.id, value);
 
+// Display the progress
+const progress = engine.getProgress(); // number between 0 and 1
+
 // If nextQuestion is undefined, the questionaire is finished. Get and show results.
 questionnaireEngine.getResults();
 ```
