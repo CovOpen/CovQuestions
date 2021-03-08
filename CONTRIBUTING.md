@@ -36,3 +36,9 @@ Now the CD Pipeline will take over.
 ## Translate a Questionnaire
 
 Head over to https://wevsvirushack.crowdin.com/covquestions and start translating.
+
+## Preview
+
+The preview is deployed on Azure Blob Storage. Get the workflow from the according workflow files.
+
+In order to create your azure credentials follow [this guide](https://github.com/Azure/login).
