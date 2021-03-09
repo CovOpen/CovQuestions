@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemText,
   makeStyles,
-  Snackbar,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
+import WarningIcon from "@material-ui/icons/Warning";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import {
@@ -26,9 +26,11 @@ import {
   questionnaireInEditorSelector,
   removeItem,
   swapItemWithNextOne,
+  formErrorsSelector,
+  duplicatedIdsSelector,
 } from "../../store/questionnaireInEditor";
 import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
-import { Alert } from "@material-ui/lab";
+import { EditorResultCategory } from "../../models/editorQuestionnaire";
 
 type QuestionnaireFormEditorProps = {
   heightWithoutEditor: number;
@@ -55,6 +57,8 @@ export type ActiveItem = {
 export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const dispatch = useAppDispatch();
   const questionnaireInEditor = useSelector(questionnaireInEditorSelector);
+  const formErrors = useSelector(formErrorsSelector);
+  const duplicatedIds = useSelector(duplicatedIdsSelector);
 
   const useStyles = makeStyles(() =>
     createStyles({
@@ -108,15 +112,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({ section: SectionType.META, index: 0 });
   const [futureActiveItem, setFutureActiveItem] = useState<ActiveItem | undefined>(undefined);
-  const [showSnackbar, setShowSnackbar] = React.useState(false);
-
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setShowSnackbar(false);
-  };
 
   // enforce the re-rendering of the form editor by first unmounting it and then remounting it
   const changeActiveItem = (futureItem: ActiveItem) => {
@@ -171,10 +166,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   };
 
   const handleActiveItemChange = (section: SectionType, index: number) => {
-    if (questionnaireInEditor.hasErrors) {
-      setShowSnackbar(true);
-      return;
-    }
     changeActiveItem({ section, index });
   };
 
@@ -197,6 +188,30 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     }
     `;
 
+  const hasError = (hasError: boolean, id?: string) => {
+    if (hasError) {
+      return true;
+    }
+    if (id !== undefined) {
+      return duplicatedIds.indexOf(id) > -1;
+    }
+    return false;
+  };
+
+  const hasResultDuplicatedId = (resultCategory: EditorResultCategory) => {
+    if (resultCategory.results === undefined) {
+      return false;
+    }
+    let isDuplicate = false;
+    for (const result of resultCategory.results) {
+      if (duplicatedIds.indexOf(result.id) > -1) {
+        isDuplicate = true;
+        break;
+      }
+    }
+    return isDuplicate;
+  };
+
   return (
     <>
       <Grid container direction="column">
@@ -212,6 +227,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 onClick={() => handleActiveItemChange(SectionType.META, 0)}
               >
                 <ListItemText classes={{ primary: classes.listItemText }} primary="Meta" />
+                {formErrors.meta ? <WarningIcon color={"error"} /> : null}
               </ListItem>
             </List>
             <Divider className={classes.selectionListDivider} />
@@ -222,10 +238,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   className={classes.addButton}
                   aria-label="add-question"
                   onClick={() => {
-                    if (questionnaireInEditor.hasErrors) {
-                      setShowSnackbar(true);
-                      return;
-                    }
                     dispatch(addNewQuestion());
                     handleActiveItemChange(SectionType.QUESTIONS, questionnaireInEditor.questionnaire.questions.length);
                   }}
@@ -242,6 +254,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.text} />
+                  {hasError(formErrors.questions[index], item.id) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>
@@ -252,10 +265,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 className={classes.addButton}
                 aria-label="add-result-category"
                 onClick={() => {
-                  if (questionnaireInEditor.hasErrors) {
-                    setShowSnackbar(true);
-                    return;
-                  }
                   dispatch(addNewResultCategory());
                   handleActiveItemChange(
                     SectionType.RESULT_CATEGORIES,
@@ -276,6 +285,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
+                  {hasError(formErrors.resultCategories[index], item.id) || hasResultDuplicatedId(item) ? (
+                    <WarningIcon color={"error"} />
+                  ) : null}
                 </ListItem>
               ))}
             </List>
@@ -286,10 +298,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 className={classes.addButton}
                 aria-label="add-variable"
                 onClick={() => {
-                  if (questionnaireInEditor.hasErrors) {
-                    setShowSnackbar(true);
-                    return;
-                  }
                   dispatch(addNewVariable());
                   handleActiveItemChange(SectionType.VARIABLES, questionnaireInEditor.questionnaire.variables.length);
                 }}
@@ -307,6 +315,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.id} />
+                  {hasError(formErrors.variables[index], item.id) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
             </List>
@@ -317,10 +326,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 className={classes.addButton}
                 aria-label="add-test-case"
                 onClick={() => {
-                  if (questionnaireInEditor.hasErrors) {
-                    setShowSnackbar(true);
-                    return;
-                  }
                   dispatch(addNewTestCase());
                   handleActiveItemChange(
                     SectionType.TEST_CASES,
@@ -341,6 +346,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   key={index}
                 >
                   <ListItemText classes={{ primary: classes.listItemText }} primary={item.description} />
+                  {hasError(formErrors.testCases[index]) ? <WarningIcon color={"error"} /> : null}
                 </ListItem>
               ))}
               <ListItem className={classes.listItem}>
@@ -379,19 +385,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
           </Grid>
         </Grid>
       </Grid>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        open={showSnackbar}
-        autoHideDuration={5000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="error">
-          Errors in form. Cannot navigate to other element.
-        </Alert>
-      </Snackbar>
     </>
   );
 }

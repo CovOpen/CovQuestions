@@ -20,7 +20,12 @@ import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { ISOLanguage, Questionnaire } from "@covopen/covquestions-js";
 import { useAppDispatch } from "./store/store";
-import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
+import {
+  questionnaireInEditorSelector,
+  setQuestionnaireInEditor,
+  duplicatedIdsSelector,
+  hasAnyErrorSelector,
+} from "./store/questionnaireInEditor";
 import {
   QuestionnaireSelection,
   QuestionnaireSelectionDrawer,
@@ -64,6 +69,8 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
+  const duplicatedIds = useSelector(duplicatedIdsSelector);
+  const hasAnyError = useSelector(hasAnyErrorSelector);
 
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnaireBaseData[]>([]);
   const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
@@ -146,10 +153,10 @@ export const App: React.FC = () => {
       setCurrentTitle(currentQuestionnaire.questionnaire.title);
     }
 
-    if (!currentQuestionnaire.hasErrors) {
+    if (!hasAnyError) {
       setExecutedQuestionnaire(currentQuestionnaire.questionnaire);
     }
-  }, [currentQuestionnaire]);
+  }, [currentQuestionnaire, hasAnyError]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -225,7 +232,7 @@ export const App: React.FC = () => {
               {executedQuestionnaire !== undefined ? (
                 <QuestionnaireExecution
                   currentQuestionnaire={executedQuestionnaire}
-                  isJsonInvalid={currentQuestionnaire.hasErrors}
+                  isJsonInvalid={hasAnyError || duplicatedIds.length > 0}
                 />
               ) : null}
             </Grid>

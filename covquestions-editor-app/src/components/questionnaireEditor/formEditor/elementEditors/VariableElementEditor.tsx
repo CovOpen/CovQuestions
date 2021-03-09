@@ -5,7 +5,7 @@ import variableSchema from "../schemas/variable.json";
 import { convertStringToLogicExpression } from "../../converters";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editVariable, variableInEditorSelector } from "../../../../store/questionnaireInEditor";
+import { editVariable, variableInEditorSelector, duplicatedIdsSelector } from "../../../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 export type VariableInStringRepresentation = Omit<EditorVariable, "expression"> & { expression: string };
@@ -28,6 +28,7 @@ export function VariableElementEditor(props: VariableElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const variable = useSelector((state: RootState) => variableInEditorSelector(state, props));
+  const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
   const onChange = (formData: VariableInStringRepresentation, hasErrors: boolean) => {
     dispatch(editVariable({ index: props.index, changedVariable: formData, hasErrors: hasErrors }));
@@ -38,6 +39,10 @@ export function VariableElementEditor(props: VariableElementEditorProps) {
       convertStringToLogicExpression(formData?.expressionString);
     } catch (error) {
       errors.expressionString.addError(error.message);
+    }
+
+    if (duplicatedIds.indexOf(formData.id) > -1) {
+      errors.id.addError("Value of ID is duplicated");
     }
   };
 

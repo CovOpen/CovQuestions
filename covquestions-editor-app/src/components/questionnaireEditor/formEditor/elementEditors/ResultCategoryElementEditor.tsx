@@ -5,7 +5,11 @@ import { EditorResult, EditorResultCategory } from "../../../../models/editorQue
 import { convertStringToLogicExpression } from "../../converters";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editResultCategory, resultCategoryInEditorSelector } from "../../../../store/questionnaireInEditor";
+import {
+  editResultCategory,
+  resultCategoryInEditorSelector,
+  duplicatedIdsSelector,
+} from "../../../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 type ResultInStringRepresentation = Omit<EditorResult, "expression"> & { expression: string };
@@ -42,12 +46,17 @@ export function ResultCategoryElementEditor(props: ResultElementEditorProps) {
   const dispatch = useAppDispatch();
 
   const resultCategory = useSelector((state: RootState) => resultCategoryInEditorSelector(state, props));
+  const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
   const onChange = (formData: ResultCategoryInStringRepresentation, hasErrors: boolean) => {
     dispatch(editResultCategory({ index: props.index, changedResultCategory: formData, hasErrors: hasErrors }));
   };
 
   const validate = (formData: ResultCategoryInStringRepresentation, errors: any) => {
+    if (duplicatedIds.indexOf(formData.id) > -1) {
+      errors.id.addError("Value of ID is duplicated");
+    }
+
     if (formData.results === undefined) {
       return;
     }
@@ -57,6 +66,10 @@ export function ResultCategoryElementEditor(props: ResultElementEditorProps) {
         convertStringToLogicExpression(result.expressionString);
       } catch (error) {
         errors.results[i].expressionString.addError(error.message);
+      }
+
+      if (duplicatedIds.indexOf(result.id) > -1) {
+        errors.results[i].id.addError("Value of ID is duplicated");
       }
     }
   };
