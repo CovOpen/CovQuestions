@@ -1,6 +1,6 @@
 {
   "name": "covquestions-editor-app",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "dependencies": {
     "@covopen/covquestions-js": "^1.0.2",
