@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
+  Button,
   Container,
   createMuiTheme,
   createStyles,
+  Drawer,
   FormControlLabel,
   Grid,
   IconButton,
@@ -20,7 +22,11 @@ import { QuestionnaireExecution } from "./components/QuestionnaireExecution";
 import { QuestionnaireEditor } from "./components/questionnaireEditor/QuestionnaireEditor";
 import { ISOLanguage, Questionnaire } from "@covopen/covquestions-js";
 import { useAppDispatch } from "./store/store";
-import { questionnaireInEditorSelector, setQuestionnaireInEditor } from "./store/questionnaireInEditor";
+import {
+  questionnaireInEditorSelector,
+  questionnaireJsonSelector,
+  setQuestionnaireInEditor,
+} from "./store/questionnaireInEditor";
 import {
   QuestionnaireSelection,
   QuestionnaireSelectionDrawer,
@@ -57,6 +63,9 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "absolute",
       right: 0,
     },
+    marginRight: {
+      marginRight: "10px",
+    },
   })
 );
 
@@ -64,6 +73,7 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
+  const questionnaireJson = useSelector(questionnaireJsonSelector);
 
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnaireBaseData[]>([]);
   const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
@@ -107,6 +117,26 @@ export const App: React.FC = () => {
       }
     }
     setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...changedValues });
+  };
+
+  const downloadJson = () => {
+    if (questionnaireJson === undefined) {
+      return;
+    }
+    // after https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react/44661948
+    const linkElement = document.createElement("a");
+    const jsonFile = new Blob([JSON.stringify(questionnaireJson, null, 2)], { type: "text/plain" });
+    linkElement.href = URL.createObjectURL(jsonFile);
+    linkElement.download = questionnaireJson.id + ".json";
+    document.body.appendChild(linkElement);
+    linkElement.click();
+  };
+
+  const resetQuestionnaire = () => {
+    if (originalCurrentQuestionnaire) {
+      dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
+      overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
+    }
   };
 
   useEffect(() => {
@@ -162,6 +192,12 @@ export const App: React.FC = () => {
             CovQuestions {currentTitle !== undefined ? <> - {currentTitle}</> : null}
           </Typography>
           <div className={classes.settings}>
+            <Button onClick={resetQuestionnaire} className={classes.marginRight} variant="contained" color="secondary">
+              Reset
+            </Button>
+            <Button onClick={downloadJson} className={classes.marginRight} variant="contained" color="secondary">
+              Download
+            </Button>
             {currentQuestionnaireSelection.language !== undefined &&
             currentQuestionnaireSelection.availableLanguages !== undefined ? (
               <SettingSelection
@@ -211,15 +247,7 @@ export const App: React.FC = () => {
               </Grid>
             ) : null}
             <Grid item xs={showMenu ? 6 : 8} onClick={() => setShowMenu(false)} className={classes.editor}>
-              <QuestionnaireEditor
-                resetQuestionnaire={() => {
-                  if (originalCurrentQuestionnaire) {
-                    dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
-                    overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
-                  }
-                }}
-                isJsonMode={isJsonMode}
-              />
+              <QuestionnaireEditor isJsonMode={isJsonMode} />
             </Grid>
             <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
               {executedQuestionnaire !== undefined ? (

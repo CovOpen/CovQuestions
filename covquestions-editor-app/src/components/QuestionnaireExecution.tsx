@@ -46,6 +46,9 @@ const useStyles = makeStyles(() =>
       letterSpacing: "0.1em",
       opacity: 0.8,
       textTransform: "uppercase",
+      margin: "auto",
+      "margin-bottom": 0,
+      "margin-left": 0,
     },
   })
 );
@@ -95,10 +98,8 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
     <></>
   ) : (
     <div className={classes.root}>
-      <Grid container item xs={12} className={`${classes.paddingRight} grid-row`} justify="flex-end">
-        <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
-          Restart Questionnaire
-        </Button>
+      <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
+        <Typography className={classes.internalStateHeadline}>Questionnaire Preview</Typography>
       </Grid>
       {isJsonInvalid ? (
         <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
@@ -114,7 +115,16 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
       <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
         {questionnaireEngine ? (
           <>
-            <Typography className={classes.internalStateHeadline}>Internal state</Typography>
+            <Grid container direction="row">
+              <Grid container item xs={6} className={`grid-row`} justify="flex-start">
+                <Typography className={classes.internalStateHeadline}>Internal state</Typography>
+              </Grid>
+              <Grid container item xs={6} className={`${classes.paddingRight} grid-row`} justify="flex-end">
+                <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
+                  Restart Questionnaire
+                </Button>
+              </Grid>
+            </Grid>
             <Paper
               className={classes.internalState}
               style={{ height: `calc(40vh - 37px - ${isJsonInvalid ? 58 : 0}px)` }}

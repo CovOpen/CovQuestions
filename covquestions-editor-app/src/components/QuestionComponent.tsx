@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Primitive, Question } from "@covopen/covquestions-js";
-import { Button, createStyles, Grid, makeStyles, Paper } from "@material-ui/core";
+import { Button, createStyles, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
 
 type QuestionComponentProps = {
@@ -37,9 +37,16 @@ export const QuestionComponent: React.FC<QuestionComponentProps> = ({ currentQue
         <Grid item xs={12}>
           <QuestionFormComponent currentQuestion={currentQuestion} onChange={setCurrentValue} value={currentValue} />
         </Grid>
-        <Grid item xs={12}>
-          <Grid item>{currentQuestion.details}</Grid>
-        </Grid>
+        {currentQuestion.details ? (
+          <Grid item xs={12}>
+            <Grid item xs={12}>
+              <Typography>Hint:</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>{currentQuestion.details}</Typography>
+            </Grid>
+          </Grid>
+        ) : undefined}
         <Grid container item xs={12} justify="flex-end">
           <Grid item>
             <Button
