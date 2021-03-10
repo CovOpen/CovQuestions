@@ -13,15 +13,12 @@ type QuestionnaireExecutionProps = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
-      width: "100%",
-    },
-    paddingRight: {
-      paddingLeft: 12,
+    padding: {
+      padding: "10px 12px",
     },
     execution: {
-      height: "calc(60vh - 56px - 48px)",
       overflow: "auto",
+      minHeight: "500px",
     },
     internalState: {
       backgroundColor: "#F7FAFC",
@@ -36,6 +33,7 @@ const useStyles = makeStyles(() =>
       padding: 10,
       opacity: 0.6,
       overflow: "auto",
+      flex: 1,
     },
     internalStateHeadline: {
       color: "#A0AEC0",
@@ -97,45 +95,36 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
   return doRerender ? (
     <></>
   ) : (
-    <div className={classes.root}>
-      <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
+    <Grid container direction="column" justify="space-between" className={`${classes.padding} overflow-pass-through`}>
+      <Grid item className={`${classes.execution}`}>
         <Typography className={classes.internalStateHeadline}>Questionnaire Preview</Typography>
-      </Grid>
-      {isJsonInvalid ? (
-        <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
-          <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert>
-        </Grid>
-      ) : null}
-      <Grid item xs={12} className={`${classes.paddingRight} grid-row ${classes.execution}`}>
+        {isJsonInvalid ? <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert> : null}
         {result === undefined && currentQuestion ? (
           <QuestionComponent currentQuestion={currentQuestion} handleNextClick={handleNextClick} />
         ) : null}
         {result !== undefined ? <ResultComponent result={result} /> : null}
       </Grid>
-      <Grid item xs={12} className={`${classes.paddingRight} grid-row`}>
-        {questionnaireEngine ? (
-          <>
-            <Grid container direction="row">
-              <Grid container item xs={6} className={`grid-row`} justify="flex-start">
-                <Typography className={classes.internalStateHeadline}>Internal state</Typography>
-              </Grid>
-              <Grid container item xs={6} className={`${classes.paddingRight} grid-row`} justify="flex-end">
-                <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
-                  Restart Questionnaire
-                </Button>
-              </Grid>
+      {questionnaireEngine ? (
+        <Grid item container direction="column" className="overflow-pass-through">
+          <Grid item container direction="row" justify="space-between">
+            <Grid item>
+              <Typography className={classes.internalStateHeadline}>Internal state</Typography>
             </Grid>
-            <Paper
-              className={classes.internalState}
-              style={{ height: `calc(40vh - 37px - ${isJsonInvalid ? 58 : 0}px)` }}
-            >
-              <Box style={{ whiteSpace: "pre-wrap" }}>
+            <Grid item>
+              <Button onClick={restartQuestionnaire} variant="contained" color="secondary">
+                Restart Questionnaire
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid item container xs={12} className="overflow-pass-through">
+            <Paper className={classes.internalState}>
+              <Box style={{ whiteSpace: "pre-wrap", overflow: "auto" }}>
                 {JSON.stringify(questionnaireEngine.getDataObjectForDeveloping(), null, 2)}
               </Box>
             </Paper>
-          </>
-        ) : null}
-      </Grid>
-    </div>
+          </Grid>
+        </Grid>
+      ) : null}
+    </Grid>
   );
 };

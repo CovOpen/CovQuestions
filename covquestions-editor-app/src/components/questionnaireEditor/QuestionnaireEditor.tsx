@@ -1,4 +1,4 @@
-import { createStyles, Grid, makeStyles } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React from "react";
 import { QuestionnaireFormEditor } from "./QuestionnaireFormEditor";
 import { QuestionnaireJsonEditor } from "./QuestionnaireJsonEditor";
@@ -9,43 +9,10 @@ type QuestionnaireEditorProps = {
   isJsonMode: boolean;
 };
 
-export const heightWithoutEditor = 0;
-const useStyles = makeStyles(() =>
-  createStyles({
-    formContainer: {
-      paddingLeft: "10px",
-      height: `calc(100vh - ${heightWithoutEditor}px)`,
-    },
-    wrapper: {
-      margin: 0,
-      paddingRight: 12,
-      paddingLeft: 24,
-    },
-    selection: {
-      height: `calc(100vh - ${heightWithoutEditor}px)`,
-      overflowY: "auto",
-      overflowX: "hidden",
-    },
-    listItem: {
-      paddingLeft: 0,
-      paddingRight: 0,
-      paddingTop: "2px",
-      paddingBottom: "2px",
-    },
-  })
-);
-
 export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
-  const classes = useStyles();
-
   const style = `
   .MuiTabs-root, .MuiTabs-scroller, .MuiTabs-flexContainer {
     margin: 0;
-  }
-  .rjsf > .MuiFormControl-root {
-    height: calc(100vh - ${heightWithoutEditor}px);
-    overflow-x: hidden !important;
-    overflow-x: auto;
   }
   .rjsf .MuiBox-root {
     padding: 0;
@@ -59,16 +26,13 @@ export function QuestionnaireEditor(props: QuestionnaireEditorProps) {
   `;
 
   return (
-    <Grid container direction="column" className={classes.wrapper}>
+    <Grid container direction="column" className="overflow-pass-through">
       <style>{style}</style>
-      <Grid item xs={12} className="grid-row">
+      <Grid item container xs={12} className="overflow-pass-through">
         {props.isJsonMode ? (
-          <QuestionnaireJsonEditor
-            heightWithoutEditor={heightWithoutEditor}
-            schema={questionnaireSchema as JSONSchema7}
-          />
+          <QuestionnaireJsonEditor schema={questionnaireSchema as JSONSchema7} />
         ) : (
-          <QuestionnaireFormEditor heightWithoutEditor={heightWithoutEditor} />
+          <QuestionnaireFormEditor />
         )}
       </Grid>
     </Grid>

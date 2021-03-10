@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Button,
-  Container,
   createMuiTheme,
   createStyles,
-  Drawer,
   FormControlLabel,
   Grid,
   IconButton,
@@ -50,8 +48,6 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
-      marginTop: 10,
-      paddingLeft: 0,
       background: "#EDF2F7",
     },
     editor: {
@@ -192,7 +188,7 @@ export const App: React.FC = () => {
             CovQuestions {currentTitle !== undefined ? <> - {currentTitle}</> : null}
           </Typography>
           <div className={classes.settings}>
-            <Button onClick={resetQuestionnaire} className={classes.marginRight} variant="contained" color="secondary">
+            <Button onClick={resetQuestionnaire} className={classes.marginRight} variant="outlined" color="secondary">
               Reset
             </Button>
             <Button onClick={downloadJson} className={classes.marginRight} variant="contained" color="secondary">
@@ -231,35 +227,52 @@ export const App: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth={false} className={classes.content}>
-        <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
-          <Grid container direction="row">
-            {showMenu ? (
-              <Grid item xs={3}>
-                <QuestionnaireSelectionDrawer
-                  handleChange={(value) => {
-                    setCurrentQuestionnaireSelection(value);
-                    setShowMenu(false);
-                  }}
-                  allQuestionnaires={allQuestionnaires}
-                  selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
-                />
-              </Grid>
+      <Grid
+        container
+        className={`${classes.content} flex-grow overflow-pass-through`}
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item container direction="row" className={`flex-grow overflow-pass-through`}>
+          {showMenu ? (
+            <Grid item xs={3}>
+              <QuestionnaireSelectionDrawer
+                handleChange={(value) => {
+                  setCurrentQuestionnaireSelection(value);
+                  setShowMenu(false);
+                }}
+                allQuestionnaires={allQuestionnaires}
+                selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
+              />
+            </Grid>
+          ) : null}
+          <Grid
+            item
+            container
+            xs={showMenu ? 6 : 8}
+            onClick={() => setShowMenu(false)}
+            className={`${classes.editor} flex-grow overflow-pass-through`}
+          >
+            <QuestionnaireEditor isJsonMode={isJsonMode} />
+          </Grid>
+          <Grid
+            item
+            container
+            xs={showMenu ? 3 : 4}
+            data-testid="QuestionnaireExecution"
+            onClick={() => setShowMenu(false)}
+            className={`flex-grow overflow-pass-through`}
+          >
+            {executedQuestionnaire !== undefined ? (
+              <QuestionnaireExecution
+                currentQuestionnaire={executedQuestionnaire}
+                isJsonInvalid={currentQuestionnaire.hasErrors}
+              />
             ) : null}
-            <Grid item xs={showMenu ? 6 : 8} onClick={() => setShowMenu(false)} className={classes.editor}>
-              <QuestionnaireEditor isJsonMode={isJsonMode} />
-            </Grid>
-            <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
-              {executedQuestionnaire !== undefined ? (
-                <QuestionnaireExecution
-                  currentQuestionnaire={executedQuestionnaire}
-                  isJsonInvalid={currentQuestionnaire.hasErrors}
-                />
-              ) : null}
-            </Grid>
           </Grid>
         </Grid>
-      </Container>
+      </Grid>
     </ThemeProvider>
   );
 };

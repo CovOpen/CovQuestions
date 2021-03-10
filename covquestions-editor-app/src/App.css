@@ -1,3 +1,12 @@
 .grid-row {
   margin: 10px 0px 10px 0px !important;
 }
+
+.overflow-pass-through {
+  min-height: 0px;
+  flex-wrap: nowrap !important;
+}
+
+.flex-grow {
+  flex: 1;
+}

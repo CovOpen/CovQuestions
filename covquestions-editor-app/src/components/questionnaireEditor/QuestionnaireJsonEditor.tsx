@@ -11,15 +11,15 @@ import Ajv from "ajv";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import { questionnaireJsonSelector, setHasErrors, setQuestionnaireInEditor } from "../../store/questionnaireInEditor";
+import { Grid } from "@material-ui/core";
 
 type QuestionnaireFormEditorProps = {
-  heightWithoutEditor: number;
   schema: JSONSchema7;
 };
 
 const ajv = new Ajv({ allErrors: true, verbose: true });
 
-export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = ({ heightWithoutEditor, schema }) => {
+export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = ({ schema }) => {
   const dispatch = useAppDispatch();
   const questionnaireJson = useSelector(questionnaireJsonSelector);
 
@@ -28,7 +28,6 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
 
   const style = `
   .jsoneditor {
-    height: calc(100vh - ${heightWithoutEditor}px);
     border: thin solid #667EEA;
   }
   .jsoneditor-menu {
@@ -52,12 +51,14 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
   }, [questionnaireJson, hasFocus, editorReference]);
 
   return (
-    <div>
+    <Grid container>
       <style>{style}</style>
       <Editor
         ref={(ref: Editor) => setEditorReference(ref)}
         value={questionnaireJson}
         ajv={ajv}
+        // https://github.com/vankop/jsoneditor-react/issues/52
+        htmlElementProps={{ style: { width: "100%", height: "100%" } }}
         mode="code"
         theme="ace/theme/github"
         schema={schema}
@@ -69,6 +70,6 @@ export const QuestionnaireJsonEditor: React.FC<QuestionnaireFormEditorProps> = (
           dispatch(setHasErrors(hasErrors));
         }}
       />
-    </div>
+    </Grid>
   );
 };

@@ -1,3 +1,9 @@
 body {
   margin: 0;
 }
+
+#root {
+  flex-flow: column;
+  display: flex;
+  height: 100vh;
+}

@@ -30,9 +30,7 @@ import {
 import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
 import { Alert } from "@material-ui/lab";
 
-type QuestionnaireFormEditorProps = {
-  heightWithoutEditor: number;
-};
+type QuestionnaireFormEditorProps = {};
 
 export enum SectionType {
   META = "meta",
@@ -65,7 +63,8 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
         width: "100%",
       },
       selection: {
-        height: `calc(100vh - ${props.heightWithoutEditor}px)`,
+        paddingTop: "10px",
+        paddingLeft: "10px",
         overflowY: "auto",
         overflowX: "hidden",
       },
@@ -76,8 +75,9 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
         paddingBottom: "2px",
       },
       formContainer: {
-        paddingLeft: "10px",
-        height: `calc(100vh - ${props.heightWithoutEditor}px)`,
+        padding: "10px 10px 0 10px",
+        "overflow-y": "auto",
+        "overflow-x": "hidden",
       },
       alignRight: {
         display: "flex",
@@ -180,11 +180,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const style = `
     .rjsf > .MuiFormControl-root {
-      height: calc(100vh - ${
-        isNonArraySection(activeItem.section) ? props.heightWithoutEditor : props.heightWithoutEditor + 48
-      }px);
-      overflow-x: hidden !important;
-      overflow-x: auto;
+      height: 100%;
     }
     .rjsf .MuiGrid-item {
       padding: 0px 8px 0px 8px;
@@ -199,10 +195,10 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   return (
     <>
-      <Grid container direction="column">
+      <Grid container direction="column" className="overflow-pass-through">
         <style>{style}</style>
-        <Grid container>
-          <Grid container item xs={3} className={classes.selection}>
+        <Grid container className="overflow-pass-through flex-grow">
+          <Grid container item direction="column" xs={3} className={`${classes.selection} overflow-pass-through`}>
             <Typography className={classes.title}>General</Typography>
             <List className={classes.selectionList}>
               <ListItem
@@ -355,7 +351,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
             </List>
             <Divider className={classes.selectionListDivider} />
           </Grid>
-          <Grid container item xs={9} className={classes.formContainer}>
+          <Grid container direction="column" item xs={9} className={`${classes.formContainer} overflow-pass-through`}>
             {!isNonArraySection(activeItem.section) ? (
               <div className={classes.alignRight}>
                 <IconButton aria-label="move-up" disabled={activeItem.index <= 0} onClick={handleMoveUp}>
