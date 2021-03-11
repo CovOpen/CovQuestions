@@ -9,7 +9,7 @@ const testQuestionnaire: Questionnaire = {
   meta: {
     author: "Someone",
     availableLanguages: ["en"],
-    creationDate: "2020-04-10T18:48:48+0000",
+    creationDate: "2020-04-10",
   },
   questions: [
     {
