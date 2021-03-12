@@ -48,17 +48,14 @@
       "protocol": "inspector"
     },
     {
+      "name": "CovquestionsJS - Debug All Jest Tests",
       "type": "node",
       "request": "launch",
-      "name": "Jest Test",
-      "program": "${workspaceFolder}\\api\\v1\\node_modules\\jest\\bin\\jest",
-      "args": [
-        "--runInBand",
-        "--config=${workspaceFolder}\\api\\v1\\jest.config.js"
-      ],
-      "cwd": "${workspaceRoot}\\api\\v1",
+      "cwd": "${workspaceFolder}/covquestions-js",
+      "runtimeArgs": ["--inspect-brk", "${workspaceRoot}/covquestions-js/node_modules/jest/bin/jest.js", "--runInBand"],
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229
     }
   ]
 }

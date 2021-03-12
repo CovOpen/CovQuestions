@@ -1,10 +1,5 @@
-import { QuestionnaireEngine, Result } from "../questionnaireEngine";
-import {
-  Option,
-  Question,
-  Questionnaire,
-  TestCase,
-} from "../models/Questionnaire.generated";
+import { QuestionnaireEngine, Result } from '../questionnaireEngine';
+import { Option, Question, Questionnaire, TestCase } from '../models/Questionnaire.generated';
 
 type TestResultSuccess = {
   description: string;
@@ -20,22 +15,14 @@ type TestResultError = {
 export type TestResult = TestResultSuccess | TestResultError;
 
 export function runTestCases(testQuestionnaire: Questionnaire): TestResult[] {
-  if (
-    testQuestionnaire.testCases === undefined ||
-    testQuestionnaire.testCases.length === 0
-  ) {
+  if (testQuestionnaire.testCases === undefined || testQuestionnaire.testCases.length === 0) {
     return [];
   }
 
-  return testQuestionnaire.testCases.map((testCase) =>
-    runOneTestCase(testQuestionnaire, testCase)
-  );
+  return testQuestionnaire.testCases.map((testCase) => runOneTestCase(testQuestionnaire, testCase));
 }
 
-export function runOneTestCase(
-  testQuestionnaire: Questionnaire,
-  testCase: TestCase
-): TestResult {
+export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestCase): TestResult {
   const timeOfExecution =
     testCase.options !== undefined && testCase.options.fillInDate !== undefined
       ? dateInSecondsTimestamp(testCase.options.fillInDate)
@@ -55,26 +42,17 @@ function runOneTestCaseRandomly(
 ): TestResult {
   const results = [];
   const randomRuns =
-    testCase.options !== undefined && testCase.options.randomRuns !== undefined
-      ? testCase.options.randomRuns
-      : 1;
+    testCase.options !== undefined && testCase.options.randomRuns !== undefined ? testCase.options.randomRuns : 1;
   for (let i = 0; i < randomRuns; i++) {
-    const result = runOneTestCaseOnce(
-      testQuestionnaire,
-      testCase,
-      timeOfExecution
-    );
+    const result = runOneTestCaseOnce(testQuestionnaire, testCase, timeOfExecution);
     results.push(result);
   }
+
   if (results.every((result) => result.success === true)) {
     return { success: true, description: testCase.description };
   } else {
-    const numberOfFailures = results.filter(
-      (result) => result.success === false
-    ).length;
-    const firstFailure = results.find(
-      (result) => result.success === false
-    ) as TestResultError;
+    const numberOfFailures = results.filter((result) => result.success === false).length;
+    const firstFailure = results.find((result) => result.success === false) as TestResultError;
     return {
       success: false,
       description: testCase.description,
@@ -90,7 +68,7 @@ function runOneTestCaseOnce(
 ): TestResult {
   const engine = new QuestionnaireEngine(testQuestionnaire, timeOfExecution);
 
-  const questionCheck = checkQuestions(engine, testCase);
+  const questionCheck = answerUnansweredQuestionsRandomly(engine, testCase);
   if (questionCheck) {
     return questionCheck;
   }
@@ -103,14 +81,9 @@ function runOneTestCaseOnce(
   return { description: testCase.description, success: true };
 }
 
-function findUnusedElements(
-  arrayWithPossibleUnusedElements: string[],
-  subSetOfFirstArray: string[]
-): string[] {
+function findUnusedElements(arrayWithPossibleUnusedElements: string[], subSetOfFirstArray: string[]): string[] {
   if (subSetOfFirstArray.length !== arrayWithPossibleUnusedElements.length) {
-    return arrayWithPossibleUnusedElements.filter(
-      (it) => !subSetOfFirstArray.includes(it)
-    );
+    return arrayWithPossibleUnusedElements.filter((it) => !subSetOfFirstArray.includes(it));
   }
 
   return [];
@@ -118,13 +91,11 @@ function findUnusedElements(
 
 function isRandomTestCase(testCase: TestCase) {
   return (
-    (testCase.options !== undefined && testCase.options.randomRuns !== undefined
-      ? testCase.options.randomRuns
-      : 0) > 0
+    (testCase.options !== undefined && testCase.options.randomRuns !== undefined ? testCase.options.randomRuns : 0) > 0
   );
 }
 
-function checkQuestions(
+function answerUnansweredQuestionsRandomly(
   engine: QuestionnaireEngine,
   testCase: TestCase
 ): TestResultError | undefined {
@@ -137,13 +108,10 @@ function checkQuestions(
 
     if (answerValue !== undefined) {
       // answer was provided in test case
-      if (question.type !== "date") {
+      if (question.type !== 'date') {
         engine.setAnswer(question.id, answerValue);
       } else {
-        engine.setAnswer(
-          question.id,
-          dateInSecondsTimestamp(answerValue as string)
-        );
+        engine.setAnswer(question.id, dateInSecondsTimestamp(answerValue as string));
       }
     } else {
       // answer was not provided in test case
@@ -168,40 +136,32 @@ function checkQuestions(
 
 function createRandomAnswer(question: Question, testCase: TestCase) {
   const percentageOfOptionalQuestionsThatAreNotAnswered = 0.2;
-  if (
-    question.optional &&
-    Math.random() < percentageOfOptionalQuestionsThatAreNotAnswered
-  ) {
+  if (question.optional && Math.random() < percentageOfOptionalQuestionsThatAreNotAnswered) {
     return undefined;
   }
 
   switch (question.type) {
-    case "select":
+    case 'select':
       return getRandomElementFromArray(question.options!).value;
-    case "multiselect":
+    case 'multiselect':
       return getRandomOptionValues(question.options!);
-    case "date":
-      return getRandomDate(
-        testCase.options !== undefined ? testCase.options.fillInDate : undefined
-      );
-    case "boolean":
+    case 'date':
+      return getRandomDate(testCase.options !== undefined ? testCase.options.fillInDate : undefined);
+    case 'boolean':
       return Math.random() < 0.5;
-    case "number":
+    case 'number':
       return getRandomInRange(
-        question.numericOptions !== undefined &&
-          question.numericOptions.min !== undefined
+        question.numericOptions !== undefined && question.numericOptions.min !== undefined
           ? question.numericOptions.min
           : 0,
-        question.numericOptions !== undefined &&
-          question.numericOptions.max !== undefined
+        question.numericOptions !== undefined && question.numericOptions.max !== undefined
           ? question.numericOptions.max
           : 150,
-        question.numericOptions !== undefined &&
-          question.numericOptions.step !== undefined
+        question.numericOptions !== undefined && question.numericOptions.step !== undefined
           ? question.numericOptions.step
           : 1
       );
-    case "text":
+    case 'text':
       return Math.random().toString(36).substring(2);
   }
 }
@@ -212,17 +172,13 @@ function getRandomElementFromArray(array: any[]): any {
 
 function getRandomOptionValues(options: Option[]) {
   return options.reduce(
-    (selectedValues: string[], option) =>
-      Math.random() < 0.5 ? [...selectedValues, option.value] : selectedValues,
+    (selectedValues: string[], option) => (Math.random() < 0.5 ? [...selectedValues, option.value] : selectedValues),
     []
   );
 }
 
 function getRandomDate(fillInDate?: string) {
-  const executionDate =
-    fillInDate !== undefined
-      ? dateInSecondsTimestamp(fillInDate)
-      : Date.now() / 1000;
+  const executionDate = fillInDate !== undefined ? dateInSecondsTimestamp(fillInDate) : Date.now() / 1000;
   const daysBeforeOrAfterExecution = getRandomInRange(-30, 30);
   return Math.round(executionDate + daysBeforeOrAfterExecution * 24 * 3600);
 }
@@ -232,22 +188,16 @@ function getRandomInRange(min: number, max: number, step: number = 1) {
   return Math.round(numberInRange / step) * step;
 }
 
-function checkResults(
-  executionResults: Result[],
-  testCase: TestCase
-): TestResultError | undefined {
+function checkResults(executionResults: Result[], testCase: TestCase): TestResultError | undefined {
   const { description } = testCase;
 
-  const executionResultStrings = executionResults.map(
-    (it) => it.resultCategory.id + ": " + it.result.id
-  );
+  const executionResultStrings = executionResults.map((it) => it.resultCategory.id + ': ' + it.result.id);
   const testCaseResultStrings = Object.entries(testCase.results).map(
-    ([categoryId, resultId]) => categoryId + ": " + resultId
+    ([categoryId, resultId]) => categoryId + ': ' + resultId
   );
 
-  const allResultsInTestCaseAreValid = testCaseResultStrings.every(
-    (testCaseResultString) =>
-      executionResultStrings.includes(testCaseResultString)
+  const allResultsInTestCaseAreValid = testCaseResultStrings.every((testCaseResultString) =>
+    executionResultStrings.includes(testCaseResultString)
   );
 
   if (!allResultsInTestCaseAreValid) {
@@ -262,10 +212,7 @@ function checkResults(
     return undefined;
   }
 
-  const notSpecifiedResults = findUnusedElements(
-    executionResultStrings,
-    testCaseResultStrings
-  );
+  const notSpecifiedResults = findUnusedElements(executionResultStrings, testCaseResultStrings);
 
   if (notSpecifiedResults.length > 0) {
     return {
@@ -277,6 +224,10 @@ function checkResults(
   return undefined;
 }
 
-function dateInSecondsTimestamp(dateString: string) {
-  return Math.round(Date.parse(dateString) / 1000);
+//TODO: https://github.com/CovOpen/CovQuestions/issues/124
+function dateInSecondsTimestamp(date: string | number) {
+  if (typeof date === 'number') {
+    return date;
+  }
+  return Math.round(Date.parse(date) / 1000);
 }
