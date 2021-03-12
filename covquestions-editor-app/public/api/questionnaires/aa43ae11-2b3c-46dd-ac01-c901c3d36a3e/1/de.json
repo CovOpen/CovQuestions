@@ -6,9 +6,7 @@
   "title": "Example",
   "meta": {
     "author": "Alexander",
-    "availableLanguages": [
-      "de"
-    ],
+    "availableLanguages": ["de"],
     "creationDate": "2020-04-10T18:48:48+0000"
   },
   "questions": [
@@ -71,11 +69,7 @@
           {
             "var": "v_risk"
           },
-          [
-            "HIGH_RISK",
-            "MEDIUM_RISK_A",
-            "MEDIUM_RISK_B"
-          ]
+          ["HIGH_RISK", "MEDIUM_RISK_A", "MEDIUM_RISK_B"]
         ]
       }
     }
@@ -168,9 +162,7 @@
                               {
                                 "var": "q_symptoms"
                               },
-                              [
-                                "respiratory"
-                              ]
+                              ["respiratory"]
                             ]
                           },
                           {
@@ -214,9 +206,7 @@
                       {
                         "var": "q_symptoms"
                       },
-                      [
-                        "respiratory"
-                      ]
+                      ["respiratory"]
                     ]
                   },
                   "MEDIUM_RISK_B",
