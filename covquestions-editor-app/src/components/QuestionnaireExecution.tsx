@@ -3,8 +3,8 @@ import { Box, Button, createStyles, Grid, makeStyles, Paper, Typography } from "
 import { Alert } from "@material-ui/lab";
 import { Primitive, Question, Questionnaire, QuestionnaireEngine, Result } from "@covopen/covquestions-js";
 import { ResultComponent } from "./ResultComponent";
-import { QuestionComponent } from "./QuestionComponent";
 import "typeface-fira-sans";
+import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
 
 type QuestionnaireExecutionProps = {
   currentQuestionnaire: Questionnaire;
@@ -13,6 +13,14 @@ type QuestionnaireExecutionProps = {
 
 const useStyles = makeStyles(() =>
   createStyles({
+    root: {
+      backgroundColor: "#F7FAFC",
+      border: "1.5px solid #CBD5E0",
+      borderRadius: 6,
+      boxSizing: "border-box",
+      boxShadow: "none",
+      padding: 20,
+    },
     padding: {
       padding: "10px 12px",
     },
@@ -57,7 +65,9 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
 }) => {
   const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
+  const [currentValue, setCurrentValue] = useState<Primitive | Array<Primitive> | undefined>(undefined);
   const [result, setResult] = useState<Result[] | undefined>(undefined);
+  const [progress, setProgress] = useState<number>(0);
   const [doRerender, setDoRerender] = useState(false);
 
   const classes = useStyles();
@@ -72,12 +82,26 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
     setDoRerender(true);
   }
 
-  function handleNextClick(value: Primitive | Array<Primitive> | undefined) {
-    questionnaireEngine.setAnswer(currentQuestion!.id, value);
+  function handleNextClick() {
+    questionnaireEngine.setAnswer(currentQuestion!.id, currentValue);
+    setCurrentValue(undefined);
 
     const nextQuestion = questionnaireEngine.nextQuestion();
+    setProgress(questionnaireEngine.getProgress());
     if (nextQuestion) {
       setCurrentQuestion(nextQuestion);
+    } else {
+      setCurrentQuestion(undefined);
+      setResult(questionnaireEngine.getResults());
+    }
+  }
+
+  function handleBackClick() {
+    const { question, answer } = questionnaireEngine.previousQuestion(currentQuestion!.id);
+    setCurrentValue(answer);
+    setProgress(questionnaireEngine.getProgress());
+    if (question) {
+      setCurrentQuestion(question);
     } else {
       setCurrentQuestion(undefined);
       setResult(questionnaireEngine.getResults());
@@ -100,7 +124,46 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
         <Typography className={classes.internalStateHeadline}>Questionnaire Preview</Typography>
         {isJsonInvalid ? <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert> : null}
         {result === undefined && currentQuestion ? (
-          <QuestionComponent currentQuestion={currentQuestion} handleNextClick={handleNextClick} />
+          <Paper className={classes.root}>
+            <Grid container direction="column" alignItems="stretch">
+              <Grid item xs={12}>
+                <QuestionFormComponent
+                  currentQuestion={currentQuestion}
+                  onChange={setCurrentValue}
+                  value={currentValue}
+                />
+              </Grid>
+              {currentQuestion.details ? (
+                <Grid item xs={12}>
+                  <Grid item xs={12}>
+                    <Typography>Hint:</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography>{currentQuestion.details}</Typography>
+                  </Grid>
+                </Grid>
+              ) : undefined}
+              <Grid container item xs={12} justify="space-between">
+                <Grid item>
+                  {progress > 0 ? (
+                    <Button onClick={handleBackClick} variant="contained" color="primary">
+                      Back
+                    </Button>
+                  ) : null}
+                </Grid>
+                <Grid item>
+                  <Button
+                    onClick={handleNextClick}
+                    variant="contained"
+                    color="primary"
+                    disabled={!currentQuestion.optional && currentValue === undefined}
+                  >
+                    Next
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Paper>
         ) : null}
         {result !== undefined ? <ResultComponent result={result} /> : null}
       </Grid>
