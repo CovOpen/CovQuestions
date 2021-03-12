@@ -8,7 +8,8 @@
       "properties": {
         "id": {
           "description": "Unique id for referring this variable in logic expressions.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
         },
         "expression": {
           "type": "string",

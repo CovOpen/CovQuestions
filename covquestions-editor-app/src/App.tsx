@@ -24,6 +24,8 @@ import {
   questionnaireInEditorSelector,
   questionnaireJsonSelector,
   setQuestionnaireInEditor,
+  duplicatedIdsSelector,
+  hasAnyErrorSelector,
 } from "./store/questionnaireInEditor";
 import {
   QuestionnaireSelection,
@@ -70,6 +72,8 @@ export const App: React.FC = () => {
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
   const questionnaireJson = useSelector(questionnaireJsonSelector);
+  const duplicatedIds = useSelector(duplicatedIdsSelector);
+  const hasAnyError = useSelector(hasAnyErrorSelector);
 
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnaireBaseData[]>([]);
   const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
@@ -172,10 +176,10 @@ export const App: React.FC = () => {
       setCurrentTitle(currentQuestionnaire.questionnaire.title);
     }
 
-    if (!currentQuestionnaire.hasErrors) {
+    if (!hasAnyError) {
       setExecutedQuestionnaire(currentQuestionnaire.questionnaire);
     }
-  }, [currentQuestionnaire]);
+  }, [currentQuestionnaire, hasAnyError]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -267,7 +271,7 @@ export const App: React.FC = () => {
             {executedQuestionnaire !== undefined ? (
               <QuestionnaireExecution
                 currentQuestionnaire={executedQuestionnaire}
-                isJsonInvalid={currentQuestionnaire.hasErrors}
+                isJsonInvalid={hasAnyError || duplicatedIds.length > 0}
               />
             ) : null}
           </Grid>

@@ -8,9 +8,7 @@
 
 4. Access [http://localhost:3000](http://localhost:3000)
 
-To run the tests, use:
-
-`npm test`
+> For testing run `npm test`.
 
 ---
 

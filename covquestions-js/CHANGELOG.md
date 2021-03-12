@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.1...@covopen/covquestions-js@1.0.2) (2021-03-08)
+
+
+### Bug Fixes
+
+* release new types ([2099af3](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/2099af35a13da67c06ef998d306951813a999b07))
+
+
+
+
+
 ## [1.0.1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.0...@covopen/covquestions-js@1.0.1) (2021-03-07)
 
 

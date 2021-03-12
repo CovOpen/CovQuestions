@@ -40,7 +40,7 @@ jobs:
         run: npm run test
         working-directory: api/v1/
       - name: Build App
-        run: npm run build
+        run: npm run build-api
         working-directory: api/v1/
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
