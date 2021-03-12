@@ -5,10 +5,7 @@
   "language": "en",
   "title": "CovApp@@9e7328e5d5c11038c69b727bc7efcd8d",
   "meta": {
-    "availableLanguages": [
-      "en",
-      "de"
-    ],
+    "availableLanguages": ["en", "de"],
     "author": "Alexander Thieme",
     "creationDate": "2021-03-08"
   },
@@ -528,11 +525,7 @@
               {
                 "var": "q_age"
               },
-              [
-                "70",
-                "80",
-                "80+"
-              ]
+              ["70", "80", "80+"]
             ]
           }
         ]

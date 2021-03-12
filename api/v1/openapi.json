@@ -5,7 +5,8 @@
     "version": "1.0",
     "contact": {
       "name": "CovQuestions-Team",
-      "url": "https://github.com/CovOpen/CovQuestions/issues"
+      "url": "https://github.com/CovOpen/CovQuestions/issues",
+      "email": "example@email.de"
     },
     "description": "API for retrieving standarized Questionnaires",
     "termsOfService": "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE",
@@ -447,7 +448,7 @@
           "description": {
             "type": "string"
           },
-          "experiationDate": {
+          "expirationDate": {
             "description": "Expiration date as ISO 8601 string",
             "type": "string"
           },
@@ -1425,7 +1426,7 @@
               "description": {
                 "type": "string"
               },
-              "experiationDate": {
+              "expirationDate": {
                 "description": "Expiration date as ISO 8601 string",
                 "type": "string"
               },

@@ -310,7 +310,7 @@ export interface QuestionnaireMeta {
   /**
    * Expiration date as ISO 8601 string
    */
-  experiationDate?: string;
+  expirationDate?: string;
   availableLanguages: ISOLanguage[];
   publisher?: string;
   /**
