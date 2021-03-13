@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.9](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.0.8...covquestions-editor-app@1.0.9) (2021-03-13)
+
+
+### Bug Fixes
+
+* null pointer exception ([be48a34](https://github.com/CovOpen/CovQuestions/commit/be48a34d353e793294505530251e7e0e107b0200))
+* testcase editor can add empty array for multiselect question ([70c2735](https://github.com/CovOpen/CovQuestions/commit/70c273582f2eeb70614c01e2123aba37bd3d2136))
+
+
+
+
+
 ## [1.0.8](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.0.7...covquestions-editor-app@1.0.8) (2021-03-13)
 
 **Note:** Version bump only for package covquestions-editor-app
