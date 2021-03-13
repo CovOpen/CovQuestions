@@ -237,10 +237,7 @@ export class QuestionnaireEngine {
         } catch (e) {}
       });
       counter = counter + 1;
-    } while (
-      !deepEqual(lastData, newData) &&
-      counter <= this.variables.length
-    );
+    } while (!deepEqual(lastData, newData) && counter <= this.variables.length);
 
     return newData;
   }
