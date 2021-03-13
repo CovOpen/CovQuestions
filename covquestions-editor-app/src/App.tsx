@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
-  Container,
+  Button,
   createMuiTheme,
   createStyles,
   FormControlLabel,
@@ -22,6 +22,7 @@ import { ISOLanguage, Questionnaire } from "@covopen/covquestions-js";
 import { useAppDispatch } from "./store/store";
 import {
   questionnaireInEditorSelector,
+  questionnaireJsonSelector,
   setQuestionnaireInEditor,
   duplicatedIdsSelector,
   hasAnyErrorSelector,
@@ -49,8 +50,6 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
-      marginTop: 10,
-      paddingLeft: 0,
       background: "#EDF2F7",
     },
     editor: {
@@ -62,6 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "absolute",
       right: 0,
     },
+    marginRight: {
+      marginRight: "10px",
+    },
   })
 );
 
@@ -69,6 +71,7 @@ export const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
+  const questionnaireJson = useSelector(questionnaireJsonSelector);
   const duplicatedIds = useSelector(duplicatedIdsSelector);
   const hasAnyError = useSelector(hasAnyErrorSelector);
 
@@ -114,6 +117,26 @@ export const App: React.FC = () => {
       }
     }
     setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...changedValues });
+  };
+
+  const downloadJson = () => {
+    if (questionnaireJson === undefined) {
+      return;
+    }
+    // after https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react/44661948
+    const linkElement = document.createElement("a");
+    const jsonFile = new Blob([JSON.stringify(questionnaireJson, null, 2)], { type: "text/plain" });
+    linkElement.href = URL.createObjectURL(jsonFile);
+    linkElement.download = questionnaireJson.id + ".json";
+    document.body.appendChild(linkElement);
+    linkElement.click();
+  };
+
+  const resetQuestionnaire = () => {
+    if (originalCurrentQuestionnaire) {
+      dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
+      overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
+    }
   };
 
   useEffect(() => {
@@ -169,6 +192,12 @@ export const App: React.FC = () => {
             CovQuestions {currentTitle !== undefined ? <> - {currentTitle}</> : null}
           </Typography>
           <div className={classes.settings}>
+            <Button onClick={resetQuestionnaire} className={classes.marginRight} variant="outlined" color="secondary">
+              Reset
+            </Button>
+            <Button onClick={downloadJson} className={classes.marginRight} variant="contained" color="secondary">
+              Download
+            </Button>
             {currentQuestionnaireSelection.language !== undefined &&
             currentQuestionnaireSelection.availableLanguages !== undefined ? (
               <SettingSelection
@@ -202,43 +231,52 @@ export const App: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth={false} className={classes.content}>
-        <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
-          <Grid container direction="row">
-            {showMenu ? (
-              <Grid item xs={3}>
-                <QuestionnaireSelectionDrawer
-                  handleChange={(value) => {
-                    setCurrentQuestionnaireSelection(value);
-                    setShowMenu(false);
-                  }}
-                  allQuestionnaires={allQuestionnaires}
-                  selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
-                />
-              </Grid>
-            ) : null}
-            <Grid item xs={showMenu ? 6 : 8} onClick={() => setShowMenu(false)} className={classes.editor}>
-              <QuestionnaireEditor
-                resetQuestionnaire={() => {
-                  if (originalCurrentQuestionnaire) {
-                    dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
-                    overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
-                  }
+      <Grid
+        container
+        className={`${classes.content} flex-grow overflow-pass-through`}
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item container direction="row" className={`flex-grow overflow-pass-through`}>
+          {showMenu ? (
+            <Grid item xs={3}>
+              <QuestionnaireSelectionDrawer
+                handleChange={(value) => {
+                  setCurrentQuestionnaireSelection(value);
+                  setShowMenu(false);
                 }}
-                isJsonMode={isJsonMode}
+                allQuestionnaires={allQuestionnaires}
+                selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
               />
             </Grid>
-            <Grid item xs={showMenu ? 3 : 4} data-testid="QuestionnaireExecution" onClick={() => setShowMenu(false)}>
-              {executedQuestionnaire !== undefined ? (
-                <QuestionnaireExecution
-                  currentQuestionnaire={executedQuestionnaire}
-                  isJsonInvalid={hasAnyError || duplicatedIds.length > 0}
-                />
-              ) : null}
-            </Grid>
+          ) : null}
+          <Grid
+            item
+            container
+            xs={showMenu ? 6 : 8}
+            onClick={() => setShowMenu(false)}
+            className={`${classes.editor} flex-grow overflow-pass-through`}
+          >
+            <QuestionnaireEditor isJsonMode={isJsonMode} />
+          </Grid>
+          <Grid
+            item
+            container
+            xs={showMenu ? 3 : 4}
+            data-testid="QuestionnaireExecution"
+            onClick={() => setShowMenu(false)}
+            className={`flex-grow overflow-pass-through`}
+          >
+            {executedQuestionnaire !== undefined ? (
+              <QuestionnaireExecution
+                currentQuestionnaire={executedQuestionnaire}
+                isJsonInvalid={hasAnyError || duplicatedIds.length > 0}
+              />
+            ) : null}
           </Grid>
         </Grid>
-      </Container>
+      </Grid>
     </ThemeProvider>
   );
 };

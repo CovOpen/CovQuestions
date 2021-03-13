@@ -29,7 +29,6 @@ import {
   ResultCategory,
   TestCase,
 } from "@covopen/covquestions-js/src/models/Questionnaire.generated";
-import { heightWithoutEditor } from "../../../QuestionnaireEditor";
 import { TestCaseResult } from "./TestCaseResult";
 import { ElementEditor } from "../ElementEditor";
 import { testCaseMetaSchema } from "./testCaseMeta";
@@ -47,7 +46,6 @@ const useStyles = makeStyles(() =>
       paddingLeft: 10,
     },
     testCaseForm: {
-      height: `calc(100vh - ${heightWithoutEditor}px - 150px)`,
       overflowY: "auto",
       overflowX: "hidden",
     },
