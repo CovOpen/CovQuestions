@@ -20,7 +20,7 @@
   "scripts": {
     "format": "prettier --write **/*.{ts,tsx,json}",
     "start": "openapi preview-docs",
-    "build": "openapi bundle -o dist --ext json && openapi bundle -o dist --ext yaml",
+    "build": "openapi bundle -o dist/openapi.json --ext json && openapi bundle -o dist/openapi.yaml --ext yaml",
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
     "test": "openapi validate",
     "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi",
