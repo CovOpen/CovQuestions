@@ -9,7 +9,7 @@
         "id": {
           "description": "A unique identifier for this result.",
           "type": "string",
-          "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
+          "pattern": "^[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$"
         },
         "text": {
           "description": "A human readable text for this result. Can be localized.",
@@ -39,7 +39,7 @@
         "id": {
           "description": "A unique identifier for this result category.",
           "type": "string",
-          "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
+          "pattern": "^[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$"
         },
         "results": {
           "title": "Results for this category.",
