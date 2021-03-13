@@ -172,7 +172,7 @@ const DropDownInput: React.FC<{
         onBlur={(event) => props.onChange(event.target.value)}
       >
         {props.availableItems.map((item) => (
-          <MenuItem key={JSON.stringify(item)} value={(item as any).toString()}>
+          <MenuItem key={JSON.stringify(item)} value={item?.toString()}>
             {item}
           </MenuItem>
         ))}
@@ -221,6 +221,12 @@ const AnswerOrResultEditor: React.FC<{
 
   function onItemAdd(id: string) {
     setAdditionalItems((items) => [...items, id]);
+
+    //  Set empty array for optional multiselect questions
+    const item = availableItems.find((item) => id === item.id);
+    if (item?.type === "multiselect" && item.optional) {
+      onItemChange({ itemId: id, value: [] });
+    }
   }
 
   function onItemDelete(id: string) {

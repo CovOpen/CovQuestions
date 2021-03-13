@@ -18,11 +18,7 @@ export const MultiSelect: React.FC<QuestionFormComponentProps> = ({
     } else {
       values = values.filter((value) => value !== current);
     }
-    if (values.length > 0) {
-      onChange(values);
-    } else {
-      onChange(undefined);
-    }
+    onChange(values);
   };
 
   const options = (currentQuestion.options || []).map(({ value, text }) => ({
