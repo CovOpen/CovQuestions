@@ -95,6 +95,13 @@ const testQuestionnaire: Questionnaire = {
             "<": [{ var: "dateQuestion" }, 1577878770],
           },
         },
+        {
+          id: "dateAfter2020Result",
+          text: "dateAfter2020Result",
+          expression: {
+            ">": [{ var: "dateQuestion" }, 1577878770],
+          },
+        },
       ],
     },
   ],
@@ -152,11 +159,41 @@ describe("testCaseRunner", () => {
       });
     });
 
-    it("should always find correct result for dateQuestion", () => {
+    it("should always find correct result for dateQuestion - string format", () => {
       const testCase = {
         ...randomTestCase,
         answers: { dateQuestion: "2019-12-31" },
         results: { dateResult: "dateBefore2020Result" },
+      };
+
+      const result = runOneTestCase(testQuestionnaire, testCase);
+
+      expect(result).toEqual({
+        description: randomTestCase.description,
+        success: true,
+      });
+    });
+
+    it("should always find correct result for dateQuestion - number format", () => {
+      const testCase = {
+        ...randomTestCase,
+        answers: { dateQuestion: 1577831407 }, //2019-12-31
+        results: { dateResult: "dateBefore2020Result" },
+      };
+
+      const result = runOneTestCase(testQuestionnaire, testCase);
+
+      expect(result).toEqual({
+        description: randomTestCase.description,
+        success: true,
+      });
+    });
+
+    it("should always find correct result for dateQuestion (if out of bounds)", () => {
+      const testCase = {
+        ...randomTestCase,
+        answers: { dateQuestion: "2020-01-20" },
+        results: { dateResult: "dateAfter2020Result" },
       };
 
       const result = runOneTestCase(testQuestionnaire, testCase);

@@ -66,6 +66,7 @@ function runOneTestCaseRandomly(
     );
     results.push(result);
   }
+
   if (results.every((result) => result.success === true)) {
     return { success: true, description: testCase.description };
   } else {
@@ -90,7 +91,7 @@ function runOneTestCaseOnce(
 ): TestResult {
   const engine = new QuestionnaireEngine(testQuestionnaire, timeOfExecution);
 
-  const questionCheck = checkQuestions(engine, testCase);
+  const questionCheck = answerUnansweredQuestionsRandomly(engine, testCase);
   if (questionCheck) {
     return questionCheck;
   }
@@ -124,7 +125,7 @@ function isRandomTestCase(testCase: TestCase) {
   );
 }
 
-function checkQuestions(
+function answerUnansweredQuestionsRandomly(
   engine: QuestionnaireEngine,
   testCase: TestCase
 ): TestResultError | undefined {
@@ -277,6 +278,10 @@ function checkResults(
   return undefined;
 }
 
-function dateInSecondsTimestamp(dateString: string) {
-  return Math.round(Date.parse(dateString) / 1000);
+//TODO: https://github.com/CovOpen/CovQuestions/issues/124
+function dateInSecondsTimestamp(date: string | number) {
+  if (typeof date === "number") {
+    return date;
+  }
+  return Math.round(Date.parse(date) / 1000);
 }

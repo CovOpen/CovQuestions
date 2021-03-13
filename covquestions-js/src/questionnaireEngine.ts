@@ -194,8 +194,8 @@ export class QuestionnaireEngine {
   }
 
   private recreateDataObject() {
-    this.data = {};
-    this.data["now"] = Math.round(this.timeOfExecution || Date.now() / 1000);
+    let data: { [key: string]: DataObjectEntry } = {};
+    data["now"] = Math.round(this.timeOfExecution || Date.now() / 1000);
 
     const answersFromOptionQuestions: AnswerFromOptions[] = [];
 
@@ -208,25 +208,23 @@ export class QuestionnaireEngine {
           question
         );
         answersFromOptionQuestions.push(processedAnswer);
-        this.data[questionId] = processedAnswer;
+        data[questionId] = processedAnswer;
       } else {
-        this.data[questionId] = rawAnswer;
+        data[questionId] = rawAnswer;
       }
     });
 
-    this.data.score = answersFromOptionQuestions.reduce<ScoreResponse>(
+    data.score = answersFromOptionQuestions.reduce<ScoreResponse>(
       (prev, curr) => this.mergeScores(prev, curr.score),
       {}
     );
-
+    //TODO: Possible bug with variables which reference each other
     this.variables.forEach((variable) => {
       try {
-        this.data[variable.id] = jsonLogic.apply(
-          variable.expression,
-          this.data
-        );
+        data[variable.id] = jsonLogic.apply(variable.expression, data);
       } catch (e) {}
     });
+    this.data = data;
   }
 
   public getDataObjectForDeveloping(): any {
@@ -235,9 +233,10 @@ export class QuestionnaireEngine {
 
   public getResults(): Result[] {
     this.recreateDataObject();
+    const data = this.data;
     const results = this.resultCategories.map((resultCategory) => {
       const resultInCategory = resultCategory.results.find((possibleResult) =>
-        jsonLogic.apply(possibleResult.expression, this.data)
+        jsonLogic.apply(possibleResult.expression, data)
       );
       if (resultInCategory !== undefined) {
         return {
