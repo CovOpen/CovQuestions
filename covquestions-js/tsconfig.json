@@ -13,7 +13,8 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true
   },
   "exclude": ["dist", "examples", "node_modules", ".vscode", ".vs", ".git"]
 }

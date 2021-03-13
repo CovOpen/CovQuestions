@@ -1,4 +1,5 @@
 import * as jsonLogic from "json-logic-js";
+import deepEqual from "fast-deep-equal";
 
 import {
   Question,
@@ -28,6 +29,7 @@ type AnswerFromOptions = {
   score: ScoreResponse;
 };
 
+type DataObject = { [key: string]: DataObjectEntry };
 type DataObjectEntry = AnswerFromOptions | RawAnswer | ScoreResponse;
 
 type GivenAnswer = {
@@ -48,7 +50,7 @@ export class QuestionnaireEngine {
   private readonly questions: Question[] = [];
   private variables: Variable[] = [];
   private resultCategories: ResultCategory[] = [];
-  private data: { [key: string]: DataObjectEntry } = {};
+  private data: DataObject = {};
   private readonly timeOfExecution?: number;
   private givenAnswers: GivenAnswer[] = [];
 
@@ -194,7 +196,7 @@ export class QuestionnaireEngine {
   }
 
   private recreateDataObject() {
-    let data: { [key: string]: DataObjectEntry } = {};
+    const data: DataObject = {};
     data["now"] = Math.round(this.timeOfExecution || Date.now() / 1000);
 
     const answersFromOptionQuestions: AnswerFromOptions[] = [];
@@ -218,13 +220,29 @@ export class QuestionnaireEngine {
       (prev, curr) => this.mergeScores(prev, curr.score),
       {}
     );
-    //TODO: Possible bug with variables which reference each other
-    this.variables.forEach((variable) => {
-      try {
-        data[variable.id] = jsonLogic.apply(variable.expression, data);
-      } catch (e) {}
-    });
-    this.data = data;
+
+    this.data = this.addCalculatedVariables(data);
+  }
+
+  private addCalculatedVariables(data: DataObject): DataObject {
+    let lastData: DataObject;
+    let newData: DataObject = { ...data };
+    let counter = 0;
+
+    do {
+      lastData = { ...newData };
+      this.variables.forEach((variable) => {
+        try {
+          newData[variable.id] = jsonLogic.apply(variable.expression, newData);
+        } catch (e) {}
+      });
+      counter = counter + 1;
+    } while (
+      !deepEqual(lastData, newData) &&
+      counter <= this.variables.length
+    );
+
+    return newData;
   }
 
   public getDataObjectForDeveloping(): any {
