@@ -21,7 +21,9 @@ jobs:
       - name: Build Spec
         run: npm run build
       - name: Update Files
-        run: npm run update-files        
+        run: npm run update-files    
+      - name: Git status
+        run: git status    
       - name: Check if there are changes
         id: changes
         uses: UnicornGlobal/has-changes-action@v1.0.11
