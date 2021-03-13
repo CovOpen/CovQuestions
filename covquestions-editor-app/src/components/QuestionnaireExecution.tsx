@@ -77,6 +77,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
     const nextQuestion = engine.nextQuestion();
 
     setResult(undefined);
+    setProgress(0);
     setCurrentValue(undefined);
     setQuestionnaireEngine(engine);
     setCurrentQuestion(nextQuestion);
