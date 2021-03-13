@@ -1,0 +1,35 @@
+name: Openapi - Detect differences
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Packages
+        run: npm ci
+      - name: Test Spec
+        run: npm run test
+      - name: Build Spec
+        run: npm run build
+      - name: Update Files
+        run: npm run update-files    
+      - name: Git status
+        run: git status    
+      - name: Check if there are changes
+        id: changes
+        uses: UnicornGlobal/has-changes-action@v1.0.11
+      - name: Fail if changes detected
+        uses: actions/github-script@v3
+        if: steps.changes.outputs.changed == 1
+        with:
+          script: |
+            core.setFailed('Action failed')

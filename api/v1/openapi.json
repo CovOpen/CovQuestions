@@ -5,7 +5,8 @@
     "version": "1.0",
     "contact": {
       "name": "CovQuestions-Team",
-      "url": "https://github.com/CovOpen/CovQuestions/issues"
+      "url": "https://github.com/CovOpen/CovQuestions/issues",
+      "email": "example@email.de"
     },
     "description": "API for retrieving standarized Questionnaires",
     "termsOfService": "https://github.com/CovOpen/CovQuestions/blob/master/LICENSE",
