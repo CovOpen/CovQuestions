@@ -66,81 +66,6 @@
   ],
   "type": "object",
   "definitions": {
-    "QuestionBase": {
-      "description": "Represents the common fields of every question.",
-      "properties": {
-        "details": {
-          "description": "Optional human-readable details or clarification about this question.",
-          "type": "string"
-        },
-        "enableWhenExpression": {
-          "$ref": "#/definitions/LogicExpression"
-        },
-        "id": {
-          "description": "Unique id for referring this question in logic expressions.",
-          "type": "string"
-        },
-        "optional": {
-          "description": "Boolean indicating whether the question is optional or not.",
-          "type": "boolean"
-        },
-        "text": {
-          "description": "Human-readable question text, can be localized.",
-          "type": "string"
-        },
-        "type": {
-          "$ref": "#/definitions/QuestionType"
-        }
-      },
-      "required": ["id", "text", "type"],
-      "title": "Common question fields",
-      "type": "object"
-    },
-    "NumericOptions": {
-      "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
-      "properties": {
-        "defaultValue": {
-          "description": "Default value",
-          "type": "number"
-        },
-        "max": {
-          "description": "maximal value",
-          "type": "number"
-        },
-        "min": {
-          "description": "Minimal value",
-          "type": "number"
-        },
-        "step": {
-          "description": "Step size",
-          "type": "number"
-        }
-      },
-      "type": "object"
-    },
-    "NumericQuestion": {
-      "title": "Numeric question",
-      "type": "object",
-      "description": "Represents a question with numeric answer.",
-      "allOf": [
-        {
-          "$ref": "#/definitions/QuestionBase"
-        },
-        {
-          "properties": {
-            "numericOptions": {
-              "$ref": "#/definitions/NumericOptions"
-            },
-            "type": {
-              "description": "Type of the question.",
-              "enum": ["number"],
-              "type": "string"
-            }
-          },
-          "required": ["type"]
-        }
-      ]
-    },
     "Option": {
       "description": "Option for multi-select questions.",
       "properties": {
@@ -164,70 +89,162 @@
           }
         }
       },
-      "required": ["text", "value"],
+      "required": [
+        "text",
+        "value"
+      ],
       "type": "object"
     },
     "Question": {
-      "title": "Question",
-      "anyOf": [
-        {
-          "$ref": "#/definitions/QuestionWithoutOptions"
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarifiation about this question.",
+          "type": "string"
         },
-        {
-          "$ref": "#/definitions/QuestionWithOptions"
+        "enableWhenExpression": {
+          "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true.",
+          "type": "string"
         },
-        {
-          "$ref": "#/definitions/NumericQuestion"
+        "enableWhenExpressionString": {
+          "description": "Logic expression in string representation",
+          "type": "string"
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "select",
+            "multiselect",
+            "number",
+            "boolean",
+            "date",
+            "text"
+          ],
+          "description": "Type of the question."
         }
+      },
+      "required": [
+        "id",
+        "text",
+        "type"
       ],
-      "description": "Represents a single question of the questionnaire."
-    },
-    "QuestionWithOptions": {
-      "title": "QuestionWithOptions",
-      "description": "Represents a question with predefined answers to select.",
+      "title": "Question",
       "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/QuestionBase"
-        },
-        {
-          "properties": {
-            "options": {
-              "description": "Answer options for Select/Multiselect questions.",
-              "items": {
-                "$ref": "#/definitions/Option"
-              },
-              "type": "array"
+      "x-dependencies": {
+        "type": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "boolean",
+                    "text",
+                    "date"
+                  ]
+                }
+              }
             },
-            "type": {
-              "enum": ["select", "multiselect"],
-              "type": "string",
-              "description": "Type of the question."
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "multiselect",
+                    "select"
+                  ]
+                },
+                "options": {
+                  "title": "Answer options for Select/Multiselect questions.",
+                  "items": {
+                    "$ref": "#/definitions/Question/definitions/Option"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "number"
+                  ]
+                },
+                "numericOptions": {
+                  "title": "Answer options for Numeric questions.",
+                  "$ref": "#/definitions/Question/definitions/NumericOptions"
+                }
+              }
             }
-          },
-          "required": ["type"]
+          ]
         }
-      ]
-    },
-    "QuestionWithoutOptions": {
-      "title": "QuestionWithoutOptions",
-      "description": "Represents a question. The answer is a choice of yes/no, text or date.",
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/QuestionBase"
-        },
-        {
+      },
+      "definitions": {
+        "NumericOptions": {
+          "additionalProperties": false,
+          "title": "",
           "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["boolean", "date", "text"],
-              "description": "Type of the question."
+            "defaultValue": {
+              "description": "Default value",
+              "type": "number"
+            },
+            "max": {
+              "description": "maximal value",
+              "type": "number"
+            },
+            "min": {
+              "description": "Minimal value",
+              "type": "number"
+            },
+            "step": {
+              "description": "Step size",
+              "type": "number"
             }
           },
-          "required": ["type"]
+          "type": "object"
+        },
+        "Option": {
+          "additionalProperties": false,
+          "title": "",
+          "properties": {
+            "asQuestion": {
+              "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+              "type": "string"
+            },
+            "text": {
+              "description": "Human-Readable answer, can be localized.",
+              "type": "string"
+            },
+            "value": {
+              "description": "Value used for evaluating logic expressions.",
+              "type": "string"
+            },
+            "scores": {
+              "title": "Scores",
+              "type": "object",
+              "additionalProperties": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "text",
+            "value"
+          ],
+          "type": "object"
         }
-      ]
+      }
     },
     "QuestionnaireMeta": {
       "title": "QuestionnaireMeta",
@@ -264,7 +281,11 @@
           "type": "array"
         }
       },
-      "required": ["author", "availableLanguages", "creationDate"],
+      "required": [
+        "author",
+        "availableLanguages",
+        "creationDate"
+      ],
       "type": "object"
     },
     "Result": {
@@ -283,7 +304,11 @@
           "$ref": "#/definitions/LogicExpression"
         }
       },
-      "required": ["id", "text", "expression"],
+      "required": [
+        "id",
+        "text",
+        "expression"
+      ],
       "type": "object"
     },
     "ResultCategory": {
@@ -306,7 +331,11 @@
           "type": "array"
         }
       },
-      "required": ["id", "description", "results"],
+      "required": [
+        "id",
+        "description",
+        "results"
+      ],
       "type": "object"
     },
     "Variable": {
@@ -321,7 +350,10 @@
           "$ref": "#/definitions/LogicExpression"
         }
       },
-      "required": ["id", "expression"]
+      "required": [
+        "id",
+        "expression"
+      ]
     },
     "TestCase": {
       "description": "One test case that simulates a virtual patient and the results they should receive.",
@@ -362,7 +394,11 @@
           }
         }
       },
-      "required": ["description", "answers", "results"]
+      "required": [
+        "description",
+        "answers",
+        "results"
+      ]
     },
     "LogicAnd": {
       "properties": {
@@ -374,7 +410,9 @@
           "type": "array"
         }
       },
-      "required": ["and"],
+      "required": [
+        "and"
+      ],
       "title": "LogicAnd",
       "type": "object"
     },
@@ -402,7 +440,9 @@
           "type": "array"
         }
       },
-      "required": ["=="],
+      "required": [
+        "=="
+      ],
       "title": "LogicEquals",
       "type": "object"
     },
@@ -431,7 +471,9 @@
           "type": "array"
         }
       },
-      "required": [">"],
+      "required": [
+        ">"
+      ],
       "title": "LogicGreater",
       "type": "object"
     },
@@ -446,7 +488,9 @@
           "type": "array"
         }
       },
-      "required": [">="],
+      "required": [
+        ">="
+      ],
       "title": "LogicGreaterEqual",
       "type": "object"
     },
@@ -461,7 +505,9 @@
           "type": "array"
         }
       },
-      "required": ["if"],
+      "required": [
+        "if"
+      ],
       "title": "LogicIf",
       "type": "object"
     },
@@ -486,7 +532,9 @@
           "type": "array"
         }
       },
-      "required": ["in"],
+      "required": [
+        "in"
+      ],
       "title": "LogicIn",
       "type": "object"
     },
@@ -501,7 +549,9 @@
           "type": "array"
         }
       },
-      "required": ["<"],
+      "required": [
+        "<"
+      ],
       "title": "LogicLess",
       "type": "object"
     },
@@ -516,7 +566,9 @@
           "type": "array"
         }
       },
-      "required": ["<="],
+      "required": [
+        "<="
+      ],
       "title": "LogicLessEqual",
       "type": "object"
     },
@@ -531,7 +583,9 @@
           "type": "array"
         }
       },
-      "required": ["-"],
+      "required": [
+        "-"
+      ],
       "title": "LogicMinus",
       "type": "object"
     },
@@ -553,7 +607,9 @@
           ]
         }
       },
-      "required": ["!"],
+      "required": [
+        "!"
+      ],
       "title": "LogicNot",
       "type": "object"
     },
@@ -619,7 +675,9 @@
           "type": "array"
         }
       },
-      "required": ["or"],
+      "required": [
+        "or"
+      ],
       "title": "LogicOr",
       "type": "object"
     },
@@ -633,7 +691,9 @@
           "type": "array"
         }
       },
-      "required": ["+"],
+      "required": [
+        "+"
+      ],
       "title": "LogicPlus",
       "type": "object"
     },
@@ -647,7 +707,9 @@
           "type": "array"
         }
       },
-      "required": ["*"],
+      "required": [
+        "*"
+      ],
       "title": "LogicTimes",
       "type": "object"
     },
@@ -662,7 +724,9 @@
           "type": "array"
         }
       },
-      "required": ["/"],
+      "required": [
+        "/"
+      ],
       "title": "LogicDivide",
       "type": "object"
     },
@@ -677,7 +741,9 @@
           "type": "array"
         }
       },
-      "required": ["reduce"],
+      "required": [
+        "reduce"
+      ],
       "title": "LogicReduce",
       "type": "object"
     },
@@ -691,7 +757,9 @@
           "type": "array"
         }
       },
-      "required": ["some"],
+      "required": [
+        "some"
+      ],
       "title": "LogicSome",
       "type": "object"
     },
@@ -701,13 +769,22 @@
           "type": "string"
         }
       },
-      "required": ["var"],
+      "required": [
+        "var"
+      ],
       "type": "object"
     },
     "QuestionType": {
       "description": "Type of the question.",
       "type": "string",
-      "enum": ["boolean", "date", "text", "number", "select", "multiselect"]
+      "enum": [
+        "boolean",
+        "date",
+        "text",
+        "number",
+        "select",
+        "multiselect"
+      ]
     },
     "ISOLanguage": {
       "description": "Language of this, as ISO 639-1 code. Additionally 'none' for no language. ",

@@ -1,5 +1,6 @@
 import { ElementEditor } from "./ElementEditor";
-import questionnaireMetaSchema from "../schemas/questionnaireMeta.json";
+import questionnaireMetaSchema from "./../../../../schemas/questionnaireMeta.json";
+
 import React from "react";
 import { useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";

@@ -195,19 +195,6 @@ export type ISOLanguage =
   | "zh"
   | "zu";
 /**
- * Represents a single question of the questionnaire.
- */
-export type Question = QuestionWithoutOptions | QuestionWithOptions | NumericQuestion;
-/**
- * Represents a question. The answer is a choice of yes/no, text or date.
- */
-export type QuestionWithoutOptions = CommonQuestionFields & {
-  /**
-   * Type of the question.
-   */
-  type: "boolean" | "date" | "text";
-};
-/**
  * Logic expression used to compute this variable. Defaults to true.
  */
 export type LogicExpression = LogicOperator | LogicVariable | LogicConstant;
@@ -229,33 +216,6 @@ export type LogicOperator =
   | LogicGreater
   | LogicLess;
 export type LogicConstant = number | string | boolean;
-/**
- * Type of the question.
- */
-export type QuestionType = "boolean" | "date" | "text" | "number" | "select" | "multiselect";
-/**
- * Represents a question with predefined answers to select.
- */
-export type QuestionWithOptions = CommonQuestionFields & {
-  /**
-   * Answer options for Select/Multiselect questions.
-   */
-  options?: Option[];
-  /**
-   * Type of the question.
-   */
-  type: "select" | "multiselect";
-};
-/**
- * Represents a question with numeric answer.
- */
-export type NumericQuestion = CommonQuestionFields & {
-  numericOptions?: NumericOptions;
-  /**
-   * Type of the question.
-   */
-  type: "number";
-};
 
 /**
  * The questionnaire.
@@ -318,15 +278,20 @@ export interface QuestionnaireMeta {
    */
   regions?: string[];
 }
-/**
- * Represents the common fields of every question.
- */
-export interface CommonQuestionFields {
+export interface Question {
   /**
-   * Optional human-readable details or clarification about this question.
+   * Optional human-readable details or clarifiation about this question.
    */
   details?: string;
-  enableWhenExpression?: LogicExpression;
+  /**
+   * Logic expression to decide whether the question should be displayed or not.
+   * Defaults to true.
+   */
+  enableWhenExpression?: string;
+  /**
+   * Logic expression in string representation
+   */
+  enableWhenExpressionString?: string;
   /**
    * Unique id for referring this question in logic expressions.
    */
@@ -339,7 +304,43 @@ export interface CommonQuestionFields {
    * Human-readable question text, can be localized.
    */
   text: string;
-  type: QuestionType;
+  /**
+   * Type of the question.
+   */
+  type: "select" | "multiselect" | "number" | "boolean" | "date" | "text";
+}
+/**
+ * Represents a result category. A category might yield exactly one or zero results at the end of the questionnaire.
+ */
+export interface ResultCategory {
+  /**
+   * A human readable description for the result category. Can be localized.
+   */
+  description: string;
+  /**
+   * A unique identifier for this result category.
+   */
+  id: string;
+  /**
+   * A list of results for this category.
+   */
+  results: Result[];
+}
+/**
+ * Represents a single result.
+ * The value of the logic expression yielding true or false. The first result in the result category yielding true will be
+ * used as result. If no result evaluates to true, no result is shown for this category.
+ */
+export interface Result {
+  /**
+   * A unique identifier for this result.
+   */
+  id: string;
+  /**
+   * A human readable text for this result. Can be localized.
+   */
+  text: string;
+  expression: LogicExpression;
 }
 export interface LogicIf {
   if: [LogicExpression, LogicExpression, LogicExpression];
@@ -391,84 +392,6 @@ export interface LogicLess {
 }
 export interface LogicVariable {
   var: string;
-}
-/**
- * Option for multi-select questions.
- */
-export interface Option {
-  /**
-   * Human-Readable formulation of this option as yes/no question.
-   * This is for use-cases where multi-selects are not possible in the UI,
-   * for example telephone hotlines.
-   */
-  asQuestion?: string;
-  /**
-   * Human-Readable answer, can be localized.
-   */
-  text: string;
-  /**
-   * Value used for evaluating logic expressions.
-   */
-  value: string;
-  scores?: Scores;
-}
-export interface Scores {
-  [k: string]: number;
-}
-/**
- * Option for numeric questions.
- * Answer options for Select/Multiselect questions.
- */
-export interface NumericOptions {
-  /**
-   * Default value
-   */
-  defaultValue?: number;
-  /**
-   * maximal value
-   */
-  max?: number;
-  /**
-   * Minimal value
-   */
-  min?: number;
-  /**
-   * Step size
-   */
-  step?: number;
-}
-/**
- * Represents a result category. A category might yield exactly one or zero results at the end of the questionnaire.
- */
-export interface ResultCategory {
-  /**
-   * A human readable description for the result category. Can be localized.
-   */
-  description: string;
-  /**
-   * A unique identifier for this result category.
-   */
-  id: string;
-  /**
-   * A list of results for this category.
-   */
-  results: Result[];
-}
-/**
- * Represents a single result.
- * The value of the logic expression yielding true or false. The first result in the result category yielding true will be
- * used as result. If no result evaluates to true, no result is shown for this category.
- */
-export interface Result {
-  /**
-   * A unique identifier for this result.
-   */
-  id: string;
-  /**
-   * A human readable text for this result. Can be localized.
-   */
-  text: string;
-  expression: LogicExpression;
 }
 /**
  * Represents a variable which is computed from the given answers or other variables.

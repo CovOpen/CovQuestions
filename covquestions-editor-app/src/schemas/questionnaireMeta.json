@@ -1,53 +1,49 @@
 {
-  "$ref": "#/definitions/QuestionnaireMeta",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "QuestionnaireMeta": {
-      "additionalProperties": false,
-      "description": "Meta-Information for a questionaire.",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "author": {
-          "type": "string"
-        },
-        "creationDate": {
-          "description": "Creation date as ISO 8601 string",
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "experiationDate": {
-          "description": "Expiration date as ISO 8601 string",
-          "type": "string"
-        },
-        "language": {
-          "description": "Language of this questionaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
-          "$ref": "#/definitions/ISOLanguage"
-        },
-        "publisher": {
-          "type": "string"
-        },
-        "regions": {
-          "title": "Region restriction",
-          "description": "Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.",
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "availableLanguages": {
-          "items": {
-            "$ref": "#/definitions/ISOLanguage"
-          },
-          "type": "array"
-        }
-      },
-      "required": ["title", "author", "language", "creationDate"],
-      "type": "object"
+  "additionalProperties": false,
+  "description": "Meta-Information for a questionaire.",
+  "properties": {
+    "title": {
+      "type": "string"
     },
+    "author": {
+      "type": "string"
+    },
+    "creationDate": {
+      "description": "Creation date as ISO 8601 string",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "experiationDate": {
+      "description": "Expiration date as ISO 8601 string",
+      "type": "string"
+    },
+    "language": {
+      "description": "Language of this questionaire, as ISO 639-1 code.\nNote that further languages can be defined in external lookup files.",
+      "$ref": "#/definitions/ISOLanguage"
+    },
+    "publisher": {
+      "type": "string"
+    },
+    "regions": {
+      "title": "Region restriction",
+      "description": "Region restriction (e.g. regions in which this questionaire is valid) as list of ISO 3166 ids.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "availableLanguages": {
+      "items": {
+        "$ref": "#/definitions/ISOLanguage"
+      },
+      "type": "array"
+    }
+  },
+  "required": ["title", "author", "language", "creationDate"],
+  "type": "object",
+  "definitions": {
     "ISOLanguage": {
       "description": "Language of this, as ISO 639-1 code. Additonally 'none' for no language. ",
       "type": "string",

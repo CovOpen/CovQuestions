@@ -448,7 +448,7 @@
           "description": {
             "type": "string"
           },
-          "expirationDate": {
+          "experiationDate": {
             "description": "Expiration date as ISO 8601 string",
             "type": "string"
           },
@@ -475,6 +475,157 @@
           "creationDate"
         ],
         "type": "object"
+      },
+      "Question": {
+        "additionalProperties": false,
+        "properties": {
+          "details": {
+            "description": "Optional human-readable details or clarifiation about this question.",
+            "type": "string"
+          },
+          "enableWhenExpression": {
+            "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true.",
+            "type": "string"
+          },
+          "enableWhenExpressionString": {
+            "description": "Logic expression in string representation",
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique id for referring this question in logic expressions.",
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
+          },
+          "optional": {
+            "description": "Boolean indicating whether the question is optional or not.",
+            "type": "boolean"
+          },
+          "text": {
+            "description": "Human-readable question text, can be localized.",
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "select",
+              "multiselect",
+              "number",
+              "boolean",
+              "date",
+              "text"
+            ],
+            "description": "Type of the question."
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "type"
+        ],
+        "title": "Question",
+        "type": "object",
+        "x-dependencies": {
+          "type": {
+            "oneOf": [
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "boolean",
+                      "text",
+                      "date"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "multiselect",
+                      "select"
+                    ]
+                  },
+                  "options": {
+                    "title": "Answer options for Select/Multiselect questions.",
+                    "items": {
+                      "$ref": "#/x-definitions/Question/x-definitions/Option"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "number"
+                    ]
+                  },
+                  "numericOptions": {
+                    "title": "Answer options for Numeric questions.",
+                    "$ref": "#/x-definitions/Question/x-definitions/NumericOptions"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "x-definitions": {
+          "NumericOptions": {
+            "additionalProperties": false,
+            "title": "",
+            "properties": {
+              "defaultValue": {
+                "description": "Default value",
+                "type": "number"
+              },
+              "max": {
+                "description": "maximal value",
+                "type": "number"
+              },
+              "min": {
+                "description": "Minimal value",
+                "type": "number"
+              },
+              "step": {
+                "description": "Step size",
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "Option": {
+            "additionalProperties": false,
+            "title": "",
+            "properties": {
+              "asQuestion": {
+                "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+                "type": "string"
+              },
+              "text": {
+                "description": "Human-Readable answer, can be localized.",
+                "type": "string"
+              },
+              "value": {
+                "description": "Value used for evaluating logic expressions.",
+                "type": "string"
+              },
+              "scores": {
+                "title": "Scores",
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "text",
+              "value"
+            ],
+            "type": "object"
+          }
+        }
       },
       "LogicExpression": {
         "anyOf": [
@@ -850,203 +1001,6 @@
           }
         ]
       },
-      "QuestionType": {
-        "description": "Type of the question.",
-        "type": "string",
-        "enum": [
-          "boolean",
-          "date",
-          "text",
-          "number",
-          "select",
-          "multiselect"
-        ]
-      },
-      "QuestionBase": {
-        "description": "Represents the common fields of every question.",
-        "properties": {
-          "details": {
-            "description": "Optional human-readable details or clarification about this question.",
-            "type": "string"
-          },
-          "enableWhenExpression": {
-            "$ref": "#/components/schemas/LogicExpression"
-          },
-          "id": {
-            "description": "Unique id for referring this question in logic expressions.",
-            "type": "string"
-          },
-          "optional": {
-            "description": "Boolean indicating whether the question is optional or not.",
-            "type": "boolean"
-          },
-          "text": {
-            "description": "Human-readable question text, can be localized.",
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/components/schemas/QuestionType"
-          }
-        },
-        "required": [
-          "id",
-          "text",
-          "type"
-        ],
-        "title": "Common question fields",
-        "type": "object"
-      },
-      "QuestionWithoutOptions": {
-        "title": "QuestionWithoutOptions",
-        "description": "Represents a question. The answer is a choice of yes/no, text or date.",
-        "type": "object",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/QuestionBase"
-          },
-          {
-            "properties": {
-              "type": {
-                "type": "string",
-                "enum": [
-                  "boolean",
-                  "date",
-                  "text"
-                ],
-                "description": "Type of the question."
-              }
-            },
-            "required": [
-              "type"
-            ]
-          }
-        ]
-      },
-      "Option": {
-        "description": "Option for multi-select questions.",
-        "properties": {
-          "asQuestion": {
-            "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
-            "type": "string"
-          },
-          "text": {
-            "description": "Human-Readable answer, can be localized.",
-            "type": "string"
-          },
-          "value": {
-            "description": "Value used for evaluating logic expressions.",
-            "type": "string"
-          },
-          "scores": {
-            "title": "Scores",
-            "type": "object",
-            "additionalProperties": {
-              "type": "number"
-            }
-          }
-        },
-        "required": [
-          "text",
-          "value"
-        ],
-        "type": "object"
-      },
-      "QuestionWithOptions": {
-        "title": "QuestionWithOptions",
-        "description": "Represents a question with predefined answers to select.",
-        "type": "object",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/QuestionBase"
-          },
-          {
-            "properties": {
-              "options": {
-                "description": "Answer options for Select/Multiselect questions.",
-                "items": {
-                  "$ref": "#/components/schemas/Option"
-                },
-                "type": "array"
-              },
-              "type": {
-                "enum": [
-                  "select",
-                  "multiselect"
-                ],
-                "type": "string",
-                "description": "Type of the question."
-              }
-            },
-            "required": [
-              "type"
-            ]
-          }
-        ]
-      },
-      "NumericOptions": {
-        "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
-        "properties": {
-          "defaultValue": {
-            "description": "Default value",
-            "type": "number"
-          },
-          "max": {
-            "description": "maximal value",
-            "type": "number"
-          },
-          "min": {
-            "description": "Minimal value",
-            "type": "number"
-          },
-          "step": {
-            "description": "Step size",
-            "type": "number"
-          }
-        },
-        "type": "object"
-      },
-      "NumericQuestion": {
-        "title": "Numeric question",
-        "type": "object",
-        "description": "Represents a question with numeric answer.",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/QuestionBase"
-          },
-          {
-            "properties": {
-              "numericOptions": {
-                "$ref": "#/components/schemas/NumericOptions"
-              },
-              "type": {
-                "description": "Type of the question.",
-                "enum": [
-                  "number"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "type"
-            ]
-          }
-        ]
-      },
-      "Question": {
-        "title": "Question",
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/QuestionWithoutOptions"
-          },
-          {
-            "$ref": "#/components/schemas/QuestionWithOptions"
-          },
-          {
-            "$ref": "#/components/schemas/NumericQuestion"
-          }
-        ],
-        "description": "Represents a single question of the questionnaire."
-      },
       "Result": {
         "title": "Result",
         "description": "Represents a single result.\nThe value of the logic expression yielding true or false. The first result in the result category yielding true will be\nused as result. If no result evaluates to true, no result is shown for this category.",
@@ -1227,89 +1181,6 @@
         ],
         "type": "object",
         "x-definitions": {
-          "QuestionBase": {
-            "description": "Represents the common fields of every question.",
-            "properties": {
-              "details": {
-                "description": "Optional human-readable details or clarification about this question.",
-                "type": "string"
-              },
-              "enableWhenExpression": {
-                "$ref": "#/components/schemas/LogicExpression"
-              },
-              "id": {
-                "description": "Unique id for referring this question in logic expressions.",
-                "type": "string"
-              },
-              "optional": {
-                "description": "Boolean indicating whether the question is optional or not.",
-                "type": "boolean"
-              },
-              "text": {
-                "description": "Human-readable question text, can be localized.",
-                "type": "string"
-              },
-              "type": {
-                "$ref": "#/components/schemas/QuestionType"
-              }
-            },
-            "required": [
-              "id",
-              "text",
-              "type"
-            ],
-            "title": "Common question fields",
-            "type": "object"
-          },
-          "NumericOptions": {
-            "description": "Option for numeric questions.\nAnswer options for Select/Multiselect questions.",
-            "properties": {
-              "defaultValue": {
-                "description": "Default value",
-                "type": "number"
-              },
-              "max": {
-                "description": "maximal value",
-                "type": "number"
-              },
-              "min": {
-                "description": "Minimal value",
-                "type": "number"
-              },
-              "step": {
-                "description": "Step size",
-                "type": "number"
-              }
-            },
-            "type": "object"
-          },
-          "NumericQuestion": {
-            "title": "Numeric question",
-            "type": "object",
-            "description": "Represents a question with numeric answer.",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/QuestionBase"
-              },
-              {
-                "properties": {
-                  "numericOptions": {
-                    "$ref": "#/components/schemas/NumericOptions"
-                  },
-                  "type": {
-                    "description": "Type of the question.",
-                    "enum": [
-                      "number"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "type"
-                ]
-              }
-            ]
-          },
           "Option": {
             "description": "Option for multi-select questions.",
             "properties": {
@@ -1340,77 +1211,155 @@
             "type": "object"
           },
           "Question": {
-            "title": "Question",
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/QuestionWithoutOptions"
+            "additionalProperties": false,
+            "properties": {
+              "details": {
+                "description": "Optional human-readable details or clarifiation about this question.",
+                "type": "string"
               },
-              {
-                "$ref": "#/components/schemas/QuestionWithOptions"
+              "enableWhenExpression": {
+                "description": "Logic expression to decide whether the question should be displayed or not.\nDefaults to true.",
+                "type": "string"
               },
-              {
-                "$ref": "#/components/schemas/NumericQuestion"
+              "enableWhenExpressionString": {
+                "description": "Logic expression in string representation",
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique id for referring this question in logic expressions.",
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*(_[a-z0-9]+)*$"
+              },
+              "optional": {
+                "description": "Boolean indicating whether the question is optional or not.",
+                "type": "boolean"
+              },
+              "text": {
+                "description": "Human-readable question text, can be localized.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "select",
+                  "multiselect",
+                  "number",
+                  "boolean",
+                  "date",
+                  "text"
+                ],
+                "description": "Type of the question."
               }
+            },
+            "required": [
+              "id",
+              "text",
+              "type"
             ],
-            "description": "Represents a single question of the questionnaire."
-          },
-          "QuestionWithOptions": {
-            "title": "QuestionWithOptions",
-            "description": "Represents a question with predefined answers to select.",
+            "title": "Question",
             "type": "object",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/QuestionBase"
-              },
-              {
-                "properties": {
-                  "options": {
-                    "description": "Answer options for Select/Multiselect questions.",
-                    "items": {
-                      "$ref": "#/components/schemas/Option"
-                    },
-                    "type": "array"
+            "x-dependencies": {
+              "type": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "boolean",
+                          "text",
+                          "date"
+                        ]
+                      }
+                    }
                   },
-                  "type": {
-                    "enum": [
-                      "select",
-                      "multiselect"
-                    ],
-                    "type": "string",
-                    "description": "Type of the question."
+                  {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "multiselect",
+                          "select"
+                        ]
+                      },
+                      "options": {
+                        "title": "Answer options for Select/Multiselect questions.",
+                        "items": {
+                          "$ref": "#/x-definitions/Question/x-definitions/Option"
+                        },
+                        "type": "array"
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "number"
+                        ]
+                      },
+                      "numericOptions": {
+                        "title": "Answer options for Numeric questions.",
+                        "$ref": "#/x-definitions/Question/x-definitions/NumericOptions"
+                      }
+                    }
                   }
-                },
-                "required": [
-                  "type"
                 ]
               }
-            ]
-          },
-          "QuestionWithoutOptions": {
-            "title": "QuestionWithoutOptions",
-            "description": "Represents a question. The answer is a choice of yes/no, text or date.",
-            "type": "object",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/QuestionBase"
-              },
-              {
+            },
+            "x-definitions": {
+              "NumericOptions": {
+                "additionalProperties": false,
+                "title": "",
                 "properties": {
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "boolean",
-                      "date",
-                      "text"
-                    ],
-                    "description": "Type of the question."
+                  "defaultValue": {
+                    "description": "Default value",
+                    "type": "number"
+                  },
+                  "max": {
+                    "description": "maximal value",
+                    "type": "number"
+                  },
+                  "min": {
+                    "description": "Minimal value",
+                    "type": "number"
+                  },
+                  "step": {
+                    "description": "Step size",
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "Option": {
+                "additionalProperties": false,
+                "title": "",
+                "properties": {
+                  "asQuestion": {
+                    "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+                    "type": "string"
+                  },
+                  "text": {
+                    "description": "Human-Readable answer, can be localized.",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "Value used for evaluating logic expressions.",
+                    "type": "string"
+                  },
+                  "scores": {
+                    "title": "Scores",
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "number"
+                    }
                   }
                 },
                 "required": [
-                  "type"
-                ]
+                  "text",
+                  "value"
+                ],
+                "type": "object"
               }
-            ]
+            }
           },
           "QuestionnaireMeta": {
             "title": "QuestionnaireMeta",
@@ -1426,7 +1375,7 @@
               "description": {
                 "type": "string"
               },
-              "expirationDate": {
+              "experiationDate": {
                 "description": "Expiration date as ISO 8601 string",
                 "type": "string"
               },

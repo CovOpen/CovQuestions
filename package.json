@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^9.0.7",
+    "@openapi-contrib/json-schema-to-openapi-schema": "^1.2.1",
     "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
-    "@redocly/openapi-cli": "^0.12.16",
+    "@redocly/openapi-cli": "^1.0.0-beta.34",
     "@types/node": "^13.13.45",
     "copyfiles": "^2.4.1",
     "json-schema-to-typescript": "^8.2.0",
@@ -22,11 +23,12 @@
     "start": "openapi preview-docs",
     "build": "openapi bundle -o dist --ext json && openapi bundle -o dist --ext yaml",
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
-    "test": "openapi validate",
+    "test": "openapi lint",
     "test-generator": "openapi-generator generate -i dist/openapi.yaml -g typescript-angular -o generated-sources/openapi",
-    "update-files": "npm run build && npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts && npm run copy-openapi && npm run format",
+    "update-files": "npm run build && npm run generateTypes && ts-node ./scripts/updateFilesFromSchema.ts && npm run copy-openapi",
     "generateTypes": "ts-node scripts/generateTypes.ts && ts-node scripts/copyGeneratedTypes.ts",
-    "copy-openapi": "copyfiles -f ./dist/openapi.json ./api/v1/"
+    "copy-openapi": "copyfiles -f ./dist/openapi.json ./api/v1/",
+    "distribute-json-schema-files": "copyfiles -f openapi/components/jsonSchemas/*.json covquestions-editor-app/src/schemas && copyfiles -f dist/questionnaire.json covquestions-editor-app/src/schemas"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

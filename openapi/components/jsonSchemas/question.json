@@ -1,0 +1,125 @@
+{
+  "title": "Question",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/QuestionWithoutOptions"
+    },
+    {
+      "$ref": "#/definitions/QuestionWithOptions"
+    },
+    {
+      "$ref": "#/definitions/NumericQuestion"
+    }
+  ],
+  "description": "Represents a single question of the questionnaire.",
+  "definitions": {
+    "QuestionBase": {
+      "description": "Represents the common fields of every question.",
+      "properties": {
+        "details": {
+          "description": "Optional human-readable details or clarification about this question.",
+          "type": "string"
+        },
+        "enableWhenExpression": {
+          "$ref": "#/definitions/LogicExpression"
+        },
+        "id": {
+          "description": "Unique id for referring this question in logic expressions.",
+          "type": "string"
+        },
+        "optional": {
+          "description": "Boolean indicating whether the question is optional or not.",
+          "type": "boolean"
+        },
+        "text": {
+          "description": "Human-readable question text, can be localized.",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/QuestionType"
+        }
+      },
+      "required": ["id", "text", "type"],
+      "title": "Common question fields",
+      "type": "object"
+    },
+    "QuestionWithOptions": {
+      "title": "QuestionWithOptions",
+      "description": "Represents a question with predefined answers to select.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/QuestionBase"
+        },
+        {
+          "properties": {
+            "options": {
+              "description": "Answer options for Select/Multiselect questions.",
+              "items": {
+                "$ref": "#/definitions/Option"
+              },
+              "type": "array"
+            },
+            "type": {
+              "enum": ["select", "multiselect"],
+              "type": "string",
+              "description": "Type of the question."
+            }
+          },
+          "required": ["type"]
+        }
+      ]
+    },
+    "QuestionWithoutOptions": {
+      "title": "QuestionWithoutOptions",
+      "description": "Represents a question. The answer is a choice of yes/no, text or date.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/QuestionBase"
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["boolean", "date", "text"],
+              "description": "Type of the question."
+            }
+          },
+          "required": ["type"]
+        }
+      ]
+    },
+    "Option": {
+      "description": "Option for multi-select questions.",
+      "properties": {
+        "asQuestion": {
+          "description": "Human-Readable formulation of this option as yes/no question.\nThis is for use-cases where multi-selects are not possible in the UI,\nfor example telephone hotlines.",
+          "type": "string"
+        },
+        "text": {
+          "description": "Human-Readable answer, can be localized.",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value used for evaluating logic expressions.",
+          "type": "string"
+        },
+        "scores": {
+          "title": "Scores",
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["text", "value"],
+      "type": "object"
+    },
+    "QuestionType": {
+      "description": "Type of the question.",
+      "type": "string",
+      "enum": ["boolean", "date", "text", "number", "select", "multiselect"]
+    }
+  }
+}

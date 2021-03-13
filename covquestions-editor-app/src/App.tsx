@@ -134,7 +134,7 @@ export const App: React.FC = () => {
 
   const resetQuestionnaire = () => {
     if (originalCurrentQuestionnaire) {
-      dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire));
+      dispatch(setQuestionnaireInEditor(originalCurrentQuestionnaire as any));
       overwriteCurrentQuestionnaire(originalCurrentQuestionnaire);
     }
   };
@@ -156,7 +156,7 @@ export const App: React.FC = () => {
       ).then((value) => {
         if (value !== undefined) {
           setOriginalCurrentQuestionnaire(value);
-          dispatch(setQuestionnaireInEditor(value));
+          dispatch(setQuestionnaireInEditor(value as any));
           overwriteCurrentQuestionnaire(value);
         } else {
           console.error(`Cannot get questionnaire with values ${JSON.stringify(currentQuestionnaireSelection)}`);

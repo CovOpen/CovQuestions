@@ -1,5 +1,5 @@
 apiDefinitions:
   main: ./openapi/openapi.yaml
-lint:
-  rules:
-    no-unused-schemas: warning
+# lint:
+#   rules:
+#     no-unused-schemas: warning

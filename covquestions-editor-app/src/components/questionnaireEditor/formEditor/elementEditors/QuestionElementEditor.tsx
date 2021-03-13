@@ -1,6 +1,7 @@
 import { EditorQuestion } from "../../../../models/editorQuestionnaire";
 import { ElementEditor } from "./ElementEditor";
-import questionSchema from "../schemas/question.json";
+import questionSchema from "./../../../../schemas/question.json";
+// import questionnaireSchema from "../../../../schemas/questionnaire.json";
 import React from "react";
 import { convertStringToLogicExpression } from "../../converters";
 import { editQuestion, questionInEditorSelector, duplicatedIdsSelector } from "../../../../store/questionnaireInEditor";
