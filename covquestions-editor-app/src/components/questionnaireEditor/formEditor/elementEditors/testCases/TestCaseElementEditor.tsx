@@ -172,7 +172,7 @@ const DropDownInput: React.FC<{
         onBlur={(event) => props.onChange(event.target.value)}
       >
         {props.availableItems.map((item) => (
-          <MenuItem key={JSON.stringify(item)} value={(item as any).toString()}>
+          <MenuItem key={JSON.stringify(item)} value={item?.toString()}>
             {item}
           </MenuItem>
         ))}
