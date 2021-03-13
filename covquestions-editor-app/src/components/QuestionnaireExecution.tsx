@@ -126,7 +126,6 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
         {isJsonInvalid ? <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert> : null}
         {result === undefined && currentQuestion ? (
           <Paper className={classes.root}>
-            Hi
             <Grid container direction="column" alignItems="stretch">
               <Grid item xs={12}>
                 <QuestionFormComponent
