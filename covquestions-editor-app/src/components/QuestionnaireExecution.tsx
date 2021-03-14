@@ -71,6 +71,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
 
   function restartQuestionnaire() {
     setQuestionnaireEngine(new QuestionnaireEngine(currentQuestionnaire));
+    setCurrentValue(undefined);
   }
 
   function handleNextClick() {
@@ -95,7 +96,6 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
 
   useEffect(() => {
     setCurrentQuestion(questionnaireEngine.nextQuestion());
-    setCurrentValue(undefined);
   }, [questionnaireEngine]);
 
   const progress = questionnaireEngine.getProgress();
