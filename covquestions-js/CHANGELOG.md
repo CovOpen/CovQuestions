@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.6...@covopen/covquestions-js@1.1.0) (2021-03-14)
+
+
+### Features
+
+* use a printf-like syntax to include variables in result texts ([7b77eaa](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/7b77eaac669d30120c51ad950e1da1cd0fa482fa))
+
+
+
+
+
+## [1.0.6](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.5...@covopen/covquestions-js@1.0.6) (2021-03-14)
+
+**Note:** Version bump only for package @covopen/covquestions-js
+
+
+
+
+
 ## [1.0.5](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.4...@covopen/covquestions-js@1.0.5) (2021-03-14)
 
 

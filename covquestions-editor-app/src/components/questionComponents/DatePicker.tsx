@@ -1,9 +1,9 @@
 import React from "react";
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 import { dateInSecondsTimestamp } from "../../utils/date";
 
-export const DatePicker: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange, value }) => {
+export const DatePicker: React.FC<QuestionFormComponentProps> = ({ onChange, value }) => {
   // If the caller send a string date, like 2020-03-25, we should also return a string date.
   const callerExpectsStringDate = typeof value === "string";
 
@@ -27,19 +27,14 @@ export const DatePicker: React.FC<QuestionFormComponentProps> = ({ currentQuesti
     : "";
 
   return (
-    <>
-      <Typography id="date-picker-inline" gutterBottom>
-        {currentQuestion.text}
-      </Typography>
-      <TextField
-        id="date"
-        type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={handleChange}
-        value={controlledValue}
-      />
-    </>
+    <TextField
+      id="date"
+      type="date"
+      InputLabelProps={{
+        shrink: true,
+      }}
+      onChange={handleChange}
+      value={controlledValue}
+    />
   );
 };

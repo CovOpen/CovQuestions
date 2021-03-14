@@ -9,15 +9,16 @@ describe("Simple text question", () => {
   });
 
   test("Text 'test' should lead to result", async () => {
-    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.", "legend");
+    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.");
     await t.enterText("test");
     await t.clickNext();
 
-    await t.findByText("Text: Sie können simple Anweisungen befolgen.");
+    await t.findByText("Text");
+    await t.findByText("Sie können simple Anweisungen befolgen.");
   });
 
   test("Wrong text should lead to no result", async () => {
-    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.", "legend");
+    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.");
     await t.enterText("Something else");
     await t.clickNext();
 
@@ -25,7 +26,7 @@ describe("Simple text question", () => {
   });
 
   test("Skipping the optional question should be possible", async () => {
-    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.", "legend");
+    await t.findByText("Geben Sie bitte 'test' ein um ein Resultat zu sehen.");
     await t.clickNext();
 
     await t.findByText("No result applies");

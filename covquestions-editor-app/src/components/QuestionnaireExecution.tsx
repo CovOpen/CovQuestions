@@ -5,6 +5,7 @@ import { Primitive, Question, Questionnaire, QuestionnaireEngine } from "@covope
 import { ResultComponent } from "./ResultComponent";
 import "typeface-fira-sans";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
+import sanitizeHtml from "sanitize-html";
 
 type QuestionnaireExecutionProps = {
   currentQuestionnaire: Questionnaire;
@@ -56,6 +57,22 @@ const useStyles = makeStyles(() =>
       "margin-bottom": 0,
       "margin-left": 0,
     },
+    questionHeadline: {
+      opacity: 0.7,
+      fontWeight: 500,
+      fontSize: 18,
+      lineHeight: "20px",
+    },
+    questionDetails: {
+      color: "#686868",
+      opacity: 1,
+      fontSize: 16,
+      lineHeight: "20px",
+    },
+    questionFormElement: {
+      marginTop: 15,
+      marginBottom: 15,
+    },
   })
 );
 
@@ -101,33 +118,36 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
   const progress = questionnaireEngine.getProgress();
   // TODO If the last question is not shown because of the enableWhenExpression, the progress never reaches 1 => fix in covquestions-js. Then it should be possible to use "=== 1")
   // https://github.com/CovOpen/CovQuestions/issues/138
-  const result = progress > 0 && !currentQuestion ? questionnaireEngine.getResults() : undefined;
+  const results = progress > 0 && !currentQuestion ? questionnaireEngine.getResults() : undefined;
 
   return (
     <Grid container direction="column" justify="space-between" className={`${classes.padding} overflow-pass-through`}>
       <Grid item className={`${classes.execution}`}>
         <Typography className={classes.internalStateHeadline}>Questionnaire Preview</Typography>
         {isJsonInvalid ? <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert> : null}
-        {result === undefined && currentQuestion ? (
+        {results === undefined && currentQuestion ? (
           <Paper className={classes.root}>
             <Grid container direction="column" alignItems="stretch">
-              <Grid item xs={12}>
-                <QuestionFormComponent
-                  currentQuestion={currentQuestion}
-                  onChange={setCurrentValue}
-                  value={currentValue}
-                />
-              </Grid>
-              {currentQuestion.details ? (
+              <Grid item container xs={12} spacing={1}>
                 <Grid item xs={12}>
-                  <Grid item xs={12}>
-                    <Typography>Hint:</Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography>{currentQuestion.details}</Typography>
-                  </Grid>
+                  <Typography className={classes.questionHeadline}>{currentQuestion.text}</Typography>
                 </Grid>
-              ) : undefined}
+                {currentQuestion.details ? (
+                  <Grid item xs={12}>
+                    <Typography
+                      className={classes.questionDetails}
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentQuestion.details) }}
+                    />
+                  </Grid>
+                ) : undefined}
+                <Grid item xs={12} className={classes.questionFormElement}>
+                  <QuestionFormComponent
+                    currentQuestion={currentQuestion}
+                    onChange={setCurrentValue}
+                    value={currentValue}
+                  />
+                </Grid>
+              </Grid>
               <Grid container item xs={12} justify="space-between">
                 <Grid item>
                   {progress > 0 ? (
@@ -150,7 +170,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
             </Grid>
           </Paper>
         ) : null}
-        {result !== undefined ? <ResultComponent result={result} /> : null}
+        {results !== undefined ? <ResultComponent results={results} /> : null}
       </Grid>
       {questionnaireEngine ? (
         <Grid item container direction="column" className="overflow-pass-through">

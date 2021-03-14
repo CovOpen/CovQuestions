@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, FormControlLabel, FormGroup, FormLabel } from "@material-ui/core";
+import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 import { isPrimitive } from "@covopen/covquestions-js";
 
@@ -29,7 +29,6 @@ export const MultiSelect: React.FC<QuestionFormComponentProps> = ({
 
   return (
     <FormGroup>
-      <FormLabel component="legend">{currentQuestion.text}</FormLabel>
       {options.map((answer) => (
         <FormControlLabel
           key={answer.value}

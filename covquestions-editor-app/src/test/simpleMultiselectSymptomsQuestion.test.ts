@@ -9,28 +9,31 @@ describe("Simple multiselect symptoms question", () => {
   });
 
   test("Three symptoms", async () => {
-    await t.findByText("Welche der folgenden Symptome haben Sie?", "legend");
+    await t.findByText("Welche der folgenden Symptome haben Sie?");
     await t.clickOnAnswer("Husten");
     await t.clickOnAnswer("Fieber");
     await t.clickOnAnswer("Atemnot");
     await t.clickNext();
 
-    await t.findByText("Symptome: Sie haben drei oder mehr Symptome.");
+    await t.findByText("Symptome");
+    await t.findByText("Sie haben drei oder mehr Symptome.");
   });
 
   test("Two symptoms", async () => {
-    await t.findByText("Welche der folgenden Symptome haben Sie?", "legend");
+    await t.findByText("Welche der folgenden Symptome haben Sie?");
     await t.clickOnAnswer("Fieber");
     await t.clickOnAnswer("Atemnot");
     await t.clickNext();
 
-    await t.findByText("Symptome: Sie haben ein oder zwei Symptome.");
+    await t.findByText("Symptome");
+    await t.findByText("Sie haben ein oder zwei Symptome.");
   });
 
   test("No symptoms", async () => {
-    await t.findByText("Welche der folgenden Symptome haben Sie?", "legend");
+    await t.findByText("Welche der folgenden Symptome haben Sie?");
     await t.clickNext();
 
-    await t.findByText("Symptome: Sie haben keine Symptome.");
+    await t.findByText("Symptome");
+    await t.findByText("Sie haben keine Symptome.");
   });
 });

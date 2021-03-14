@@ -1,3 +1,4 @@
+[![npm](https://img.shields.io/npm/v/@covopen/covquestions-js)](https://www.npmjs.com/package/@covopen/covquestions-js)
 # Covquestions Questionaire Logic
 
 This package (`covquestions-js`) provides models, state handling and evaluation logic for a questionaire.
