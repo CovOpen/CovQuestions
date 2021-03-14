@@ -1,21 +1,17 @@
-export {
-  QuestionnaireEngine,
-  Result,
-  RawAnswer,
-} from "./src/questionnaireEngine";
+export { QuestionnaireEngine, Result, RawAnswer } from './src/questionnaireEngine';
 
 export {
   Questionnaire,
   Question,
+  QuestionWithOptions,
+  QuestionWithoutOptions,
   LogicExpression,
   ISOLanguage,
   TestCase,
-} from "./src/models/Questionnaire.generated";
+} from './src/models/Questionnaire.generated';
 
-export { isPrimitive, Primitive } from "./src/primitive";
+export { isQuestionWithOptions, isQuestionWithoutOptions } from './src/models/typeguards';
 
-export {
-  runOneTestCase,
-  runTestCases,
-  TestResult,
-} from "./src/testCaseRunner/testCaseRunner";
+export { isPrimitive, Primitive } from './src/primitive';
+
+export { runOneTestCase, runTestCases, TestResult } from './src/testCaseRunner/testCaseRunner';
