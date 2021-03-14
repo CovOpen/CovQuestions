@@ -83,7 +83,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
   const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [currentValue, setCurrentValue] = useState<Primitive | Array<Primitive> | undefined>(undefined);
-  const [result, setResult] = useState<Result[] | undefined>(undefined);
+  const [results, setResults] = useState<Result[] | undefined>(undefined);
   const [progress, setProgress] = useState<number>(0);
   const [doRerender, setDoRerender] = useState(false);
 
@@ -93,7 +93,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
     const engine = new QuestionnaireEngine(currentQuestionnaire);
     const nextQuestion = engine.nextQuestion();
 
-    setResult(undefined);
+    setResults(undefined);
     setProgress(0);
     setCurrentValue(undefined);
     setQuestionnaireEngine(engine);
@@ -111,7 +111,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
       setCurrentQuestion(nextQuestion);
     } else {
       setCurrentQuestion(undefined);
-      setResult(questionnaireEngine.getResults());
+      setResults(questionnaireEngine.getResults());
     }
   }
 
@@ -123,7 +123,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
       setCurrentQuestion(question);
     } else {
       setCurrentQuestion(undefined);
-      setResult(questionnaireEngine.getResults());
+      setResults(questionnaireEngine.getResults());
     }
   }
 
@@ -142,7 +142,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
       <Grid item className={`${classes.execution}`}>
         <Typography className={classes.internalStateHeadline}>Questionnaire Preview</Typography>
         {isJsonInvalid ? <Alert severity="warning">Cannot load questionnaire. JSON is invalid!</Alert> : null}
-        {result === undefined && currentQuestion ? (
+        {results === undefined && currentQuestion ? (
           <Paper className={classes.root}>
             <Grid container direction="column" alignItems="stretch">
               <Grid item container xs={12} spacing={1}>
@@ -187,7 +187,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
             </Grid>
           </Paper>
         ) : null}
-        {result !== undefined ? <ResultComponent result={result} /> : null}
+        {results !== undefined ? <ResultComponent results={results} /> : null}
       </Grid>
       {questionnaireEngine ? (
         <Grid item container direction="column" className="overflow-pass-through">
