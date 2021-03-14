@@ -9,7 +9,7 @@ describe("Restart test", () => {
   });
 
   test("The answer female should lead to female", async () => {
-    await t.findByText("Geben Sie bitte ihr Geschlecht an?", "legend");
+    await t.findByText("Geben Sie bitte ihr Geschlecht an?");
 
     await t.clickOnAnswer("weiblich");
     await t.clickRestart();
@@ -21,6 +21,7 @@ describe("Restart test", () => {
     await t.clickOnAnswer("weiblich");
     await t.clickNext();
 
-    await t.findByText("Geschlecht: Sie haben als Geschlecht 'weiblich' angegeben.");
+    await t.findByText("Geschlecht");
+    await t.findByText("Sie haben als Geschlecht 'weiblich' angegeben.");
   });
 });
