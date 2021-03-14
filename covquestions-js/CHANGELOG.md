@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.3...@covopen/covquestions-js@1.0.4) (2021-03-14)
+
+
+### Bug Fixes
+
+* also resolve dependencies between variables if their order in the array is reversed ([00e3e55](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/00e3e5533c1f93d2745c8f2591fb5a0bb67fa85f))
+* change function name ([498c25d](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/498c25d92de6f7b1e322cd9d8ae871ec5f1a249e))
+
+
+
+
+
 ## [1.0.3](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.2...@covopen/covquestions-js@1.0.3) (2021-03-13)
 
 
