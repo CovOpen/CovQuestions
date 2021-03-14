@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.4...@covopen/covquestions-js@1.0.5) (2021-03-14)
+
+
+### Bug Fixes
+
+* add numeric question typeguard ([8e4ef98](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/8e4ef98a48f72e6a42ea8ada3f37b2218c8ef73c))
+* add typeguards ([af096e0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/af096e04214e7711ff4a762d3894462530088e2f))
+* export RawAnswer ([848d76f](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/848d76f36c9755d4fbe89e1a1458bba66558b4c5))
+
+
+
+
+
 ## [1.0.4](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.0.3...@covopen/covquestions-js@1.0.4) (2021-03-14)
 
 
