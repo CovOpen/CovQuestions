@@ -5,6 +5,7 @@ import { Primitive, Question, Questionnaire, QuestionnaireEngine, Result } from 
 import { ResultComponent } from "./ResultComponent";
 import "typeface-fira-sans";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
+import sanitizeHtml from "sanitize-html";
 
 type QuestionnaireExecutionProps = {
   currentQuestionnaire: Questionnaire;
@@ -55,6 +56,22 @@ const useStyles = makeStyles(() =>
       margin: "auto",
       "margin-bottom": 0,
       "margin-left": 0,
+    },
+    questionHeadline: {
+      opacity: 0.7,
+      fontWeight: 500,
+      fontSize: 18,
+      lineHeight: "20px",
+    },
+    questionDetails: {
+      color: "#686868",
+      opacity: 1,
+      fontSize: 16,
+      lineHeight: "20px",
+    },
+    questionFormElement: {
+      marginTop: 15,
+      marginBottom: 15,
     },
   })
 );
@@ -128,23 +145,26 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
         {result === undefined && currentQuestion ? (
           <Paper className={classes.root}>
             <Grid container direction="column" alignItems="stretch">
-              <Grid item xs={12}>
-                <QuestionFormComponent
-                  currentQuestion={currentQuestion}
-                  onChange={setCurrentValue}
-                  value={currentValue}
-                />
-              </Grid>
-              {currentQuestion.details ? (
+              <Grid item container xs={12} spacing={1}>
                 <Grid item xs={12}>
-                  <Grid item xs={12}>
-                    <Typography>Hint:</Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography>{currentQuestion.details}</Typography>
-                  </Grid>
+                  <Typography className={classes.questionHeadline}>{currentQuestion.text}</Typography>
                 </Grid>
-              ) : undefined}
+                {currentQuestion.details ? (
+                  <Grid item xs={12}>
+                    <Typography
+                      className={classes.questionDetails}
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentQuestion.details) }}
+                    />
+                  </Grid>
+                ) : undefined}
+                <Grid item xs={12} className={classes.questionFormElement}>
+                  <QuestionFormComponent
+                    currentQuestion={currentQuestion}
+                    onChange={setCurrentValue}
+                    value={currentValue}
+                  />
+                </Grid>
+              </Grid>
               <Grid container item xs={12} justify="space-between">
                 <Grid item>
                   {progress > 0 ? (

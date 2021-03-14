@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Input, Slider, Typography } from "@material-ui/core";
+import { Grid, Input, Slider } from "@material-ui/core";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
 export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQuestion, onChange, value }) => {
@@ -23,38 +23,33 @@ export const NumericInput: React.FC<QuestionFormComponentProps> = ({ currentQues
   };
 
   return (
-    <>
-      <Typography id="discrete-slider-always" gutterBottom>
-        {currentQuestion.text}
-      </Typography>
-      <Grid container item spacing={2} alignItems="center" xs={12}>
-        <Grid item xs>
-          <Slider
-            value={value ?? fallbackValue}
-            min={min}
-            max={max}
-            step={step}
-            key={currentQuestion.id}
-            onChange={handleSliderChange}
-            aria-labelledby="discrete-slider-always"
-          />
-        </Grid>
-        <Grid item xs>
-          <Input
-            data-testid={"NumericInput"}
-            value={value ?? ""}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            inputProps={{
-              step,
-              min,
-              max,
-              type: "number",
-              "aria-labelledby": "input-slider",
-            }}
-          />
-        </Grid>
+    <Grid container item spacing={2} alignItems="center" xs={12}>
+      <Grid item xs>
+        <Slider
+          value={value ?? fallbackValue}
+          min={min}
+          max={max}
+          step={step}
+          key={currentQuestion.id}
+          onChange={handleSliderChange}
+          aria-labelledby="discrete-slider-always"
+        />
       </Grid>
-    </>
+      <Grid item xs>
+        <Input
+          data-testid={"NumericInput"}
+          value={value ?? ""}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          inputProps={{
+            step,
+            min,
+            max,
+            type: "number",
+            "aria-labelledby": "input-slider",
+          }}
+        />
+      </Grid>
+    </Grid>
   );
 };
