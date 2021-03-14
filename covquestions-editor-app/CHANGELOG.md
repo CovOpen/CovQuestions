@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.0.14...covquestions-editor-app@1.1.0) (2021-03-14)
+
+
+### Bug Fixes
+
+* do not delete current value in preview on updates ([a638ad7](https://github.com/CovOpen/CovQuestions/commit/a638ad7d63b6676326c4ddc9c01d93eb8a7bb01a))
+
+
+### Features
+
+* debounce changes in form editor ([e42de25](https://github.com/CovOpen/CovQuestions/commit/e42de253de384fbcabccaee78588efd0e52a26cc))
+
+
+
+
+
 ## [1.0.14](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.0.13...covquestions-editor-app@1.0.14) (2021-03-14)
 
 
