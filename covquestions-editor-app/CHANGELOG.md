@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.14](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.0.13...covquestions-editor-app@1.0.14) (2021-03-14)
+
+
+### Bug Fixes
+
+* adapt testing library tests to new layout ([43e42e8](https://github.com/CovOpen/CovQuestions/commit/43e42e82d51ce71b1715dd252721ed3ae3413729))
+* enable html for question details ([a511c00](https://github.com/CovOpen/CovQuestions/commit/a511c00b30b168d9c741d1f5782feae26ba505cd))
+* enable html for result texts ([fcf84e8](https://github.com/CovOpen/CovQuestions/commit/fcf84e84cf12ef4cf677ad314706973d3313d09f))
+* show question in test cases again ([51ff0e9](https://github.com/CovOpen/CovQuestions/commit/51ff0e9f5e4557448180266d7abb04ea9ad9c45f))
+
+
+
+
+
 ## [1.0.13](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.0.12...covquestions-editor-app@1.0.13) (2021-03-14)
 
 **Note:** Version bump only for package covquestions-editor-app
