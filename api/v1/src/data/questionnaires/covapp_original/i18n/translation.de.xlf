@@ -2,357 +2,301 @@
 <xliff version="1.2">
   <file datatype="plaintext" source-language="en" target-language="de">
     <body>
-      <trans-unit id="9e7328e5d5c11038c69b727bc7efcd8d">
-        <source>CovApp</source>
-        <target state="translated">CovApp</target>
-      </trans-unit>
-      <trans-unit id="375ee26098b46e23bcb854331f0ad8c5">
-        <source>Ja</source>
-        <target state="translated">Ja</target>
-      </trans-unit>
-      <trans-unit id="b397ec0bea79fb90df2b7ec2845cde07">
-        <source>Nein</source>
-        <target state="translated">Nein</target>
-      </trans-unit>
-      <trans-unit id="2ded6e020eda0a319b5e169402e9f57d">
-        <source>Sind Sie 65 Jahre oder älter?</source>
-        <target state="translated">Sind Sie 65 Jahre oder älter?</target>
-      </trans-unit>
-      <trans-unit id="dee1999f232c61f7412d3976edbfe7b3">
-        <source>Allein wohnend</source>
-        <target state="translated">Allein wohnend</target>
-      </trans-unit>
-      <trans-unit id="588213ac9dad614c50390e9b0c970831">
-        <source>Zusammen mit Familie, in einer Wohngemeinschaft oder betreuten Gemeinschaftseinrichtung</source>
-        <target state="translated">Zusammen mit Familie, in einer Wohngemeinschaft oder betreuten Gemeinschaftseinrichtung</target>
-      </trans-unit>
-      <trans-unit id="5c053da28319f7c289daac6ed6e6e371">
-        <source>Wie ist Ihre aktuelle Wohnsituation?</source>
-        <target state="translated">Wie ist Ihre aktuelle Wohnsituation?</target>
-      </trans-unit>
-      <trans-unit id="c87b1cd74f0fab67d2b3956ff803edf0">
-        <source>Pflegen oder unterstützen Sie privat mindestens einmal pro Woche eine oder mehrere Personen mit altersbedingten Beschwerden, chronischen Erkrankungen oder Gebrechlichkeit?</source>
-        <target state="translated">Pflegen oder unterstützen Sie privat mindestens einmal pro Woche eine oder mehrere Personen mit altersbedingten Beschwerden, chronischen Erkrankungen oder Gebrechlichkeit?</target>
-      </trans-unit>
-      <trans-unit id="94dd8a9617eda460ab6728ce968119c7">
-        <source>Nicht gemeint sind Pflegeleistungen oder Unterstützung, die Sie im Zusammenhang mit Ihrer beruflichen Tätigkeit erbringen</source>
-        <target state="translated">Nicht gemeint sind Pflegeleistungen oder Unterstützung, die Sie im Zusammenhang mit Ihrer beruflichen Tätigkeit erbringen</target>
-      </trans-unit>
-      <trans-unit id="b557bfe3e7de525d016cbb7290c212f3">
-        <source>Im medizinischen Bereich tätig (Pflege, Arztpraxis oder Krankenhaus)</source>
-        <target state="translated">Im medizinischen Bereich tätig (Pflege, Arztpraxis oder Krankenhaus)</target>
-      </trans-unit>
-      <trans-unit id="6a5b6b32090e62d00b1032b888114979">
-        <source>Im medizinischen Bereich betreut/untergebracht (Pflege oder Krankenhaus)</source>
-        <target state="translated">Im medizinischen Bereich betreut/untergebracht (Pflege oder Krankenhaus)</target>
-      </trans-unit>
-      <trans-unit id="1aaebce81357033ab95b1fb4d3129928">
-        <source>In einer Gemeinschaftseinrichtung tätig (Schule, Kita, Universität, Heim o.ä.)</source>
-        <target state="translated">In einer Gemeinschaftseinrichtung tätig (Schule, Kita, Universität, Heim o.ä.)</target>
-      </trans-unit>
-      <trans-unit id="1dd5d29527a149fecdbdd89d5b7bfe13">
-        <source>In einer Gemeinschaftseinrichtung betreut/untergebracht (Schule, Kita, Universität, Heim etc.)</source>
-        <target state="translated">In einer Gemeinschaftseinrichtung betreut/untergebracht (Schule, Kita, Universität, Heim etc.)</target>
-      </trans-unit>
-      <trans-unit id="61afe8b10db48d1310728cf3a5bf7588">
-        <source>Nein, in keinem der genannten Bereiche</source>
-        <target state="translated">Nein, in keinem der genannten Bereiche</target>
-      </trans-unit>
-      <trans-unit id="df28fbe47506dab0b3963425c4964dd7">
-        <source>Sind Sie in einem der folgenden Bereiche tätig oder untergebracht/betreut?</source>
-        <target state="translated">Sind Sie in einem der folgenden Bereiche tätig oder untergebracht/betreut?</target>
-      </trans-unit>
-      <trans-unit id="8b13a471d9d6d3cb130bfce3b20e88e2">
-        <source>Sind zwei oder mehr Personen in der Einrichtung in der Sie leben oder arbeiten in den letzten 14 Tagen positiv getestet worden?</source>
-        <target state="translated">Sind zwei oder mehr Personen in der Einrichtung in der Sie leben oder arbeiten in den letzten 14 Tagen positiv getestet worden?</target>
-      </trans-unit>
-      <trans-unit id="51981c8e9642e96daa188287c7f2396d">
-        <source>Rauchen Sie?</source>
-        <target state="translated">Rauchen Sie?</target>
-      </trans-unit>
-      <trans-unit id="8280bd59176d399f824669546c4ccebc">
-        <source>Ich weiß es nicht</source>
-        <target state="translated">Ich weiß es nicht</target>
-      </trans-unit>
-      <trans-unit id="38e7445da67f495da1715a25714814f7">
-        <source>Sind Sie schwanger?</source>
-        <target state="translated">Sind Sie schwanger?</target>
-      </trans-unit>
-      <trans-unit id="7e6c4d9113d07918d82bf06374717be6">
-        <source>Hatten Sie engen Kontakt zu einem bestätigten Fall?</source>
-        <target state="translated">Hatten Sie engen Kontakt zu einem bestätigten Fall?</target>
-      </trans-unit>
-      <trans-unit id="5d4d79d7e29f1cbadf3cff3c77945455">
-        <source>Enger Kontakt mit einem bestätigten Fall bedeutet: &lt;ul&gt;&lt;li&gt;Kontakt von Angesicht zu Angesicht länger als 15 Minuten&lt;/li&gt;&lt;li&gt;Direkter, physischer Kontakt (Berührung, Händeschütteln, Küssen)&lt;/li&gt;&lt;li&gt;Länger als 15 Minuten direkt neben einer infizierten Person (weniger als 1,5 Meter Abstand) verbracht&lt;/li&gt;&lt;li&gt;Kontakt mit oder Austausch von Körperflüssigkeiten&lt;/li&gt;&lt;li&gt;Teilen einer Wohnung&lt;/li&gt;&lt;/ul&gt;  Falls Sie Kontakt hatten, aber adäquate Schutzmaßnahmen (Maske, Kittel) getragen haben, wählen Sie "Nein".</source>
-        <target state="translated">Enger Kontakt mit einem bestätigten Fall bedeutet: &lt;ul&gt;&lt;li&gt;Kontakt von Angesicht zu Angesicht länger als 15 Minuten&lt;/li&gt;&lt;li&gt;Direkter, physischer Kontakt (Berührung, Händeschütteln, Küssen)&lt;/li&gt;&lt;li&gt;Länger als 15 Minuten direkt neben einer infizierten Person (weniger als 1,5 Meter Abstand) verbracht&lt;/li&gt;&lt;li&gt;Kontakt mit oder Austausch von Körperflüssigkeiten&lt;/li&gt;&lt;li&gt;Teilen einer Wohnung&lt;/li&gt;&lt;/ul&gt;  Falls Sie Kontakt hatten, aber adäquate Schutzmaßnahmen (Maske, Kittel) getragen haben, wählen Sie "Nein".</target>
-      </trans-unit>
-      <trans-unit id="5f2b5d690b67cfe5b21d81b72bf5b3b9">
-        <source>An welchem Tag war der letzte Kontakt?</source>
-        <target state="translated">An welchem Tag war der letzte Kontakt?</target>
-      </trans-unit>
-      <trans-unit id="c801323d365c7bb7e250c68179d04d1b">
-        <source>Ja, mit erhöhtem Risiko</source>
-        <target state="translated">Ja, mit erhöhtem Risiko</target>
-      </trans-unit>
-      <trans-unit id="fd8b0fa3772d9dfed840c1a41c2ead77">
-        <source>Ja, mit niedrigem Risiko</source>
-        <target state="translated">Ja, mit niedrigem Risiko</target>
-      </trans-unit>
-      <trans-unit id="d8fbbb5f308ca20140a36568f0c7f14b">
-        <source>Ich verwende die Corona Warn App nicht</source>
-        <target state="translated">Ich verwende die Corona Warn App nicht</target>
-      </trans-unit>
-      <trans-unit id="619cdc837ac21f9572d20dee20221c89">
-        <source>Wurde durch die Corona Warn App in den letzten 14 Tagen eine Risikobegegnung festgestellt?</source>
-        <target state="translated">Wurde durch die Corona Warn App in den letzten 14 Tagen eine Risikobegegnung festgestellt?</target>
-      </trans-unit>
-      <trans-unit id="3d77913a77f7d2274250e9e203eba3f3">
-        <source>Fieber (über 38 °C)</source>
-        <target state="translated">Fieber (über 38 °C)</target>
-      </trans-unit>
-      <trans-unit id="5572a8f28f7923b0b6e3797dcea506f5">
-        <source>Schüttelfrost</source>
-        <target state="translated">Schüttelfrost</target>
-      </trans-unit>
-      <trans-unit id="5442fbfcebaa256884f01c550540fb27">
-        <source>Gliederschmerzen</source>
-        <target state="translated">Gliederschmerzen</target>
-      </trans-unit>
-      <trans-unit id="3a9bea9c1e1aca8442077693fa1482cb">
-        <source>Geschmacks- oder Geruchsverlust</source>
-        <target state="translated">Geschmacks- oder Geruchsverlust</target>
-      </trans-unit>
-      <trans-unit id="67d2929cda5467e60c07fbc98f65e7ba">
-        <source>Hatten Sie in den letzen Tagen neue Krankheitsbeschwerden. Wenn ja, welche? (Mehrfachnennung möglich)</source>
-        <target state="translated">Hatten Sie in den letzen Tagen neue Krankheitsbeschwerden. Wenn ja, welche? (Mehrfachnennung möglich)</target>
-      </trans-unit>
-      <trans-unit id="0deb4a27f3be6d1c66d3a76055cb852b">
-        <source>Die Frage bezieht sich auf akut aufgetretene oder verstärkte Symptome und schließt chronische Beschwerden und saisonale bzw. allergische Beschwerden aus. Sollten Sie eine chronische Erkrankung haben, vergleichen Sie für die Beantwortung der Frage Ihre derzeitigen mit Ihren bisherigen Beschwerden.   Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.</source>
-        <target state="translated">Die Frage bezieht sich auf akut aufgetretene oder verstärkte Symptome und schließt chronische Beschwerden und saisonale bzw. allergische Beschwerden aus. Sollten Sie eine chronische Erkrankung haben, vergleichen Sie für die Beantwortung der Frage Ihre derzeitigen mit Ihren bisherigen Beschwerden.   Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.</target>
-      </trans-unit>
-      <trans-unit id="aff047eae67c59ea70a8e622fd665e24">
-        <source>Fühle mich schlapp oder abgeschlagen</source>
-        <target state="translated">Fühle mich schlapp oder abgeschlagen</target>
-      </trans-unit>
-      <trans-unit id="ab3ee089c0918ef4b3da73eefa680b8e">
-        <source>Anhaltender Husten</source>
-        <target state="translated">Anhaltender Husten</target>
-      </trans-unit>
-      <trans-unit id="f6421dc2626aafc375cb93db548b44d6">
-        <source>Schnupfen</source>
-        <target state="translated">Schnupfen</target>
-      </trans-unit>
-      <trans-unit id="1d9a41d74d7fb60e38477c1c52008551">
-        <source>Durchfall</source>
-        <target state="translated">Durchfall</target>
-      </trans-unit>
-      <trans-unit id="3de77b45892c0f4c12b0fb898361ea99">
-        <source>Halsschmerzen</source>
-        <target state="translated">Halsschmerzen</target>
-      </trans-unit>
-      <trans-unit id="6149d1c5562283ed8f98ddd82030ba63">
-        <source>Kopfschmerzen</source>
-        <target state="translated">Kopfschmerzen</target>
-      </trans-unit>
-      <trans-unit id="424ee7f9de5be1e9e406ab7a2301daaa">
-        <source>Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.</source>
-        <target state="translated">Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.</target>
-      </trans-unit>
-      <trans-unit id="905d51f63b28186dba83ddc7e9e21654">
-        <source>Sind Sie in den letzten 24 Std. schneller außer Atem als sonst?</source>
-        <target state="translated">Sind Sie in den letzten 24 Std. schneller außer Atem als sonst?</target>
-      </trans-unit>
-      <trans-unit id="054534b86a940ac289d7440a5ac83382">
-        <source>Wählen Sie "Ja", wenn Sie:  &lt;ul&gt;&lt;li&gt;Bei leichten Belastungen, wie einem Spaziergang oder dem Steigen weniger Treppenstufen schneller als sonst kurzatmig werden oder Schwierigkeiten beim Atmen haben&lt;/li&gt;&lt;li&gt;Das Gefühl der Atemnot/Luftnot oder Kurzatmigkeit beim Sitzen oder Liegen verspüren&lt;/li&gt;&lt;li&gt;Beim Aufstehen aus dem Bett oder vom Stuhl das Gefühl der Atemnot/Luftnot haben&lt;/li&gt;&lt;/ul&gt;  Sollten Sie eine chronische Lungenerkrankung haben, vergleichen Sie Ihre derzeitigen Beschwerden im Hinblick auf Ihre Atmung mit Ihren bisherigen Atemproblemen.</source>
-        <target state="translated">Wählen Sie "Ja", wenn Sie:  &lt;ul&gt;&lt;li&gt;Bei leichten Belastungen, wie einem Spaziergang oder dem Steigen weniger Treppenstufen schneller als sonst kurzatmig werden oder Schwierigkeiten beim Atmen haben&lt;/li&gt;&lt;li&gt;Das Gefühl der Atemnot/Luftnot oder Kurzatmigkeit beim Sitzen oder Liegen verspüren&lt;/li&gt;&lt;li&gt;Beim Aufstehen aus dem Bett oder vom Stuhl das Gefühl der Atemnot/Luftnot haben&lt;/li&gt;&lt;/ul&gt;  Sollten Sie eine chronische Lungenerkrankung haben, vergleichen Sie Ihre derzeitigen Beschwerden im Hinblick auf Ihre Atmung mit Ihren bisherigen Atemproblemen.</target>
-      </trans-unit>
-      <trans-unit id="c00c1485a730e760d1c457e506d5f80b">
-        <source>Bezogen auf alle Fragen zu Symptomen: Seit wann haben Sie die von Ihnen angegebenen Symptome?</source>
-        <target state="translated">Bezogen auf alle Fragen zu Symptomen: Seit wann haben Sie die von Ihnen angegebenen Symptome?</target>
-      </trans-unit>
-      <trans-unit id="17dc4a44eb1478d6b900d9653d960a85">
-        <source>Chronische Lungenerkrankung</source>
-        <target state="translated">Chronische Lungenerkrankung</target>
-      </trans-unit>
-      <trans-unit id="52d261e9ebc332373e9c8a0abb6bd605">
-        <source>Diabetes</source>
-        <target state="translated">Diabetes</target>
-      </trans-unit>
-      <trans-unit id="8aaaf9d1d1185c0e83ffd68d388ebc6f">
-        <source>Herzerkrankung</source>
-        <target state="translated">Herzerkrankung</target>
-      </trans-unit>
-      <trans-unit id="2fb59422d6b02e23958e6c7fa573396f">
-        <source>Bluthochdruck</source>
-        <target state="translated">Bluthochdruck</target>
-      </trans-unit>
-      <trans-unit id="296d5bf533652f856accdccf1b208fe6">
-        <source>Nierenerkrankungen</source>
-        <target state="translated">Nierenerkrankungen</target>
-      </trans-unit>
-      <trans-unit id="528a23089c85c61c88b27673ab342c5c">
-        <source>Down-Syndrom</source>
-        <target state="translated">Down-Syndrom</target>
-      </trans-unit>
-      <trans-unit id="f677f587195127523f7173de56e17d90">
-        <source>Krebserkrankung</source>
-        <target state="translated">Krebserkrankung</target>
-      </trans-unit>
-      <trans-unit id="91063543e221b2ef39b7fd370916d068">
-        <source>Wurde bei Ihnen durch eine Ärztin/einen Arzt eine der folgenden Erkrankungen festgestellt?</source>
-        <target state="translated">Wurde bei Ihnen durch eine Ärztin/einen Arzt eine der folgenden Erkrankungen festgestellt?</target>
-      </trans-unit>
-      <trans-unit id="d6c4357f33f6653fe2c4919fc4370a12">
-        <source>Sollten Sie keine der Erkrankungen haben, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.</source>
-        <target state="translated">Sollten Sie keine der Erkrankungen haben, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.</target>
-      </trans-unit>
-      <trans-unit id="2c5a6cac331c48f17c274461111904bb">
-        <source>Was ist ihre Größe? (in cm)</source>
-        <target state="translated">Was ist ihre Größe? (in cm)</target>
-      </trans-unit>
-      <trans-unit id="761e616593c049b7a4860405e1161856">
-        <source>Wir nutzen Ihr Gewicht und Ihre Größe zur Berechnung Ihres Body-Mass-Index (BMI). Dieser ist ein Risikofaktor in Zusammenhang mit einer COVID-19 Erkrankung. </source>
-        <target state="translated">Wir nutzen Ihr Gewicht und Ihre Größe zur Berechnung Ihres Body-Mass-Index (BMI). Dieser ist ein Risikofaktor in Zusammenhang mit einer COVID-19 Erkrankung. </target>
-      </trans-unit>
-      <trans-unit id="9aa670131bad162364d345c813567c66">
-        <source>Was ist Ihr Gewicht? (in kg)</source>
-        <target state="translated">Was ist Ihr Gewicht? (in kg)</target>
-      </trans-unit>
-      <trans-unit id="bda57244e02a7fb232ccd354b6fa148b">
-        <source>Nehmen Sie aktuell Cortison in Tablettenform ein?</source>
-        <target state="translated">Nehmen Sie aktuell Cortison in Tablettenform ein?</target>
-      </trans-unit>
-      <trans-unit id="0e34ed8e5f0f48c804af4cbbfd7a194a">
-        <source>Immunsuppressiva (bei Organtransplantation oder Autoimmunerkrankung)</source>
-        <target state="translated">Immunsuppressiva (bei Organtransplantation oder Autoimmunerkrankung)</target>
-      </trans-unit>
-      <trans-unit id="e9735d1f13c57db6ef4447be211c49d8">
-        <source>Chemotherapie</source>
-        <target state="translated">Chemotherapie</target>
-      </trans-unit>
-      <trans-unit id="01ba484b3fb2421838062388d95b836c">
-        <source>Strahlentherapie</source>
-        <target state="translated">Strahlentherapie</target>
-      </trans-unit>
-      <trans-unit id="117485373720a49c473c9fac8b7191a2">
-        <source>Nehmen Sie aktuell Immunsuppressiva ein oder erhalten Sie aktuell eine Chemo- und/oder Strahlentherapie?</source>
-        <target state="translated">Nehmen Sie aktuell Immunsuppressiva ein oder erhalten Sie aktuell eine Chemo- und/oder Strahlentherapie?</target>
-      </trans-unit>
-      <trans-unit id="f24b4b4f0e026ad3be1df676f26b2097">
-        <source>Immunsuppressiva nehmen oder bekommen Sie nach einer Organtransplantation, während der Therapie einer Autoimmunerkrankung. Eine Chemo und/oder Strahlentherapie wird zur Behandlung einer Krebserkrankung durchgeführt. Sollten Sie keine der Behandlungen erhalten, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.</source>
-        <target state="translated">Immunsuppressiva nehmen oder bekommen Sie nach einer Organtransplantation, während der Therapie einer Autoimmunerkrankung. Eine Chemo und/oder Strahlentherapie wird zur Behandlung einer Krebserkrankung durchgeführt. Sollten Sie keine der Behandlungen erhalten, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.</target>
-      </trans-unit>
-      <trans-unit id="144b3f55b0099f938864de6896b752ea">
-        <source>Haben Sie sich im Zeitraum vom 1. August 2020 bis heute gegen Grippe impfen lassen?</source>
-        <target state="translated">Haben Sie sich im Zeitraum vom 1. August 2020 bis heute gegen Grippe impfen lassen?</target>
-      </trans-unit>
-      <trans-unit id="11bd3bf92b51aefec6b1462e2aab4a73">
-        <source>Haben Sie eine Impfung gegen das neuartige Coronavirus erhalten?</source>
-        <target state="translated">Haben Sie eine Impfung gegen das neuartige Coronavirus erhalten?</target>
-      </trans-unit>
-      <trans-unit id="3bb0500008a803afbf41b0d16900e1e6">
-        <source>Haben Sie sämtliche vorgesehene Impfdosen des Coronavirus-Impfstoffes erhalten?</source>
-        <target state="translated">Haben Sie sämtliche vorgesehene Impfdosen des Coronavirus-Impfstoffes erhalten?</target>
-      </trans-unit>
-      <trans-unit id="d3b22b0c833138ea8cb531e5708c8f59">
-        <source>Wann haben Sie die letzte Impfdosis erhalten?</source>
-        <target state="translated">Wann haben Sie die letzte Impfdosis erhalten?</target>
-      </trans-unit>
-      <trans-unit id="59aa1d4bf9e7e572defdfd69daae2a88">
-        <source>Haben Sie in den letzten 7 Tagen selbst einen Antigen-Schnelltest durchgeführt?</source>
-        <target state="translated">Haben Sie in den letzten 7 Tagen selbst einen Antigen-Schnelltest durchgeführt?</target>
-      </trans-unit>
-      <trans-unit id="a7df39ea93cfdf215aaa2d263e8411c8">
-        <source>War dieser Test positiv?</source>
-        <target state="translated">War dieser Test positiv?</target>
-      </trans-unit>
-      <trans-unit id="15e1f79b864402743d7093857f021326">
-        <source>Wurde der Test schon in einem Labor bestätigt?</source>
-        <target state="translated">Wurde der Test schon in einem Labor bestätigt?</target>
-      </trans-unit>
-      <trans-unit id="a3139c28e08d76e577e573b12facac2f">
-        <source>Sie geben an, unter Atemnot zu leiden. Bitte melden Sie sich telefonisch bei Ihrem Hausarzt/Ihrer Hausärztin oder dem Ärztlichen Bereitschaftsdienst (+49 116 117). Bei stärker werden der Atemnot holen Sie sich bitte ärztliche Hilfe. Bitte tauschen Sie sich täglich mit einer nahestehenden Person über Ihr Befinden aus.</source>
-        <target state="translated">Sie geben an, unter Atemnot zu leiden. Bitte melden Sie sich telefonisch bei Ihrem Hausarzt/Ihrer Hausärztin oder dem Ärztlichen Bereitschaftsdienst (+49 116 117). Bei stärker werden der Atemnot holen Sie sich bitte ärztliche Hilfe. Bitte tauschen Sie sich täglich mit einer nahestehenden Person über Ihr Befinden aus.</target>
+      <trans-unit id="0a52730597fb4ffa01fc117d9e71e3a9">
+        <source>Example</source>
+        <target state="translated">Beispiel</target>
+      </trans-unit>
+      <trans-unit id="13e575be866ecf5ac3dcbf61ab2048d7">
+        <source>How old are you?</source>
+        <target state="translated">Wie alt sind Sie?</target>
+      </trans-unit>
+      <trans-unit id="123e51f97f057c3b8ed1709a4d062e0f">
+        <source>Under 40</source>
+        <target state="translated">Under 40</target>
+      </trans-unit>
+      <trans-unit id="bbca10c10e4d7121474e1af4965c5839">
+        <source>40-50</source>
+        <target state="translated">40-50</target>
+      </trans-unit>
+      <trans-unit id="392f884acd79ebaaf487fdd03d090591">
+        <source>51-60</source>
+        <target state="translated">51-60</target>
+      </trans-unit>
+      <trans-unit id="14ec6aa7b91b56d240410af2026030ab">
+        <source>61-70</source>
+        <target state="translated">61-70</target>
+      </trans-unit>
+      <trans-unit id="450e37e43b2947a365498c81d9f47f0d">
+        <source>71-80</source>
+        <target state="translated">71-80</target>
+      </trans-unit>
+      <trans-unit id="2c1820847d1eadf90662998460b39584">
+        <source>Over 80</source>
+        <target state="translated">Over 80</target>
+      </trans-unit>
+      <trans-unit id="9e4d732e73dfc7d64e8bf89c1f85b666">
+        <source>What is your current living situation?</source>
+        <target state="translated">What is your current living situation?</target>
+      </trans-unit>
+      <trans-unit id="1b18a03cca629193b2f848b66d247531">
+        <source>Living alone</source>
+        <target state="translated">Living alone</target>
+      </trans-unit>
+      <trans-unit id="8289ed56571d0f0db45889333347e34d">
+        <source>Living together with family, in a shared flat, or in a supervised community facility</source>
+        <target state="translated">Living together with family, in a shared flat, or in a supervised community facility</target>
+      </trans-unit>
+      <trans-unit id="6d3d7d0997d19c0d5be5c7a6bea885af">
+        <source>At least once a week, do you privately care for people with age-related conditions, chronic illnesses, or frailty?</source>
+        <target state="translated">At least once a week, do you privately care for people with age-related conditions, chronic illnesses, or frailty?</target>
+      </trans-unit>
+      <trans-unit id="8fe0b970ece4be3ccef2fa995357f3ff">
+        <source>Do you work in one of the following areas?</source>
+        <target state="translated">Do you work in one of the following areas?</target>
+      </trans-unit>
+      <trans-unit id="e72a5e72a397a76326c4d38e2a19e5d0">
+        <source>In the medical field</source>
+        <target state="translated">In the medical field</target>
+      </trans-unit>
+      <trans-unit id="8def65dd1c7f5da03bfb2f497493b577">
+        <source>In a community facility (school, day care center, university, home etc.)</source>
+        <target state="translated">In a community facility (school, day care center, university, home etc.)</target>
+      </trans-unit>
+      <trans-unit id="17ec90ed7f7c498214738ed68639a840">
+        <source>No, in none of the above</source>
+        <target state="translated">No, in none of the above</target>
+      </trans-unit>
+      <trans-unit id="996c964027e0d39ceb695616f0dc71f8">
+        <source>Do you smoke?</source>
+        <target state="translated">Do you smoke?</target>
+      </trans-unit>
+      <trans-unit id="f654e7b5d64e483cdc3cc358c0b45362">
+        <source>Are you pregnant?</source>
+        <target state="translated">Are you pregnant?</target>
+      </trans-unit>
+      <trans-unit id="93cba07454f06a4a960172bbd6e2a435">
+        <source>Yes</source>
+        <target state="translated">Yes</target>
+      </trans-unit>
+      <trans-unit id="bafd7322c6e97d25b6299b5d6fe8920b">
+        <source>No</source>
+        <target state="translated">No</target>
+      </trans-unit>
+      <trans-unit id="ba944d16e5093e3e83c200382dd01e9a">
+        <source>I don't know</source>
+        <target state="translated">I don't know</target>
+      </trans-unit>
+      <trans-unit id="2aeac0f0bbcb67ad44f7f08106e98f5c">
+        <source>Have you had close contact with a confirmed case?</source>
+        <target state="translated">Have you had close contact with a confirmed case?</target>
+      </trans-unit>
+      <trans-unit id="d90616e61d0655e183153ac1d69f0e30">
+        <source>Choose "No" if you have worn adequate protective measures (mask, smock) on contact.</source>
+        <target state="translated">Choose "No" if you have worn adequate protective measures (mask, smock) on contact.</target>
+      </trans-unit>
+      <trans-unit id="84095755cfece2813329d8b3cb363073">
+        <source>What day was the last contact?</source>
+        <target state="translated">What day was the last contact?</target>
+      </trans-unit>
+      <trans-unit id="2d5dbe15045e8d6ed4727c555a3537c6">
+        <source>Have you had a fever (over 38°C) in the past 24 hours?</source>
+        <target state="translated">Have you had a fever (over 38°C) in the past 24 hours?</target>
+      </trans-unit>
+      <trans-unit id="b307a8a8a351e95bbdf290ff796fefad">
+        <source>What was the highest temperature, approx.?</source>
+        <target state="translated">What was the highest temperature, approx.?</target>
+      </trans-unit>
+      <trans-unit id="bd3fb9e116fc0244efce2575c7604939">
+        <source>38°C</source>
+        <target state="translated">38°C</target>
+      </trans-unit>
+      <trans-unit id="66bdf89913de3e3dbe7242cd3003b43a">
+        <source>39°C</source>
+        <target state="translated">39°C</target>
+      </trans-unit>
+      <trans-unit id="fe518cbe9c1cdbf0483d217cb6f48b10">
+        <source>40°C</source>
+        <target state="translated">40°C</target>
+      </trans-unit>
+      <trans-unit id="7f7761de4fc81fc0a776d2443f443cef">
+        <source>41°C</source>
+        <target state="translated">41°C</target>
+      </trans-unit>
+      <trans-unit id="2fdb5e2ebd819a1b51b900b9d389d367">
+        <source>42°C</source>
+        <target state="translated">42°C</target>
+      </trans-unit>
+      <trans-unit id="1b173de63b65c4c4c2555c5581b7685c">
+        <source>More than 42°C</source>
+        <target state="translated">More than 42°C</target>
+      </trans-unit>
+      <trans-unit id="d8c65d096e16f92e238a0bcc469fd7f7">
+        <source>Have you had chills in the past 24 hours?</source>
+        <target state="translated">Have you had chills in the past 24 hours?</target>
+      </trans-unit>
+      <trans-unit id="e5f1d28b5e72a16c094b17c1bf13aba5">
+        <source>Which of the following symptoms have you had in the past 24 hours? (multiple selection possible)</source>
+        <target state="translated">Which of the following symptoms have you had in the past 24 hours? (multiple selection possible)</target>
+      </trans-unit>
+      <trans-unit id="b8f1a9e6645276ca0b41aec4564cd043">
+        <source>Feeling tired or weak</source>
+        <target state="translated">Feeling tired or weak</target>
+      </trans-unit>
+      <trans-unit id="a7ce034995730440501063de1b2f0df0">
+        <source>Body aches</source>
+        <target state="translated">Body aches</target>
+      </trans-unit>
+      <trans-unit id="2b9937c72ac40077abc50637ee8efca2">
+        <source>Diarrhea</source>
+        <target state="translated">Diarrhea</target>
+      </trans-unit>
+      <trans-unit id="f5234ff6082f641705c3b68ea6bf518b">
+        <source>Headache</source>
+        <target state="translated">Headache</target>
+      </trans-unit>
+      <trans-unit id="da60e2ebfec617525729905f364e98df">
+        <source>Loss of taste and/or smell</source>
+        <target state="translated">Loss of taste and/or smell</target>
+      </trans-unit>
+      <trans-unit id="697bd7451b237d26ab1846958cbce7fc">
+        <source>If you don't have any of the symptoms, don't select an entry and continue by choosing the "Next" button.</source>
+        <target state="translated">If you don't have any of the symptoms, don't select an entry and continue by choosing the "Next" button.</target>
+      </trans-unit>
+      <trans-unit id="7e16235545e5bdf13c62891e2afa8518">
+        <source>In the past 24 hours, have you had a persistent cough?</source>
+        <target state="translated">In the past 24 hours, have you had a persistent cough?</target>
+      </trans-unit>
+      <trans-unit id="cac9058961fb0a243d2b9a9e530fe9da">
+        <source>If you have a chronic cough, compare your current coughing to your regular problems.</source>
+        <target state="translated">If you have a chronic cough, compare your current coughing to your regular problems.</target>
+      </trans-unit>
+      <trans-unit id="537b2d591921019b64b0ced4a48c11b2">
+        <source>In the past 24 hours, have you had a runny nose?</source>
+        <target state="translated">In the past 24 hours, have you had a runny nose?</target>
+      </trans-unit>
+      <trans-unit id="d9fa3d2b036e913ab6f44fea8e672d3f">
+        <source>The question relates to cold symptoms and excludes chronic runny nose, seasonal or allergy-related runny nose. If you have chronic sniffling, compare your current conditions with your existing problems.</source>
+        <target state="translated">The question relates to cold symptoms and excludes chronic runny nose, seasonal or allergy-related runny nose. If you have chronic sniffling, compare your current conditions with your existing problems.</target>
+      </trans-unit>
+      <trans-unit id="298fe7ee3fcd3096705460b0cf93acbe">
+        <source>In the past 24 hours, have you had a sore throat?</source>
+        <target state="translated">In the past 24 hours, have you had a sore throat?</target>
+      </trans-unit>
+      <trans-unit id="a3e7efd39c4193eb03af21af86d4a82b">
+        <source>In the past 24 hours, did you feel that you were more quickly out of breath than usual?</source>
+        <target state="translated">In the past 24 hours, did you feel that you were more quickly out of breath than usual?</target>
+      </trans-unit>
+      <trans-unit id="6e8026220e77b3b2acb839cb7b947995">
+        <source>If you have chronic lung disease, compare your current breathing problems with your existing breathing problems.</source>
+        <target state="translated">If you have chronic lung disease, compare your current breathing problems with your existing breathing problems.</target>
+      </trans-unit>
+      <trans-unit id="a0afce7eb5aa9e70f9bcf0cfdf473409">
+        <source>With regard to all questions about symptoms: since when have you had the symptoms you specified?</source>
+        <target state="translated">With regard to all questions about symptoms: since when have you had the symptoms you specified?</target>
+      </trans-unit>
+      <trans-unit id="532196ee87f365b99b1c6db5048af3d3">
+        <source>Have you been diagnosed with chronic lung disease by a doctor?</source>
+        <target state="translated">Have you been diagnosed with chronic lung disease by a doctor?</target>
+      </trans-unit>
+      <trans-unit id="ed35e54b7f5e38612b9219c66a0942ea">
+        <source>Have you been diagnosed with diabetes by a doctor?</source>
+        <target state="translated">Have you been diagnosed with diabetes by a doctor?</target>
+      </trans-unit>
+      <trans-unit id="12b3d510b39e62c0b97d2eb0dccaff73">
+        <source>Have you been diagnosed with heart disease by a doctor?</source>
+        <target state="translated">Have you been diagnosed with heart disease by a doctor?</target>
+      </trans-unit>
+      <trans-unit id="6a96a5617c13482c5026431a57204adb">
+        <source>Have you been diagnosed with obesity by a doctor?</source>
+        <target state="translated">Have you been diagnosed with obesity by a doctor?</target>
+      </trans-unit>
+      <trans-unit id="9ac93addc9eab4db52b05ab9e689aaf7">
+        <source>Are you currently taking steroids?</source>
+        <target state="translated">Are you currently taking steroids?</target>
+      </trans-unit>
+      <trans-unit id="d3d4b4adaedab781ca6c11772e5b4512">
+        <source>Are you currently taking immunosuppressants?</source>
+        <target state="translated">Are you currently taking immunosuppressants?</target>
+      </trans-unit>
+      <trans-unit id="52d89580cd97100f987cc405fdd56892">
+        <source>You take or get immunosuppresives after an organ transplant, in the therapy of an autoimmune disease, or during chemotherapy.</source>
+        <target state="translated">You take or get immunosuppresives after an organ transplant, in the therapy of an autoimmune disease, or during chemotherapy.</target>
+      </trans-unit>
+      <trans-unit id="79dff6a8ae00eb18dd3e8652095b9a94">
+        <source>Have you been vaccinated against flu between October 2019 and today?</source>
+        <target state="translated">Have you been vaccinated against flu between October 2019 and today?</target>
+      </trans-unit>
+      <trans-unit id="1bfe67677141761cafc82735d732458b">
+        <source>Consent to the transmission of your postal code and recommended action?</source>
+        <target state="translated">Consent to the transmission of your postal code and recommended action?</target>
+      </trans-unit>
+      <trans-unit id="623de37137f713a8d8aee123a7731365">
+        <source>You can find more information in the data protection declaration.</source>
+        <target state="translated">You can find more information in the data protection declaration.</target>
+      </trans-unit>
+      <trans-unit id="c9235106cab6d98add7d9cb07344734f">
+        <source>What's your postal code?</source>
+        <target state="translated">What's your postal code?</target>
+      </trans-unit>
+      <trans-unit id="eb38d513253813284e0eee77ec39e3c8">
+        <source>You can enter your postal code here. By specifying your postal code, you allow us to map the data you donated on a map of Germany. This enables us further understand the spread of the pandemic.</source>
+        <target state="translated">You can enter your postal code here. By specifying your postal code, you allow us to map the data you donated on a map of Germany. This enables us further understand the spread of the pandemic.</target>
+      </trans-unit>
+      <trans-unit id="3177ea52ef79969392fa9605bc638090">
+        <source>Risk Assessment</source>
+        <target state="translated">Risk Assessment</target>
+      </trans-unit>
+      <trans-unit id="6acfee300ab404be4aac6a7cfcc912c2">
+        <source>High Risk of SARS-Cov-2</source>
+        <target state="translated">High Risk of SARS-Cov-2</target>
+      </trans-unit>
+      <trans-unit id="4200028c03de792b3f22bcd6c950b9d8">
+        <source>Typical symptoms of SARS-Cov-2 without contact.</source>
+        <target state="translated">Typical symptoms of SARS-Cov-2 without contact.</target>
+      </trans-unit>
+      <trans-unit id="851e33a9b97da77fbdb70fba0776b8dd">
+        <source>No symptoms, but contact with case.</source>
+        <target state="translated">No symptoms, but contact with case.</target>
+      </trans-unit>
+      <trans-unit id="4933953940ca7e58e4a9a0277d7a08cd">
+        <source>Symptoms indicate a cold.</source>
+        <target state="translated">Symptoms indicate a cold.</target>
+      </trans-unit>
+      <trans-unit id="512e1fecde26404204e6072b3a12dcda">
+        <source>No risk</source>
+        <target state="translated">No risk</target>
+      </trans-unit>
+      <trans-unit id="358eae264c6b3c0a1eecd946a0e6ce3e">
+        <source>Medical advisory</source>
+        <target state="translated">Medical advisory</target>
+      </trans-unit>
+      <trans-unit id="2c48896b7d537f74d1e4dc39bc23bbfd">
+        <source>You work in the medical field.</source>
+        <target state="translated">You work in the medical field.</target>
+      </trans-unit>
+      <trans-unit id="553992236b0d02724bde961693640f6d">
+        <source>Contact advisory</source>
+        <target state="translated">Contact advisory</target>
+      </trans-unit>
+      <trans-unit id="c8073d819bb267511b3ad29b80c0ce12">
+        <source>Contact was irrellevant.</source>
+        <target state="translated">Contact was irrellevant.</target>
+      </trans-unit>
+      <trans-unit id="25597dc4512807cc3f8f0464262d4c54">
+        <source>Risk group advisory</source>
+        <target state="translated">Risk group advisory</target>
+      </trans-unit>
+      <trans-unit id="1e2e26a223d4087c8352a460ad1f8a07">
+        <source>You belong to the risk group</source>
+        <target state="translated">You belong to the risk group</target>
       </trans-unit>
       <trans-unit id="7eaf97ca1f777a52189942cd314de1f3">
         <source>Shortness of breath advisory</source>
         <target state="translated">Shortness of breath advisory</target>
       </trans-unit>
-      <trans-unit id="9d14d1cc61b7b1f4d60fa66bf55a9d94">
-        <source>Priorität 1: Es liegen Symptome vor, die für eine Coronavirusinfektion sprechen. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.</source>
-        <target state="translated">Priorität 1: Es liegen Symptome vor, die für eine Coronavirusinfektion sprechen. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.</target>
-      </trans-unit>
-      <trans-unit id="8afd2188b54bb9bb3005cdcc4698a29b">
-        <source>Priorität 2: Es liegt ein Risikokontakt vor oder Sie befinden sich in einer medizinischen Einrichtung, in der Infektionen aufgetreten sind. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.</source>
-        <target state="translated">Priorität 2: Es liegt ein Risikokontakt vor oder Sie befinden sich in einer medizinischen Einrichtung, in der Infektionen aufgetreten sind. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.</target>
-      </trans-unit>
-      <trans-unit id="97b2095742d6e20e2aa0e281c137019f">
-        <source>Priorität 3: In Ihrem Umfeld sind Infektionen aufgetreten. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann zur Kohorten-Isolation oder zur Entlastung von Laborkapazitäten durchgeführt werden.</source>
-        <target state="translated">Priorität 3: In Ihrem Umfeld sind Infektionen aufgetreten. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann zur Kohorten-Isolation oder zur Entlastung von Laborkapazitäten durchgeführt werden.</target>
-      </trans-unit>
-      <trans-unit id="de0be615ad3288a1f90604b4620f2136">
-        <source>Priorität 4: Ein Antigen-Test wird in Abstimmung mit der lokalen Gesundheitsbehörde oder bei einer erhöhten 7-Tages Inzidenz (&gt; 50 Fälle/100.000 Einwohner) empfohlen. Eine PCR ist möglich ohne Kostenerstattung.</source>
-        <target state="translated">Priorität 4: Ein Antigen-Test wird in Abstimmung mit der lokalen Gesundheitsbehörde oder bei einer erhöhten 7-Tages Inzidenz (&gt; 50 Fälle/100.000 Einwohner) empfohlen. Eine PCR ist möglich ohne Kostenerstattung.</target>
-      </trans-unit>
-      <trans-unit id="0c8fc2c3f2c4297d71b559264010cb2c">
-        <source>Priorität 5: Ein Point-of-Care Antigen-Test in regelmäßigen Intervallen wird empfohlen, sofern die 7-Tages-Inzidenz oberhalb von 50 liegt. Eine PCR ist möglich ohne Kostenerstattung.</source>
-        <target state="translated">Priorität 5: Ein Point-of-Care Antigen-Test in regelmäßigen Intervallen wird empfohlen, sofern die 7-Tages-Inzidenz oberhalb von 50 liegt. Eine PCR ist möglich ohne Kostenerstattung.</target>
-      </trans-unit>
-      <trans-unit id="59e49eb6fff391e7c3fc34832b438b2d">
-        <source>Keine Priorität: Keine Testung nach der nationalen Teststrategie empfohlen.</source>
-        <target state="translated">Keine Priorität: Keine Testung nach der nationalen Teststrategie empfohlen.</target>
-      </trans-unit>
-      <trans-unit id="434c7946451b4324fe139bc120adef0b">
-        <source>Priorität nationale Teststrategie</source>
-        <target state="translated">Priorität nationale Teststrategie</target>
-      </trans-unit>
-      <trans-unit id="8716427d2999264f493421d2faf2e55a">
-        <source>Es liegen Symptome vor, die für eine Infektion mit dem Coronavirus sprechen, oder es liegt ein positiver Antigen-Schnelltest vor. Wir empfehlen die Durchführung eines PCR Bestätigungstests.</source>
-        <target state="translated">Es liegen Symptome vor, die für eine Infektion mit dem Coronavirus sprechen, oder es liegt ein positiver Antigen-Schnelltest vor. Wir empfehlen die Durchführung eines PCR Bestätigungstests.</target>
-      </trans-unit>
-      <trans-unit id="3dca72227af746f2f7b0d716ce810ea9">
-        <source>Es liegen einige Symptome vor. Wir empfehlen die Durchführung eines Antigen-Schnelltest. Nach Durchführung des Schnelltests empfehlen wir die erneute Ausführung der CovApp.</source>
-        <target state="translated">Es liegen einige Symptome vor. Wir empfehlen die Durchführung eines Antigen-Schnelltest. Nach Durchführung des Schnelltests empfehlen wir die erneute Ausführung der CovApp.</target>
-      </trans-unit>
-      <trans-unit id="265272b07d1f4549061678a348250ba6">
-        <source>Risikokategorie Symptome</source>
-        <target state="translated">Risikokategorie Symptome</target>
-      </trans-unit>
-      <trans-unit id="2ed16471c6da3bdec01b012668190748">
-        <source>Sie geben keine Symptome an, es liegt jedoch ein Risikokontakt vor. Wir empfehlen die Durchführung einer PCR.</source>
-        <target state="translated">Sie geben keine Symptome an, es liegt jedoch ein Risikokontakt vor. Wir empfehlen die Durchführung einer PCR.</target>
-      </trans-unit>
-      <trans-unit id="17d96e1efb05e48c707758682974eeec">
-        <source>Es liegen einige Risikofaktoren führ eine erhöhte Exposition vor. In Ihrem Fall könnte es sinnvoll sein, Antigen-Schnelltests in regelmäßigen Intervallen durchzuführen.</source>
-        <target state="translated">Es liegen einige Risikofaktoren führ eine erhöhte Exposition vor. In Ihrem Fall könnte es sinnvoll sein, Antigen-Schnelltests in regelmäßigen Intervallen durchzuführen.</target>
-      </trans-unit>
-      <trans-unit id="1c903fea0b93d22a2e5b32c72c904a83">
-        <source>Risikokategorie Exposition</source>
-        <target state="translated">Risikokategorie Exposition</target>
-      </trans-unit>
-      <trans-unit id="db62d69ea987926ce0fe381202e1c995">
-        <source>Bei Ihnen liegen Risikofaktoren bezüglich eines schweren Verlaufs einer Coronavirusinfektion vor und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte lassen Sie sich ärztlich beraten.</source>
-        <target state="translated">Bei Ihnen liegen Risikofaktoren bezüglich eines schweren Verlaufs einer Coronavirusinfektion vor und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte lassen Sie sich ärztlich beraten.</target>
-      </trans-unit>
-      <trans-unit id="59063d8ab48e6edd0698fd93f5c783dd">
-        <source>Bei Ihnen ist die Wahrscheinlichkeit für einen schweren Verlaufs mäßig erhöht und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bei weiterer Verschlechterung der Symptome lassen Sie sich bitte ärztlich beraten.</source>
-        <target state="translated">Bei Ihnen ist die Wahrscheinlichkeit für einen schweren Verlaufs mäßig erhöht und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bei weiterer Verschlechterung der Symptome lassen Sie sich bitte ärztlich beraten.</target>
-      </trans-unit>
-      <trans-unit id="73d1c58f8a9b8504c97aaf036138a2d7">
-        <source>Risikokategorie schwerer Verlauf</source>
-        <target state="translated">Risikokategorie schwerer Verlauf</target>
-      </trans-unit>
-      <trans-unit id="c0e10803a041588f054e4b7876d8669e">
-        <source>Nach Ihren Angaben haben Sie beruflich und/oder privat zahlreiche soziale Kontakte und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte reduzieren Sie Ihre sozialen Kontakte, wann immer dies möglich ist, bis ein PCR Bestätigungstest durchgeführt wurde und dieser negativ ausgefallen ist.</source>
-        <target state="translated">Nach Ihren Angaben haben Sie beruflich und/oder privat zahlreiche soziale Kontakte und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte reduzieren Sie Ihre sozialen Kontakte, wann immer dies möglich ist, bis ein PCR Bestätigungstest durchgeführt wurde und dieser negativ ausgefallen ist.</target>
-      </trans-unit>
-      <trans-unit id="60c7524c1b1c3f3c5391b49d95a2ffb4">
-        <source>Risikokategorie Verbreitungspotential</source>
-        <target state="translated">Risikokategorie Verbreitungspotential</target>
-      </trans-unit>
-      <trans-unit id="8c32c9874b647919dd996c7524a71670">
-        <source>Patients with multiple symptoms should get RKI priority 1</source>
-        <target state="translated">Patients with multiple symptoms should get RKI priority 1</target>
+      <trans-unit id="b4a98c442f613dd85641af600b690199">
+        <source>You reported shortness of breath.</source>
+        <target state="translated">You reported shortness of breath.</target>
       </trans-unit>
     </body>
   </file>
