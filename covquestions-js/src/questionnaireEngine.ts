@@ -221,10 +221,10 @@ export class QuestionnaireEngine {
       {}
     );
 
-    this.data = this.addCalculatedVariables(data);
+    this.data = this.calculateVariables(data);
   }
 
-  private addCalculatedVariables(data: DataObject): DataObject {
+  private calculateVariables(data: DataObject): DataObject {
     let lastData: DataObject;
     let newData: DataObject = { ...data };
     let counter = 0;
