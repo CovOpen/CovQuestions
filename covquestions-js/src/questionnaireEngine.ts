@@ -9,6 +9,7 @@ import {
   Variable,
 } from "./models/Questionnaire.generated";
 import { convertToPrimitiveArray, Primitive } from "./primitive";
+import printf from "printf";
 
 export type Result = {
   resultCategory: { id: string; description: string };
@@ -259,7 +260,10 @@ export class QuestionnaireEngine {
             id: resultCategory.id,
             description: resultCategory.description,
           },
-          result: { id: resultInCategory.id, text: resultInCategory.text },
+          result: {
+            id: resultInCategory.id,
+            text: printf(resultInCategory.text, data),
+          },
         };
       } else {
         return undefined;

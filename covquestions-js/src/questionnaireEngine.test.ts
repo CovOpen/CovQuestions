@@ -139,4 +139,39 @@ describe("questionnaireEngine", () => {
     const afterLastQuestion = engine.nextQuestion();
     expect(afterLastQuestion).toEqual(undefined);
   });
+
+  describe("inline variables into results", () => {
+    it("should inline a number into the result", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "magic_number",
+            expression: 42,
+          },
+        ],
+        resultCategories: [
+          {
+            id: "rc1",
+            description: "rc1 descr",
+            results: [
+              {
+                id: "rc1.1",
+                expression: true,
+                text:
+                  "some text with the number %(magic_number).1f in the middle",
+              },
+            ],
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const results = engine.getResults();
+
+      expect(results[0]!.result.text).toEqual(
+        "some text with the number 42.0 in the middle"
+      );
+    });
+  });
 });
