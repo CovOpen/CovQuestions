@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, createStyles, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { Primitive, Question, Questionnaire, QuestionnaireEngine, Result } from "@covopen/covquestions-js";
+import { Primitive, Question, Questionnaire, QuestionnaireEngine } from "@covopen/covquestions-js";
 import { ResultComponent } from "./ResultComponent";
 import "typeface-fira-sans";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
@@ -83,61 +83,44 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
   const [questionnaireEngine, setQuestionnaireEngine] = useState(new QuestionnaireEngine(currentQuestionnaire));
   const [currentQuestion, setCurrentQuestion] = useState<Question | undefined>(undefined);
   const [currentValue, setCurrentValue] = useState<Primitive | Array<Primitive> | undefined>(undefined);
-  const [results, setResults] = useState<Result[] | undefined>(undefined);
-  const [progress, setProgress] = useState<number>(0);
-  const [doRerender, setDoRerender] = useState(false);
 
   const classes = useStyles();
 
   function restartQuestionnaire() {
-    const engine = new QuestionnaireEngine(currentQuestionnaire);
-    const nextQuestion = engine.nextQuestion();
-
-    setResults(undefined);
-    setProgress(0);
+    setQuestionnaireEngine(new QuestionnaireEngine(currentQuestionnaire));
     setCurrentValue(undefined);
-    setQuestionnaireEngine(engine);
-    setCurrentQuestion(nextQuestion);
-    setDoRerender(true);
   }
 
   function handleNextClick() {
     questionnaireEngine.setAnswer(currentQuestion!.id, currentValue);
     setCurrentValue(undefined);
-
-    const nextQuestion = questionnaireEngine.nextQuestion();
-    setProgress(questionnaireEngine.getProgress());
-    if (nextQuestion) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setCurrentQuestion(undefined);
-      setResults(questionnaireEngine.getResults());
-    }
+    setCurrentQuestion(questionnaireEngine.nextQuestion());
   }
 
   function handleBackClick() {
     const { question, answer } = questionnaireEngine.previousQuestion(currentQuestion!.id);
     setCurrentValue(answer);
-    setProgress(questionnaireEngine.getProgress());
-    if (question) {
-      setCurrentQuestion(question);
-    } else {
-      setCurrentQuestion(undefined);
-      setResults(questionnaireEngine.getResults());
-    }
+    setCurrentQuestion(question);
   }
 
-  useEffect(restartQuestionnaire, [currentQuestionnaire]);
+  useEffect(() => {
+    setQuestionnaireEngine((prevEngine) => {
+      const newEngine = new QuestionnaireEngine(currentQuestionnaire);
+      newEngine.setAnswersPersistence(prevEngine.getAnswersPersistence());
+      return newEngine;
+    });
+  }, [currentQuestionnaire]);
 
   useEffect(() => {
-    if (doRerender) {
-      setDoRerender(false);
-    }
-  }, [doRerender]);
+    setCurrentQuestion(questionnaireEngine.nextQuestion());
+  }, [questionnaireEngine]);
 
-  return doRerender ? (
-    <></>
-  ) : (
+  const progress = questionnaireEngine.getProgress();
+  // TODO If the last question is not shown because of the enableWhenExpression, the progress never reaches 1 => fix in covquestions-js. Then it should be possible to use "=== 1")
+  // https://github.com/CovOpen/CovQuestions/issues/138
+  const results = progress > 0 && !currentQuestion ? questionnaireEngine.getResults() : undefined;
+
+  return (
     <Grid container direction="column" justify="space-between" className={`${classes.padding} overflow-pass-through`}>
       <Grid item className={`${classes.execution}`}>
         <Typography className={classes.internalStateHeadline}>Questionnaire Preview</Typography>
