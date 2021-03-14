@@ -14,7 +14,7 @@
   },
   "author": "",
   "dependencies": {
-    "@covopen/covquestions-js": "1.0.5",
+    "@covopen/covquestions-js": "0.0.1-dev",
     "@types/fs-extra": "^8.1.0",
     "@types/node": "^13.11.1",
     "ajv": "^6.12.0",

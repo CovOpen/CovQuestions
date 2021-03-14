@@ -12,6 +12,8 @@ import {
 } from "../src/utility";
 import { Questionnaire } from "../src/models/Questionnaire.generated";
 
+const defaultFile = "translation.en.xlf";
+
 const xmlBase = {
   xliff: {
     "@version": "1.2",
@@ -44,7 +46,7 @@ export function pre_build_add_new_file(
       fs.readFileSync(path, { encoding: "utf-8" })
     ) as Questionnaire;
     let dataQuestionnairePath = `${outDir}${SOURCE_PATHS.QUESTIONNAIRES}/${srcQuestionnaire.id}/`;
-    let dataI18nMainFile = `${dataQuestionnairePath}i18n/translation.${srcQuestionnaire.language}.xlf`;
+    let dataI18nMainFile = `${dataQuestionnairePath}i18n/${defaultFile}`;
     let dataPath = `${dataQuestionnairePath}${srcQuestionnaire.version}/${srcQuestionnaire.id}-${srcQuestionnaire.version}.json`;
 
     // Checks
@@ -64,7 +66,7 @@ export function pre_build_add_new_file(
     let { questionnaire, sourceMap } = i18n_extract(srcQuestionnaire);
 
     fs.outputFileSync(dataPath, JSON.stringify(questionnaire, null, 2));
-    writeI18nFile(dataI18nMainFile, srcQuestionnaire.language, {
+    writeI18nFile(dataI18nMainFile, "en", {
       ...previousTranslations,
       ...sourceMap,
     });
