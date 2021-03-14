@@ -193,6 +193,7 @@ const OneItemRow: React.FC<{
         <Typography component={"span"}>{props.label}</Typography>
       </TableCell>
       <TableCell key={"value"}>
+        <Typography>{props.item.text}</Typography>
         <QuestionFormComponent onChange={props.onChange} currentQuestion={props.item} value={props.value} />
       </TableCell>
       <TableCell key={"deleteButton"}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
+import { FormControl, FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import { Option } from "@covopen/covquestions-js/src/models/Questionnaire.generated";
 import { QuestionFormComponentProps } from "./QuestionFormComponent";
 
@@ -19,7 +19,6 @@ export const RadioSelect: React.FC<QuestionFormComponentProps> = ({ currentQuest
 
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">{currentQuestion.text}</FormLabel>
       <RadioGroup name={currentQuestion.id} onChange={handleChange} value={String(value)}>
         {options.map((answer) => (
           <FormControlLabel key={answer.value} value={answer.value} control={<Radio />} label={answer.text} />

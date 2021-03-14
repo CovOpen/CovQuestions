@@ -13,7 +13,8 @@ describe("Simple numeric age question", () => {
     await t.enterNumber(6);
     await t.clickNext();
 
-    await t.findByText("Alter: Du bist ja noch ein Kind.");
+    await t.findByText("Alter");
+    await t.findByText("Du bist ja noch ein Kind.");
   });
 
   test("Age above 18 should lead to the AGE_ADULT result", async () => {
@@ -21,6 +22,7 @@ describe("Simple numeric age question", () => {
     await t.enterNumber(21);
     await t.clickNext();
 
-    await t.findByText("Alter: Sie scheinen erwachsen zu sein.");
+    await t.findByText("Alter");
+    await t.findByText("Sie scheinen erwachsen zu sein.");
   });
 });
