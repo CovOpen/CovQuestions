@@ -1,4 +1,8 @@
-export { QuestionnaireEngine, Result } from "./src/questionnaireEngine";
+export {
+  QuestionnaireEngine,
+  Result,
+  RawAnswer,
+} from "./src/questionnaireEngine";
 
 export {
   Questionnaire,

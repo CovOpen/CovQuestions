@@ -37,7 +37,7 @@ type GivenAnswer = {
   rawAnswer: RawAnswer;
 };
 
-type RawAnswer = Primitive | Primitive[] | undefined;
+export type RawAnswer = Primitive | Primitive[] | undefined;
 
 type AnswersPersistence = {
   answers: GivenAnswer[];
