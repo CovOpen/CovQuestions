@@ -95,10 +95,12 @@ export function writeI18nFile(
   xmlBase.xliff.file.body["trans-unit"] = Object.keys(sourceMap).map((key) => {
     return {
       "@id": key,
-      source: sourceMap[key],
+      source: {
+        $: sourceMap[key],
+      },
       target: {
         "@state": "translated",
-        "#": targetMap[key],
+        $: targetMap[key],
       },
     };
   });

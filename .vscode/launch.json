@@ -21,7 +21,7 @@
       "name": "Pre_Build TS File",
       "type": "node",
       "request": "launch",
-      "args": ["scripts/pre_build.ts"],
+      "args": ["scripts/pre_build_add_new_file.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}/api/v1/",

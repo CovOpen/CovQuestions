@@ -119,6 +119,7 @@ export function buildQuestionnaire(
     let questionnaire: Questionnaire = JSON.parse(
       fs.readFileSync(path, "utf-8")
     );
+
     let translationFilePaths = glob.sync(
       `${path.split("/").slice(0, -1).join("/")}/*.xlf`
     );

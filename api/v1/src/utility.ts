@@ -22,8 +22,10 @@ export function readI18nFile(
   }) as any).xliff;
 
   (xliff.file.body["trans-unit"] as TransUnit[]).forEach((translation) => {
-    transMapSource[translation["@id"]] = translation.source;
-    transMapTarget[translation["@id"]] = translation.target["#"];
+    transMapSource[translation["@id"]] =
+      translation.source["$"] || translation.source["#"];
+    transMapTarget[translation["@id"]] =
+      translation.target["$"] || translation.target["#"];
   });
   let lang = xliff.file["@target-language"];
   if (lang == null) {
@@ -90,9 +92,11 @@ export interface TranslationMap {
 
 export interface TransUnit {
   "@id": string;
-  source: string;
+  source: {
+    $: string;
+  };
   target: {
     "@state": string;
-    "#": string;
+    $: string;
   };
 }
