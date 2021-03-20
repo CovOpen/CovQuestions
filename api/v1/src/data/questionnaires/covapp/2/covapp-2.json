@@ -5,9 +5,7 @@
   "language": "de",
   "title": "CovApp@@9e7328e5d5c11038c69b727bc7efcd8d",
   "meta": {
-    "availableLanguages": [
-      "de"
-    ],
+    "availableLanguages": ["de"],
     "author": "Alexander Thieme",
     "creationDate": "2021-03-12"
   },
@@ -1241,10 +1239,7 @@
       "answers": {
         "q_height": 145,
         "q_weight": 118,
-        "q_symptoms": [
-          "fever",
-          "chills"
-        ],
+        "q_symptoms": ["fever", "chills"],
         "q_symptoms_date": 1615507200
       },
       "results": {
@@ -1258,10 +1253,7 @@
     {
       "description": "Patients with multiple symptoms should get RKI priority 1@@8c32c9874b647919dd996c7524a71670",
       "answers": {
-        "q_symptoms": [
-          "fever",
-          "chills"
-        ],
+        "q_symptoms": ["fever", "chills"],
         "q_symptoms_date": 1615507200
       },
       "results": {
