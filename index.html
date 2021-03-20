@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@covopen/covquestions-js - v1.1.1</title>
+	<meta name="description" content="Documentation for @covopen/covquestions-js - v1.1.1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@covopen/covquestions-js - v1.1.1</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>@covopen/covquestions-js - v1.1.1</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://www.npmjs.com/package/@covopen/covquestions-js"><img src="https://img.shields.io/npm/v/@covopen/covquestions-js" alt="npm"></a></p>
+				<a href="#covquestions-questionaire-logic" id="covquestions-questionaire-logic" style="color: inherit; text-decoration: none;">
+					<h1>Covquestions Questionaire Logic</h1>
+				</a>
+				<p>This package (<code>covquestions-js</code>) provides models, state handling and evaluation logic for a questionaire.</p>
+				<p>An API client for accessing the covquestions API will be included in the future.</p>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>Basic example:</p>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">QuestionnaireEngine</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;covquestions-js&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">// currentQuestionaire is simply a JSON-parsed questionaire file, as Javascript Object.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">engine</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">QuestionnaireEngine</span><span style="color: #000000">(</span><span style="color: #001080">currentQuestionnaire</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Until the questionaire is finished, get the next question and set the answer:</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">nextQuestion</span><span style="color: #000000"> = </span><span style="color: #001080">engine</span><span style="color: #000000">.</span><span style="color: #795E26">nextQuestion</span><span style="color: #000000">();</span>
+<span style="color: #001080">questionnaireEngine</span><span style="color: #000000">.</span><span style="color: #795E26">setAnswer</span><span style="color: #000000">(</span><span style="color: #001080">currentQuestion</span><span style="color: #000000">!.</span><span style="color: #001080">id</span><span style="color: #000000">, </span><span style="color: #001080">value</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Display the progress</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">progress</span><span style="color: #000000"> = </span><span style="color: #001080">engine</span><span style="color: #000000">.</span><span style="color: #795E26">getProgress</span><span style="color: #000000">(); </span><span style="color: #008000">// number between 0 and 1</span>
+
+<span style="color: #008000">// If nextQuestion is undefined, the questionaire is finished. Get and show results.</span>
+<span style="color: #001080">questionnaireEngine</span><span style="color: #000000">.</span><span style="color: #795E26">getResults</span><span style="color: #000000">();</span>
+</code></pre>
+				<p>For a usage example with react, please refer to our questionarie reference implementation.</p>
+				<a href="#usage-during-active-development" id="usage-during-active-development" style="color: inherit; text-decoration: none;">
+					<h2>Usage during active development</h2>
+				</a>
+				<p>In the typescript project, where the package is to be used, execute <code>npm link ../path/to/covquestions-js/dist</code>.</p>
+				<p>This will link against the uncompiled typescript files, updates will be propagated without building. It will only work with a typescript loader.</p>
+				<p>If you seek to create a production build you will either need to install the built module, or build the module and link the dist folder containing the build output.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/questionnaireengine.html" class="tsd-kind-icon">Questionnaire<wbr>Engine</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/questionnaire.html" class="tsd-kind-icon">Questionnaire</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/testcase.html" class="tsd-kind-icon">Test<wbr>Case</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#isolanguage" class="tsd-kind-icon">ISOLanguage</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#logicexpression" class="tsd-kind-icon">Logic<wbr>Expression</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#primitive" class="tsd-kind-icon">Primitive</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#question" class="tsd-kind-icon">Question</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#questionwithoptions" class="tsd-kind-icon">Question<wbr>With<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#questionwithoutoptions" class="tsd-kind-icon">Question<wbr>Without<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#rawanswer" class="tsd-kind-icon">Raw<wbr>Answer</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#result" class="tsd-kind-icon">Result</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#testresult" class="tsd-kind-icon">Test<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isnumericquestion" class="tsd-kind-icon">is<wbr>Numeric<wbr>Question</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isprimitive" class="tsd-kind-icon">is<wbr>Primitive</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isquestionwithoptions" class="tsd-kind-icon">is<wbr>Question<wbr>With<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isquestionwithoutoptions" class="tsd-kind-icon">is<wbr>Question<wbr>Without<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#runonetestcase" class="tsd-kind-icon">run<wbr>One<wbr>Test<wbr>Case</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#runtestcases" class="tsd-kind-icon">run<wbr>Test<wbr>Cases</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
