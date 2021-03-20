@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/@covopen/covquestions-js)](https://www.npmjs.com/package/@covopen/covquestions-js)
+[![npm](https://img.shields.io/npm/v/@covopen/covquestions-js)](https://www.npmjs.com/package/@covopen/covquestions-js) | [Documentation](https://covopen.github.io/CovQuestions/)
 # Covquestions Questionaire Logic
 
 This package (`covquestions-js`) provides models, state handling and evaluation logic for a questionaire.
@@ -26,7 +26,7 @@ const progress = engine.getProgress(); // number between 0 and 1
 questionnaireEngine.getResults();
 ```
 
-For a usage example with react, please refer to our questionarie reference implementation.
+For a usage example with react, please refer to our questionarie reference implementation. You can find the [documentation here](https://covopen.github.io/CovQuestions/)
 
 ## Usage during active development
 
