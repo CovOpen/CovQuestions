@@ -92,10 +92,11 @@ export interface TranslationMap {
 
 export interface TransUnit {
   "@id": string;
-  source: string;
+  source: {
+    $: string;
+  };
   target: {
     "@state": string;
-    "#": string;
-    $?: string;
+    $: string;
   };
 }
