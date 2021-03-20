@@ -1,5 +1,5 @@
-import * as jsonLogic from 'json-logic-js';
-import deepEqual from 'fast-deep-equal';
+import * as jsonLogic from "json-logic-js";
+import deepEqual from "fast-deep-equal";
 
 import {
   Question,
@@ -7,9 +7,9 @@ import {
   QuestionWithOptions,
   ResultCategory,
   Variable,
-} from './models/Questionnaire.generated';
-import { convertToPrimitiveArray, Primitive } from './primitive';
-import printf from 'printf';
+} from "./models/Questionnaire.generated";
+import { convertToPrimitiveArray, Primitive } from "./primitive";
+import printf from "printf";
 
 export type Result = {
   resultCategory: { id: string; description: string };
@@ -69,11 +69,15 @@ export class QuestionnaireEngine {
    */
 
   public nextQuestion(): Question | undefined {
-    const indexOfNextQuestion = this.questions.findIndex(({ enableWhenExpression }, index) => {
-      const isAfterCurrentQuestion = index > this.getCurrentQuestionIndex();
-      const isEnabled = enableWhenExpression === undefined || jsonLogic.apply(enableWhenExpression, this.data);
-      return isAfterCurrentQuestion && isEnabled;
-    });
+    const indexOfNextQuestion = this.questions.findIndex(
+      ({ enableWhenExpression }, index) => {
+        const isAfterCurrentQuestion = index > this.getCurrentQuestionIndex();
+        const isEnabled =
+          enableWhenExpression === undefined ||
+          jsonLogic.apply(enableWhenExpression, this.data);
+        return isAfterCurrentQuestion && isEnabled;
+      }
+    );
 
     if (indexOfNextQuestion > -1) {
       return this.questions[indexOfNextQuestion];
@@ -82,7 +86,9 @@ export class QuestionnaireEngine {
     return undefined;
   }
 
-  public previousQuestion(currentQuestionId: string): { question: Question; answer?: RawAnswer } {
+  public previousQuestion(
+    currentQuestionId: string
+  ): { question: Question; answer?: RawAnswer } {
     this.removeAnswersStartingFrom(currentQuestionId);
     const previousAnswer = this.givenAnswers.pop();
     this.recreateDataObject();
@@ -107,7 +113,9 @@ export class QuestionnaireEngine {
   public setAnswer(questionId: string, rawAnswer: RawAnswer) {
     const question = this.getQuestionById(questionId);
     if (question === undefined) {
-      throw new Error(`You cannot set the answer to a question that does not exist. QuestionId: ${questionId}`);
+      throw new Error(
+        `You cannot set the answer to a question that does not exist. QuestionId: ${questionId}`
+      );
     }
 
     if (!question.optional && rawAnswer === undefined) {
@@ -125,7 +133,9 @@ export class QuestionnaireEngine {
   }
 
   private removeAnswersStartingFrom(questionId: string) {
-    const indexOfAnswer = this.givenAnswers.findIndex((answer) => answer.questionId === questionId);
+    const indexOfAnswer = this.givenAnswers.findIndex(
+      (answer) => answer.questionId === questionId
+    );
 
     if (indexOfAnswer > -1) {
       this.givenAnswers = this.givenAnswers.slice(0, indexOfAnswer);
@@ -137,7 +147,9 @@ export class QuestionnaireEngine {
   }
 
   private getCurrentQuestionIndex(): number {
-    return this.questions.findIndex(({ id }) => id === this.getCurrentQuestionId());
+    return this.questions.findIndex(
+      ({ id }) => id === this.getCurrentQuestionId()
+    );
   }
 
   private getCurrentQuestionId(): string | undefined {
@@ -145,7 +157,10 @@ export class QuestionnaireEngine {
     return lastAnswer?.questionId;
   }
 
-  private processAnswerWithOptions(rawAnswer: RawAnswer, question: QuestionWithOptions): AnswerFromOptions {
+  private processAnswerWithOptions(
+    rawAnswer: RawAnswer,
+    question: QuestionWithOptions
+  ): AnswerFromOptions {
     const valueAsArray = convertToPrimitiveArray(rawAnswer);
 
     const count = question.options !== undefined ? question.options.length : 0;
@@ -171,7 +186,10 @@ export class QuestionnaireEngine {
     };
   }
 
-  private mergeScores(scores1?: ScoreResponse, scores2?: ScoreResponse): ScoreResponse {
+  private mergeScores(
+    scores1?: ScoreResponse,
+    scores2?: ScoreResponse
+  ): ScoreResponse {
     const combinedScores = scores1 ?? {};
     Object.entries(scores2 ?? {}).forEach(([scoreId, score]) => {
       combinedScores[scoreId] = (combinedScores[scoreId] ?? 0) + score;
@@ -185,15 +203,18 @@ export class QuestionnaireEngine {
 
   private recreateDataObject() {
     const data: DataObject = {};
-    data['now'] = Math.round(this.timeOfExecution || Date.now() / 1000);
+    data["now"] = Math.round(this.timeOfExecution || Date.now() / 1000);
 
     const answersFromOptionQuestions: AnswerFromOptions[] = [];
 
     this.givenAnswers.forEach(({ questionId, rawAnswer }) => {
       const question = this.questions.find(({ id }) => id === questionId);
 
-      if (question?.type === 'multiselect' || question?.type === 'select') {
-        const processedAnswer = this.processAnswerWithOptions(rawAnswer, question);
+      if (question?.type === "multiselect" || question?.type === "select") {
+        const processedAnswer = this.processAnswerWithOptions(
+          rawAnswer,
+          question
+        );
         answersFromOptionQuestions.push(processedAnswer);
         data[questionId] = processedAnswer;
       } else {
