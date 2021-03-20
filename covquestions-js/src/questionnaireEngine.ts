@@ -63,6 +63,11 @@ export class QuestionnaireEngine {
     this.timeOfExecution = timeOfExecution;
   }
 
+  /**
+   *
+   * @returns The next Question or `undefined` if there is none.
+   */
+
   public nextQuestion(): Question | undefined {
     const indexOfNextQuestion = this.questions.findIndex(
       ({ enableWhenExpression }, index) => {
@@ -243,6 +248,11 @@ export class QuestionnaireEngine {
     return newData;
   }
 
+  /**
+   * SHOULD NOT BE USED
+   * Exposes the Internal State for debugging purposes.
+   * @returns Internal State
+   */
   public getDataObjectForDeveloping(): any {
     return this.data;
   }

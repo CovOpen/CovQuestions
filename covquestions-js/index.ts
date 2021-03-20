@@ -1,3 +1,7 @@
+/**
+ * @module myLibrary
+ */
+
 export {
   QuestionnaireEngine,
   Result,

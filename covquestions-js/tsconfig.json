@@ -16,5 +16,12 @@
     "noUncheckedIndexedAccess": true,
     "esModuleInterop": true
   },
-  "exclude": ["dist", "examples", "node_modules", ".vscode", ".vs", ".git"]
+  "exclude": ["dist", "examples", "node_modules", ".vscode", ".vs", ".git"],
+  "typedocOptions": {
+    "entryPoints": ["index.ts"],
+    "out": "docs",
+    "excludePrivate": true,
+    "includeVersion": true,
+    "categorizeByGroup": true
+  }
 }
