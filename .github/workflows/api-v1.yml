@@ -55,3 +55,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: api/v1/dist
+          clean: true
+          # Exclude files from covquestions-documentation
+          clean-exclude: |
+            index.html
+            modules.html
+            classes/**
+            assets/**
+            interfaces/**
+            some/*.txt
