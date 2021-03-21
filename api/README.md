@@ -4,8 +4,6 @@ An API to provide questions and logic for frontends.
 
 ## Development
 
-Edit the spec here: https://stoplight.io/p/studio/gh/CovOpen/CovQuestions
-
 Create the accoring API Client/Server with https://openapi-generator.tech/docs/generators
 Create Typescript Interfaces from openApi https://www.npmjs.com/package/openapi-typescript-codegen
 
