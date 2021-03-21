@@ -63,4 +63,3 @@ jobs:
             classes/**
             assets/**
             interfaces/**
-            some/*.txt
