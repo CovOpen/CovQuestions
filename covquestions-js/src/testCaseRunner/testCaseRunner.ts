@@ -96,7 +96,7 @@ function runOneTestCaseOnce(
     return questionCheck;
   }
 
-  const resultsCheck = checkResults(engine.getResults(), testCase);
+  const resultsCheck = checkResults(engine.getCategoryResults(), testCase);
   if (resultsCheck) {
     return resultsCheck;
   }

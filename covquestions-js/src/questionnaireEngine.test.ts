@@ -103,9 +103,10 @@ describe("questionnaireEngine", () => {
     });
   });
 
-  it("should return the progress", () => {
+  describe("should return progress", () => {
     const question1id = "question1id";
     const question2id = "question2id";
+    const question3id = "question3id";
 
     const testQuestionnaire: Questionnaire = {
       ...emptyTestQuestionnaire,
@@ -118,26 +119,103 @@ describe("questionnaireEngine", () => {
         {
           id: question2id,
           text: "Frage 2?",
-          type: "number",
+          type: "boolean",
+          enableWhenExpression: {
+            var: question1id,
+          },
+        },
+        {
+          id: question3id,
+          text: "Frage 3?",
+          type: "boolean",
+          enableWhenExpression: {
+            var: question2id,
+          },
         },
       ],
     };
 
-    const engine = new QuestionnaireEngine(testQuestionnaire);
-    expect(engine.getProgress()).toEqual(0);
+    it("normal progress", () => {
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      expect(engine.getProgress()).toEqual(0);
 
-    const question1 = engine.nextQuestion();
-    engine.setAnswer("question1id", true);
-    expect(engine.getProgress()).toEqual(0.5);
-    expect(question1?.id).toEqual(question1id);
+      const question1 = engine.nextQuestion();
+      engine.setAnswer("question1id", true);
+      expect(engine.getProgress()).toEqual(1 / 3);
+      expect(question1?.id).toEqual(question1id);
 
-    const question2 = engine.nextQuestion();
-    engine.setAnswer("question2id", 123);
-    expect(engine.getProgress()).toEqual(1);
-    expect(question2?.id).toEqual(question2id);
+      const question2 = engine.nextQuestion();
+      engine.setAnswer("question2id", true);
+      expect(engine.getProgress()).toEqual(2 / 3);
+      expect(question2?.id).toEqual(question2id);
 
-    const afterLastQuestion = engine.nextQuestion();
-    expect(afterLastQuestion).toEqual(undefined);
+      const question3 = engine.nextQuestion();
+      engine.setAnswer("question3id", true);
+      expect(engine.getProgress()).toEqual(1);
+      expect(question3?.id).toEqual(question3id);
+
+      const afterLastQuestion = engine.nextQuestion();
+      expect(afterLastQuestion).toEqual(undefined);
+    });
+
+    it("progress - if last question disabled", () => {
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      expect(engine.getProgress()).toEqual(0);
+
+      const question1 = engine.nextQuestion();
+      engine.setAnswer("question1id", true);
+      expect(engine.getProgress()).toEqual(1 / 3);
+      expect(question1?.id).toEqual(question1id);
+
+      const question2 = engine.nextQuestion();
+      engine.setAnswer("question2id", false);
+      expect(engine.getProgress()).toEqual(1);
+      expect(question2?.id).toEqual(question2id);
+
+      const afterLastQuestion = engine.nextQuestion();
+      expect(afterLastQuestion).toEqual(undefined);
+    });
+
+    it("progress - if almost last question disabled", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        questions: [
+          {
+            id: question1id,
+            text: "Frage 1?",
+            type: "boolean",
+          },
+          {
+            id: question2id,
+            text: "Frage 2?",
+            type: "boolean",
+            enableWhenExpression: {
+              var: question1id,
+            },
+          },
+          {
+            id: question3id,
+            text: "Frage 3?",
+            type: "boolean",
+          },
+        ],
+      };
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      expect(engine.getProgress()).toEqual(0);
+
+      const question1 = engine.nextQuestion();
+      engine.setAnswer("question1id", false);
+      expect(engine.getProgress()).toEqual(1 / 3);
+      expect(question1?.id).toEqual(question1id);
+
+      const question3 = engine.nextQuestion();
+      engine.setAnswer("question3id", true);
+      expect(engine.getProgress()).toEqual(1);
+      expect(question3?.id).toEqual(question3id);
+
+      const afterLastQuestion = engine.nextQuestion();
+      expect(afterLastQuestion).toEqual(undefined);
+    });
   });
 
   describe("inline variables into results", () => {
@@ -167,9 +245,9 @@ describe("questionnaireEngine", () => {
       };
 
       const engine = new QuestionnaireEngine(testQuestionnaire);
-      const results = engine.getResults();
+      const result = engine.getResults();
 
-      expect(results[0]!.result.text).toEqual(
+      expect(result.results[0]!.result.text).toEqual(
         "some text with the number 42.0 in the middle"
       );
     });

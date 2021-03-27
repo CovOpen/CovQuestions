@@ -16,6 +16,26 @@ export type Result = {
   result: { id: string; text: string };
 };
 
+export type QuestionnaireResult = {
+  questionnaireId: string;
+  questionnaireVersion: number;
+  results: Result[];
+  answers: { [answerId: string]: RawAnswer };
+  exports: QuestionnaireExport[];
+};
+
+export type QuestionnaireExport = {
+  /**
+   * Id of the export
+   * @example covapp - for QR Code of the Charite
+   */
+  id: string;
+  /**
+   * Map of export variables
+   */
+  mapping: { [key: string]: string };
+};
+
 type ScoreResponse = {
   [k: string]: number;
 };
@@ -69,15 +89,12 @@ export class QuestionnaireEngine {
    */
 
   public nextQuestion(): Question | undefined {
-    const indexOfNextQuestion = this.questions.findIndex(
-      ({ enableWhenExpression }, index) => {
-        const isAfterCurrentQuestion = index > this.getCurrentQuestionIndex();
-        const isEnabled =
-          enableWhenExpression === undefined ||
-          jsonLogic.apply(enableWhenExpression, this.data);
-        return isAfterCurrentQuestion && isEnabled;
-      }
-    );
+    const indexOfNextQuestion = this.questions.findIndex((question, index) => {
+      const isAfterCurrentQuestion =
+        index > this.getQuestionIndex(this.getCurrentQuestionId());
+      const isEnabled = isQuestionEnabled(question, this.data);
+      return isAfterCurrentQuestion && isEnabled;
+    });
 
     if (indexOfNextQuestion > -1) {
       return this.questions[indexOfNextQuestion];
@@ -143,13 +160,34 @@ export class QuestionnaireEngine {
   }
 
   public getProgress(): number {
-    return (this.getCurrentQuestionIndex() + 1) / this.questions.length;
+    const currentId = this.getCurrentQuestionId();
+    if (currentId != undefined) {
+      const nextQuestion = this.getNextQuestion(currentId);
+      if (nextQuestion) {
+        return (this.getQuestionIndex(currentId) + 1) / this.questions.length;
+      } else {
+        return 1;
+      }
+    }
+    return 0;
   }
 
-  private getCurrentQuestionIndex(): number {
-    return this.questions.findIndex(
-      ({ id }) => id === this.getCurrentQuestionId()
-    );
+  getNextQuestion(currentQuestionId: string): Question | undefined {
+    const nextPossibleQuestion = this.questions[
+      this.getQuestionIndex(currentQuestionId) + 1
+    ];
+    if (nextPossibleQuestion != undefined) {
+      if (isQuestionEnabled(nextPossibleQuestion, this.data)) {
+        return nextPossibleQuestion;
+      } else {
+        return this.getNextQuestion(nextPossibleQuestion.id);
+      }
+    }
+    return undefined;
+  }
+
+  private getQuestionIndex(questionId: string | undefined): number {
+    return this.questions.findIndex(({ id }) => id === questionId);
   }
 
   private getCurrentQuestionId(): string | undefined {
@@ -257,7 +295,7 @@ export class QuestionnaireEngine {
     return this.data;
   }
 
-  public getResults(): Result[] {
+  public getCategoryResults(): Result[] {
     this.recreateDataObject();
     const data = this.data;
     const results = this.resultCategories.map((resultCategory) => {
@@ -281,8 +319,41 @@ export class QuestionnaireEngine {
     });
     return results.filter(notUndefined);
   }
+  public getResults(): QuestionnaireResult {
+    return {
+      answers: this.givenAnswers.reduce((aggregate, current) => {
+        aggregate[current.questionId] = current.rawAnswer;
+        return aggregate;
+      }, {} as { [key: string]: RawAnswer }),
+      exports: [
+        // This is just for now, extra Exports should be implemented
+        {
+          id: "covapp_qr",
+          mapping: this.variables.reduce((aggregator, variable) => {
+            if (variable.id.startsWith("qr")) {
+              aggregator[variable.id] = jsonLogic.apply(
+                variable.expression,
+                this.data
+              );
+            }
+            return aggregator;
+          }, {} as { [key: string]: string }),
+        },
+      ],
+      questionnaireId: this.questionnaire.id,
+      questionnaireVersion: this.questionnaire.version,
+      results: this.getCategoryResults(),
+    };
+  }
 }
 
 function notUndefined<T>(x: T | undefined): x is T {
   return x !== undefined;
+}
+
+function isQuestionEnabled(question: Question, data: DataObject): boolean {
+  return (
+    question.enableWhenExpression === undefined ||
+    jsonLogic.apply(question.enableWhenExpression, data)
+  );
 }
