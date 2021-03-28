@@ -286,6 +286,14 @@ export class QuestionnaireEngine {
     return newData;
   }
 
+  public getVariables(): { [key: string]: any } {
+    this.recreateDataObject();
+    return this.variables.reduce((aggregate, { id }) => {
+      aggregate[id] = this.data[id];
+      return aggregate;
+    }, {} as { [key: string]: any });
+  }
+
   /**
    * SHOULD NOT BE USED
    * Exposes the Internal State for debugging purposes.

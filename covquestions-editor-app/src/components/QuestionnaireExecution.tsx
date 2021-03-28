@@ -118,7 +118,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
   const progress = questionnaireEngine.getProgress();
   // TODO If the last question is not shown because of the enableWhenExpression, the progress never reaches 1 => fix in covquestions-js. Then it should be possible to use "=== 1")
   // https://github.com/CovOpen/CovQuestions/issues/138
-  const results = progress > 0 && !currentQuestion ? questionnaireEngine.getResults() : undefined;
+  const results = progress > 0 && !currentQuestion ? questionnaireEngine.getCategoryResults() : undefined;
 
   return (
     <Grid container direction="column" justify="space-between" className={`${classes.padding} overflow-pass-through`}>

@@ -6,7 +6,7 @@ import { VariableElementEditor } from "./VariableElementEditor";
 import { ActiveItem, SectionType } from "../../QuestionnaireFormEditor";
 import { exhaustiveCheck } from "../../../../utils/exhaustiveCheck";
 import { AllTestCaseView } from "./testCases/AllTestCaseView";
-import { ElementEditorTestCase } from "./testCases/TestCaseElementEditor";
+import { TestCaseElementEditor } from "./testCases/TestCaseElementEditor";
 
 type ElementEditorSwitchProps = { activeItem: ActiveItem };
 
@@ -21,7 +21,7 @@ export function ElementEditorSwitch({ activeItem: { index, section } }: ElementE
     case SectionType.VARIABLES:
       return <VariableElementEditor index={index} />;
     case SectionType.TEST_CASES:
-      return <ElementEditorTestCase index={index} />;
+      return <TestCaseElementEditor index={index} />;
     case SectionType.RUN_TEST_CASES:
       return <AllTestCaseView />;
     default:
