@@ -1,16 +1,11 @@
 import { Questionnaire, TestCase } from "../models/Questionnaire.generated";
 import { runOneTestCase, runTestCases } from "./testCaseRunner";
 
-import contactQuestionWithDateAndSkipping
-  from "../../../covquestions-editor-app/src/test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
-import simpleBooleanContactQuestion
-  from "../../../covquestions-editor-app/src/test/testCases/simpleBooleanContactQuestion.questionnaire";
-import simpleMultiselectSymptomsQuestion
-  from "../../../covquestions-editor-app/src/test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
-import simpleNumericAgeQuestion
-  from "../../../covquestions-editor-app/src/test/testCases/simpleNumericAgeQuestion.questionnaire";
-import simpleSelectGenderQuestion
-  from "../../../covquestions-editor-app/src/test/testCases/simpleSelectGenderQuestion.questionnaire";
+import contactQuestionWithDateAndSkipping from "../../../covquestions-editor-app/src/test/testCases/contactQuestionWithDateVariableAndSkippingQuestion.questionnaire";
+import simpleBooleanContactQuestion from "../../../covquestions-editor-app/src/test/testCases/simpleBooleanContactQuestion.questionnaire";
+import simpleMultiselectSymptomsQuestion from "../../../covquestions-editor-app/src/test/testCases/simpleMultiselectSymptomsQuestion.questionnaire";
+import simpleNumericAgeQuestion from "../../../covquestions-editor-app/src/test/testCases/simpleNumericAgeQuestion.questionnaire";
+import simpleSelectGenderQuestion from "../../../covquestions-editor-app/src/test/testCases/simpleSelectGenderQuestion.questionnaire";
 import simpleTextQuestion from "../../../covquestions-editor-app/src/test/testCases/simpleTextQuestion.questionnaire";
 
 function runTestCasesFor(questionnaire: Questionnaire) {
