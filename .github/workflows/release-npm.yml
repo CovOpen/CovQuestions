@@ -19,8 +19,30 @@ jobs:
       - name: Install Packages
         run: lerna exec npm install
 
-      - name: Build all packages
-        run: npx lerna run build
+      ## Build Covquesitions Package
+      - name: Build covquestions package
+        run: npm run build
+        working-directory: covquestions-js/
+
+      ## Build covscript Package
+      - name: Link covquestions package to covscript
+        run: npm link ../covquestions-js
+        working-directory: covscript/
+      - name: Build covscript package
+        run: npm run build
+        working-directory: covscript/
+
+      # Build covquestions editor
+      - name: Link covscript package to React App
+        run: npm link ../covscript
+        working-directory: covquestions-editor-app/
+      - name: Link covquestions package to React App
+        run: npm link ../covquestions-js
+        working-directory: covquestions-editor-app/
+
+      - name: Build App
+        run: npm run build
+        working-directory: covquestions-editor-app/
 
       - name: Setup NPM Authentication
         run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
