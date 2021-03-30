@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.1.2...@covopen/covquestions-js@1.2.0) (2021-03-30)
+
+
+### Bug Fixes
+
+* copy test cases to covquestions-js package ([94ebe59](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/94ebe593225b8f9152a772899b2d95321248ee75))
+
+
+### Features
+
+* add variables in testcases to editor and test case runner ([feb4ec5](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/feb4ec52b14c739b30cda7f8192961ce86a9d57a))
+* add variables in testcases to schema ([48516a9](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/48516a9169285241316c8e8ea02cc4e606fbd859))
+
+
+
+
+
 ## [1.1.2](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.1.1...@covopen/covquestions-js@1.1.2) (2021-03-20)
 
 **Note:** Version bump only for package @covopen/covquestions-js

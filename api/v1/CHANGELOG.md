@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.0.7...cov-question-api-v1@1.1.0) (2021-03-30)
+
+
+### Features
+
+* add variables in testcases to schema ([48516a9](https://github.com/CovOpen/CovQuestions/commit/48516a9169285241316c8e8ea02cc4e606fbd859))
+
+
+
+
+
 ## [1.0.7](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.0.6...cov-question-api-v1@1.0.7) (2021-03-20)
 
 

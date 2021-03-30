@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.1.2...covquestions-editor-app@1.2.0) (2021-03-30)
+
+
+### Bug Fixes
+
+* propagate function renaming ([62d5219](https://github.com/CovOpen/CovQuestions/commit/62d5219952f3965f70fc8c25b19ffac34d766e7c))
+
+
+### Features
+
+* add variables in testcases to editor and test case runner ([feb4ec5](https://github.com/CovOpen/CovQuestions/commit/feb4ec52b14c739b30cda7f8192961ce86a9d57a))
+* add variables in testcases to schema ([48516a9](https://github.com/CovOpen/CovQuestions/commit/48516a9169285241316c8e8ea02cc4e606fbd859))
+* indent covscript in editor ([3a07717](https://github.com/CovOpen/CovQuestions/commit/3a0771780a89a9ee5cb5504be981c5d315c9c7b5))
+
+
+
+
+
 ## [1.1.2](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.1.1...covquestions-editor-app@1.1.2) (2021-03-20)
 
 **Note:** Version bump only for package covquestions-editor-app
