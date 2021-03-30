@@ -341,6 +341,11 @@
           "type": "object",
           "additionalProperties": { "type": "string" }
         },
+        "variables": {
+          "description": "Object of expected variables in the form: 'variableId: value'.",
+          "type": "object",
+          "additionalProperties": true
+        },
         "options": {
           "description": "Options to configure the behavior of the test case runner.",
           "type": "object",

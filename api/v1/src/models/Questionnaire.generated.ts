@@ -501,6 +501,12 @@ export interface TestCase {
     [k: string]: string;
   };
   /**
+   * Object of expected variables in the form: 'variableId: value'.
+   */
+  variables?: {
+    [k: string]: any;
+  };
+  /**
    * Options to configure the behavior of the test case runner.
    */
   options?: {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { RootState, useAppDispatch } from "../../../../../store/store";
 import { useSelector } from "react-redux";
 import {
@@ -6,23 +6,7 @@ import {
   questionnaireJsonSelector,
   testCaseInEditorSelector,
 } from "../../../../../store/questionnaireInEditor";
-import {
-  Button,
-  createStyles,
-  FormControl,
-  Grid,
-  InputLabel,
-  makeStyles,
-  MenuItem,
-  Paper,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-} from "@material-ui/core";
+import { createStyles, Grid, makeStyles, Typography } from "@material-ui/core";
 import {
   Question,
   QuestionWithOptions,
@@ -31,8 +15,8 @@ import {
 } from "@covopen/covquestions-js/src/models/Questionnaire.generated";
 import { TestCaseResult } from "./TestCaseResult";
 import { ElementEditor } from "../ElementEditor";
-import { testCaseMetaSchema } from "./testCaseMeta";
-import { QuestionFormComponent } from "../../../../questionComponents/QuestionFormComponent";
+import { testCaseMetaSchema } from "./testCaseMetaSchema";
+import { OnItemChange, TestCaseItemsEditor } from "./TestCaseItemsEditor";
 
 type TestCaseElementEditorProps = {
   index: number;
@@ -58,15 +42,15 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => void;
-
-export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (props) => {
+export const TestCaseElementEditor: React.FC<TestCaseElementEditorProps> = (props) => {
   const dispatch = useAppDispatch();
   const classes = useStyles();
 
   const questionnaireJson = useSelector(questionnaireJsonSelector);
   const testCase = useSelector((state: RootState) => testCaseInEditorSelector(state, props));
-  const availableResults = questionnaireJson.resultCategories.map(
+
+  // Results and variables are mapped to the Question type to have a unified editor
+  const availableResults: Question[] = questionnaireJson.resultCategories.map(
     (category: ResultCategory): QuestionWithOptions => ({
       id: category.id,
       type: "select",
@@ -74,7 +58,12 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
       options: category.results.map((result) => ({ value: result.id, text: result.text })),
     })
   );
-  const availableQuestions = questionnaireJson.questions;
+  const availableVariables: Question[] = questionnaireJson.variables.map((variable) => ({
+    id: variable.id,
+    type: "text",
+    text: variable.id,
+  }));
+  const availableQuestions: Question[] = questionnaireJson.questions;
 
   if (!testCase) {
     return null;
@@ -94,6 +83,13 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
     const changedResults = { ...testCase.results, [itemId]: value };
     removeUndefined(changedResults);
     const changedTestCase: TestCase = { ...testCase, results: changedResults };
+    dispatch(editTestCase({ index: props.index, changedTestCase, hasErrors: false }));
+  };
+
+  const onVariableItemChange: OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => {
+    const changedVariables = { ...testCase.variables, [itemId]: value };
+    removeUndefined(changedVariables);
+    const changedTestCase: TestCase = { ...testCase, variables: changedVariables };
     dispatch(editTestCase({ index: props.index, changedTestCase, hasErrors: false }));
   };
 
@@ -123,18 +119,25 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
         />
         <Grid container item direction={"column"} alignItems={"stretch"} xs={12}>
           <Typography variant={"h6"}>Answers</Typography>
-          <AnswerOrResultEditor
+          <TestCaseItemsEditor
             key={"answerEditor"}
             availableItems={availableQuestions}
             currentStoreItems={testCase.answers}
             onItemChange={onAnswerItemChange}
           />
           <Typography variant={"h6"}>Results</Typography>
-          <AnswerOrResultEditor
+          <TestCaseItemsEditor
             key={"resultEditor"}
             availableItems={availableResults}
             currentStoreItems={testCase.results}
             onItemChange={onResultItemChange}
+          />
+          <Typography variant={"h6"}>Variables</Typography>
+          <TestCaseItemsEditor
+            key={"variableEditor"}
+            availableItems={availableVariables}
+            currentStoreItems={testCase.variables ?? {}}
+            onItemChange={onVariableItemChange}
           />
         </Grid>
       </div>
@@ -142,140 +145,6 @@ export const ElementEditorTestCase: React.FC<TestCaseElementEditorProps> = (prop
     </Grid>
   );
 };
-
-const DropDownInput: React.FC<{
-  onChange: (value: any) => void;
-  id: string;
-  availableItems: any[];
-  label?: string;
-}> = (props) => {
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 240,
-    },
-  }));
-
-  const classes = useStyles();
-
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id={props.id + "-label"}>{props.label}</InputLabel>
-      <Select
-        key={props.id}
-        id={props.id}
-        labelId={props.id + "-label"}
-        value={""}
-        onChange={(event) => props.onChange(event.target.value)}
-        onBlur={(event) => props.onChange(event.target.value)}
-      >
-        {props.availableItems.map((item) => (
-          <MenuItem key={JSON.stringify(item)} value={item?.toString()}>
-            {item}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  );
-};
-
-const OneItemRow: React.FC<{
-  label: any;
-  onChange: (value: unknown) => void;
-  id: string;
-  value?: any;
-  onDelete: () => void;
-  item: Question;
-}> = (props) => {
-  return (
-    <TableRow>
-      <TableCell key={"itemId"}>
-        <Typography component={"span"}>{props.label}</Typography>
-      </TableCell>
-      <TableCell key={"value"}>
-        <Typography>{props.item.text}</Typography>
-        <QuestionFormComponent onChange={props.onChange} currentQuestion={props.item} value={props.value} />
-      </TableCell>
-      <TableCell key={"deleteButton"}>
-        <Button onClick={props.onDelete}>Delete</Button>
-      </TableCell>
-    </TableRow>
-  );
-};
-
-const AnswerOrResultEditor: React.FC<{
-  availableItems: Question[];
-  currentStoreItems: { [id: string]: any };
-  onItemChange: OnItemChange;
-}> = ({ currentStoreItems, availableItems, onItemChange }) => {
-  const [additionalItems, setAdditionalItems] = useState<string[]>([]);
-
-  const useStyles = makeStyles(() => ({
-    table: {
-      minWidth: 450,
-    },
-  }));
-
-  const classes = useStyles();
-
-  function onItemAdd(id: string) {
-    setAdditionalItems((items) => [...items, id]);
-
-    //  Set empty array for optional multiselect questions
-    const item = availableItems.find((item) => id === item.id);
-    if (item?.type === "multiselect" && item.optional) {
-      onItemChange({ itemId: id, value: [] });
-    }
-  }
-
-  function onItemDelete(id: string) {
-    setAdditionalItems((items) => items.filter((item) => item !== id));
-    onItemChange({ itemId: id, value: undefined });
-  }
-
-  function onValueChange(id: string, value: any) {
-    setAdditionalItems((items) => unique([...items, id]));
-    onItemChange({ itemId: id, value: value as string });
-  }
-
-  const itemIdInStoreWithDefinedValue = Object.entries(currentStoreItems)
-    .filter(([_, value]) => value !== undefined)
-    .map(([id, _]) => id);
-  const displayedItemIds = unique([...itemIdInStoreWithDefinedValue, ...additionalItems]);
-
-  const unusedItemIds = availableItems.map((it) => it.id).filter((it) => !displayedItemIds.includes(it));
-
-  const sortedItemIds = availableItems.map(({ id }) => id).filter((id) => displayedItemIds.includes(id));
-
-  return (
-    <>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} size="small">
-          <TableBody>
-            {sortedItemIds.map((id) => (
-              <OneItemRow
-                id={id}
-                key={id}
-                value={currentStoreItems[id]}
-                label={id}
-                onChange={(value) => onValueChange(id, value)}
-                onDelete={() => onItemDelete(id)}
-                item={availableItems.find((it) => it.id === id)!}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {unusedItemIds.length > 0 ? (
-        <DropDownInput id={"newItem"} onChange={onItemAdd} availableItems={unusedItemIds} label={"Add item"} />
-      ) : null}
-    </>
-  );
-};
-
-function unique(array: any[]) {
-  return array.filter((v, i, a) => a.indexOf(v) === i);
-}
 
 function removeUndefined(obj: object) {
   // @ts-ignore
