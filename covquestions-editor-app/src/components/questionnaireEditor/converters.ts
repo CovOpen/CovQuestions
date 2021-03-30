@@ -1,6 +1,7 @@
 import { CovscriptGenerator, CovscriptToJsonLogicConverter } from "@covopen/covscript";
 import { LogicExpression, Questionnaire } from "@covopen/covquestions-js";
 import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../../models/editorQuestionnaire";
+import { indentCovScript } from "./indentCovScript";
 
 export function convertLogicExpressionToString(value?: LogicExpression): string {
   const generator = new CovscriptGenerator();
@@ -8,7 +9,7 @@ export function convertLogicExpressionToString(value?: LogicExpression): string 
     return "";
   }
 
-  return generator.generate(value);
+  return indentCovScript(generator.generate(value));
 }
 
 export function convertStringToLogicExpression(value?: string): LogicExpression | undefined {
