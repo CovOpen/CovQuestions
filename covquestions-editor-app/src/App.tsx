@@ -4,6 +4,8 @@ import {
   Button,
   createMuiTheme,
   createStyles,
+  Dialog,
+  DialogContent,
   FormControlLabel,
   Grid,
   IconButton,
@@ -21,11 +23,11 @@ import { QuestionnaireEditor } from "./components/questionnaireEditor/Questionna
 import { ISOLanguage, Questionnaire } from "@covopen/covquestions-js";
 import { useAppDispatch } from "./store/store";
 import {
+  duplicatedIdsSelector,
+  hasAnyErrorSelector,
   questionnaireInEditorSelector,
   questionnaireJsonSelector,
   setQuestionnaireInEditor,
-  duplicatedIdsSelector,
-  hasAnyErrorSelector,
 } from "./store/questionnaireInEditor";
 import {
   QuestionnaireSelection,
@@ -35,6 +37,8 @@ import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
 import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
+import ReactMarkdown from "react-markdown";
+import { generatedInstructionsFromMarkdown } from "./generatedInstructionsFromMarkdown";
 
 const theme = createMuiTheme({
   palette: {
@@ -86,6 +90,7 @@ export const App: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const [isJsonMode, setIsJsonMode] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   const classes = useStyles();
 
@@ -210,7 +215,7 @@ export const App: React.FC = () => {
                     ...{ language: value as ISOLanguage },
                   });
                 }}
-              ></SettingSelection>
+              />
             ) : null}
             {currentQuestionnaireSelection.version !== undefined &&
             currentQuestionnaireSelection.availableVersions !== undefined ? (
@@ -221,12 +226,20 @@ export const App: React.FC = () => {
                 handleChange={(value) => {
                   handleVersionChanged(value as number);
                 }}
-              ></SettingSelection>
+              />
             ) : null}
             <FormControlLabel
               control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
               label="JSON Mode"
             />
+            <Button
+              onClick={() => setIsHelpOpen(true)}
+              className={classes.marginRight}
+              variant="outlined"
+              color="secondary"
+            >
+              ?
+            </Button>
           </div>
         </Toolbar>
       </AppBar>
@@ -277,6 +290,13 @@ export const App: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
+      <Dialog open={isHelpOpen} onClose={() => setIsHelpOpen(false)} maxWidth="lg">
+        <DialogContent>
+          <Typography>
+            <ReactMarkdown children={generatedInstructionsFromMarkdown} />
+          </Typography>
+        </DialogContent>
+      </Dialog>
     </ThemeProvider>
   );
 };
