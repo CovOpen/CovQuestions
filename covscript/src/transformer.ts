@@ -16,7 +16,8 @@ type BinaryOperator =
   | "!="
   | "<"
   | ">"
-  | "%";
+  | "%"
+  | "convert_to_date_string";
 type UnaryOperator = "!";
 
 function isAssoicative(op: BinaryOperator | UnaryOperator) {
@@ -284,6 +285,8 @@ export class ToJsonLogicTransformer {
         return this.unwrap(cst);
       case "valueInner":
         return this.unwrap(cst);
+      case "dateConversionExpression":
+        return this.binaryToLogic(cst);
       case "logicOrExpression":
         return this.binaryToLogic(cst);
       case "logicAndExpression":

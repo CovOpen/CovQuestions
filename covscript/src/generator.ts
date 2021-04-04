@@ -22,6 +22,7 @@ export class CovscriptGenerator {
       ...this.compOps.map(([op, p]) => this.genBinaryHandler(op, p)),
       this.genBinaryHandler("and", 50),
       this.genBinaryHandler("or", 60),
+      this.genBinaryHandler("convert_to_date_string", 90),
       { operator: "var", exec: (a, b) => this.varHandler(a, b) },
       { operator: "!", exec: (a, b) => this.notHandler(a, b) },
       { operator: "if", exec: (a, b) => this.ifHandler(a, b) },
