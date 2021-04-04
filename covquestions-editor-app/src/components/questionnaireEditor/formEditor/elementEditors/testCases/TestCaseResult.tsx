@@ -60,7 +60,16 @@ export const TestCaseResult: React.FC<TestCaseResultProps> = ({ testCase, classN
           {testResult.success ? (
             <Typography className={classes.runResultSuccess}>test run successful</Typography>
           ) : (
-            <Typography className={classes.runResultError}>{testResult.errorMessage}</Typography>
+            <Typography className={classes.runResultError}>
+              {testResult.errorMessage}
+              <br />
+              {testResult.answers?.map((it) => (
+                <>
+                  {it.questionId + ": " + it.rawAnswer}
+                  <br />
+                </>
+              ))}
+            </Typography>
           )}
         </div>
       </>
