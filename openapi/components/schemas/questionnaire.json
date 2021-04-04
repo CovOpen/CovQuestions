@@ -609,6 +609,9 @@
         },
         {
           "$ref": "#/x-definitions/LogicLess"
+        },
+        {
+          "$ref": "#/x-definitions/LogicConvertToDateString"
         }
       ]
     },
@@ -705,6 +708,21 @@
         }
       },
       "required": ["var"],
+      "type": "object"
+    },
+    "LogicConvertToDateString": {
+      "properties": {
+        "convert_to_date_string": {
+          "items": {
+            "$ref": "#/x-definitions/LogicExpression"
+          },
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": ["convert_to_date_string"],
+      "title": "LogicConvertToDateString",
       "type": "object"
     },
     "QuestionType": {

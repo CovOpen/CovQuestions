@@ -227,7 +227,8 @@ export type LogicOperator =
   | LogicOr
   | LogicIn
   | LogicGreater
-  | LogicLess;
+  | LogicLess
+  | LogicConvertToDateString;
 export type LogicConstant = number | string | boolean;
 /**
  * Type of the question.
@@ -388,6 +389,9 @@ export interface LogicGreater {
 }
 export interface LogicLess {
   "<": [LogicExpression, LogicExpression];
+}
+export interface LogicConvertToDateString {
+  convert_to_date_string: [LogicExpression, LogicExpression];
 }
 export interface LogicVariable {
   var: string;
