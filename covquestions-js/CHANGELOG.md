@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.2.0...@covopen/covquestions-js@1.3.0) (2021-04-05)
+
+
+### Features
+
+* add date conversion to questionnaire engine ([6b62c79](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/6b62c7982193d83c2c0a861bba9e4295fa5edf83))
+* add date conversion to schema ([cc71467](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/cc7146717f2785390a48df63ff69328fea65b2f6))
+
+
+
+
+
 # [1.2.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.1.2...@covopen/covquestions-js@1.2.0) (2021-03-30)
 
 

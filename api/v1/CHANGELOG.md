@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.1.0...cov-question-api-v1@1.2.0) (2021-04-05)
+
+
+### Features
+
+* add date conversion to schema ([cc71467](https://github.com/CovOpen/CovQuestions/commit/cc7146717f2785390a48df63ff69328fea65b2f6))
+
+
+
+
+
 # [1.1.0](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.0.7...cov-question-api-v1@1.1.0) (2021-03-30)
 
 

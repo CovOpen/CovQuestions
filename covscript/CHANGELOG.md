@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.0.13...@covopen/covscript@1.1.0) (2021-04-05)
+
+
+### Features
+
+* add date conversion to covscript ([e66853a](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/e66853a20b431abc789da44ac1a0fec23f249c88))
+
+
+
+
+
 ## [1.0.13](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.0.12...@covopen/covscript@1.0.13) (2021-03-30)
 
 **Note:** Version bump only for package @covopen/covscript
