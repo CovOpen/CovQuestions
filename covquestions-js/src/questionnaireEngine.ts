@@ -343,8 +343,8 @@ export class QuestionnaireEngine {
         {
           id: "covapp_qr",
           mapping: this.variables.reduce((aggregator, variable) => {
-            if (variable.id.startsWith("qr")) {
-              aggregator[variable.id] = jsonLogic.apply(
+            if (variable.id.startsWith("qr_")) {
+              aggregator[variable.id.substring(3)] = jsonLogic.apply(
                 variable.expression,
                 this.data
               );
