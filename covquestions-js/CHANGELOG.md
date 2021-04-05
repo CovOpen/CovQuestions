@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.3.0...@covopen/covquestions-js@1.3.1) (2021-04-05)
+
+
+### Bug Fixes
+
+* remove qr_ prefix on exported covapp variables ([3963023](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/3963023df235e13c92d2d698888d90446befd287))
+
+
+
+
+
 # [1.3.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.2.0...@covopen/covquestions-js@1.3.0) (2021-04-05)
 
 
