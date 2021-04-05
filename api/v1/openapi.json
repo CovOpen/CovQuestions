@@ -774,6 +774,23 @@
         "title": "LogicLess",
         "type": "object"
       },
+      "LogicConvertToDateString": {
+        "properties": {
+          "convert_to_date_string": {
+            "items": {
+              "$ref": "#/components/schemas/LogicExpression"
+            },
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "required": [
+          "convert_to_date_string"
+        ],
+        "title": "LogicConvertToDateString",
+        "type": "object"
+      },
       "LogicOperator": {
         "anyOf": [
           {
@@ -823,6 +840,9 @@
           },
           {
             "$ref": "#/components/schemas/LogicLess"
+          },
+          {
+            "$ref": "#/components/schemas/LogicConvertToDateString"
           }
         ]
       },
@@ -1838,6 +1858,9 @@
               },
               {
                 "$ref": "#/components/schemas/LogicLess"
+              },
+              {
+                "$ref": "#/components/schemas/LogicConvertToDateString"
               }
             ]
           },
@@ -1948,6 +1971,23 @@
             "required": [
               "var"
             ],
+            "type": "object"
+          },
+          "LogicConvertToDateString": {
+            "properties": {
+              "convert_to_date_string": {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "convert_to_date_string"
+            ],
+            "title": "LogicConvertToDateString",
             "type": "object"
           },
           "QuestionType": {

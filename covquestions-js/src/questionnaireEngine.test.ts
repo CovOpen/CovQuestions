@@ -252,4 +252,67 @@ describe("questionnaireEngine", () => {
       );
     });
   });
+
+  describe("convert timestamps to date strings", () => {
+    it("should convert a timestamp to a date string for format yyyy.mm.dd", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "converted_date",
+            expression: {
+              convert_to_date_string: [1617235200, "YYYY.MM.DD"],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["converted_date"]).toEqual("2021.04.01");
+    });
+
+    it("should convert a timestamp to a date string to alternative format", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "converted_date",
+            expression: {
+              convert_to_date_string: [1617235200, "dddd, MMMM D YYYY"],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["converted_date"]).toEqual("Thursday, April 1 2021");
+    });
+
+    it("should convert a timestamp to a date string from another variable", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "date",
+            expression: 1617235200, // 2021.04.01
+          },
+          {
+            id: "converted_date",
+            expression: {
+              convert_to_date_string: [{ var: "date" }, "YYYY.MM.DD"],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["converted_date"]).toEqual("2021.04.01");
+    });
+  });
 });

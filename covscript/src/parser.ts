@@ -68,8 +68,19 @@ export class CovscriptParser extends CstParser {
   // is designed to avoid endless left-hand recursion and
   // also takes care of operator precedence.
   public expression = this.RULE("expression", () => {
-    this.SUBRULE(this.logicOrExpression);
+    this.SUBRULE(this.dateConversionExpression);
   });
+
+  private dateConversionExpression = this.RULE(
+    "dateConversionExpression",
+    () => {
+      this.SUBRULE(this.logicOrExpression, { LABEL: "lhs" });
+      this.MANY(() => {
+        this.CONSUME(T.DateConversionOperator, { LABEL: "operator" });
+        this.SUBRULE2(this.logicOrExpression, { LABEL: "rhs" });
+      });
+    }
+  );
 
   private logicOrExpression = this.RULE("logicOrExpression", () => {
     this.SUBRULE(this.logicAndExpression, { LABEL: "lhs" });
