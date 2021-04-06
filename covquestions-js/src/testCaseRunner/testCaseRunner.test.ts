@@ -112,6 +112,7 @@ describe("testCaseRunner", () => {
         errorMessage:
           'No answer for question with ID "q1_contact" was provided, while questionMode is not random and the question is not optional.',
         success: false,
+        answers: [],
       });
     });
   });
@@ -160,6 +161,12 @@ describe("testCaseRunner", () => {
         errorMessage:
           'The execution provided additional results in strict mode: "additionalCategory: additionalResult"',
         success: false,
+        answers: [
+          {
+            questionId: "q1_text",
+            rawAnswer: "test",
+          },
+        ],
       });
     });
 
@@ -175,6 +182,12 @@ describe("testCaseRunner", () => {
         success: false,
         errorMessage:
           'Wrong results: expected "rc_text: WRONG_RESULT_ID", but the questionnaire resulted in "rc_text: TEXT"',
+        answers: [
+          {
+            questionId: "q1_text",
+            rawAnswer: "test",
+          },
+        ],
       });
     });
   });
@@ -229,6 +242,16 @@ describe("testCaseRunner", () => {
         success: false,
         errorMessage:
           "Wrong variables: expected 'v_seconds_since_contact' to be '345600' but it is '259200'",
+        answers: [
+          {
+            questionId: "q1_contact",
+            rawAnswer: true,
+          },
+          {
+            questionId: "q2_contact_when",
+            rawAnswer: 1584230400,
+          },
+        ],
       });
     });
   });

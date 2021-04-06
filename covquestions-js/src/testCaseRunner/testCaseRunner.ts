@@ -1,4 +1,4 @@
-import { QuestionnaireEngine } from "../questionnaireEngine";
+import { QuestionnaireEngine, RawAnswer } from "../questionnaireEngine";
 import { Questionnaire, TestCase } from "../models/Questionnaire.generated";
 import { createRandomAnswer } from "./createRandomAnswer";
 import { checkResults } from "./checkResults";
@@ -13,6 +13,7 @@ export type TestResultError = {
   description: string;
   success: false;
   errorMessage: string;
+  answers?: { questionId: string; rawAnswer: RawAnswer }[];
 };
 
 export type TestResult = TestResultSuccess | TestResultError;
@@ -78,6 +79,7 @@ function runOneTestCaseRandomly(
       success: false,
       description: testCase.description,
       errorMessage: `Failed ${numberOfFailures} out of ${randomRuns} times. First failure: ${firstFailure.errorMessage}`,
+      answers: firstFailure.answers,
     };
   }
 }
@@ -91,17 +93,26 @@ function runOneTestCaseOnce(
 
   const answerQuestionsError = answerQuestions(engine, testCase);
   if (answerQuestionsError) {
-    return answerQuestionsError;
+    return {
+      ...answerQuestionsError,
+      answers: engine.getAnswersPersistence().answers,
+    };
   }
 
   const resultsCheckError = checkResults(engine.getCategoryResults(), testCase);
   if (resultsCheckError) {
-    return resultsCheckError;
+    return {
+      ...resultsCheckError,
+      answers: engine.getAnswersPersistence().answers,
+    };
   }
 
   const variableCheckError = checkVariables(engine.getVariables(), testCase);
   if (variableCheckError) {
-    return variableCheckError;
+    return {
+      ...variableCheckError,
+      answers: engine.getAnswersPersistence().answers,
+    };
   }
 
   return { description: testCase.description, success: true };
