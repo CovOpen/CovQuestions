@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.3.1...@covopen/covquestions-js@1.3.2) (2021-04-06)
+
+
+### Bug Fixes
+
+* add answers to test case runner unit tests ([674afa1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/674afa17e0a1e2c23749680c8d3ca28c48a23eb7))
+* show given answers on random test run ([202de24](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/202de24c1ef346fc6a21a5bc3096bf3f2b5bbba1))
+
+
+
+
+
 ## [1.3.1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.3.0...@covopen/covquestions-js@1.3.1) (2021-04-05)
 
 
