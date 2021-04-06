@@ -612,6 +612,9 @@
         },
         {
           "$ref": "#/x-definitions/LogicConvertToDateString"
+        },
+        {
+          "$ref": "#/x-definitions/Round"
         }
       ]
     },
@@ -723,6 +726,28 @@
       },
       "required": ["convert_to_date_string"],
       "title": "LogicConvertToDateString",
+      "type": "object"
+    },
+    "Round": {
+      "properties": {
+        "round": {
+          "anyOf": [
+            {
+              "$ref": "#/x-definitions/LogicExpression"
+            },
+            {
+              "items": {
+                "$ref": "#/x-definitions/LogicExpression"
+              },
+              "maxItems": 1,
+              "minItems": 1,
+              "type": "array"
+            }
+          ]
+        }
+      },
+      "required": ["round"],
+      "title": "Round",
       "type": "object"
     },
     "QuestionType": {
