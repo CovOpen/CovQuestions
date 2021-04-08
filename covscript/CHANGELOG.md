@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.1.2...@covopen/covscript@1.2.0) (2021-04-08)
+
+
+### Features
+
+* add rounding functions ([1233a71](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/1233a7196d9232ee72e86978e3a8b82c201ab820))
+
+
+
+
+
 ## [1.1.2](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.1.1...@covopen/covscript@1.1.2) (2021-04-06)
 
 **Note:** Version bump only for package @covopen/covscript

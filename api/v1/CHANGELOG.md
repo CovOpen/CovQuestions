@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.2.0...cov-question-api-v1@1.3.0) (2021-04-08)
+
+
+### Features
+
+* add rounding functions ([1233a71](https://github.com/CovOpen/CovQuestions/commit/1233a7196d9232ee72e86978e3a8b82c201ab820))
+
+
+
+
+
 # [1.2.0](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.1.0...cov-question-api-v1@1.2.0) (2021-04-05)
 
 
