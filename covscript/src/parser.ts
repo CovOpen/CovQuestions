@@ -82,6 +82,11 @@ export class CovscriptParser extends CstParser {
     }
   );
 
+  //   private roundExpression = this.RULE("roundExpression", () => {
+  //     this.CONSUME(T.RoundOperator, { LABEL: "operator" });
+  //     this.SUBRULE(this.logicOrExpression, { LABEL: "rhs" });
+  //   });
+
   private logicOrExpression = this.RULE("logicOrExpression", () => {
     this.SUBRULE(this.logicAndExpression, { LABEL: "lhs" });
     this.MANY(() => {

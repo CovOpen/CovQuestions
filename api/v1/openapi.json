@@ -791,6 +791,30 @@
         "title": "LogicConvertToDateString",
         "type": "object"
       },
+      "Round": {
+        "properties": {
+          "round": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LogicExpression"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "maxItems": 1,
+                "minItems": 1,
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "required": [
+          "round"
+        ],
+        "title": "Round",
+        "type": "object"
+      },
       "LogicOperator": {
         "anyOf": [
           {
@@ -843,6 +867,9 @@
           },
           {
             "$ref": "#/components/schemas/LogicConvertToDateString"
+          },
+          {
+            "$ref": "#/components/schemas/Round"
           }
         ]
       },
@@ -1861,6 +1888,9 @@
               },
               {
                 "$ref": "#/components/schemas/LogicConvertToDateString"
+              },
+              {
+                "$ref": "#/components/schemas/Round"
               }
             ]
           },
@@ -1988,6 +2018,30 @@
               "convert_to_date_string"
             ],
             "title": "LogicConvertToDateString",
+            "type": "object"
+          },
+          "Round": {
+            "properties": {
+              "round": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/LogicExpression"
+                  },
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "round"
+            ],
+            "title": "Round",
             "type": "object"
           },
           "QuestionType": {

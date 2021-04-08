@@ -315,4 +315,67 @@ describe("questionnaireEngine", () => {
       expect(result["converted_date"]).toEqual("2021.04.01");
     });
   });
+
+  describe("round numbers", () => {
+    it("round down", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "round_test",
+            expression: {
+              round: [2.4],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["round_test"]).toEqual(2);
+    });
+
+    it("round up", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "round_test",
+            expression: {
+              round: [2.5],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["round_test"]).toEqual(3);
+    });
+
+    it("round variable", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "number",
+            expression: 3.2,
+          },
+          {
+            id: "round_test",
+            expression: {
+              round: { var: "number" },
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["round_test"]).toEqual(3);
+    });
+  });
 });

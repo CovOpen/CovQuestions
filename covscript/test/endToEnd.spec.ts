@@ -52,4 +52,9 @@ describe("Generator/Parser End-To-End Tests", () => {
     '(q_contact_date + v_two_days) convert_to_date_string "YYYY.MM.DD"',
     'q_contact_date + v_two_days convert_to_date_string "YYYY.MM.DD"'
   );
+
+  expectE2E(
+    "round (q_contact_date + v_two_days)",
+    "round (q_contact_date + v_two_days)"
+  );
 });

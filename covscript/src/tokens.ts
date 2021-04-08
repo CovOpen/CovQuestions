@@ -149,6 +149,12 @@ export const Negation = createToken({
   categories: UnaryOperator,
 });
 
+export const RoundOperator = createToken({
+  name: "round",
+  pattern: /round/,
+  categories: UnaryOperator,
+});
+
 export const AndOperator = createToken({ name: "And", pattern: /and|AND|And/ });
 export const OrOperator = createToken({ name: "Or", pattern: /or|OR|Or/ });
 
@@ -200,6 +206,7 @@ export const AllTokens = [
   ComparisonOperator,
 
   Negation,
+  RoundOperator,
   UnaryOperator,
 
   AndOperator,
