@@ -150,6 +150,8 @@ export const App: React.FC = () => {
       currentQuestionnaireSelection.version !== undefined &&
       currentQuestionnaireSelection.language !== undefined
     ) {
+      setQueryParams(currentQuestionnaireSelection);
+
       getQuestionnaireByIdVersionAndLanguage(
         currentQuestionnaireSelection.id,
         currentQuestionnaireSelection.version,
@@ -163,7 +165,6 @@ export const App: React.FC = () => {
           console.error(`Cannot get questionnaire with values ${JSON.stringify(currentQuestionnaireSelection)}`);
         }
       });
-      setQueryParams(currentQuestionnaireSelection);
     }
   }, [dispatch, currentQuestionnaireSelection]);
 
@@ -185,7 +186,7 @@ export const App: React.FC = () => {
 
   // Select Questionnaire that is saved in the query params
   const querySelection: QuestionnaireSelection = getQueryParams();
-  if (querySelection.id != null && currentQuestionnaireSelection.id !== querySelection.id) {
+  if (querySelection.id != null && currentQuestionnaireSelection.id == null) {
     setCurrentQuestionnaireSelection(querySelection);
   }
 
