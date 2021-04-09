@@ -2,7 +2,7 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 import { LogicExpression, TestCase } from "@covopen/covquestions-js";
 import { RootState } from "./store";
 import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../models/editorQuestionnaire";
-import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
+import { SectionTypeArray } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
   convertStringToLogicExpression,
@@ -13,27 +13,21 @@ import { QuestionInStringRepresentation } from "../components/questionnaireEdito
 import { ResultCategoryInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/ResultCategoryElementEditor";
 import { VariableInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/VariableElementEditor";
 
-type ArraySection =
-  | SectionType.QUESTIONS
-  | SectionType.RESULT_CATEGORIES
-  | SectionType.VARIABLES
-  | SectionType.TEST_CASES;
-
 export const setQuestionnaireInEditor = createAction<EditorQuestionnaire>("setQuestionnaireInEditor");
 export const setHasErrorsInJsonMode = createAction<boolean>("setHasErrorsInJsonMode");
 
 export const addNewItem = createAction<{
-  section: ArraySection;
+  section: SectionTypeArray;
   template?: any;
 }>("addNewItem");
 
 export const removeItem = createAction<{
-  section: ArraySection;
+  section: SectionTypeArray;
   index: number;
 }>("removeItem");
 
 export const swapItemWithNextOne = createAction<{
-  section: ArraySection;
+  section: SectionTypeArray;
   index: number;
 }>("swapItemWithNextOne");
 
@@ -123,7 +117,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
     .addCase(addNewItem, (state, { payload: { section, template = {} } }) => {
       let item = {};
       switch (section) {
-        case SectionType.QUESTIONS:
+        case SectionTypeArray.QUESTIONS:
           item = {
             type: "boolean",
             ...template,
@@ -131,7 +125,7 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
             text: template.text ? "Copy of: " + template.text : "new question",
           };
           break;
-        case SectionType.RESULT_CATEGORIES:
+        case SectionTypeArray.RESULT_CATEGORIES:
           item = {
             description: "",
             results: [],
@@ -139,14 +133,14 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
             id: "new_result_category_id",
           };
           break;
-        case SectionType.VARIABLES:
+        case SectionTypeArray.VARIABLES:
           item = {
             expression: "",
             ...template,
             id: "new_variable_id",
           };
           break;
-        case SectionType.TEST_CASES:
+        case SectionTypeArray.TEST_CASES:
           item = {
             answers: {},
             results: {},
