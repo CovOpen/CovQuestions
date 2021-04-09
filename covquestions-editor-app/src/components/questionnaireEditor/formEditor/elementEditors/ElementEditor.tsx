@@ -31,7 +31,7 @@ export function ElementEditor<T>(props: ElementEditorProps<T>) {
   const onChange = (event: IChangeEvent) => {
     // Workaround for https://github.com/rjsf-team/react-jsonschema-form/issues/1708
     // Only update if we are sure that the callback is up to date
-    if (callerIndex <= propCallerIndex) {
+    if (callerIndex <= propCallerIndex + 1) {
       props.onChange(event.formData, event.errors.length > 0);
     }
   };
