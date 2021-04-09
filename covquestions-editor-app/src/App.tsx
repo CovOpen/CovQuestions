@@ -35,6 +35,7 @@ import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
 import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
+import { getQueryParams, setQueryParams } from "./utils/queryParams";
 
 const theme = createMuiTheme({
   palette: {
@@ -162,6 +163,7 @@ export const App: React.FC = () => {
           console.error(`Cannot get questionnaire with values ${JSON.stringify(currentQuestionnaireSelection)}`);
         }
       });
+      setQueryParams(currentQuestionnaireSelection);
     }
   }, [dispatch, currentQuestionnaireSelection]);
 
@@ -180,6 +182,12 @@ export const App: React.FC = () => {
       setExecutedQuestionnaire(currentQuestionnaire.questionnaire);
     }
   }, [currentQuestionnaire, hasAnyError]);
+
+  // Select Questionnaire that is saved in the query params
+  const querySelection: QuestionnaireSelection = getQueryParams();
+  if (querySelection.id != null && currentQuestionnaireSelection.id !== querySelection.id) {
+    setCurrentQuestionnaireSelection(querySelection);
+  }
 
   return (
     <ThemeProvider theme={theme}>
