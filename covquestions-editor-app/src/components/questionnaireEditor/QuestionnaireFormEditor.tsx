@@ -14,20 +14,18 @@ import React, { useEffect, useState } from "react";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import DeleteIcon from "@material-ui/icons/Delete";
+import FileCopy from "@material-ui/icons/FileCopy";
 import AddIcon from "@material-ui/icons/Add";
 import WarningIcon from "@material-ui/icons/Warning";
 import { useAppDispatch } from "../../store/store";
 import { useSelector } from "react-redux";
 import {
-  addNewQuestion,
-  addNewResultCategory,
-  addNewTestCase,
-  addNewVariable,
   questionnaireInEditorSelector,
   removeItem,
   swapItemWithNextOne,
   formErrorsSelector,
   duplicatedIdsSelector,
+  addNewItem,
 } from "../../store/questionnaireInEditor";
 import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
 import { EditorResultCategory } from "../../models/editorQuestionnaire";
@@ -113,10 +111,6 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({ section: SectionType.META, index: 0 });
 
-  const changeActiveItem = (futureItem: ActiveItem) => {
-    setActiveItem(futureItem);
-  };
-
   useEffect(() => {
     if (activeItem === undefined || isNonArraySection(activeItem.section)) {
       return;
@@ -124,11 +118,11 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
     const lengthOfActiveSection = questionnaireInEditor.questionnaire[activeItem.section]?.length;
     if (lengthOfActiveSection === undefined || lengthOfActiveSection === 0) {
-      changeActiveItem({ section: SectionType.META, index: 0 });
+      handleActiveItemChange(SectionType.META, 0);
       return;
     }
     if (activeItem.index >= lengthOfActiveSection) {
-      changeActiveItem({ section: activeItem.section, index: lengthOfActiveSection - 1 });
+      handleActiveItemChange(activeItem.section, lengthOfActiveSection - 1);
     }
   }, [activeItem, questionnaireInEditor]);
 
@@ -139,14 +133,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const handleMoveUp = () => {
     if (!isNonArraySection(activeItem.section)) {
       dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index - 1 }));
-      changeActiveItem({ section: activeItem.section, index: activeItem.index - 1 });
+      handleActiveItemChange(activeItem.section, activeItem.index - 1);
     }
   };
 
   const handleMoveDown = () => {
     if (!isNonArraySection(activeItem.section)) {
       dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index }));
-      changeActiveItem({ section: activeItem.section, index: activeItem.index + 1 });
+      handleActiveItemChange(activeItem.section, activeItem.index + 1);
     }
   };
 
@@ -156,8 +150,23 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     }
   };
 
+  const handleAddItem = (section?: SectionType) => {
+    if (!isNonArraySection(activeItem.section) && (section === undefined || !isNonArraySection(section))) {
+      dispatch(
+        addNewItem({
+          section: section || activeItem.section,
+          template:
+            section === undefined
+              ? questionnaireInEditor.questionnaire[activeItem.section]![activeItem.index]
+              : undefined,
+        })
+      );
+      handleActiveItemChange(activeItem.section, questionnaireInEditor.questionnaire[activeItem.section]?.length || 0);
+    }
+  };
+
   const handleActiveItemChange = (section: SectionType, index: number) => {
-    changeActiveItem({ section, index });
+    setActiveItem({ section, index });
   };
 
   const style = `
@@ -225,8 +234,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                   className={classes.addButton}
                   aria-label="add-question"
                   onClick={() => {
-                    dispatch(addNewQuestion());
-                    handleActiveItemChange(SectionType.QUESTIONS, questionnaireInEditor.questionnaire.questions.length);
+                    handleAddItem(SectionType.QUESTIONS);
                   }}
                 >
                   <AddIcon />
@@ -252,11 +260,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 className={classes.addButton}
                 aria-label="add-result-category"
                 onClick={() => {
-                  dispatch(addNewResultCategory());
-                  handleActiveItemChange(
-                    SectionType.RESULT_CATEGORIES,
-                    questionnaireInEditor.questionnaire.resultCategories.length
-                  );
+                  handleAddItem(SectionType.RESULT_CATEGORIES);
                 }}
               >
                 <AddIcon />
@@ -285,8 +289,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 className={classes.addButton}
                 aria-label="add-variable"
                 onClick={() => {
-                  dispatch(addNewVariable());
-                  handleActiveItemChange(SectionType.VARIABLES, questionnaireInEditor.questionnaire.variables.length);
+                  handleAddItem(SectionType.VARIABLES);
                 }}
               >
                 <AddIcon />
@@ -318,11 +321,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 className={classes.addButton}
                 aria-label="add-test-case"
                 onClick={() => {
-                  dispatch(addNewTestCase());
-                  handleActiveItemChange(
-                    SectionType.TEST_CASES,
-                    (questionnaireInEditor.questionnaire.testCases ?? []).length
-                  );
+                  handleAddItem(SectionType.TEST_CASES);
                 }}
               >
                 <AddIcon />
@@ -370,6 +369,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 </IconButton>
                 <IconButton aria-label="remove" onClick={handleRemove}>
                   <DeleteIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="copy"
+                  onClick={() => {
+                    handleAddItem();
+                  }}
+                >
+                  <FileCopy />
                 </IconButton>
               </div>
             ) : null}

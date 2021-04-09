@@ -21,10 +21,11 @@ type ArraySection =
 
 export const setQuestionnaireInEditor = createAction<EditorQuestionnaire>("setQuestionnaireInEditor");
 export const setHasErrorsInJsonMode = createAction<boolean>("setHasErrorsInJsonMode");
-export const addNewQuestion = createAction("addNewQuestion");
-export const addNewResultCategory = createAction("addNewResultCategory");
-export const addNewVariable = createAction("addNewVariable");
-export const addNewTestCase = createAction("addNewTestCase");
+
+export const addNewItem = createAction<{
+  section: ArraySection;
+  template?: any;
+}>("addNewItem");
 
 export const removeItem = createAction<{
   section: ArraySection;
@@ -119,35 +120,42 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         testCases: {},
       };
     })
-    .addCase(addNewQuestion, (state) => {
-      state.questionnaire.questions.push({
-        id: "new_question_id",
-        text: "new question",
-        type: "boolean",
-      });
-    })
-    .addCase(addNewResultCategory, (state) => {
-      state.questionnaire.resultCategories.push({
-        id: "new_result_category_id",
-        description: "",
-        results: [],
-      });
-    })
-    .addCase(addNewVariable, (state) => {
-      state.questionnaire.variables.push({
-        id: "new_variable_id",
-        expression: "",
-      });
-    })
-    .addCase(addNewTestCase, (state) => {
-      if (!state.questionnaire.testCases) {
-        state.questionnaire.testCases = [];
+    .addCase(addNewItem, (state, { payload: { section, template = {} } }) => {
+      let item = {};
+      switch (section) {
+        case SectionType.QUESTIONS:
+          item = {
+            type: "boolean",
+            ...template,
+            id: "new_question_id",
+            text: template.text ? "Copy of: " + template.text : "new question",
+          };
+          break;
+        case SectionType.RESULT_CATEGORIES:
+          item = {
+            description: "",
+            results: [],
+            ...template,
+            id: "new_result_category_id",
+          };
+          break;
+        case SectionType.VARIABLES:
+          item = {
+            expression: "",
+            ...template,
+            id: "new_variable_id",
+          };
+          break;
+        case SectionType.TEST_CASES:
+          item = {
+            answers: {},
+            results: {},
+            ...template,
+            description: template.description ? "Copy of: " + template.description : "Description of the new test case",
+          };
+          break;
       }
-      state.questionnaire.testCases.push({
-        description: "Description of the new test case",
-        answers: {},
-        results: {},
-      });
+      (state.questionnaire as any)[section].push(item);
     })
     .addCase(removeItem, (state, { payload: { section, index } }) => {
       const questionnaireElement = state.questionnaire[section];
