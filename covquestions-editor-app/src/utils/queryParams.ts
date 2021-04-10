@@ -1,15 +1,21 @@
-import { QuestionnaireSelection } from "../components/questionnaireSelection/QuestionnaireSelection";
+import { ISOLanguage } from "@covopen/covquestions-js";
 
-let persistedParameters = ["id", "version", "language"];
+const persistedParameters = ["id", "version", "language"] as const;
 
-export function getQueryParams(): QuestionnaireSelection {
+export interface QuestionnaireIdentification {
+  id: string;
+  version: number;
+  language: ISOLanguage;
+}
+
+export function getQueryParams(): QuestionnaireIdentification {
   const queryParams = new URLSearchParams(window.location.search);
   return persistedParameters.reduce((obj, key) => {
     return { ...obj, [key]: queryParams.get(key) };
-  }, {});
+  }, {}) as any;
 }
 
-export function setQueryParams(selection: QuestionnaireSelection): void {
+export function setQueryParams(selection: QuestionnaireIdentification): void {
   const queryParams = new URLSearchParams(window.location.search);
   persistedParameters.forEach((key) => {
     if ((selection as any)[key] != null) {

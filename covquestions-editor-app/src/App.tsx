@@ -27,15 +27,12 @@ import {
   duplicatedIdsSelector,
   hasAnyErrorSelector,
 } from "./store/questionnaireInEditor";
-import {
-  QuestionnaireSelection,
-  QuestionnaireSelectionDrawer,
-} from "./components/questionnaireSelection/QuestionnaireSelection";
+import { QuestionnaireSelectionDrawer } from "./components/questionnaireSelection/QuestionnaireSelection";
 import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
 import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
-import { getQueryParams, setQueryParams } from "./utils/queryParams";
+import { getQueryParams, QuestionnaireIdentification, setQueryParams } from "./utils/queryParams";
 
 const theme = createMuiTheme({
   palette: {
@@ -71,13 +68,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const currentQuestionnaire = useSelector(questionnaireInEditorSelector);
+  const { questionnaire: currentQuestionnaire } = useSelector(questionnaireInEditorSelector);
   const questionnaireJson = useSelector(questionnaireJsonSelector);
   const duplicatedIds = useSelector(duplicatedIdsSelector);
   const hasAnyError = useSelector(hasAnyErrorSelector);
 
   const [allQuestionnaires, setAllQuestionnaires] = useState<QuestionnaireBaseData[]>([]);
-  const [currentQuestionnaireSelection, setCurrentQuestionnaireSelection] = useState<QuestionnaireSelection>({});
   const [originalCurrentQuestionnaire, setOriginalCurrentQuestionnaire] = useState<Questionnaire | undefined>(
     undefined
   );
@@ -87,6 +83,7 @@ export const App: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const [isJsonMode, setIsJsonMode] = useState(false);
+  const [requestInFlight, setRequestInFlight] = useState(false);
 
   const classes = useStyles();
 
@@ -100,16 +97,16 @@ export const App: React.FC = () => {
 
   const handleVersionChanged = (newVersion: number) => {
     const questionnaire = allQuestionnaires.filter(
-      (it) => it.id === currentQuestionnaireSelection.id && it.version === newVersion
+      (it) => it.id === currentQuestionnaire.id && it.version === newVersion
     )[0];
     const changedValues = {
       version: newVersion,
       availableLanguages: questionnaire.meta.availableLanguages,
-      language: currentQuestionnaireSelection.language,
+      language: currentQuestionnaire.language,
     };
     if (
-      currentQuestionnaireSelection.language !== undefined &&
-      changedValues.availableLanguages.indexOf(currentQuestionnaireSelection.language) === -1
+      currentQuestionnaire.language !== undefined &&
+      changedValues.availableLanguages.indexOf(currentQuestionnaire.language) === -1
     ) {
       if (changedValues.availableLanguages.indexOf("en") > -1) {
         changedValues.language = "en";
@@ -117,7 +114,7 @@ export const App: React.FC = () => {
         changedValues.language = changedValues.availableLanguages[0];
       }
     }
-    setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...changedValues });
+    fetchQuestionnaire({ ...currentQuestionnaire, ...changedValues });
   };
 
   const downloadJson = () => {
@@ -140,55 +137,59 @@ export const App: React.FC = () => {
     }
   };
 
+  function fetchQuestionnaire(
+    { id, version, language }: QuestionnaireIdentification,
+    overwriteCurrent: boolean = true
+  ) {
+    if (!requestInFlight) {
+      setRequestInFlight(true);
+      getQuestionnaireByIdVersionAndLanguage(id, version, language)
+        .then((value) => {
+          if (value !== undefined) {
+            setOriginalCurrentQuestionnaire(value);
+            if (overwriteCurrent) {
+              dispatch(setQuestionnaireInEditor(value));
+              overwriteCurrentQuestionnaire(value);
+            }
+          } else {
+            console.error(`Cannot get questionnaire with values ${JSON.stringify(currentQuestionnaire)}`);
+          }
+        })
+        .finally(() => {
+          setRequestInFlight(false);
+        });
+    }
+  }
+
   useEffect(() => {
     getAllQuestionnaires().then((value) => setAllQuestionnaires(value));
   }, []);
 
   useEffect(() => {
-    if (
-      currentQuestionnaireSelection.id !== undefined &&
-      currentQuestionnaireSelection.version !== undefined &&
-      currentQuestionnaireSelection.language !== undefined
-    ) {
-      setQueryParams(currentQuestionnaireSelection);
-
-      getQuestionnaireByIdVersionAndLanguage(
-        currentQuestionnaireSelection.id,
-        currentQuestionnaireSelection.version,
-        currentQuestionnaireSelection.language
-      ).then((value) => {
-        if (value !== undefined) {
-          setOriginalCurrentQuestionnaire(value);
-          dispatch(setQuestionnaireInEditor(value));
-          overwriteCurrentQuestionnaire(value);
-        } else {
-          console.error(`Cannot get questionnaire with values ${JSON.stringify(currentQuestionnaireSelection)}`);
-        }
-      });
-    }
-  }, [dispatch, currentQuestionnaireSelection]);
+    setQueryParams(currentQuestionnaire);
+  }, [dispatch, currentQuestionnaire]);
 
   useEffect(() => {
-    if (
-      currentQuestionnaire === undefined ||
-      currentQuestionnaire.questionnaire === undefined ||
-      currentQuestionnaire.questionnaire.title === ""
-    ) {
+    if (currentQuestionnaire === undefined || currentQuestionnaire === undefined || currentQuestionnaire.title === "") {
       setCurrentTitle(undefined);
     } else {
-      setCurrentTitle(currentQuestionnaire.questionnaire.title);
+      setCurrentTitle(currentQuestionnaire.title);
     }
 
     if (!hasAnyError) {
-      setExecutedQuestionnaire(currentQuestionnaire.questionnaire);
+      setExecutedQuestionnaire(currentQuestionnaire);
     }
   }, [currentQuestionnaire, hasAnyError]);
 
-  // Select Questionnaire that is saved in the query params
-  const querySelection: QuestionnaireSelection = getQueryParams();
-  if (querySelection.id != null && currentQuestionnaireSelection.id == null) {
-    setCurrentQuestionnaireSelection(querySelection);
+  if (currentQuestionnaire.id != null && originalCurrentQuestionnaire === undefined) {
+    // Fetch original Questionnaire, as we only have the one stored in State
+    fetchQuestionnaire(currentQuestionnaire, false);
   }
+  const querySelection = getQueryParams();
+  // Disable for now
+  //   if (querySelection.id != null && currentQuestionnaire.id == null) {
+  //     fetchQuestionnaire(querySelection);
+  //   }
 
   return (
     <ThemeProvider theme={theme}>
@@ -207,26 +208,22 @@ export const App: React.FC = () => {
             <Button onClick={downloadJson} className={classes.marginRight} variant="contained" color="secondary">
               Download
             </Button>
-            {currentQuestionnaireSelection.language !== undefined &&
-            currentQuestionnaireSelection.availableLanguages !== undefined ? (
+            {currentQuestionnaire.language !== undefined &&
+            currentQuestionnaire.meta.availableLanguages !== undefined ? (
               <SettingSelection
                 title="Language"
-                values={currentQuestionnaireSelection.availableLanguages}
-                selectedValue={currentQuestionnaireSelection.language}
+                values={currentQuestionnaire.meta.availableLanguages}
+                selectedValue={currentQuestionnaire.language}
                 handleChange={(value) => {
-                  setCurrentQuestionnaireSelection({
-                    ...currentQuestionnaireSelection,
-                    ...{ language: value as ISOLanguage },
-                  });
+                  fetchQuestionnaire({ ...currentQuestionnaire, language: value as ISOLanguage });
                 }}
               ></SettingSelection>
             ) : null}
-            {currentQuestionnaireSelection.version !== undefined &&
-            currentQuestionnaireSelection.availableVersions !== undefined ? (
+            {currentQuestionnaire.version !== undefined ? (
               <SettingSelection
                 title="Version"
-                values={currentQuestionnaireSelection.availableVersions}
-                selectedValue={currentQuestionnaireSelection.version}
+                values={getVersions(currentQuestionnaire.id, allQuestionnaires)}
+                selectedValue={currentQuestionnaire.version}
                 handleChange={(value) => {
                   handleVersionChanged(value as number);
                 }}
@@ -252,11 +249,11 @@ export const App: React.FC = () => {
             <Grid item xs={3}>
               <QuestionnaireSelectionDrawer
                 handleChange={(value) => {
-                  setCurrentQuestionnaireSelection(value);
+                  fetchQuestionnaire(value);
                   setShowMenu(false);
                 }}
                 allQuestionnaires={allQuestionnaires}
-                selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
+                selectedValue={currentQuestionnaire}
               />
             </Grid>
           ) : null}
@@ -289,3 +286,7 @@ export const App: React.FC = () => {
     </ThemeProvider>
   );
 };
+export function getVersions(id: string, questionnaires: QuestionnaireBaseData[]): number[] {
+  const versions = questionnaires.filter((it) => it.id === id).map((it) => it.version);
+  return versions.sort();
+}

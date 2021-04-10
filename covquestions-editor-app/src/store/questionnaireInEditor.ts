@@ -226,7 +226,6 @@ export const questionnaireInEditorSelector = (state: RootState) => state.questio
 export const questionnaireJsonSelector = (state: RootState) =>
   removeStringRepresentationFromQuestionnaire(state.questionnaireInEditor.questionnaire);
 
-export const metaInEditorSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.meta;
 export const questionInEditorSelector = (state: RootState, props: { index: number }) =>
   state.questionnaireInEditor.questionnaire.questions[props.index];
 export const resultCategoryInEditorSelector = (state: RootState, props: { index: number }) =>
