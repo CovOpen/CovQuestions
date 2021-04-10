@@ -32,7 +32,7 @@ import { useSelector } from "react-redux";
 import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./api/api-client";
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
 import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
-import { getQueryParams, QuestionnaireIdentification, setQueryParams } from "./utils/queryParams";
+import { QuestionnaireIdentification, setQueryParams } from "./utils/queryParams";
 
 const theme = createMuiTheme({
   palette: {
@@ -185,7 +185,7 @@ export const App: React.FC = () => {
     // Fetch original Questionnaire, as we only have the one stored in State
     fetchQuestionnaire(currentQuestionnaire, false);
   }
-  const querySelection = getQueryParams();
+  //   const querySelection = getQueryParams();
   // Disable for now
   //   if (querySelection.id != null && currentQuestionnaire.id == null) {
   //     fetchQuestionnaire(querySelection);
