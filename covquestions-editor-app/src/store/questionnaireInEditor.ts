@@ -2,7 +2,7 @@ import { createAction, createReducer } from "@reduxjs/toolkit";
 import { LogicExpression, TestCase } from "@covopen/covquestions-js";
 import { RootState } from "./store";
 import { EditorQuestionnaire, EditorQuestionnaireMeta } from "../models/editorQuestionnaire";
-import { SectionType } from "../components/questionnaireEditor/QuestionnaireFormEditor";
+import { SectionTypeArray } from "../components/questionnaireEditor/QuestionnaireFormEditor";
 import {
   addStringRepresentationToQuestionnaire,
   convertStringToLogicExpression,
@@ -13,26 +13,21 @@ import { QuestionInStringRepresentation } from "../components/questionnaireEdito
 import { ResultCategoryInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/ResultCategoryElementEditor";
 import { VariableInStringRepresentation } from "../components/questionnaireEditor/formEditor/elementEditors/VariableElementEditor";
 
-type ArraySection =
-  | SectionType.QUESTIONS
-  | SectionType.RESULT_CATEGORIES
-  | SectionType.VARIABLES
-  | SectionType.TEST_CASES;
-
 export const setQuestionnaireInEditor = createAction<EditorQuestionnaire>("setQuestionnaireInEditor");
 export const setHasErrorsInJsonMode = createAction<boolean>("setHasErrorsInJsonMode");
-export const addNewQuestion = createAction("addNewQuestion");
-export const addNewResultCategory = createAction("addNewResultCategory");
-export const addNewVariable = createAction("addNewVariable");
-export const addNewTestCase = createAction("addNewTestCase");
+
+export const addNewItem = createAction<{
+  section: SectionTypeArray;
+  template?: any;
+}>("addNewItem");
 
 export const removeItem = createAction<{
-  section: ArraySection;
+  section: SectionTypeArray;
   index: number;
 }>("removeItem");
 
 export const swapItemWithNextOne = createAction<{
-  section: ArraySection;
+  section: SectionTypeArray;
   index: number;
 }>("swapItemWithNextOne");
 
@@ -119,35 +114,42 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
         testCases: {},
       };
     })
-    .addCase(addNewQuestion, (state) => {
-      state.questionnaire.questions.push({
-        id: "new_question_id",
-        text: "new question",
-        type: "boolean",
-      });
-    })
-    .addCase(addNewResultCategory, (state) => {
-      state.questionnaire.resultCategories.push({
-        id: "new_result_category_id",
-        description: "",
-        results: [],
-      });
-    })
-    .addCase(addNewVariable, (state) => {
-      state.questionnaire.variables.push({
-        id: "new_variable_id",
-        expression: "",
-      });
-    })
-    .addCase(addNewTestCase, (state) => {
-      if (!state.questionnaire.testCases) {
-        state.questionnaire.testCases = [];
+    .addCase(addNewItem, (state, { payload: { section, template = {} } }) => {
+      let item = {};
+      switch (section) {
+        case SectionTypeArray.QUESTIONS:
+          item = {
+            type: "boolean",
+            ...template,
+            id: "new_question_id",
+            text: template.text ? "Copy of: " + template.text : "new question",
+          };
+          break;
+        case SectionTypeArray.RESULT_CATEGORIES:
+          item = {
+            description: "",
+            results: [],
+            ...template,
+            id: "new_result_category_id",
+          };
+          break;
+        case SectionTypeArray.VARIABLES:
+          item = {
+            expression: "",
+            ...template,
+            id: "new_variable_id",
+          };
+          break;
+        case SectionTypeArray.TEST_CASES:
+          item = {
+            answers: {},
+            results: {},
+            ...template,
+            description: template.description ? "Copy of: " + template.description : "Description of the new test case",
+          };
+          break;
       }
-      state.questionnaire.testCases.push({
-        description: "Description of the new test case",
-        answers: {},
-        results: {},
-      });
+      (state.questionnaire as any)[section].push(item);
     })
     .addCase(removeItem, (state, { payload: { section, index } }) => {
       const questionnaireElement = state.questionnaire[section];
@@ -224,7 +226,6 @@ export const questionnaireInEditorSelector = (state: RootState) => state.questio
 export const questionnaireJsonSelector = (state: RootState) =>
   removeStringRepresentationFromQuestionnaire(state.questionnaireInEditor.questionnaire);
 
-export const metaInEditorSelector = (state: RootState) => state.questionnaireInEditor.questionnaire.meta;
 export const questionInEditorSelector = (state: RootState, props: { index: number }) =>
   state.questionnaireInEditor.questionnaire.questions[props.index];
 export const resultCategoryInEditorSelector = (state: RootState, props: { index: number }) =>

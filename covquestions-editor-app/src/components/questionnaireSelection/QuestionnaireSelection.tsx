@@ -2,19 +2,13 @@ import React, { useEffect, useState } from "react";
 import { createStyles, List, ListItem, ListItemText, makeStyles, Theme, Typography } from "@material-ui/core";
 import { ISOLanguage } from "@covopen/covquestions-js";
 import { QuestionnaireBaseData } from "../../models/QuestionnairesList";
-
-export type QuestionnaireSelection = {
-  id?: string;
-  version?: number;
-  language?: ISOLanguage;
-  availableVersions?: number[];
-  availableLanguages?: ISOLanguage[];
-};
+import { EditorQuestionnaire } from "../../models/editorQuestionnaire";
+import { QuestionnaireIdentification } from "../../utils/queryParams";
 
 type QuestionnaireSelectionProps = {
-  handleChange: React.Dispatch<React.SetStateAction<QuestionnaireSelection>>;
+  handleChange: (selection: QuestionnaireIdentification) => void;
   allQuestionnaires: QuestionnaireBaseData[];
-  selectedValue: QuestionnaireSelection;
+  selectedValue: EditorQuestionnaire;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -59,23 +53,21 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
   }, [allQuestionnaires]);
 
   const handleOnClick = (questionnaireData: QuestionnaireBaseData) => {
-    const browserLanguage = navigator.language.split("-")[0] as ISOLanguage;
-    const versions = getVersions(questionnaireData.id);
-    const selection: QuestionnaireSelection = {
-      id: questionnaireData.id,
-      version: questionnaireData.version,
-      availableVersions: versions,
-      availableLanguages: questionnaireData.meta.availableLanguages,
-    };
     const availableLanguages = questionnaireData.meta.availableLanguages;
-    if (availableLanguages.indexOf(browserLanguage) > -1) {
-      selection.language = browserLanguage;
-    } else if (availableLanguages.indexOf("en") > -1) {
-      selection.language = "en";
+    // Default to browser language
+    let language = navigator.language.split("-")[0] as ISOLanguage;
+
+    if (availableLanguages.indexOf("en") > -1) {
+      language = "en";
     } else {
-      selection.language = availableLanguages[0];
+      language = availableLanguages[0];
     }
-    handleChange(selection);
+
+    handleChange({
+      id: questionnaireData.id,
+      language: language as ISOLanguage,
+      version: questionnaireData.version,
+    });
   };
 
   const getLatestVersion = (list: QuestionnaireBaseData[]): QuestionnaireBaseData => {
@@ -83,12 +75,6 @@ export const QuestionnaireSelectionDrawer: React.FC<QuestionnaireSelectionProps>
     const latest = Math.max(...versions);
     const filtered = list.filter((it) => it.version === latest);
     return filtered[0];
-  };
-
-  const getVersions = (id: string): number[] => {
-    const questionnaires = allQuestionnaires.filter((it) => it.id === id);
-    const versions = questionnaires.map((it) => it.version);
-    return versions.sort();
   };
 
   if (orderedLatestQuestionnaires.length === 0) {
