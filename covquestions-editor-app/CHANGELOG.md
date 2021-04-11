@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.5.1...covquestions-editor-app@1.6.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* load user instructions asynchronously when help is opened ([c9f7e2f](https://github.com/CovOpen/CovQuestions/commit/c9f7e2f2a9d9909a1874e1837c1f9411b86f358f))
+* run prettier ([c41b465](https://github.com/CovOpen/CovQuestions/commit/c41b465078c6006c9366a47ba12b0c26205eb9b2))
+* use npx ts-node explicitly ([dce7c4e](https://github.com/CovOpen/CovQuestions/commit/dce7c4e1bb53a265020f6125901a346c82676bce))
+
+
+### Features
+
+* add user documentation to editor ([69222d0](https://github.com/CovOpen/CovQuestions/commit/69222d0b01242adc1288c7be7bb6167e64f7c960))
+
+
+
+
+
 ## [1.5.1](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.5.0...covquestions-editor-app@1.5.1) (2021-04-11)
 
 
