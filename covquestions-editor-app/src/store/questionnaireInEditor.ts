@@ -149,6 +149,9 @@ export const questionnaireInEditor = createReducer(initialQuestionnaireInEditor,
           };
           break;
       }
+      if (state.questionnaire[section] === undefined) {
+        state.questionnaire[section] = [];
+      }
       (state.questionnaire as any)[section].push(item);
     })
     .addCase(removeItem, (state, { payload: { section, index } }) => {

@@ -155,19 +155,14 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     }
   };
 
-  const handleAddItem = (section?: SectionTypeArray) => {
-    if (!isNonArraySection(activeItem.section)) {
-      dispatch(
-        addNewItem({
-          section: section || activeItem.section,
-          template:
-            section === undefined
-              ? questionnaireInEditor.questionnaire[activeItem.section]![activeItem.index]
-              : undefined,
-        })
-      );
-      handleActiveItemChange(activeItem.section, questionnaireInEditor.questionnaire[activeItem.section]?.length || 0);
-    }
+  const handleAddItem = (section: SectionTypeArray) => {
+    dispatch(
+      addNewItem({
+        section: section,
+        template: section === undefined ? questionnaireInEditor.questionnaire[section]![activeItem.index] : undefined,
+      })
+    );
+    handleActiveItemChange(activeItem.section, questionnaireInEditor.questionnaire[section]?.length || 0);
   };
 
   const handleActiveItemChange = (section: SectionType, index: number) => {
@@ -378,7 +373,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 <IconButton
                   aria-label="copy"
                   onClick={() => {
-                    handleAddItem();
+                    if (!isNonArraySection(activeItem.section)) handleAddItem(activeItem.section);
                   }}
                 >
                   <FileCopy />
