@@ -20,6 +20,7 @@ export function MetaElementEditor() {
 
   return (
     <ElementEditor
+      id="editor-meta"
       schema={questionnaireMetaSchema as any}
       formData={addRootPropertiesToMetaObject(questionnaire.questionnaire)}
       onChange={(formData, hasErrors) => {

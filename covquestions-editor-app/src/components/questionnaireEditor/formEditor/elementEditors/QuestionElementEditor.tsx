@@ -3,7 +3,7 @@ import { ElementEditor } from "./ElementEditor";
 import questionSchema from "../schemas/question.json";
 import React from "react";
 import { convertStringToLogicExpression } from "../../converters";
-import { editQuestion, questionInEditorSelector, duplicatedIdsSelector } from "../../../../store/questionnaireInEditor";
+import { duplicatedIdsSelector, editQuestion, questionInEditorSelector } from "../../../../store/questionnaireInEditor";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
@@ -61,6 +61,7 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
 
   return (
     <ElementEditor
+      id={`editor-question-${props.index}`}
       schema={questionSchema as any}
       formData={convertToStringRepresentation(question)}
       onChange={onChange}
