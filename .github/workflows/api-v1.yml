@@ -50,14 +50,14 @@ jobs:
 
       - name: Deploy 🚀
         if: github.ref == 'refs/heads/master'
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: api/v1/dist
           clean: true
           # Exclude files from covquestions-documentation
-          clean_exclude: |
+          clean-exclude: |
             index.html
             modules.html
             classes/**
