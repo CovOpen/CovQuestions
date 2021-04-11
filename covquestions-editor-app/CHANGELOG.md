@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.4.0...covquestions-editor-app@1.5.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* keep current questionnaire selected after reload ([a302ea6](https://github.com/CovOpen/CovQuestions/commit/a302ea60121f45dc25a14ec203fa7c1b82480812))
+* scroll bug fix does not allow editing anymore ([f4cccbf](https://github.com/CovOpen/CovQuestions/commit/f4cccbf60ca6b2047cbd0dfc7982a2eb7dbef3c7))
+
+
+### Features
+
+* run tests asynchroniously ([48eb87e](https://github.com/CovOpen/CovQuestions/commit/48eb87e9b479b1787054b2936ccd867d692b2dbf))
+
+
+
+
+
 # [1.4.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.3.2...covquestions-editor-app@1.4.0) (2021-04-08)
 
 
