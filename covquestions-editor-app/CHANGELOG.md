@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.5.0...covquestions-editor-app@1.5.1) (2021-04-11)
+
+
+### Bug Fixes
+
+* replace bugfix for changing between select questions with unique keys ([3760dfb](https://github.com/CovOpen/CovQuestions/commit/3760dfbf5d9c9269fa0a357f4eae19ab5733248b))
+
+
+
+
+
 # [1.5.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.4.0...covquestions-editor-app@1.5.0) (2021-04-11)
 
 
