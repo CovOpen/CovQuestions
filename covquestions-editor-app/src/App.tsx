@@ -4,14 +4,11 @@ import {
   Button,
   createMuiTheme,
   createStyles,
-  Dialog,
-  DialogContent,
   FormControlLabel,
   Grid,
   IconButton,
   makeStyles,
   Switch,
-  Theme,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -38,8 +35,7 @@ import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
 import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
 import { getQueryParams, setQueryParams } from "./utils/queryParams";
-import ReactMarkdown from "react-markdown";
-import { generatedInstructionsFromMarkdown } from "./generatedInstructionsFromMarkdown";
+import { UserInstructions } from "./components/UserInstructions";
 
 const theme = createMuiTheme({
   palette: {
@@ -52,7 +48,7 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     content: {
       background: "#EDF2F7",
@@ -299,13 +295,7 @@ export const App: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Dialog open={isHelpOpen} onClose={() => setIsHelpOpen(false)} maxWidth="lg">
-        <DialogContent>
-          <Typography>
-            <ReactMarkdown children={generatedInstructionsFromMarkdown} />
-          </Typography>
-        </DialogContent>
-      </Dialog>
+      <UserInstructions open={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
     </ThemeProvider>
   );
 };
