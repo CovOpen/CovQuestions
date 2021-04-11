@@ -111,20 +111,10 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const classes = useStyles();
 
   const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({ section: SectionType.META, index: 0 });
-  const [futureActiveItem, setFutureActiveItem] = useState<ActiveItem | undefined>(undefined);
 
-  // enforce the re-rendering of the form editor by first unmounting it and then remounting it
   const changeActiveItem = (futureItem: ActiveItem) => {
-    setActiveItem(undefined);
-    setFutureActiveItem(futureItem);
+    setActiveItem(futureItem);
   };
-
-  useEffect(() => {
-    if (futureActiveItem !== undefined) {
-      setActiveItem(futureActiveItem);
-      setFutureActiveItem(undefined);
-    }
-  }, [futureActiveItem, setActiveItem]);
 
   useEffect(() => {
     if (activeItem === undefined || isNonArraySection(activeItem.section)) {
