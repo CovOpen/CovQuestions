@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.6.0...covquestions-editor-app@1.7.0) (2021-04-11)
+
+
+### Features
+
+* add copy button for elements ([bc0a92e](https://github.com/CovOpen/CovQuestions/commit/bc0a92e7e50d0f59ba0d47220266392326f95b9c))
+
+
+
+
+
 # [1.6.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.5.1...covquestions-editor-app@1.6.0) (2021-04-11)
 
 
