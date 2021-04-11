@@ -16,7 +16,7 @@
     "noUncheckedIndexedAccess": true,
     "esModuleInterop": true
   },
-  "exclude": ["dist", "examples", "node_modules", ".vscode", ".vs", ".git"],
+  "include": ["src", "types", "index.ts"],
   "typedocOptions": {
     "entryPoints": ["index.ts"],
     "out": "docs",

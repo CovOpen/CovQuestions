@@ -23,7 +23,7 @@ export function ElementEditorSwitch({ activeItem: { index, section } }: ElementE
     case SectionType.TEST_CASES:
       return <TestCaseElementEditor index={index} />;
     case SectionType.RUN_TEST_CASES:
-      return <AllTestCaseView />;
+      return <AllTestCaseView index={index} />;
     default:
       exhaustiveCheck(section);
       return null;

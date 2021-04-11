@@ -5,6 +5,7 @@ import { IChangeEvent } from "@rjsf/core";
 import { debounce } from "lodash";
 
 type ElementEditorProps<T> = {
+  id: string;
   schema: JSONSchema7;
   formData: T;
   onChange: (formData: T, hasErrors: boolean) => void;
@@ -32,6 +33,7 @@ export function ElementEditor<T>(props: ElementEditorProps<T>) {
 
   return (
     <MuiForm
+      key={props.id}
       className={props.className}
       schema={props.schema}
       formData={props.formData}

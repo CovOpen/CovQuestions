@@ -47,4 +47,14 @@ describe("Generator/Parser End-To-End Tests", () => {
 
   expectE2E("1 * (2 % 2)", "1 * 2 % 2", true);
   expectE2E("1 * 2 % 2", "1 * 2 % 2");
+
+  expectE2E(
+    '(q_contact_date + v_two_days) convert_to_date_string "YYYY.MM.DD"',
+    'q_contact_date + v_two_days convert_to_date_string "YYYY.MM.DD"'
+  );
+
+  expectE2E(
+    "round (q_contact_date + v_two_days)",
+    "round (q_contact_date + v_two_days)"
+  );
 });

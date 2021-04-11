@@ -2,6 +2,7 @@ import * as jsonLogic from "json-logic-js";
 import deepEqual from "fast-deep-equal";
 
 import {
+  LogicExpression,
   Question,
   Questionnaire,
   QuestionWithOptions,
@@ -10,6 +11,7 @@ import {
 } from "./models/Questionnaire.generated";
 import { convertToPrimitiveArray, Primitive } from "./primitive";
 import printf from "printf";
+import dayjs from "dayjs";
 
 export type Result = {
   resultCategory: { id: string; description: string };
@@ -81,6 +83,8 @@ export class QuestionnaireEngine {
     this.variables = newQuestionnaire.variables;
     this.resultCategories = newQuestionnaire.resultCategories;
     this.timeOfExecution = timeOfExecution;
+
+    this.setAdditionalJsonLogicOperators();
   }
 
   /**
@@ -327,6 +331,7 @@ export class QuestionnaireEngine {
     });
     return results.filter(notUndefined);
   }
+
   public getResults(): QuestionnaireResult {
     return {
       answers: this.givenAnswers.reduce((aggregate, current) => {
@@ -338,8 +343,8 @@ export class QuestionnaireEngine {
         {
           id: "covapp_qr",
           mapping: this.variables.reduce((aggregator, variable) => {
-            if (variable.id.startsWith("qr")) {
-              aggregator[variable.id] = jsonLogic.apply(
+            if (variable.id.startsWith("qr_")) {
+              aggregator[variable.id.substring(3)] = jsonLogic.apply(
                 variable.expression,
                 this.data
               );
@@ -352,6 +357,19 @@ export class QuestionnaireEngine {
       questionnaireVersion: this.questionnaire.version,
       results: this.getCategoryResults(),
     };
+  }
+
+  private setAdditionalJsonLogicOperators() {
+    function convertToDateString(
+      timestamp: LogicExpression,
+      dateFormat: LogicExpression
+    ) {
+      const timestampInMilliseconds = parseInt(timestamp.toString()) * 1000;
+      return dayjs(timestampInMilliseconds).format(dateFormat.toString());
+    }
+
+    jsonLogic.add_operation("convert_to_date_string", convertToDateString);
+    jsonLogic.add_operation("round", Math.round);
   }
 }
 

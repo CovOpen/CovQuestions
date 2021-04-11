@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.3.2...@covopen/covquestions-js@1.4.0) (2021-04-08)
+
+
+### Features
+
+* add rounding functions ([1233a71](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/1233a7196d9232ee72e86978e3a8b82c201ab820))
+
+
+
+
+
+## [1.3.2](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.3.1...@covopen/covquestions-js@1.3.2) (2021-04-06)
+
+
+### Bug Fixes
+
+* add answers to test case runner unit tests ([674afa1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/674afa17e0a1e2c23749680c8d3ca28c48a23eb7))
+* show given answers on random test run ([202de24](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/202de24c1ef346fc6a21a5bc3096bf3f2b5bbba1))
+
+
+
+
+
+## [1.3.1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.3.0...@covopen/covquestions-js@1.3.1) (2021-04-05)
+
+
+### Bug Fixes
+
+* remove qr_ prefix on exported covapp variables ([3963023](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/3963023df235e13c92d2d698888d90446befd287))
+
+
+
+
+
+# [1.3.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.2.0...@covopen/covquestions-js@1.3.0) (2021-04-05)
+
+
+### Features
+
+* add date conversion to questionnaire engine ([6b62c79](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/6b62c7982193d83c2c0a861bba9e4295fa5edf83))
+* add date conversion to schema ([cc71467](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/cc7146717f2785390a48df63ff69328fea65b2f6))
+
+
+
+
+
 # [1.2.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.1.2...@covopen/covquestions-js@1.2.0) (2021-03-30)
 
 

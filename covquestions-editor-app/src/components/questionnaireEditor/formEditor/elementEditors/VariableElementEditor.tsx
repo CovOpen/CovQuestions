@@ -5,7 +5,7 @@ import variableSchema from "../schemas/variable.json";
 import { convertStringToLogicExpression } from "../../converters";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
-import { editVariable, variableInEditorSelector, duplicatedIdsSelector } from "../../../../store/questionnaireInEditor";
+import { duplicatedIdsSelector, editVariable, variableInEditorSelector } from "../../../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
 export type VariableInStringRepresentation = Omit<EditorVariable, "expression"> & { expression: string };
@@ -48,6 +48,7 @@ export function VariableElementEditor(props: VariableElementEditorProps) {
 
   return (
     <ElementEditor
+      id={`editor-variable-${props.index}`}
       schema={variableSchema as any}
       formData={convertToStringRepresentation(variable)}
       onChange={onChange}

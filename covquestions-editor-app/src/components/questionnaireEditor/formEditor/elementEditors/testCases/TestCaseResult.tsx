@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Button, createStyles, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { questionnaireJsonSelector } from "../../../../../store/questionnaireInEditor";
-import { runOneTestCase, TestCase, TestResult } from "@covopen/covquestions-js";
+import { TestCase, TestResult } from "@covopen/covquestions-js";
+import Worker from "./backgroundWorker";
 
+// Create new instance
 const useStyles = makeStyles(() =>
   createStyles({
     runResultHeading: {
@@ -31,37 +33,53 @@ export const TestCaseResult: React.FC<TestCaseResultProps> = ({ testCase, classN
   const questionnaireJson = useSelector(questionnaireJsonSelector);
   const classes = useStyles();
 
-  const initialTestResult = runManually ? undefined : runOneTestCase(questionnaireJson, testCase);
-  const [testResult, setTestResult] = useState<TestResult | undefined>(initialTestResult);
+  const [testResult, setTestResult] = useState<TestResult | undefined>(undefined);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
 
-  function runTestCaseManually() {
-    setTestResult(runOneTestCase(questionnaireJson, testCase));
+  const runTestCase = async () => {
+    setIsRunning(true);
+    setTestResult(undefined);
+    const instance = new Worker();
+    setTestResult(await instance.runTestCase(questionnaireJson, testCase));
+    setIsRunning(false);
+  };
+
+  if (!runManually && !isRunning && testResult === undefined) {
+    runTestCase();
   }
 
   function renderRunButton() {
     return (
-      <Button variant="contained" color="secondary" fullWidth={true} onClick={runTestCaseManually}>
+      <Button variant="contained" color="secondary" fullWidth={true} onClick={runTestCase} disabled={isRunning}>
         Run
       </Button>
     );
   }
 
   function renderTestCaseResult() {
-    if (testResult === undefined) {
-      return null;
-    }
-
     return (
       <>
         <div>
-          <Typography className={classes.runResultHeading}>{testResult.description}</Typography>
+          <Typography className={classes.runResultHeading}>{testCase.description}</Typography>
         </div>
         <div>
-          {testResult.success ? (
-            <Typography className={classes.runResultSuccess}>test run successful</Typography>
-          ) : (
-            <Typography className={classes.runResultError}>{testResult.errorMessage}</Typography>
-          )}
+          {isRunning ? <Typography>Running...</Typography> : null}
+          {testResult !== undefined ? (
+            testResult.success ? (
+              <Typography className={classes.runResultSuccess}>test run successful</Typography>
+            ) : (
+              <Typography className={classes.runResultError}>
+                {testResult.errorMessage}
+                <br />
+                {testResult.answers?.map((it) => (
+                  <>
+                    {it.questionId + ": " + it.rawAnswer}
+                    <br />
+                  </>
+                ))}
+              </Typography>
+            )
+          ) : null}
         </div>
       </>
     );

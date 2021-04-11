@@ -110,6 +110,7 @@ export const TestCaseElementEditor: React.FC<TestCaseElementEditorProps> = (prop
     <Grid container item className={classes.container} spacing={2} alignItems={"stretch"} xs={12}>
       <div className={classes.testCaseForm}>
         <ElementEditor
+          id={`editor-testcase-${props.index}`}
           className={classes.testCaseMetaFormEditor}
           schema={testCaseMetaSchema}
           formData={getTestCaseMeta(testCase)}

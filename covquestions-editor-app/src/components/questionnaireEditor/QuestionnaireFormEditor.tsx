@@ -31,6 +31,7 @@ import {
 } from "../../store/questionnaireInEditor";
 import { ElementEditorSwitch } from "./formEditor/elementEditors/ElementEditorSwitch";
 import { EditorResultCategory } from "../../models/editorQuestionnaire";
+import { ALL_TEST_CASES_RUN } from "./formEditor/elementEditors/testCases/AllTestCaseView";
 
 type QuestionnaireFormEditorProps = {};
 
@@ -111,20 +112,10 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
   const classes = useStyles();
 
   const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({ section: SectionType.META, index: 0 });
-  const [futureActiveItem, setFutureActiveItem] = useState<ActiveItem | undefined>(undefined);
 
-  // enforce the re-rendering of the form editor by first unmounting it and then remounting it
   const changeActiveItem = (futureItem: ActiveItem) => {
-    setActiveItem(undefined);
-    setFutureActiveItem(futureItem);
+    setActiveItem(futureItem);
   };
-
-  useEffect(() => {
-    if (futureActiveItem !== undefined) {
-      setActiveItem(futureActiveItem);
-      setFutureActiveItem(undefined);
-    }
-  }, [futureActiveItem, setActiveItem]);
 
   useEffect(() => {
     if (activeItem === undefined || isNonArraySection(activeItem.section)) {
@@ -317,7 +308,12 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
             </List>
             <Divider className={classes.selectionListDivider} />
             <div className={classes.sectionHeader}>
-              <Typography className={classes.title}>Test Cases</Typography>
+              <Typography
+                className={classes.title}
+                onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, ALL_TEST_CASES_RUN.MANUALLY)}
+              >
+                Test Cases
+              </Typography>
               <IconButton
                 className={classes.addButton}
                 aria-label="add-test-case"
@@ -349,7 +345,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 <Button
                   variant="contained"
                   color="secondary"
-                  onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, 0)}
+                  onClick={() => handleActiveItemChange(SectionType.RUN_TEST_CASES, ALL_TEST_CASES_RUN.ALL)}
                 >
                   Run all test cases
                 </Button>

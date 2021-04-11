@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.1.2...@covopen/covscript@1.2.0) (2021-04-08)
+
+
+### Features
+
+* add rounding functions ([1233a71](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/1233a7196d9232ee72e86978e3a8b82c201ab820))
+
+
+
+
+
+## [1.1.2](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.1.1...@covopen/covscript@1.1.2) (2021-04-06)
+
+**Note:** Version bump only for package @covopen/covscript
+
+
+
+
+
+## [1.1.1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.1.0...@covopen/covscript@1.1.1) (2021-04-05)
+
+**Note:** Version bump only for package @covopen/covscript
+
+
+
+
+
+# [1.1.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.0.13...@covopen/covscript@1.1.0) (2021-04-05)
+
+
+### Features
+
+* add date conversion to covscript ([e66853a](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/e66853a20b431abc789da44ac1a0fec23f249c88))
+
+
+
+
+
 ## [1.0.13](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covscript@1.0.12...@covopen/covscript@1.0.13) (2021-03-30)
 
 **Note:** Version bump only for package @covopen/covscript

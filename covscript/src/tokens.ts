@@ -149,8 +149,19 @@ export const Negation = createToken({
   categories: UnaryOperator,
 });
 
+export const RoundOperator = createToken({
+  name: "round",
+  pattern: /round/,
+  categories: UnaryOperator,
+});
+
 export const AndOperator = createToken({ name: "And", pattern: /and|AND|And/ });
 export const OrOperator = createToken({ name: "Or", pattern: /or|OR|Or/ });
+
+export const DateConversionOperator = createToken({
+  name: "convert_to_date_string",
+  pattern: /convert_to_date_string/,
+});
 
 /**
  * Order is important here, the parser is greedy.
@@ -195,10 +206,13 @@ export const AllTokens = [
   ComparisonOperator,
 
   Negation,
+  RoundOperator,
   UnaryOperator,
 
   AndOperator,
   OrOperator,
+
+  DateConversionOperator,
 
   Identifier,
 ];

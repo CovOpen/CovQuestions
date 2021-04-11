@@ -22,6 +22,8 @@ export class CovscriptGenerator {
       ...this.compOps.map(([op, p]) => this.genBinaryHandler(op, p)),
       this.genBinaryHandler("and", 50),
       this.genBinaryHandler("or", 60),
+      this.genBinaryHandler("convert_to_date_string", 90),
+      { operator: "round", exec: (a, b) => this.roundHandler(a, b) },
       { operator: "var", exec: (a, b) => this.varHandler(a, b) },
       { operator: "!", exec: (a, b) => this.notHandler(a, b) },
       { operator: "if", exec: (a, b) => this.ifHandler(a, b) },
@@ -92,6 +94,13 @@ export class CovscriptGenerator {
     }
     // Logical not has highest precedence, everythign execpt atomic needs braces.
     return ["!", ...this.generateForNode(varName, 1)];
+  }
+
+  private roundHandler(varName: LE | LE[], precedence: number) {
+    if (Array.isArray(varName)) {
+      varName = varName[0];
+    }
+    return ["round ", ...this.generateForNode(varName, 1)];
   }
 
   private ifHandler(params: LE[] | LE, precedence: number) {

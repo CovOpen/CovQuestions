@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.4.0...covquestions-editor-app@1.5.0) (2021-04-11)
+
+
+### Bug Fixes
+
+* keep current questionnaire selected after reload ([a302ea6](https://github.com/CovOpen/CovQuestions/commit/a302ea60121f45dc25a14ec203fa7c1b82480812))
+* scroll bug fix does not allow editing anymore ([f4cccbf](https://github.com/CovOpen/CovQuestions/commit/f4cccbf60ca6b2047cbd0dfc7982a2eb7dbef3c7))
+
+
+### Features
+
+* run tests asynchroniously ([48eb87e](https://github.com/CovOpen/CovQuestions/commit/48eb87e9b479b1787054b2936ccd867d692b2dbf))
+
+
+
+
+
+# [1.4.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.3.2...covquestions-editor-app@1.4.0) (2021-04-08)
+
+
+### Features
+
+* add rounding functions ([1233a71](https://github.com/CovOpen/CovQuestions/commit/1233a7196d9232ee72e86978e3a8b82c201ab820))
+
+
+
+
+
+## [1.3.2](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.3.1...covquestions-editor-app@1.3.2) (2021-04-06)
+
+
+### Bug Fixes
+
+* show given answers on random test run ([202de24](https://github.com/CovOpen/CovQuestions/commit/202de24c1ef346fc6a21a5bc3096bf3f2b5bbba1))
+
+
+
+
+
+## [1.3.1](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.3.0...covquestions-editor-app@1.3.1) (2021-04-05)
+
+**Note:** Version bump only for package covquestions-editor-app
+
+
+
+
+
+# [1.3.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.2.0...covquestions-editor-app@1.3.0) (2021-04-05)
+
+
+### Features
+
+* add date conversion to schema ([cc71467](https://github.com/CovOpen/CovQuestions/commit/cc7146717f2785390a48df63ff69328fea65b2f6))
+
+
+
+
+
 # [1.2.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.1.2...covquestions-editor-app@1.2.0) (2021-03-30)
 
 
