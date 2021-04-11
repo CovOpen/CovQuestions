@@ -155,11 +155,11 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
     }
   };
 
-  const handleAddItem = (section: SectionTypeArray) => {
+  const handleAddItem = (section: SectionTypeArray, template: boolean = false) => {
     dispatch(
       addNewItem({
         section: section,
-        template: section === undefined ? questionnaireInEditor.questionnaire[section]![activeItem.index] : undefined,
+        template: template ? questionnaireInEditor.questionnaire[section]?.[activeItem.index] : undefined,
       })
     );
     handleActiveItemChange(activeItem.section, questionnaireInEditor.questionnaire[section]?.length || 0);
@@ -373,7 +373,7 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
                 <IconButton
                   aria-label="copy"
                   onClick={() => {
-                    if (!isNonArraySection(activeItem.section)) handleAddItem(activeItem.section);
+                    if (!isNonArraySection(activeItem.section)) handleAddItem(activeItem.section, true);
                   }}
                 >
                   <FileCopy />
