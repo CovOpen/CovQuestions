@@ -6,9 +6,9 @@ import { convertStringToLogicExpression } from "../../converters";
 import { RootState, useAppDispatch } from "../../../../store/store";
 import { useSelector } from "react-redux";
 import {
+  duplicatedIdsSelector,
   editResultCategory,
   resultCategoryInEditorSelector,
-  duplicatedIdsSelector,
 } from "../../../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
@@ -76,6 +76,7 @@ export function ResultCategoryElementEditor(props: ResultElementEditorProps) {
 
   return (
     <ElementEditor
+      id={`editor-result-category-${props.index}`}
       schema={resultCategorySchema as any}
       formData={convertToStringRepresentation(resultCategory)}
       onChange={onChange}

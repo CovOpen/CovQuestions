@@ -4,9 +4,8 @@ import MuiForm from "@rjsf/material-ui";
 import { IChangeEvent } from "@rjsf/core";
 import { debounce } from "lodash";
 
-let callerIndex = 0;
-
 type ElementEditorProps<T> = {
+  id: string;
   schema: JSONSchema7;
   formData: T;
   onChange: (formData: T, hasErrors: boolean) => void;
@@ -16,8 +15,6 @@ type ElementEditorProps<T> = {
 };
 
 export function ElementEditor<T>(props: ElementEditorProps<T>) {
-  const propCallerIndex = callerIndex++;
-
   const onValidate = (formData: T, errors: any) => {
     props.addAdditionalValidationErrors(formData, errors);
 
@@ -29,17 +26,14 @@ export function ElementEditor<T>(props: ElementEditorProps<T>) {
   }
 
   const onChange = (event: IChangeEvent) => {
-    // Workaround for https://github.com/rjsf-team/react-jsonschema-form/issues/1708
-    // Only update if we are sure that the callback is up to date
-    if (callerIndex <= propCallerIndex + 1) {
-      props.onChange(event.formData, event.errors.length > 0);
-    }
+    props.onChange(event.formData, event.errors.length > 0);
   };
 
   const debouncedOnChange = debounce(onChange, 500);
 
   return (
     <MuiForm
+      key={props.id}
       className={props.className}
       schema={props.schema}
       formData={props.formData}
