@@ -3,10 +3,9 @@ import { Dialog, DialogContent, Typography } from "@material-ui/core";
 import ReactMarkdown from "react-markdown";
 import { getInstructions } from "../api/api-client";
 
-type UserInstructionsProps = { open: boolean, onClose: () => void };
+type UserInstructionsProps = { open: boolean; onClose: () => void };
 
 export const UserInstructions: React.FC<UserInstructionsProps> = (props) => {
-
   const [instructions, setInstructions] = useState<string>("Loading...");
   const [alreadyLoaded, setAlreadyLoaded] = useState<boolean>(false);
 
