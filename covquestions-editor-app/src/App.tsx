@@ -9,7 +9,6 @@ import {
   IconButton,
   makeStyles,
   Switch,
-  Theme,
   ThemeProvider,
   Toolbar,
   Typography,
@@ -21,11 +20,11 @@ import { QuestionnaireEditor } from "./components/questionnaireEditor/Questionna
 import { ISOLanguage, Questionnaire } from "@covopen/covquestions-js";
 import { useAppDispatch } from "./store/store";
 import {
+  duplicatedIdsSelector,
+  hasAnyErrorSelector,
   questionnaireInEditorSelector,
   questionnaireJsonSelector,
   setQuestionnaireInEditor,
-  duplicatedIdsSelector,
-  hasAnyErrorSelector,
 } from "./store/questionnaireInEditor";
 import {
   QuestionnaireSelection,
@@ -36,6 +35,7 @@ import { getAllQuestionnaires, getQuestionnaireByIdVersionAndLanguage } from "./
 import { QuestionnaireBaseData } from "./models/QuestionnairesList";
 import { SettingSelection } from "./components/questionnaireSelection/SettingSelection";
 import { getQueryParams, setQueryParams } from "./utils/queryParams";
+import { UserInstructions } from "./components/UserInstructions";
 
 const theme = createMuiTheme({
   palette: {
@@ -48,7 +48,7 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     content: {
       background: "#EDF2F7",
@@ -87,6 +87,7 @@ export const App: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const [isJsonMode, setIsJsonMode] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   const classes = useStyles();
 
@@ -219,7 +220,7 @@ export const App: React.FC = () => {
                     ...{ language: value as ISOLanguage },
                   });
                 }}
-              ></SettingSelection>
+              />
             ) : null}
             {currentQuestionnaireSelection.version !== undefined &&
             currentQuestionnaireSelection.availableVersions !== undefined ? (
@@ -230,12 +231,20 @@ export const App: React.FC = () => {
                 handleChange={(value) => {
                   handleVersionChanged(value as number);
                 }}
-              ></SettingSelection>
+              />
             ) : null}
             <FormControlLabel
               control={<Switch checked={isJsonMode} onChange={handleJsonModeChanged} name="jsonMode" />}
               label="JSON Mode"
             />
+            <Button
+              onClick={() => setIsHelpOpen(true)}
+              className={classes.marginRight}
+              variant="outlined"
+              color="secondary"
+            >
+              ?
+            </Button>
           </div>
         </Toolbar>
       </AppBar>
@@ -286,6 +295,7 @@ export const App: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
+      <UserInstructions open={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
     </ThemeProvider>
   );
 };

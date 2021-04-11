@@ -29,3 +29,11 @@ export async function getQuestionnaireByIdVersionAndLanguage(
   }
   return undefined;
 }
+
+export async function getInstructions(): Promise<string | undefined> {
+  const response = await fetch(`./INSTRUCTIONS.md`);
+  if (response.ok) {
+    return await response.text();
+  }
+  return undefined;
+}
