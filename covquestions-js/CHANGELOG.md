@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.4.0...@covopen/covquestions-js@1.4.1) (2021-04-18)
+
+
+### Bug Fixes
+
+* make timestamp conversion more stable in case no timestamp is given ([1f58548](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/commit/1f585487f4cee076051ae8731fef32eea8429074))
+
+
+
+
+
 # [1.4.0](https://github.com/CovOpen/CovQuestions/tree/master/covquestions-js/compare/@covopen/covquestions-js@1.3.2...@covopen/covquestions-js@1.4.0) (2021-04-08)
 
 
