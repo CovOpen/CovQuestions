@@ -314,6 +314,25 @@ describe("questionnaireEngine", () => {
 
       expect(result["converted_date"]).toEqual("2021.04.01");
     });
+
+    it("should return emtpy timestamp from timestamp conversion if date is missing", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "converted_date",
+            expression: {
+              convert_to_date_string: [undefined, "YYYY.MM.DD"],
+            },
+          },
+        ],
+      } as any;
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["converted_date"]).toEqual("");
+    });
   });
 
   describe("round numbers", () => {
