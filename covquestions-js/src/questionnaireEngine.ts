@@ -363,7 +363,7 @@ export class QuestionnaireEngine {
     function convertToDateString(
       timestamp?: LogicExpression,
       dateFormat?: LogicExpression
-    ): string {
+    ): string | null {
       if (!timestamp || !dateFormat) {
         return null;
       }
