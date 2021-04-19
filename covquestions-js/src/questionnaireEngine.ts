@@ -363,9 +363,9 @@ export class QuestionnaireEngine {
     function convertToDateString(
       timestamp?: LogicExpression,
       dateFormat?: LogicExpression
-    ): string {
+    ): string | null {
       if (!timestamp || !dateFormat) {
-        return "";
+        return null;
       }
       const timestampInMilliseconds = parseInt(timestamp.toString()) * 1000;
       return dayjs(timestampInMilliseconds).format(dateFormat.toString());

@@ -331,7 +331,7 @@ describe("questionnaireEngine", () => {
       const engine = new QuestionnaireEngine(testQuestionnaire);
       const result = engine.getVariables();
 
-      expect(result["converted_date"]).toEqual("");
+      expect(result["converted_date"]).toEqual(null);
     });
   });
 
