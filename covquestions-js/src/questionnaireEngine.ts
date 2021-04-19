@@ -365,7 +365,7 @@ export class QuestionnaireEngine {
       dateFormat?: LogicExpression
     ): string {
       if (!timestamp || !dateFormat) {
-        return "";
+        return null;
       }
       const timestampInMilliseconds = parseInt(timestamp.toString()) * 1000;
       return dayjs(timestampInMilliseconds).format(dateFormat.toString());
