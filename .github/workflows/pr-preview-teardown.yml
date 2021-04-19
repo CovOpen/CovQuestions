@@ -4,7 +4,7 @@ on:
     branches: [master]
     types: [closed]
     paths:
-      - "react-with-json-logic/**"
+      - "covquestions-editor-app/**"
 env:
   RESSOURCE_GROUP: covapp
   STORAGE_NAME: covquestionspr${{ github.event.pull_request.number }}
