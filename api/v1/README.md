@@ -17,7 +17,7 @@ In order to update a questionnaire or submit a new one:
 
 To extract the strings from the questionares in `src/data` run `npm run i18n-extract`.
 
-> To add new Localizations have a look at the docs
+> To add new Localizations have a look at the docs in root.
 
 The translation of a questionnaire has two steps:
 
