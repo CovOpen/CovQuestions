@@ -62,7 +62,7 @@ jobs:
           clean: true
           # Exclude files from covquestions-documentation
           clean-exclude: |
-            index.html
+            /index.html
             modules.html
             classes/**
             assets/**
