@@ -2,6 +2,7 @@
 
 This is a static file API. In order to generate the files for the api run `npm run build`.
 This will gather everything from `./data` (questionnaires, translations) and generate the files in `dist`.
+To generate the documentation run `npm run build-swagger`.
 
 ## Update questionnaires
 
