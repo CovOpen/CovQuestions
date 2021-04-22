@@ -80,5 +80,6 @@ jobs:
           clean: true
           # Ignore API Files
           clean-exclude: |
+            swagger/**
             questionnaires.json
             questionnaires/**
