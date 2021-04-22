@@ -4,7 +4,7 @@ An API to provide questions and logic for frontends.
 
 ## Development
 
-Create the accoring API Client/Server with https://openapi-generator.tech/docs/generators
+Create the according API Client/Server with https://openapi-generator.tech/docs/generators
 Create Typescript Interfaces from openApi https://www.npmjs.com/package/openapi-typescript-codegen
 
 Use Express Typescript in two steps:
