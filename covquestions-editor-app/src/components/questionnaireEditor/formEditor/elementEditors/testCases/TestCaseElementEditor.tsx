@@ -55,7 +55,7 @@ export const TestCaseElementEditor: React.FC<TestCaseElementEditorProps> = (prop
       id: category.id,
       type: "select",
       text: category.description,
-      options: category.results.map((result) => ({ value: result.id, text: result.text })),
+      options: category.results.map((result) => ({ value: result.id, text: result.id + " - " + result.text })),
     })
   );
   const availableVariables: Question[] = questionnaireJson.variables.map((variable) => ({
