@@ -12,6 +12,7 @@ export function validate(path: string) {
 
   const questionnaire = JSON.parse(fs.readFileSync(path, "utf8"));
 
+  console.log("Validating schema...");
   var valid = jsonValidator.validate("schema.json", questionnaire);
   if (!valid)
     throw Error(
@@ -22,6 +23,7 @@ export function validate(path: string) {
       )}`
     );
 
+  console.log("Running embedded Tests...");
   validateWithTestCases(questionnaire);
 }
 

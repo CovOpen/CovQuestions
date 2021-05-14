@@ -6,9 +6,8 @@ To generate the documentation run `npm run build-swagger`.
 
 ## Update questionnaires
 
-In order to update a questionnaire or submit a new one:
+See our [Contributers Guide](/CONTRIBUTING.md)
 
-1. Add a new questionnaire in the `data/questionnaire` folder. (don't forget to increase the version number)
 2. Run `npm run i18n-extract` this will modify your questionnaire and update it with unique translation ids. Furtermore it submits your strings to the localization file (in `i18n`).
 
 (Run the build process)
