@@ -1,5 +1,4 @@
 import * as fs from "fs-extra";
-import { convert } from "xmlbuilder2";
 import * as glob from "fast-glob";
 import { readI18nFile, replaceTranslationMap } from "../src/utility";
 import { Questionnaire } from "../src/models/Questionnaire.generated";
@@ -33,6 +32,16 @@ export function pre_build_fixate_translations(dataDir = "./src/data") {
         let { source, target, lang } = readI18nFile(transFilePath);
         let filteredSourceMap = replaceTranslationMap(sourceMap, source);
         let filteredTargetMap = replaceTranslationMap(sourceMap, target);
+
+        if (
+          Object.keys(filteredSourceMap).every(
+            (t) => filteredSourceMap[t] == undefined
+          )
+        ) {
+          console.warn(
+            "WARNING: The created Translations are empty. Did you use the wrong source language?"
+          );
+        }
 
         writeI18nFile(
           `${questionnairePath.split(".").slice(0, -1).join(".")}.${lang}.xlf`,
