@@ -1,0 +1,491 @@
+<?xml version="1.0"?>
+<xliff version="1.2">
+  <file datatype="plaintext" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="9e7328e5d5c11038c69b727bc7efcd8d">
+        <source><![CDATA[CovApp]]></source>
+        <target state="translated"><![CDATA[CovApp]]></target>
+      </trans-unit>
+      <trans-unit id="375ee26098b46e23bcb854331f0ad8c5">
+        <source><![CDATA[Ja]]></source>
+        <target state="translated"><![CDATA[Ja]]></target>
+      </trans-unit>
+      <trans-unit id="b397ec0bea79fb90df2b7ec2845cde07">
+        <source><![CDATA[Nein]]></source>
+        <target state="translated"><![CDATA[Nein]]></target>
+      </trans-unit>
+      <trans-unit id="2ded6e020eda0a319b5e169402e9f57d">
+        <source><![CDATA[Sind Sie 65 Jahre oder älter?]]></source>
+        <target state="translated"><![CDATA[Sind Sie 65 Jahre oder älter?]]></target>
+      </trans-unit>
+      <trans-unit id="dee1999f232c61f7412d3976edbfe7b3">
+        <source><![CDATA[Allein wohnend]]></source>
+        <target state="translated"><![CDATA[Allein wohnend]]></target>
+      </trans-unit>
+      <trans-unit id="588213ac9dad614c50390e9b0c970831">
+        <source><![CDATA[Zusammen mit Familie, in einer Wohngemeinschaft oder betreuten Gemeinschaftseinrichtung]]></source>
+        <target state="translated"><![CDATA[Zusammen mit Familie, in einer Wohngemeinschaft oder betreuten Gemeinschaftseinrichtung]]></target>
+      </trans-unit>
+      <trans-unit id="5c053da28319f7c289daac6ed6e6e371">
+        <source><![CDATA[Wie ist Ihre aktuelle Wohnsituation?]]></source>
+        <target state="translated"><![CDATA[Wie ist Ihre aktuelle Wohnsituation?]]></target>
+      </trans-unit>
+      <trans-unit id="c87b1cd74f0fab67d2b3956ff803edf0">
+        <source><![CDATA[Pflegen oder unterstützen Sie privat mindestens einmal pro Woche eine oder mehrere Personen mit altersbedingten Beschwerden, chronischen Erkrankungen oder Gebrechlichkeit?]]></source>
+        <target state="translated"><![CDATA[Pflegen oder unterstützen Sie privat mindestens einmal pro Woche eine oder mehrere Personen mit altersbedingten Beschwerden, chronischen Erkrankungen oder Gebrechlichkeit?]]></target>
+      </trans-unit>
+      <trans-unit id="bc071a0cc4923464c6b1853dc13e41c7">
+        <source><![CDATA[Nicht gemeint sind Pflegeleistungen oder Unterstützung, die Sie im Zusammenhang mit Ihrer beruflichen Tätigkeit erbringen.]]></source>
+        <target state="translated"><![CDATA[Nicht gemeint sind Pflegeleistungen oder Unterstützung, die Sie im Zusammenhang mit Ihrer beruflichen Tätigkeit erbringen.]]></target>
+      </trans-unit>
+      <trans-unit id="b557bfe3e7de525d016cbb7290c212f3">
+        <source><![CDATA[Im medizinischen Bereich tätig (Pflege, Arztpraxis oder Krankenhaus)]]></source>
+        <target state="translated"><![CDATA[Im medizinischen Bereich tätig (Pflege, Arztpraxis oder Krankenhaus)]]></target>
+      </trans-unit>
+      <trans-unit id="6a5b6b32090e62d00b1032b888114979">
+        <source><![CDATA[Im medizinischen Bereich betreut/untergebracht (Pflege oder Krankenhaus)]]></source>
+        <target state="translated"><![CDATA[Im medizinischen Bereich betreut/untergebracht (Pflege oder Krankenhaus)]]></target>
+      </trans-unit>
+      <trans-unit id="1aaebce81357033ab95b1fb4d3129928">
+        <source><![CDATA[In einer Gemeinschaftseinrichtung tätig (Schule, Kita, Universität, Heim o.ä.)]]></source>
+        <target state="translated"><![CDATA[In einer Gemeinschaftseinrichtung tätig (Schule, Kita, Universität, Heim o.ä.)]]></target>
+      </trans-unit>
+      <trans-unit id="1dd5d29527a149fecdbdd89d5b7bfe13">
+        <source><![CDATA[In einer Gemeinschaftseinrichtung betreut/untergebracht (Schule, Kita, Universität, Heim etc.)]]></source>
+        <target state="translated"><![CDATA[In einer Gemeinschaftseinrichtung betreut/untergebracht (Schule, Kita, Universität, Heim etc.)]]></target>
+      </trans-unit>
+      <trans-unit id="61afe8b10db48d1310728cf3a5bf7588">
+        <source><![CDATA[Nein, in keinem der genannten Bereiche]]></source>
+        <target state="translated"><![CDATA[Nein, in keinem der genannten Bereiche]]></target>
+      </trans-unit>
+      <trans-unit id="df28fbe47506dab0b3963425c4964dd7">
+        <source><![CDATA[Sind Sie in einem der folgenden Bereiche tätig oder untergebracht/betreut?]]></source>
+        <target state="translated"><![CDATA[Sind Sie in einem der folgenden Bereiche tätig oder untergebracht/betreut?]]></target>
+      </trans-unit>
+      <trans-unit id="8b13a471d9d6d3cb130bfce3b20e88e2">
+        <source><![CDATA[Sind zwei oder mehr Personen in der Einrichtung in der Sie leben oder arbeiten in den letzten 14 Tagen positiv getestet worden?]]></source>
+        <target state="translated"><![CDATA[Sind zwei oder mehr Personen in der Einrichtung in der Sie leben oder arbeiten in den letzten 14 Tagen positiv getestet worden?]]></target>
+      </trans-unit>
+      <trans-unit id="51981c8e9642e96daa188287c7f2396d">
+        <source><![CDATA[Rauchen Sie?]]></source>
+        <target state="translated"><![CDATA[Rauchen Sie?]]></target>
+      </trans-unit>
+      <trans-unit id="8280bd59176d399f824669546c4ccebc">
+        <source><![CDATA[Ich weiß es nicht]]></source>
+        <target state="translated"><![CDATA[Ich weiß es nicht]]></target>
+      </trans-unit>
+      <trans-unit id="38e7445da67f495da1715a25714814f7">
+        <source><![CDATA[Sind Sie schwanger?]]></source>
+        <target state="translated"><![CDATA[Sind Sie schwanger?]]></target>
+      </trans-unit>
+      <trans-unit id="7e6c4d9113d07918d82bf06374717be6">
+        <source><![CDATA[Hatten Sie engen Kontakt zu einem bestätigten Fall?]]></source>
+        <target state="translated"><![CDATA[Hatten Sie engen Kontakt zu einem bestätigten Fall?]]></target>
+      </trans-unit>
+      <trans-unit id="5d4d79d7e29f1cbadf3cff3c77945455">
+        <source><![CDATA[Enger Kontakt mit einem bestätigten Fall bedeutet: <ul><li>Kontakt von Angesicht zu Angesicht länger als 15 Minuten</li><li>Direkter, physischer Kontakt (Berührung, Händeschütteln, Küssen)</li><li>Länger als 15 Minuten direkt neben einer infizierten Person (weniger als 1,5 Meter Abstand) verbracht</li><li>Kontakt mit oder Austausch von Körperflüssigkeiten</li><li>Teilen einer Wohnung</li></ul>  Falls Sie Kontakt hatten, aber adäquate Schutzmaßnahmen (Maske, Kittel) getragen haben, wählen Sie "Nein".]]></source>
+        <target state="translated"><![CDATA[Enger Kontakt mit einem bestätigten Fall bedeutet: <ul><li>Kontakt von Angesicht zu Angesicht länger als 15 Minuten</li><li>Direkter, physischer Kontakt (Berührung, Händeschütteln, Küssen)</li><li>Länger als 15 Minuten direkt neben einer infizierten Person (weniger als 1,5 Meter Abstand) verbracht</li><li>Kontakt mit oder Austausch von Körperflüssigkeiten</li><li>Teilen einer Wohnung</li></ul>  Falls Sie Kontakt hatten, aber adäquate Schutzmaßnahmen (Maske, Kittel) getragen haben, wählen Sie "Nein".]]></target>
+      </trans-unit>
+      <trans-unit id="5f2b5d690b67cfe5b21d81b72bf5b3b9">
+        <source><![CDATA[An welchem Tag war der letzte Kontakt?]]></source>
+        <target state="translated"><![CDATA[An welchem Tag war der letzte Kontakt?]]></target>
+      </trans-unit>
+      <trans-unit id="c801323d365c7bb7e250c68179d04d1b">
+        <source><![CDATA[Ja, mit erhöhtem Risiko]]></source>
+        <target state="translated"><![CDATA[Ja, mit erhöhtem Risiko]]></target>
+      </trans-unit>
+      <trans-unit id="fd8b0fa3772d9dfed840c1a41c2ead77">
+        <source><![CDATA[Ja, mit niedrigem Risiko]]></source>
+        <target state="translated"><![CDATA[Ja, mit niedrigem Risiko]]></target>
+      </trans-unit>
+      <trans-unit id="d8fbbb5f308ca20140a36568f0c7f14b">
+        <source><![CDATA[Ich verwende die Corona Warn App nicht]]></source>
+        <target state="translated"><![CDATA[Ich verwende die Corona Warn App nicht]]></target>
+      </trans-unit>
+      <trans-unit id="619cdc837ac21f9572d20dee20221c89">
+        <source><![CDATA[Wurde durch die Corona Warn App in den letzten 14 Tagen eine Risikobegegnung festgestellt?]]></source>
+        <target state="translated"><![CDATA[Wurde durch die Corona Warn App in den letzten 14 Tagen eine Risikobegegnung festgestellt?]]></target>
+      </trans-unit>
+      <trans-unit id="3d77913a77f7d2274250e9e203eba3f3">
+        <source><![CDATA[Fieber (über 38 °C)]]></source>
+        <target state="translated"><![CDATA[Fieber (über 38 °C)]]></target>
+      </trans-unit>
+      <trans-unit id="5572a8f28f7923b0b6e3797dcea506f5">
+        <source><![CDATA[Schüttelfrost]]></source>
+        <target state="translated"><![CDATA[Schüttelfrost]]></target>
+      </trans-unit>
+      <trans-unit id="5442fbfcebaa256884f01c550540fb27">
+        <source><![CDATA[Gliederschmerzen]]></source>
+        <target state="translated"><![CDATA[Gliederschmerzen]]></target>
+      </trans-unit>
+      <trans-unit id="3a9bea9c1e1aca8442077693fa1482cb">
+        <source><![CDATA[Geschmacks- oder Geruchsverlust]]></source>
+        <target state="translated"><![CDATA[Geschmacks- oder Geruchsverlust]]></target>
+      </trans-unit>
+      <trans-unit id="67d2929cda5467e60c07fbc98f65e7ba">
+        <source><![CDATA[Hatten Sie in den letzen Tagen neue Krankheitsbeschwerden. Wenn ja, welche? (Mehrfachnennung möglich)]]></source>
+        <target state="translated"><![CDATA[Hatten Sie in den letzen Tagen neue Krankheitsbeschwerden. Wenn ja, welche? (Mehrfachnennung möglich)]]></target>
+      </trans-unit>
+      <trans-unit id="0deb4a27f3be6d1c66d3a76055cb852b">
+        <source><![CDATA[Die Frage bezieht sich auf akut aufgetretene oder verstärkte Symptome und schließt chronische Beschwerden und saisonale bzw. allergische Beschwerden aus. Sollten Sie eine chronische Erkrankung haben, vergleichen Sie für die Beantwortung der Frage Ihre derzeitigen mit Ihren bisherigen Beschwerden.   Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></source>
+        <target state="translated"><![CDATA[Die Frage bezieht sich auf akut aufgetretene oder verstärkte Symptome und schließt chronische Beschwerden und saisonale bzw. allergische Beschwerden aus. Sollten Sie eine chronische Erkrankung haben, vergleichen Sie für die Beantwortung der Frage Ihre derzeitigen mit Ihren bisherigen Beschwerden.   Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></target>
+      </trans-unit>
+      <trans-unit id="aff047eae67c59ea70a8e622fd665e24">
+        <source><![CDATA[Fühle mich schlapp oder abgeschlagen]]></source>
+        <target state="translated"><![CDATA[Fühle mich schlapp oder abgeschlagen]]></target>
+      </trans-unit>
+      <trans-unit id="ab3ee089c0918ef4b3da73eefa680b8e">
+        <source><![CDATA[Anhaltender Husten]]></source>
+        <target state="translated"><![CDATA[Anhaltender Husten]]></target>
+      </trans-unit>
+      <trans-unit id="f6421dc2626aafc375cb93db548b44d6">
+        <source><![CDATA[Schnupfen]]></source>
+        <target state="translated"><![CDATA[Schnupfen]]></target>
+      </trans-unit>
+      <trans-unit id="1d9a41d74d7fb60e38477c1c52008551">
+        <source><![CDATA[Durchfall]]></source>
+        <target state="translated"><![CDATA[Durchfall]]></target>
+      </trans-unit>
+      <trans-unit id="3de77b45892c0f4c12b0fb898361ea99">
+        <source><![CDATA[Halsschmerzen]]></source>
+        <target state="translated"><![CDATA[Halsschmerzen]]></target>
+      </trans-unit>
+      <trans-unit id="6149d1c5562283ed8f98ddd82030ba63">
+        <source><![CDATA[Kopfschmerzen]]></source>
+        <target state="translated"><![CDATA[Kopfschmerzen]]></target>
+      </trans-unit>
+      <trans-unit id="424ee7f9de5be1e9e406ab7a2301daaa">
+        <source><![CDATA[Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></source>
+        <target state="translated"><![CDATA[Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></target>
+      </trans-unit>
+      <trans-unit id="905d51f63b28186dba83ddc7e9e21654">
+        <source><![CDATA[Sind Sie in den letzten 24 Std. schneller außer Atem als sonst?]]></source>
+        <target state="translated"><![CDATA[Sind Sie in den letzten 24 Std. schneller außer Atem als sonst?]]></target>
+      </trans-unit>
+      <trans-unit id="054534b86a940ac289d7440a5ac83382">
+        <source><![CDATA[Wählen Sie "Ja", wenn Sie:  <ul><li>Bei leichten Belastungen, wie einem Spaziergang oder dem Steigen weniger Treppenstufen schneller als sonst kurzatmig werden oder Schwierigkeiten beim Atmen haben</li><li>Das Gefühl der Atemnot/Luftnot oder Kurzatmigkeit beim Sitzen oder Liegen verspüren</li><li>Beim Aufstehen aus dem Bett oder vom Stuhl das Gefühl der Atemnot/Luftnot haben</li></ul>  Sollten Sie eine chronische Lungenerkrankung haben, vergleichen Sie Ihre derzeitigen Beschwerden im Hinblick auf Ihre Atmung mit Ihren bisherigen Atemproblemen.]]></source>
+        <target state="translated"><![CDATA[Wählen Sie "Ja", wenn Sie:  <ul><li>Bei leichten Belastungen, wie einem Spaziergang oder dem Steigen weniger Treppenstufen schneller als sonst kurzatmig werden oder Schwierigkeiten beim Atmen haben</li><li>Das Gefühl der Atemnot/Luftnot oder Kurzatmigkeit beim Sitzen oder Liegen verspüren</li><li>Beim Aufstehen aus dem Bett oder vom Stuhl das Gefühl der Atemnot/Luftnot haben</li></ul>  Sollten Sie eine chronische Lungenerkrankung haben, vergleichen Sie Ihre derzeitigen Beschwerden im Hinblick auf Ihre Atmung mit Ihren bisherigen Atemproblemen.]]></target>
+      </trans-unit>
+      <trans-unit id="c00c1485a730e760d1c457e506d5f80b">
+        <source><![CDATA[Bezogen auf alle Fragen zu Symptomen: Seit wann haben Sie die von Ihnen angegebenen Symptome?]]></source>
+        <target state="translated"><![CDATA[Bezogen auf alle Fragen zu Symptomen: Seit wann haben Sie die von Ihnen angegebenen Symptome?]]></target>
+      </trans-unit>
+      <trans-unit id="17dc4a44eb1478d6b900d9653d960a85">
+        <source><![CDATA[Chronische Lungenerkrankung]]></source>
+        <target state="translated"><![CDATA[Chronische Lungenerkrankung]]></target>
+      </trans-unit>
+      <trans-unit id="52d261e9ebc332373e9c8a0abb6bd605">
+        <source><![CDATA[Diabetes]]></source>
+        <target state="translated"><![CDATA[Diabetes]]></target>
+      </trans-unit>
+      <trans-unit id="8aaaf9d1d1185c0e83ffd68d388ebc6f">
+        <source><![CDATA[Herzerkrankung]]></source>
+        <target state="translated"><![CDATA[Herzerkrankung]]></target>
+      </trans-unit>
+      <trans-unit id="2fb59422d6b02e23958e6c7fa573396f">
+        <source><![CDATA[Bluthochdruck]]></source>
+        <target state="translated"><![CDATA[Bluthochdruck]]></target>
+      </trans-unit>
+      <trans-unit id="296d5bf533652f856accdccf1b208fe6">
+        <source><![CDATA[Nierenerkrankungen]]></source>
+        <target state="translated"><![CDATA[Nierenerkrankungen]]></target>
+      </trans-unit>
+      <trans-unit id="528a23089c85c61c88b27673ab342c5c">
+        <source><![CDATA[Down-Syndrom]]></source>
+        <target state="translated"><![CDATA[Down-Syndrom]]></target>
+      </trans-unit>
+      <trans-unit id="f677f587195127523f7173de56e17d90">
+        <source><![CDATA[Krebserkrankung]]></source>
+        <target state="translated"><![CDATA[Krebserkrankung]]></target>
+      </trans-unit>
+      <trans-unit id="91063543e221b2ef39b7fd370916d068">
+        <source><![CDATA[Wurde bei Ihnen durch eine Ärztin/einen Arzt eine der folgenden Erkrankungen festgestellt?]]></source>
+        <target state="translated"><![CDATA[Wurde bei Ihnen durch eine Ärztin/einen Arzt eine der folgenden Erkrankungen festgestellt?]]></target>
+      </trans-unit>
+      <trans-unit id="d6c4357f33f6653fe2c4919fc4370a12">
+        <source><![CDATA[Sollten Sie keine der Erkrankungen haben, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></source>
+        <target state="translated"><![CDATA[Sollten Sie keine der Erkrankungen haben, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></target>
+      </trans-unit>
+      <trans-unit id="2c5a6cac331c48f17c274461111904bb">
+        <source><![CDATA[Was ist ihre Größe? (in cm)]]></source>
+        <target state="translated"><![CDATA[Was ist ihre Größe? (in cm)]]></target>
+      </trans-unit>
+      <trans-unit id="761e616593c049b7a4860405e1161856">
+        <source><![CDATA[Wir nutzen Ihr Gewicht und Ihre Größe zur Berechnung Ihres Body-Mass-Index (BMI). Dieser ist ein Risikofaktor in Zusammenhang mit einer COVID-19 Erkrankung. ]]></source>
+        <target state="translated"><![CDATA[Wir nutzen Ihr Gewicht und Ihre Größe zur Berechnung Ihres Body-Mass-Index (BMI). Dieser ist ein Risikofaktor in Zusammenhang mit einer COVID-19 Erkrankung. ]]></target>
+      </trans-unit>
+      <trans-unit id="9aa670131bad162364d345c813567c66">
+        <source><![CDATA[Was ist Ihr Gewicht? (in kg)]]></source>
+        <target state="translated"><![CDATA[Was ist Ihr Gewicht? (in kg)]]></target>
+      </trans-unit>
+      <trans-unit id="bda57244e02a7fb232ccd354b6fa148b">
+        <source><![CDATA[Nehmen Sie aktuell Cortison in Tablettenform ein?]]></source>
+        <target state="translated"><![CDATA[Nehmen Sie aktuell Cortison in Tablettenform ein?]]></target>
+      </trans-unit>
+      <trans-unit id="0e34ed8e5f0f48c804af4cbbfd7a194a">
+        <source><![CDATA[Immunsuppressiva (bei Organtransplantation oder Autoimmunerkrankung)]]></source>
+        <target state="translated"><![CDATA[Immunsuppressiva (bei Organtransplantation oder Autoimmunerkrankung)]]></target>
+      </trans-unit>
+      <trans-unit id="e9735d1f13c57db6ef4447be211c49d8">
+        <source><![CDATA[Chemotherapie]]></source>
+        <target state="translated"><![CDATA[Chemotherapie]]></target>
+      </trans-unit>
+      <trans-unit id="01ba484b3fb2421838062388d95b836c">
+        <source><![CDATA[Strahlentherapie]]></source>
+        <target state="translated"><![CDATA[Strahlentherapie]]></target>
+      </trans-unit>
+      <trans-unit id="225330ec3a62c2fe6d414646711e1627">
+        <source><![CDATA[Erhalten Sie aktuell eine oder mehrere der genannten Therapien?]]></source>
+        <target state="translated"><![CDATA[Erhalten Sie aktuell eine oder mehrere der genannten Therapien?]]></target>
+      </trans-unit>
+      <trans-unit id="bd98d382f93475a63bf662062c3e8fbf">
+        <source><![CDATA[Immunsuppressiva nehmen oder bekommen Sie nach einer Organtransplantation oder während der Therapie einer Autoimmunerkrankung. Eine Chemo und/oder Strahlentherapie wird zur Behandlung einer Krebserkrankung durchgeführt. Sollten Sie keine der Behandlungen erhalten, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></source>
+        <target state="translated"><![CDATA[Immunsuppressiva nehmen oder bekommen Sie nach einer Organtransplantation oder während der Therapie einer Autoimmunerkrankung. Eine Chemo und/oder Strahlentherapie wird zur Behandlung einer Krebserkrankung durchgeführt. Sollten Sie keine der Behandlungen erhalten, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></target>
+      </trans-unit>
+      <trans-unit id="144b3f55b0099f938864de6896b752ea">
+        <source><![CDATA[Haben Sie sich im Zeitraum vom 1. August 2020 bis heute gegen Grippe impfen lassen?]]></source>
+        <target state="translated"><![CDATA[Haben Sie sich im Zeitraum vom 1. August 2020 bis heute gegen Grippe impfen lassen?]]></target>
+      </trans-unit>
+      <trans-unit id="11bd3bf92b51aefec6b1462e2aab4a73">
+        <source><![CDATA[Haben Sie eine Impfung gegen das neuartige Coronavirus erhalten?]]></source>
+        <target state="translated"><![CDATA[Haben Sie eine Impfung gegen das neuartige Coronavirus erhalten?]]></target>
+      </trans-unit>
+      <trans-unit id="3bb0500008a803afbf41b0d16900e1e6">
+        <source><![CDATA[Haben Sie sämtliche vorgesehene Impfdosen des Coronavirus-Impfstoffes erhalten?]]></source>
+        <target state="translated"><![CDATA[Haben Sie sämtliche vorgesehene Impfdosen des Coronavirus-Impfstoffes erhalten?]]></target>
+      </trans-unit>
+      <trans-unit id="d3b22b0c833138ea8cb531e5708c8f59">
+        <source><![CDATA[Wann haben Sie die letzte Impfdosis erhalten?]]></source>
+        <target state="translated"><![CDATA[Wann haben Sie die letzte Impfdosis erhalten?]]></target>
+      </trans-unit>
+      <trans-unit id="59aa1d4bf9e7e572defdfd69daae2a88">
+        <source><![CDATA[Haben Sie in den letzten 7 Tagen selbst einen Antigen-Schnelltest durchgeführt?]]></source>
+        <target state="translated"><![CDATA[Haben Sie in den letzten 7 Tagen selbst einen Antigen-Schnelltest durchgeführt?]]></target>
+      </trans-unit>
+      <trans-unit id="f81e843b429effd432142fb20a12491a">
+        <source><![CDATA[War dieser Antigen-Test positiv?]]></source>
+        <target state="translated"><![CDATA[War dieser Antigen-Test positiv?]]></target>
+      </trans-unit>
+      <trans-unit id="d48156788fbed33dff1f253284d70fdb">
+        <source><![CDATA[Wurde bei Ihnen in den letzten 7 Tagen ein PCR-Test durchgeführt?]]></source>
+        <target state="translated"><![CDATA[Wurde bei Ihnen in den letzten 7 Tagen ein PCR-Test durchgeführt?]]></target>
+      </trans-unit>
+      <trans-unit id="70df42618ad8f9c71541fcc064a39d87">
+        <source><![CDATA[War dieser PCR-Test positiv?]]></source>
+        <target state="translated"><![CDATA[War dieser PCR-Test positiv?]]></target>
+      </trans-unit>
+      <trans-unit id="a446ed99863bcd6b61af699ac1118c61">
+        <source><![CDATA[Symptome: %(v_symptoms_normalized)d<br>Exposition: %(v_exposition_normalized)d<br>Schwerer Verlauf: %(v_severity_normalized)d<br>Verbreitungspotential: %(v_dissemination_normalized)d]]></source>
+        <target state="translated"><![CDATA[Symptome: %(v_symptoms_normalized)d<br>Exposition: %(v_exposition_normalized)d<br>Schwerer Verlauf: %(v_severity_normalized)d<br>Verbreitungspotential: %(v_dissemination_normalized)d]]></target>
+      </trans-unit>
+      <trans-unit id="e26b44f77b78949783bae3ccf0d89caf">
+        <source><![CDATA[Ihr persönliches Risikoprofil (0 bis 100 Punkte):]]></source>
+        <target state="translated"><![CDATA[Ihr persönliches Risikoprofil (0 bis 100 Punkte):]]></target>
+      </trans-unit>
+      <trans-unit id="420108238e770cbf41cfe587cb70f8cd">
+        <source><![CDATA[Die meisten Benutzer mit einem negativen PCR-Test sind nicht mit dem Coronavirus infiziert. Bei einem PCR-Test handelt es sich um ein sehr zuverlässiges Testfahren mit hoher Aussagekraft. Falls nach dem PCR-Test ein Risikokontakt stattfand oder neue Symptome auftreten, kann eine Wiederholung des Tests ggf. sinnvoll sein. Bei weiteren Fragen wenden Sie sich bitte an die Stelle, bei der Sie den PCR-Test durchgeführt haben.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit einem negativen PCR-Test sind nicht mit dem Coronavirus infiziert. Bei einem PCR-Test handelt es sich um ein sehr zuverlässiges Testfahren mit hoher Aussagekraft. Falls nach dem PCR-Test ein Risikokontakt stattfand oder neue Symptome auftreten, kann eine Wiederholung des Tests ggf. sinnvoll sein. Bei weiteren Fragen wenden Sie sich bitte an die Stelle, bei der Sie den PCR-Test durchgeführt haben.]]></target>
+      </trans-unit>
+      <trans-unit id="3471b33276fe2d9515b9a45d4272b35c">
+        <source><![CDATA[Die meisten Benutzer mit einem positiven PCR-Test sind mit dem Coronavirusinfektion infiziert. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch"). Bei weiteren Fragen wenden Sie sich bitte an die Stelle, bei der Sie den PCR-Test durchgeführt haben.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit einem positiven PCR-Test sind mit dem Coronavirusinfektion infiziert. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch"). Bei weiteren Fragen wenden Sie sich bitte an die Stelle, bei der Sie den PCR-Test durchgeführt haben.]]></target>
+      </trans-unit>
+      <trans-unit id="74df1dc0f4202d112aa49836fb8ce9a8">
+        <source><![CDATA[Die meisten Benutzer mit einem positiven PCR-Test sind mit dem Coronavirusinfektion infiziert. Schwach/Stark positiv. Bei weiteren Fragen wenden Sie sich bitte an die Stelle, bei der Sie den PCR-Test durchgeführt haben.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit einem positiven PCR-Test sind mit dem Coronavirusinfektion infiziert. Schwach/Stark positiv. Bei weiteren Fragen wenden Sie sich bitte an die Stelle, bei der Sie den PCR-Test durchgeführt haben.]]></target>
+      </trans-unit>
+      <trans-unit id="47a408024b0c418e0f722900098e811c">
+        <source><![CDATA[Einige Benutzer mit Ihrer Antwortenkonstellation sind mit dem Coronavirus infiziert. Wir empfehlen die Durchführung eines PCR-Bestätigungstests, der eine Infektion verlässlicher als ein Antigen-Test nachweisen kann. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch"). ]]></source>
+        <target state="translated"><![CDATA[Einige Benutzer mit Ihrer Antwortenkonstellation sind mit dem Coronavirus infiziert. Wir empfehlen die Durchführung eines PCR-Bestätigungstests, der eine Infektion verlässlicher als ein Antigen-Test nachweisen kann. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch"). ]]></target>
+      </trans-unit>
+      <trans-unit id="18839f906319afe873174a3083720ee4">
+        <source><![CDATA[Viele Benutzer mit Ihrer Antwortenkonstellation sind mit dem Coronavirus infiziert. Wir empfehlen die Durchführung eines PCR-Bestätigungstests, der eine Infektion verlässlicher als ein Antigen-Test nachweisen kann.]]></source>
+        <target state="translated"><![CDATA[Viele Benutzer mit Ihrer Antwortenkonstellation sind mit dem Coronavirus infiziert. Wir empfehlen die Durchführung eines PCR-Bestätigungstests, der eine Infektion verlässlicher als ein Antigen-Test nachweisen kann.]]></target>
+      </trans-unit>
+      <trans-unit id="00cfd93f31d3a0ed89b047907c793aab">
+        <source><![CDATA[Die meisten Benutzer mit Ihrer Antwortenkonstellation sind nicht mit dem Coronavirus infiziert. Falls Sie neue Symptome entwickeln oder Riskokontakte haben, kann eine Wiederholung des Tests sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit Ihrer Antwortenkonstellation sind nicht mit dem Coronavirus infiziert. Falls Sie neue Symptome entwickeln oder Riskokontakte haben, kann eine Wiederholung des Tests sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></target>
+      </trans-unit>
+      <trans-unit id="0da9233e6bb12de9c93b6f2c079bb068">
+        <source><![CDATA[Die meisten Benutzer mit Ihrer Antwortenkonstellation sind nicht mit dem Coronavirus infiziert. Falls Sie neue Symptome oder Riskokontakte haben, kann eine Wiederholung des Tests sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit Ihrer Antwortenkonstellation sind nicht mit dem Coronavirus infiziert. Falls Sie neue Symptome oder Riskokontakte haben, kann eine Wiederholung des Tests sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></target>
+      </trans-unit>
+      <trans-unit id="aa928e71ecf48b5e60f899ec7ba07c47">
+        <source><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Es ist zu einem Risikokontakt gekommen und Sie sind geimpft. Da bei Ihnen Faktoren vorliegen, die die Impfwirkung beeinträchtigen können, empfehlen wir die Durchführung eines PCR-Tests.]]></source>
+        <target state="translated"><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Es ist zu einem Risikokontakt gekommen und Sie sind geimpft. Da bei Ihnen Faktoren vorliegen, die die Impfwirkung beeinträchtigen können, empfehlen wir die Durchführung eines PCR-Tests.]]></target>
+      </trans-unit>
+      <trans-unit id="a974b98d5245ec4f1b746caf710af1e1">
+        <source><![CDATA[Die meisten Benutzer mit Ihrer Antwortkonstellation sind nicht mit dem Coronavirus infiziert. Sie hatte einen Risikokontakt und sind durch die Impfung in den meisten Fällen geschützt. Zum jetzigen Zeitpunkt ist keine weitere Testdurchführung notwendig (Ausnahme: Bei dem Risikokontakt wurde eine Mutante des Coronavirus nachgewiesen; In diesem Fall lassen Sie sich bitte ärztlich beraten). Falls Sie Symptome entwickeln, ist ein PCR-Test ggf. sinnvoll. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit Ihrer Antwortkonstellation sind nicht mit dem Coronavirus infiziert. Sie hatte einen Risikokontakt und sind durch die Impfung in den meisten Fällen geschützt. Zum jetzigen Zeitpunkt ist keine weitere Testdurchführung notwendig (Ausnahme: Bei dem Risikokontakt wurde eine Mutante des Coronavirus nachgewiesen; In diesem Fall lassen Sie sich bitte ärztlich beraten). Falls Sie Symptome entwickeln, ist ein PCR-Test ggf. sinnvoll. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></target>
+      </trans-unit>
+      <trans-unit id="b017d30caab1f8a3a25f1837b699043c">
+        <source><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Trotz negativem Antigen-Test ist bei Ihnen eine Infektion mit dem Coronavirus möglich. Wir empfehlen daher zusätzlich die Durchführung eines PCR-Tests, der eine Infektion zuverlässiger nachweisen kann.]]></source>
+        <target state="translated"><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Trotz negativem Antigen-Test ist bei Ihnen eine Infektion mit dem Coronavirus möglich. Wir empfehlen daher zusätzlich die Durchführung eines PCR-Tests, der eine Infektion zuverlässiger nachweisen kann.]]></target>
+      </trans-unit>
+      <trans-unit id="675330c11990ee7fe56c3f34d08f9018">
+        <source><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Trotz negativem Antigen-Test ist bei Ihnen eine Infektion mit dem Coronavirus möglich. Sie geben typische Symptome einer Coronavirusinfektion an. Wir empfehlen die Durchführung eines PCR-Tests, der zuverlässiger eine Infektion nachweisen bzw. ausschließen kann. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch").]]></source>
+        <target state="translated"><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Trotz negativem Antigen-Test ist bei Ihnen eine Infektion mit dem Coronavirus möglich. Sie geben typische Symptome einer Coronavirusinfektion an. Wir empfehlen die Durchführung eines PCR-Tests, der zuverlässiger eine Infektion nachweisen bzw. ausschließen kann. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch").]]></target>
+      </trans-unit>
+      <trans-unit id="b98384a1b466da02e567f9033d65c0d4">
+        <source><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Trotz negativem Antigen-Test ist bei Ihnen eine Infektion mit dem Coronavirus möglich. Sie geben typische Symptome einer Coronavirusinfektion an. Wir empfehlen daher zusätzlich die Durchführung eines PCR-Tests, der eine Infektion zuverlässiger nachweisen kann.]]></source>
+        <target state="translated"><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Trotz negativem Antigen-Test ist bei Ihnen eine Infektion mit dem Coronavirus möglich. Sie geben typische Symptome einer Coronavirusinfektion an. Wir empfehlen daher zusätzlich die Durchführung eines PCR-Tests, der eine Infektion zuverlässiger nachweisen kann.]]></target>
+      </trans-unit>
+      <trans-unit id="cc88e569e20dd854269ac347a952413e">
+        <source><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Sie geben multiple Symptome an, die mit einer Coronavirusinfektion vergesellschaftet sind. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch"). Wir empfehlen daher die Durchführung eines PCR-Tests.]]></source>
+        <target state="translated"><![CDATA[Einige Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Sie geben multiple Symptome an, die mit einer Coronavirusinfektion vergesellschaftet sind. Sie haben eine vollständige Impfung für das Coronavirus erhalten, jedoch kann eine Infektion in Einzelfällen auftreten ("Impfdurchbruch"). Wir empfehlen daher die Durchführung eines PCR-Tests.]]></target>
+      </trans-unit>
+      <trans-unit id="dcee800954b189bcfd9ea92e855da7b8">
+        <source><![CDATA[Viele Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Sie geben multiple Symptome an, die mit einer Coronavirusinfektion vergesellschaftet sind. Wir empfehlen die Durchführung eines PCR-Tests.]]></source>
+        <target state="translated"><![CDATA[Viele Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Sie geben multiple Symptome an, die mit einer Coronavirusinfektion vergesellschaftet sind. Wir empfehlen die Durchführung eines PCR-Tests.]]></target>
+      </trans-unit>
+      <trans-unit id="7a7c8a78c8a578b1f3b7b65d431e6bb1">
+        <source><![CDATA[Ihre Antwortkonstellation deutet darauf hin, dass sie entweder im beruflichen oder häuslichen Umfeld zahlreiche soziale Kontakte haben. Es gibt keinen konkreten Hinweis auf eine Infektion. In Ihrer Situation kann die regelmäßige Durchführung eines Antigen-Tests sinnvoll sein. Falls sich Ihre Kontaktsituation veändert oder Sie neue Symptome entwickeln sollten, führen Sie bittel die CovApp erneut für eine individuelle Bewertung aus.]]></source>
+        <target state="translated"><![CDATA[Ihre Antwortkonstellation deutet darauf hin, dass sie entweder im beruflichen oder häuslichen Umfeld zahlreiche soziale Kontakte haben. Es gibt keinen konkreten Hinweis auf eine Infektion. In Ihrer Situation kann die regelmäßige Durchführung eines Antigen-Tests sinnvoll sein. Falls sich Ihre Kontaktsituation veändert oder Sie neue Symptome entwickeln sollten, führen Sie bittel die CovApp erneut für eine individuelle Bewertung aus.]]></target>
+      </trans-unit>
+      <trans-unit id="fb5292d85d177d442577f61ed2081196">
+        <source><![CDATA[Die meisten Benutzer mit Ihrer Antwortkonstellation sind nicht mit dem Coronavirus infiziert. Sie haben möglicherweise eine erhöhte Exposition und sind durch die Impfung in den meisten Fällen geschützt. Zum jetzigen Zeitpunkt ist keine weitere Testdurchführung notwendig. Falls Sie Symptome entwickeln, könnte ein PCR-Test sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit Ihrer Antwortkonstellation sind nicht mit dem Coronavirus infiziert. Sie haben möglicherweise eine erhöhte Exposition und sind durch die Impfung in den meisten Fällen geschützt. Zum jetzigen Zeitpunkt ist keine weitere Testdurchführung notwendig. Falls Sie Symptome entwickeln, könnte ein PCR-Test sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></target>
+      </trans-unit>
+      <trans-unit id="4f52113955cdb5e4ebae4d957e62ea07">
+        <source><![CDATA[Viele Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Sie hatte einen Risikokontakt, bei dem Sie sich mit dem Coronavirus infiziert haben könnten. Wir empfehlen die Durchführung eines PCR-Tests.]]></source>
+        <target state="translated"><![CDATA[Viele Benutzer mit Ihrer Antwortkonstellation sind mit dem Coronavirus infiziert. Sie hatte einen Risikokontakt, bei dem Sie sich mit dem Coronavirus infiziert haben könnten. Wir empfehlen die Durchführung eines PCR-Tests.]]></target>
+      </trans-unit>
+      <trans-unit id="8bbc314d6c58d6de33a3a4c410603762">
+        <source><![CDATA[Die meisten Benutzer mit Ihrer Antwortkonstellation sind nicht mit dem Coronavirus infiziert. Zum jetzigen Zeitpunkt ist die Durchführung eines Tests nicht notwendig. Falls Sie neue Symptome entwickeln oder Sie einem Risikokontakt ausgesetzt sind, kann die Durchführung eines Tests sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit Ihrer Antwortkonstellation sind nicht mit dem Coronavirus infiziert. Zum jetzigen Zeitpunkt ist die Durchführung eines Tests nicht notwendig. Falls Sie neue Symptome entwickeln oder Sie einem Risikokontakt ausgesetzt sind, kann die Durchführung eines Tests sinnvoll sein. Führen Sie in diesem Fall die CovApp für eine individuelle Bewertung erneut aus.]]></target>
+      </trans-unit>
+      <trans-unit id="1283705c9f32ca2da2e043a53637ae0b">
+        <source><![CDATA[Testempfehlung]]></source>
+        <target state="translated"><![CDATA[Testempfehlung]]></target>
+      </trans-unit>
+      <trans-unit id="69406e6209dd7bd878665272674705bc">
+        <source><![CDATA[Sie geben akute Atemnot an. Bitte begeben Sie sich in ärztliche Behandlung.]]></source>
+        <target state="translated"><![CDATA[Sie geben akute Atemnot an. Bitte begeben Sie sich in ärztliche Behandlung.]]></target>
+      </trans-unit>
+      <trans-unit id="5c7ed6d17f6a1da7d057f10e9a4a90ab">
+        <source><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie geben bereits Symptome an. Bitte begeben Sie sich in ärztliche Behandlung.]]></source>
+        <target state="translated"><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie geben bereits Symptome an. Bitte begeben Sie sich in ärztliche Behandlung.]]></target>
+      </trans-unit>
+      <trans-unit id="91ac853f3e09453d149cdea35d2eb8da">
+        <source><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie geben bereits Symptome an. Falls sich die Coronavirusinfektion in einem weiteren Test bestätigt, dann begeben Sie sich bitte in ärztliche Behandlung.]]></source>
+        <target state="translated"><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie geben bereits Symptome an. Falls sich die Coronavirusinfektion in einem weiteren Test bestätigt, dann begeben Sie sich bitte in ärztliche Behandlung.]]></target>
+      </trans-unit>
+      <trans-unit id="b9a9015bd93175d59ed1fdea460a320d">
+        <source><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen mäßig erhöht. Sie geben bereits Symptome an. Bitte lassen Sie sich ärztlich beraten.]]></source>
+        <target state="translated"><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen mäßig erhöht. Sie geben bereits Symptome an. Bitte lassen Sie sich ärztlich beraten.]]></target>
+      </trans-unit>
+      <trans-unit id="daeb667a8353f2757c9f85ff86994e24">
+        <source><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen mäßig erhöht. Sie geben bereits Symptome an. Falls sich die Coronavirusinfektion in einem weiteren Test bestätigt, dann lassen Sie sich bitte ärztlich beraten.]]></source>
+        <target state="translated"><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen mäßig erhöht. Sie geben bereits Symptome an. Falls sich die Coronavirusinfektion in einem weiteren Test bestätigt, dann lassen Sie sich bitte ärztlich beraten.]]></target>
+      </trans-unit>
+      <trans-unit id="c1afd7eea97b800d892396885e444b1e">
+        <source><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie sind derzeit nicht vollständig gegen das Coronavirus geimpft. Sie profitieren besonders von einer Impfung, da dadurch bei den meisten Patienten ein schwerer Verlauf (z.B. Beatmung) vermieden werden kann.]]></source>
+        <target state="translated"><![CDATA[Die Wahrscheinlichkeit für einen schweren Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie sind derzeit nicht vollständig gegen das Coronavirus geimpft. Sie profitieren besonders von einer Impfung, da dadurch bei den meisten Patienten ein schwerer Verlauf (z.B. Beatmung) vermieden werden kann.]]></target>
+      </trans-unit>
+      <trans-unit id="b53245a1e1b02f4fd4993819f1b0b8bd">
+        <source><![CDATA[Die Wahrscheinlichkeit für einen mäßigen Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie sind derzeit nicht vollständig gegen das Coronavirus geimpft. Sie profitieren besonders von einer Impfung, da dadurch bei den meisten Patienten ein schwerer Verlauf (z.B. Beatmung) vermieden werden kann.]]></source>
+        <target state="translated"><![CDATA[Die Wahrscheinlichkeit für einen mäßigen Verlauf einer Coronavirusinfektion ist bei Ihnen stark erhöht. Sie sind derzeit nicht vollständig gegen das Coronavirus geimpft. Sie profitieren besonders von einer Impfung, da dadurch bei den meisten Patienten ein schwerer Verlauf (z.B. Beatmung) vermieden werden kann.]]></target>
+      </trans-unit>
+      <trans-unit id="396aea27fbcbde3980d57c5117bcce20">
+        <source><![CDATA[Die meisten Benutzer mit Ihrer Antwortenkonstellation haben kein erhöhtes Risiko für einen schweren Verlauf einer Coronavirusinfektion.]]></source>
+        <target state="translated"><![CDATA[Die meisten Benutzer mit Ihrer Antwortenkonstellation haben kein erhöhtes Risiko für einen schweren Verlauf einer Coronavirusinfektion.]]></target>
+      </trans-unit>
+      <trans-unit id="876a7aca8ba08a71ef30bf9c4af093f2">
+        <source><![CDATA[Empfehlungen hinsichtlich schwerer Verlauf Covid-19]]></source>
+        <target state="translated"><![CDATA[Empfehlungen hinsichtlich schwerer Verlauf Covid-19]]></target>
+      </trans-unit>
+      <trans-unit id="fb161116f561b722d5f4120195305ea3">
+        <source><![CDATA[Bitte isolieren Sie sich von anderen Personen, um eine Weitergabe des Virus zu verhindern.]]></source>
+        <target state="translated"><![CDATA[Bitte isolieren Sie sich von anderen Personen, um eine Weitergabe des Virus zu verhindern.]]></target>
+      </trans-unit>
+      <trans-unit id="b5d23a9f66d80ac1abf607b473d25eef">
+        <source><![CDATA[Nach Ihren Angaben haben Sie beruflich und/oder privat zahlreiche soziale Kontakte. Sie sind geimpft, aber eine Infektion mit dem Coronavirus erscheint dennoch möglich. Bitte reduzieren Sie Ihre sozialen Kontakte, wann immer dies möglich ist, bis eine Coronavirusinfektion durch einen Test ausgeschlossen wurde.]]></source>
+        <target state="translated"><![CDATA[Nach Ihren Angaben haben Sie beruflich und/oder privat zahlreiche soziale Kontakte. Sie sind geimpft, aber eine Infektion mit dem Coronavirus erscheint dennoch möglich. Bitte reduzieren Sie Ihre sozialen Kontakte, wann immer dies möglich ist, bis eine Coronavirusinfektion durch einen Test ausgeschlossen wurde.]]></target>
+      </trans-unit>
+      <trans-unit id="a754e4c16cd80cbe28ae1b44a80a171c">
+        <source><![CDATA[Nach Ihren Angaben haben Sie beruflich und/oder privat zahlreiche soziale Kontakte. Bei Ihnen ist eine Coronavirusinfektion möglich. Bitte begeben Sie sich in Selbstisolation, bis eine Coronavirusinfektion durch einen Test ausgeschlossen wurde.]]></source>
+        <target state="translated"><![CDATA[Nach Ihren Angaben haben Sie beruflich und/oder privat zahlreiche soziale Kontakte. Bei Ihnen ist eine Coronavirusinfektion möglich. Bitte begeben Sie sich in Selbstisolation, bis eine Coronavirusinfektion durch einen Test ausgeschlossen wurde.]]></target>
+      </trans-unit>
+      <trans-unit id="15e3ceadd5343546b286271efd10ef50">
+        <source><![CDATA[Handlungsempfehlungen Verbreitungspotential]]></source>
+        <target state="translated"><![CDATA[Handlungsempfehlungen Verbreitungspotential]]></target>
+      </trans-unit>
+      <trans-unit id="83d926fa3af298d146920673d592ea0d">
+        <source><![CDATA[Negative PCR should not receive further tests.]]></source>
+        <target state="translated"><![CDATA[Negative PCR should not receive further tests.]]></target>
+      </trans-unit>
+      <trans-unit id="5ada4901bbf55591e50ce9ccc5f07362">
+        <source><![CDATA[Positive PCR and vaccinated should conclude infection, warning and no further test.]]></source>
+        <target state="translated"><![CDATA[Positive PCR and vaccinated should conclude infection, warning and no further test.]]></target>
+      </trans-unit>
+      <trans-unit id="bd807c3e9da4994fe90e2db4c555624d">
+        <source><![CDATA[Positive PCR and not vaccinated should conculde infection and result in no further testing]]></source>
+        <target state="translated"><![CDATA[Positive PCR and not vaccinated should conculde infection and result in no further testing]]></target>
+      </trans-unit>
+      <trans-unit id="d072f778b3125b1c3bc775c3bfd56630">
+        <source><![CDATA[Positive Antigen and vaccination should conclude warning and PCR test.]]></source>
+        <target state="translated"><![CDATA[Positive Antigen and vaccination should conclude warning and PCR test.]]></target>
+      </trans-unit>
+      <trans-unit id="a637b470ffb0b7f5ee36776afeb2662b">
+        <source><![CDATA[Negative Antigen, no exposition and no symptoms should result in no test.]]></source>
+        <target state="translated"><![CDATA[Negative Antigen, no exposition and no symptoms should result in no test.]]></target>
+      </trans-unit>
+      <trans-unit id="ede55614d349594f6946030028f1f002">
+        <source><![CDATA[Negative Antigen, low exposition and no symptoms should result in no test.]]></source>
+        <target state="translated"><![CDATA[Negative Antigen, low exposition and no symptoms should result in no test.]]></target>
+      </trans-unit>
+      <trans-unit id="f179227ae9f23f34072a0a3b1e9851a7">
+        <source><![CDATA[High exposition, vaccinated by compromised immunesystem should result in pcr test]]></source>
+        <target state="translated"><![CDATA[High exposition, vaccinated by compromised immunesystem should result in pcr test]]></target>
+      </trans-unit>
+      <trans-unit id="c05a59789eeff1667208f62c7bf8eba3">
+        <source><![CDATA[High exposition, vaccinated and normal immunesystem should result in no test]]></source>
+        <target state="translated"><![CDATA[High exposition, vaccinated and normal immunesystem should result in no test]]></target>
+      </trans-unit>
+      <trans-unit id="dc35203fa75f54b60dc5d4f4157cf532">
+        <source><![CDATA[Negative Antigen, high exposition, not vaccinated should result in PCR test]]></source>
+        <target state="translated"><![CDATA[Negative Antigen, high exposition, not vaccinated should result in PCR test]]></target>
+      </trans-unit>
+      <trans-unit id="415f0a11197b9ae74a6fb75b59c90603">
+        <source><![CDATA[No high exposition, negative Antigen, symptoms, vaccinated should result in PCR]]></source>
+        <target state="translated"><![CDATA[No high exposition, negative Antigen, symptoms, vaccinated should result in PCR]]></target>
+      </trans-unit>
+      <trans-unit id="53e7297a8effba97fa393a8e4802fb89">
+        <source><![CDATA[No high exposition, negative Antigen, symptoms, not vaccinated should result in PCR]]></source>
+        <target state="translated"><![CDATA[No high exposition, negative Antigen, symptoms, not vaccinated should result in PCR]]></target>
+      </trans-unit>
+      <trans-unit id="674e5a776d2777293ca768d1526b0562">
+        <source><![CDATA[No PCR, no Antigen, symptoms, vaccinated should result in PCR]]></source>
+        <target state="translated"><![CDATA[No PCR, no Antigen, symptoms, vaccinated should result in PCR]]></target>
+      </trans-unit>
+      <trans-unit id="066ed9e7409d47fed53f4f18f5b8dca1">
+        <source><![CDATA[No PCR, no Antigen, low exposition, no symptoms, not vaccinated should result in Antigen]]></source>
+        <target state="translated"><![CDATA[No PCR, no Antigen, low exposition, no symptoms, not vaccinated should result in Antigen]]></target>
+      </trans-unit>
+      <trans-unit id="47a5b6064adc039e53bcf09389ea59d4">
+        <source><![CDATA[No PCR, no Antigen, low exposition, no symptoms, vaccinated should result in no testing]]></source>
+        <target state="translated"><![CDATA[No PCR, no Antigen, low exposition, no symptoms, vaccinated should result in no testing]]></target>
+      </trans-unit>
+      <trans-unit id="77c3d81fc45de6b9b44bd6c3bda7b886">
+        <source><![CDATA[No Antigen, No PCR, high exposition, no symptoms, not vaccinated should result in PCR test]]></source>
+        <target state="translated"><![CDATA[No Antigen, No PCR, high exposition, no symptoms, not vaccinated should result in PCR test]]></target>
+      </trans-unit>
+      <trans-unit id="9914d80177368670095f181cbfa6a137">
+        <source><![CDATA[Problems breathing should result in physician consultation.]]></source>
+        <target state="translated"><![CDATA[Problems breathing should result in physician consultation.]]></target>
+      </trans-unit>
+      <trans-unit id="ac6f72d9b7f4ea62caab0595d3734b87">
+        <source><![CDATA[High risk for severe covid-19 and symptoms present, test indicates infection]]></source>
+        <target state="translated"><![CDATA[High risk for severe covid-19 and symptoms present, test indicates infection]]></target>
+      </trans-unit>
+      <trans-unit id="e83d1dc01c5a941b5d3b7fe17a29a126">
+        <source><![CDATA[high risk for severe covid-19 and symptoms present and probable infection]]></source>
+        <target state="translated"><![CDATA[high risk for severe covid-19 and symptoms present and probable infection]]></target>
+      </trans-unit>
+      <trans-unit id="5230ec440027fc20dfa8fccdfbb0f7f1">
+        <source><![CDATA[High risk for severe covid-19, no symptoms, no vaccination]]></source>
+        <target state="translated"><![CDATA[High risk for severe covid-19, no symptoms, no vaccination]]></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
