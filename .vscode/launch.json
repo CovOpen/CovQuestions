@@ -18,10 +18,20 @@
       }
     },
     {
-      "name": "Pre_Build TS File",
+      "name": "Pre_Build_add_file TS File",
       "type": "node",
       "request": "launch",
       "args": ["scripts/pre_build_add_new_file.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}/api/v1/",
+      "protocol": "inspector"
+    },
+    {
+      "name": "Pre_Build_tranlations TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["scripts/pre_build_fixate_translations.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}/api/v1/",
