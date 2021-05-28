@@ -1,370 +1,278 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.2">
-  <file datatype="plaintext" source-language="en" target-language="de">
+  <file datatype="plaintext" source-language="de" target-language="de">
     <body>
       <trans-unit id="9e7328e5d5c11038c69b727bc7efcd8d">
-        <source><![CDATA[CovApp]]></source>
-        <target state="translated"><![CDATA[CovApp]]></target>
+        <source>CovApp</source>
+        <target state="needs-translation">CovApp</target>
       </trans-unit>
-      <trans-unit id="375ee26098b46e23bcb854331f0ad8c5">
-        <source><![CDATA[Ja]]></source>
-        <target state="translated"><![CDATA[Ja]]></target>
+      <trans-unit id="93cba07454f06a4a960172bbd6e2a435">
+        <source>Yes</source>
+        <target state="needs-translation">Yes</target>
       </trans-unit>
-      <trans-unit id="b397ec0bea79fb90df2b7ec2845cde07">
-        <source><![CDATA[Nein]]></source>
-        <target state="translated"><![CDATA[Nein]]></target>
+      <trans-unit id="bafd7322c6e97d25b6299b5d6fe8920b">
+        <source>No</source>
+        <target state="needs-translation">No</target>
       </trans-unit>
-      <trans-unit id="2ded6e020eda0a319b5e169402e9f57d">
-        <source><![CDATA[Sind Sie 65 Jahre oder älter?]]></source>
-        <target state="translated"><![CDATA[Sind Sie 65 Jahre oder älter?]]></target>
+      <trans-unit id="21bac968072b55ca1312c9dc0d814dad">
+        <source>Are you 65 or older?</source>
+        <target state="needs-translation">Are you 65 or older?</target>
       </trans-unit>
-      <trans-unit id="dee1999f232c61f7412d3976edbfe7b3">
-        <source><![CDATA[Allein wohnend]]></source>
-        <target state="translated"><![CDATA[Allein wohnend]]></target>
+      <trans-unit id="1b18a03cca629193b2f848b66d247531">
+        <source>Living alone</source>
+        <target state="needs-translation">Living alone</target>
       </trans-unit>
-      <trans-unit id="588213ac9dad614c50390e9b0c970831">
-        <source><![CDATA[Zusammen mit Familie, in einer Wohngemeinschaft oder betreuten Gemeinschaftseinrichtung]]></source>
-        <target state="translated"><![CDATA[Zusammen mit Familie, in einer Wohngemeinschaft oder betreuten Gemeinschaftseinrichtung]]></target>
+      <trans-unit id="8289ed56571d0f0db45889333347e34d">
+        <source>Living together with family, in a shared flat, or in a supervised community facility</source>
+        <target state="needs-translation">Living together with family, in a shared flat, or in a supervised community facility</target>
       </trans-unit>
-      <trans-unit id="5c053da28319f7c289daac6ed6e6e371">
-        <source><![CDATA[Wie ist Ihre aktuelle Wohnsituation?]]></source>
-        <target state="translated"><![CDATA[Wie ist Ihre aktuelle Wohnsituation?]]></target>
+      <trans-unit id="9e4d732e73dfc7d64e8bf89c1f85b666">
+        <source>What is your current living situation?</source>
+        <target state="needs-translation">What is your current living situation?</target>
       </trans-unit>
-      <trans-unit id="c87b1cd74f0fab67d2b3956ff803edf0">
-        <source><![CDATA[Pflegen oder unterstützen Sie privat mindestens einmal pro Woche eine oder mehrere Personen mit altersbedingten Beschwerden, chronischen Erkrankungen oder Gebrechlichkeit?]]></source>
-        <target state="translated"><![CDATA[Pflegen oder unterstützen Sie privat mindestens einmal pro Woche eine oder mehrere Personen mit altersbedingten Beschwerden, chronischen Erkrankungen oder Gebrechlichkeit?]]></target>
+      <trans-unit id="6d3d7d0997d19c0d5be5c7a6bea885af">
+        <source>At least once a week, do you privately care for people with age-related conditions, chronic illnesses, or frailty?</source>
+        <target state="needs-translation">At least once a week, do you privately care for people with age-related conditions, chronic illnesses, or frailty?</target>
       </trans-unit>
-      <trans-unit id="bc071a0cc4923464c6b1853dc13e41c7">
-        <source><![CDATA[Nicht gemeint sind Pflegeleistungen oder Unterstützung, die Sie im Zusammenhang mit Ihrer beruflichen Tätigkeit erbringen.]]></source>
-        <target state="translated"><![CDATA[Nicht gemeint sind Pflegeleistungen oder Unterstützung, die Sie im Zusammenhang mit Ihrer beruflichen Tätigkeit erbringen.]]></target>
+      <trans-unit id="662733ea7b627afd95a24d314237f925">
+        <source>This doesn't include care services or support that you provide professionally.</source>
+        <target state="needs-translation">This doesn't include care services or support that you provide professionally.</target>
       </trans-unit>
-      <trans-unit id="b557bfe3e7de525d016cbb7290c212f3">
-        <source><![CDATA[Im medizinischen Bereich tätig (Pflege, Arztpraxis oder Krankenhaus)]]></source>
-        <target state="translated"><![CDATA[Im medizinischen Bereich tätig (Pflege, Arztpraxis oder Krankenhaus)]]></target>
+      <trans-unit id="850e8bbb1c567e0f00e5aa3b54e8432c">
+        <source>Working in the medical field (care, doctor's office, hospital, or similiar)</source>
+        <target state="needs-translation">Working in the medical field (care, doctor's office, hospital, or similiar)</target>
       </trans-unit>
-      <trans-unit id="6a5b6b32090e62d00b1032b888114979">
-        <source><![CDATA[Im medizinischen Bereich betreut/untergebracht (Pflege oder Krankenhaus)]]></source>
-        <target state="translated"><![CDATA[Im medizinischen Bereich betreut/untergebracht (Pflege oder Krankenhaus)]]></target>
+      <trans-unit id="ec907578e5ca8abfeac6e303590b808f">
+        <source>Cared for or accomodated in the medical sector (care or hospital)</source>
+        <target state="needs-translation">Cared for or accomodated in the medical sector (care or hospital)</target>
       </trans-unit>
-      <trans-unit id="1aaebce81357033ab95b1fb4d3129928">
-        <source><![CDATA[In einer Gemeinschaftseinrichtung tätig (Schule, Kita, Universität, Heim o.ä.)]]></source>
-        <target state="translated"><![CDATA[In einer Gemeinschaftseinrichtung tätig (Schule, Kita, Universität, Heim o.ä.)]]></target>
+      <trans-unit id="9944edd494306420682d5f08c6cba9fd">
+        <source>Working in a community facility (school, day care center, university, home etc.)</source>
+        <target state="needs-translation">Working in a community facility (school, day care center, university, home etc.)</target>
       </trans-unit>
-      <trans-unit id="1dd5d29527a149fecdbdd89d5b7bfe13">
-        <source><![CDATA[In einer Gemeinschaftseinrichtung betreut/untergebracht (Schule, Kita, Universität, Heim etc.)]]></source>
-        <target state="translated"><![CDATA[In einer Gemeinschaftseinrichtung betreut/untergebracht (Schule, Kita, Universität, Heim etc.)]]></target>
+      <trans-unit id="852f670a519bbded4c28548eca99619c">
+        <source>Cared for or accomodated in a community facility (school, day care center, university, home etc.)</source>
+        <target state="needs-translation">Cared for or accomodated in a community facility (school, day care center, university, home etc.)</target>
       </trans-unit>
-      <trans-unit id="61afe8b10db48d1310728cf3a5bf7588">
-        <source><![CDATA[Nein, in keinem der genannten Bereiche]]></source>
-        <target state="translated"><![CDATA[Nein, in keinem der genannten Bereiche]]></target>
+      <trans-unit id="17ec90ed7f7c498214738ed68639a840">
+        <source>No, in none of the above</source>
+        <target state="needs-translation">No, in none of the above</target>
       </trans-unit>
-      <trans-unit id="df28fbe47506dab0b3963425c4964dd7">
-        <source><![CDATA[Sind Sie in einem der folgenden Bereiche tätig oder untergebracht/betreut?]]></source>
-        <target state="translated"><![CDATA[Sind Sie in einem der folgenden Bereiche tätig oder untergebracht/betreut?]]></target>
+      <trans-unit id="3e5d4fa3802c16e087adf5dd448384bb">
+        <source>Do you work or are you cared for/accommodated in one of the following areas?</source>
+        <target state="needs-translation">Do you work or are you cared for/accommodated in one of the following areas?</target>
       </trans-unit>
-      <trans-unit id="8b13a471d9d6d3cb130bfce3b20e88e2">
-        <source><![CDATA[Sind zwei oder mehr Personen in der Einrichtung in der Sie leben oder arbeiten in den letzten 14 Tagen positiv getestet worden?]]></source>
-        <target state="translated"><![CDATA[Sind zwei oder mehr Personen in der Einrichtung in der Sie leben oder arbeiten in den letzten 14 Tagen positiv getestet worden?]]></target>
+      <trans-unit id="996c964027e0d39ceb695616f0dc71f8">
+        <source>Do you smoke?</source>
+        <target state="needs-translation">Do you smoke?</target>
       </trans-unit>
-      <trans-unit id="51981c8e9642e96daa188287c7f2396d">
-        <source><![CDATA[Rauchen Sie?]]></source>
-        <target state="translated"><![CDATA[Rauchen Sie?]]></target>
+      <trans-unit id="ba944d16e5093e3e83c200382dd01e9a">
+        <source>I don't know</source>
+        <target state="needs-translation">I don't know</target>
       </trans-unit>
-      <trans-unit id="8280bd59176d399f824669546c4ccebc">
-        <source><![CDATA[Ich weiß es nicht]]></source>
-        <target state="translated"><![CDATA[Ich weiß es nicht]]></target>
+      <trans-unit id="f654e7b5d64e483cdc3cc358c0b45362">
+        <source>Are you pregnant?</source>
+        <target state="needs-translation">Are you pregnant?</target>
       </trans-unit>
-      <trans-unit id="38e7445da67f495da1715a25714814f7">
-        <source><![CDATA[Sind Sie schwanger?]]></source>
-        <target state="translated"><![CDATA[Sind Sie schwanger?]]></target>
+      <trans-unit id="2aeac0f0bbcb67ad44f7f08106e98f5c">
+        <source>Have you had close contact with a confirmed case?</source>
+        <target state="needs-translation">Have you had close contact with a confirmed case?</target>
       </trans-unit>
-      <trans-unit id="7e6c4d9113d07918d82bf06374717be6">
-        <source><![CDATA[Hatten Sie engen Kontakt zu einem bestätigten Fall?]]></source>
-        <target state="translated"><![CDATA[Hatten Sie engen Kontakt zu einem bestätigten Fall?]]></target>
+      <trans-unit id="62a27829077eb42e6ba86b382873c23c">
+        <source>Close contact with a confirmed case means: * Face-to-face contact for longer than 15 minutes * Direct, physical contact (touching, shaking hands, kissing) * Being within 1.5 meters of the person for more than 15 minutes * Contact with or exchange of body fluids * Living in the same apartment. Choose "No" if you have worn adequate protective measures (mask, smock) on contact.</source>
+        <target state="needs-translation">Close contact with a confirmed case means: * Face-to-face contact for longer than 15 minutes * Direct, physical contact (touching, shaking hands, kissing) * Being within 1.5 meters of the person for more than 15 minutes * Contact with or exchange of body fluids * Living in the same apartment. Choose "No" if you have worn adequate protective measures (mask, smock) on contact.</target>
       </trans-unit>
-      <trans-unit id="5d4d79d7e29f1cbadf3cff3c77945455">
-        <source><![CDATA[Enger Kontakt mit einem bestätigten Fall bedeutet: <ul><li>Kontakt von Angesicht zu Angesicht länger als 15 Minuten</li><li>Direkter, physischer Kontakt (Berührung, Händeschütteln, Küssen)</li><li>Länger als 15 Minuten direkt neben einer infizierten Person (weniger als 1,5 Meter Abstand) verbracht</li><li>Kontakt mit oder Austausch von Körperflüssigkeiten</li><li>Teilen einer Wohnung</li></ul>  Falls Sie Kontakt hatten, aber adäquate Schutzmaßnahmen (Maske, Kittel) getragen haben, wählen Sie "Nein".]]></source>
-        <target state="translated"><![CDATA[Enger Kontakt mit einem bestätigten Fall bedeutet: <ul><li>Kontakt von Angesicht zu Angesicht länger als 15 Minuten</li><li>Direkter, physischer Kontakt (Berührung, Händeschütteln, Küssen)</li><li>Länger als 15 Minuten direkt neben einer infizierten Person (weniger als 1,5 Meter Abstand) verbracht</li><li>Kontakt mit oder Austausch von Körperflüssigkeiten</li><li>Teilen einer Wohnung</li></ul>  Falls Sie Kontakt hatten, aber adäquate Schutzmaßnahmen (Maske, Kittel) getragen haben, wählen Sie "Nein".]]></target>
+      <trans-unit id="84095755cfece2813329d8b3cb363073">
+        <source>What day was the last contact?</source>
+        <target state="needs-translation">What day was the last contact?</target>
       </trans-unit>
-      <trans-unit id="5f2b5d690b67cfe5b21d81b72bf5b3b9">
-        <source><![CDATA[An welchem Tag war der letzte Kontakt?]]></source>
-        <target state="translated"><![CDATA[An welchem Tag war der letzte Kontakt?]]></target>
+      <trans-unit id="53cb8b214289f28fc92d10e9df7f1db6">
+        <source>Fever above 38°C</source>
+        <target state="needs-translation">Fever above 38°C</target>
       </trans-unit>
-      <trans-unit id="c801323d365c7bb7e250c68179d04d1b">
-        <source><![CDATA[Ja, mit erhöhtem Risiko]]></source>
-        <target state="translated"><![CDATA[Ja, mit erhöhtem Risiko]]></target>
+      <trans-unit id="0c838bd15f75bbf6a9cc428940e7f410">
+        <source>Chills</source>
+        <target state="needs-translation">Chills</target>
       </trans-unit>
-      <trans-unit id="fd8b0fa3772d9dfed840c1a41c2ead77">
-        <source><![CDATA[Ja, mit niedrigem Risiko]]></source>
-        <target state="translated"><![CDATA[Ja, mit niedrigem Risiko]]></target>
+      <trans-unit id="a7ce034995730440501063de1b2f0df0">
+        <source>Body aches</source>
+        <target state="needs-translation">Body aches</target>
       </trans-unit>
-      <trans-unit id="d8fbbb5f308ca20140a36568f0c7f14b">
-        <source><![CDATA[Ich verwende die Corona Warn App nicht]]></source>
-        <target state="translated"><![CDATA[Ich verwende die Corona Warn App nicht]]></target>
+      <trans-unit id="992c72c0cc6513df0ccd2af583debef6">
+        <source>Loss of taste or smell</source>
+        <target state="needs-translation">Loss of taste or smell</target>
       </trans-unit>
-      <trans-unit id="619cdc837ac21f9572d20dee20221c89">
-        <source><![CDATA[Wurde durch die Corona Warn App in den letzten 14 Tagen eine Risikobegegnung festgestellt?]]></source>
-        <target state="translated"><![CDATA[Wurde durch die Corona Warn App in den letzten 14 Tagen eine Risikobegegnung festgestellt?]]></target>
+      <trans-unit id="4a5de883f1a0a061c6066166b4d25aef">
+        <source>In the past 24 hours, which of the following symptoms have you had? (multiple selection possible)</source>
+        <target state="needs-translation">In the past 24 hours, which of the following symptoms have you had? (multiple selection possible)</target>
       </trans-unit>
-      <trans-unit id="3d77913a77f7d2274250e9e203eba3f3">
-        <source><![CDATA[Fieber (über 38 °C)]]></source>
-        <target state="translated"><![CDATA[Fieber (über 38 °C)]]></target>
+      <trans-unit id="48f48d760c3a96c24823e60902c9a802">
+        <source>The question relates to acute or exacerbated symptoms and excludes chronic complaints or seasonal or allergic complaints. If you have a chronic illness, compare your current symptoms with your previous problems to answer the question.  If you haven't had any of the symptoms, choose the “Next” button without selecting a symptom.</source>
+        <target state="needs-translation">The question relates to acute or exacerbated symptoms and excludes chronic complaints or seasonal or allergic complaints. If you have a chronic illness, compare your current symptoms with your previous problems to answer the question.  If you haven't had any of the symptoms, choose the “Next” button without selecting a symptom.</target>
       </trans-unit>
-      <trans-unit id="5572a8f28f7923b0b6e3797dcea506f5">
-        <source><![CDATA[Schüttelfrost]]></source>
-        <target state="translated"><![CDATA[Schüttelfrost]]></target>
+      <trans-unit id="b8f1a9e6645276ca0b41aec4564cd043">
+        <source>Feeling tired or weak</source>
+        <target state="needs-translation">Feeling tired or weak</target>
       </trans-unit>
-      <trans-unit id="5442fbfcebaa256884f01c550540fb27">
-        <source><![CDATA[Gliederschmerzen]]></source>
-        <target state="translated"><![CDATA[Gliederschmerzen]]></target>
+      <trans-unit id="326f0b3d9f63713fae2a80b18d2abb41">
+        <source>Persistent cough</source>
+        <target state="needs-translation">Persistent cough</target>
       </trans-unit>
-      <trans-unit id="3a9bea9c1e1aca8442077693fa1482cb">
-        <source><![CDATA[Geschmacks- oder Geruchsverlust]]></source>
-        <target state="translated"><![CDATA[Geschmacks- oder Geruchsverlust]]></target>
+      <trans-unit id="f4d786a17bc8edab95330ed384b7c676">
+        <source>Runny nose</source>
+        <target state="needs-translation">Runny nose</target>
       </trans-unit>
-      <trans-unit id="67d2929cda5467e60c07fbc98f65e7ba">
-        <source><![CDATA[Hatten Sie in den letzen Tagen neue Krankheitsbeschwerden. Wenn ja, welche? (Mehrfachnennung möglich)]]></source>
-        <target state="translated"><![CDATA[Hatten Sie in den letzen Tagen neue Krankheitsbeschwerden. Wenn ja, welche? (Mehrfachnennung möglich)]]></target>
+      <trans-unit id="2b9937c72ac40077abc50637ee8efca2">
+        <source>Diarrhea</source>
+        <target state="needs-translation">Diarrhea</target>
       </trans-unit>
-      <trans-unit id="0deb4a27f3be6d1c66d3a76055cb852b">
-        <source><![CDATA[Die Frage bezieht sich auf akut aufgetretene oder verstärkte Symptome und schließt chronische Beschwerden und saisonale bzw. allergische Beschwerden aus. Sollten Sie eine chronische Erkrankung haben, vergleichen Sie für die Beantwortung der Frage Ihre derzeitigen mit Ihren bisherigen Beschwerden.   Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></source>
-        <target state="translated"><![CDATA[Die Frage bezieht sich auf akut aufgetretene oder verstärkte Symptome und schließt chronische Beschwerden und saisonale bzw. allergische Beschwerden aus. Sollten Sie eine chronische Erkrankung haben, vergleichen Sie für die Beantwortung der Frage Ihre derzeitigen mit Ihren bisherigen Beschwerden.   Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></target>
+      <trans-unit id="2f7bee89f4ff94a7f7a75a5bb5edabca">
+        <source>Sore throat</source>
+        <target state="needs-translation">Sore throat</target>
       </trans-unit>
-      <trans-unit id="aff047eae67c59ea70a8e622fd665e24">
-        <source><![CDATA[Fühle mich schlapp oder abgeschlagen]]></source>
-        <target state="translated"><![CDATA[Fühle mich schlapp oder abgeschlagen]]></target>
+      <trans-unit id="f5234ff6082f641705c3b68ea6bf518b">
+        <source>Headache</source>
+        <target state="needs-translation">Headache</target>
       </trans-unit>
-      <trans-unit id="ab3ee089c0918ef4b3da73eefa680b8e">
-        <source><![CDATA[Anhaltender Husten]]></source>
-        <target state="translated"><![CDATA[Anhaltender Husten]]></target>
+      <trans-unit id="d287bd9b7025bd309c7d48694a5fd212">
+        <source>If you haven't had any of the symptoms, choose the “Next” button without selecting a symptom.</source>
+        <target state="needs-translation">If you haven't had any of the symptoms, choose the “Next” button without selecting a symptom.</target>
       </trans-unit>
-      <trans-unit id="f6421dc2626aafc375cb93db548b44d6">
-        <source><![CDATA[Schnupfen]]></source>
-        <target state="translated"><![CDATA[Schnupfen]]></target>
+      <trans-unit id="a3e7efd39c4193eb03af21af86d4a82b">
+        <source>In the past 24 hours, did you feel that you were more quickly out of breath than usual?</source>
+        <target state="needs-translation">In the past 24 hours, did you feel that you were more quickly out of breath than usual?</target>
       </trans-unit>
-      <trans-unit id="1d9a41d74d7fb60e38477c1c52008551">
-        <source><![CDATA[Durchfall]]></source>
-        <target state="translated"><![CDATA[Durchfall]]></target>
+      <trans-unit id="9470d5ac7a782febededffd57329e2c6">
+        <source>Choose “Yes“ if you have difficulty breathing or shortness of breath: * While sitting or lying down * When getting up from a bed or a chair * After light activity, such as going for a walk or climbing some stairs. If you have chronic lung disease, compare your current breathing problems with your previous breathing problems.</source>
+        <target state="needs-translation">Choose “Yes“ if you have difficulty breathing or shortness of breath: * While sitting or lying down * When getting up from a bed or a chair * After light activity, such as going for a walk or climbing some stairs. If you have chronic lung disease, compare your current breathing problems with your previous breathing problems.</target>
       </trans-unit>
-      <trans-unit id="3de77b45892c0f4c12b0fb898361ea99">
-        <source><![CDATA[Halsschmerzen]]></source>
-        <target state="translated"><![CDATA[Halsschmerzen]]></target>
+      <trans-unit id="a0afce7eb5aa9e70f9bcf0cfdf473409">
+        <source>With regard to all questions about symptoms: since when have you had the symptoms you specified?</source>
+        <target state="needs-translation">With regard to all questions about symptoms: since when have you had the symptoms you specified?</target>
       </trans-unit>
-      <trans-unit id="6149d1c5562283ed8f98ddd82030ba63">
-        <source><![CDATA[Kopfschmerzen]]></source>
-        <target state="translated"><![CDATA[Kopfschmerzen]]></target>
-      </trans-unit>
-      <trans-unit id="424ee7f9de5be1e9e406ab7a2301daaa">
-        <source><![CDATA[Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></source>
-        <target state="translated"><![CDATA[Sollten Sie keines der Symptome haben, wählen Sie keinen Eintrag aus und klicken Sie direkt weiter.]]></target>
-      </trans-unit>
-      <trans-unit id="905d51f63b28186dba83ddc7e9e21654">
-        <source><![CDATA[Sind Sie in den letzten 24 Std. schneller außer Atem als sonst?]]></source>
-        <target state="translated"><![CDATA[Sind Sie in den letzten 24 Std. schneller außer Atem als sonst?]]></target>
-      </trans-unit>
-      <trans-unit id="054534b86a940ac289d7440a5ac83382">
-        <source><![CDATA[Wählen Sie "Ja", wenn Sie:  <ul><li>Bei leichten Belastungen, wie einem Spaziergang oder dem Steigen weniger Treppenstufen schneller als sonst kurzatmig werden oder Schwierigkeiten beim Atmen haben</li><li>Das Gefühl der Atemnot/Luftnot oder Kurzatmigkeit beim Sitzen oder Liegen verspüren</li><li>Beim Aufstehen aus dem Bett oder vom Stuhl das Gefühl der Atemnot/Luftnot haben</li></ul>  Sollten Sie eine chronische Lungenerkrankung haben, vergleichen Sie Ihre derzeitigen Beschwerden im Hinblick auf Ihre Atmung mit Ihren bisherigen Atemproblemen.]]></source>
-        <target state="translated"><![CDATA[Wählen Sie "Ja", wenn Sie:  <ul><li>Bei leichten Belastungen, wie einem Spaziergang oder dem Steigen weniger Treppenstufen schneller als sonst kurzatmig werden oder Schwierigkeiten beim Atmen haben</li><li>Das Gefühl der Atemnot/Luftnot oder Kurzatmigkeit beim Sitzen oder Liegen verspüren</li><li>Beim Aufstehen aus dem Bett oder vom Stuhl das Gefühl der Atemnot/Luftnot haben</li></ul>  Sollten Sie eine chronische Lungenerkrankung haben, vergleichen Sie Ihre derzeitigen Beschwerden im Hinblick auf Ihre Atmung mit Ihren bisherigen Atemproblemen.]]></target>
-      </trans-unit>
-      <trans-unit id="c00c1485a730e760d1c457e506d5f80b">
-        <source><![CDATA[Bezogen auf alle Fragen zu Symptomen: Seit wann haben Sie die von Ihnen angegebenen Symptome?]]></source>
-        <target state="translated"><![CDATA[Bezogen auf alle Fragen zu Symptomen: Seit wann haben Sie die von Ihnen angegebenen Symptome?]]></target>
-      </trans-unit>
-      <trans-unit id="17dc4a44eb1478d6b900d9653d960a85">
-        <source><![CDATA[Chronische Lungenerkrankung]]></source>
-        <target state="translated"><![CDATA[Chronische Lungenerkrankung]]></target>
+      <trans-unit id="9518ec9f8ba2174ba19955b4000ef010">
+        <source>Chronic lung disease</source>
+        <target state="needs-translation">Chronic lung disease</target>
       </trans-unit>
       <trans-unit id="52d261e9ebc332373e9c8a0abb6bd605">
-        <source><![CDATA[Diabetes]]></source>
-        <target state="translated"><![CDATA[Diabetes]]></target>
+        <source>Diabetes</source>
+        <target state="needs-translation">Diabetes</target>
       </trans-unit>
-      <trans-unit id="8aaaf9d1d1185c0e83ffd68d388ebc6f">
-        <source><![CDATA[Herzerkrankung]]></source>
-        <target state="translated"><![CDATA[Herzerkrankung]]></target>
+      <trans-unit id="4e512c97d2f66cbf32919c759ceb27b5">
+        <source>Heart disease</source>
+        <target state="needs-translation">Heart disease</target>
       </trans-unit>
-      <trans-unit id="2fb59422d6b02e23958e6c7fa573396f">
-        <source><![CDATA[Bluthochdruck]]></source>
-        <target state="translated"><![CDATA[Bluthochdruck]]></target>
+      <trans-unit id="d974e1b5c2394194a0f7c61bedcddb58">
+        <source>High blood pressure</source>
+        <target state="needs-translation">High blood pressure</target>
       </trans-unit>
-      <trans-unit id="296d5bf533652f856accdccf1b208fe6">
-        <source><![CDATA[Nierenerkrankungen]]></source>
-        <target state="translated"><![CDATA[Nierenerkrankungen]]></target>
+      <trans-unit id="2f82c77bfe44cf113a126059a14c62ea">
+        <source>Has a doctor diagnosed with any of the following illnesses?</source>
+        <target state="needs-translation">Has a doctor diagnosed with any of the following illnesses?</target>
       </trans-unit>
-      <trans-unit id="528a23089c85c61c88b27673ab342c5c">
-        <source><![CDATA[Down-Syndrom]]></source>
-        <target state="translated"><![CDATA[Down-Syndrom]]></target>
+      <trans-unit id="83f0140072b0ff1a4ceb3affbf1aad5e">
+        <source>If you don't have any of the illnesses, choose the “Next” button without selecting a symptom.</source>
+        <target state="needs-translation">If you don't have any of the illnesses, choose the “Next” button without selecting a symptom.</target>
       </trans-unit>
-      <trans-unit id="f677f587195127523f7173de56e17d90">
-        <source><![CDATA[Krebserkrankung]]></source>
-        <target state="translated"><![CDATA[Krebserkrankung]]></target>
+      <trans-unit id="aa4584cf5a5ebccd06e3688723b326fd">
+        <source>What is your height? (in cm)</source>
+        <target state="needs-translation">What is your height? (in cm)</target>
       </trans-unit>
-      <trans-unit id="91063543e221b2ef39b7fd370916d068">
-        <source><![CDATA[Wurde bei Ihnen durch eine Ärztin/einen Arzt eine der folgenden Erkrankungen festgestellt?]]></source>
-        <target state="translated"><![CDATA[Wurde bei Ihnen durch eine Ärztin/einen Arzt eine der folgenden Erkrankungen festgestellt?]]></target>
+      <trans-unit id="63e7ccda9ffd8bdcf76c5e4d3092f8eb">
+        <source>We use your height and weight to calculate your body mass index (BMI). The BMI can be a risk factor in the context of COVID-19.</source>
+        <target state="needs-translation">We use your height and weight to calculate your body mass index (BMI). The BMI can be a risk factor in the context of COVID-19.</target>
       </trans-unit>
-      <trans-unit id="d6c4357f33f6653fe2c4919fc4370a12">
-        <source><![CDATA[Sollten Sie keine der Erkrankungen haben, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></source>
-        <target state="translated"><![CDATA[Sollten Sie keine der Erkrankungen haben, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></target>
+      <trans-unit id="3d96196fefc78e97efea26d7628297d7">
+        <source>What is your weight? (in kg)</source>
+        <target state="needs-translation">What is your weight? (in kg)</target>
       </trans-unit>
-      <trans-unit id="2c5a6cac331c48f17c274461111904bb">
-        <source><![CDATA[Was ist ihre Größe? (in cm)]]></source>
-        <target state="translated"><![CDATA[Was ist ihre Größe? (in cm)]]></target>
+      <trans-unit id="9ac93addc9eab4db52b05ab9e689aaf7">
+        <source>Are you currently taking steroids?</source>
+        <target state="needs-translation">Are you currently taking steroids?</target>
       </trans-unit>
-      <trans-unit id="761e616593c049b7a4860405e1161856">
-        <source><![CDATA[Wir nutzen Ihr Gewicht und Ihre Größe zur Berechnung Ihres Body-Mass-Index (BMI). Dieser ist ein Risikofaktor in Zusammenhang mit einer COVID-19 Erkrankung. ]]></source>
-        <target state="translated"><![CDATA[Wir nutzen Ihr Gewicht und Ihre Größe zur Berechnung Ihres Body-Mass-Index (BMI). Dieser ist ein Risikofaktor in Zusammenhang mit einer COVID-19 Erkrankung. ]]></target>
+      <trans-unit id="d3d4b4adaedab781ca6c11772e5b4512">
+        <source>Are you currently taking immunosuppressants?</source>
+        <target state="needs-translation">Are you currently taking immunosuppressants?</target>
       </trans-unit>
-      <trans-unit id="9aa670131bad162364d345c813567c66">
-        <source><![CDATA[Was ist Ihr Gewicht? (in kg)]]></source>
-        <target state="translated"><![CDATA[Was ist Ihr Gewicht? (in kg)]]></target>
+      <trans-unit id="52d89580cd97100f987cc405fdd56892">
+        <source>You take or get immunosuppresives after an organ transplant, in the therapy of an autoimmune disease, or during chemotherapy.</source>
+        <target state="needs-translation">You take or get immunosuppresives after an organ transplant, in the therapy of an autoimmune disease, or during chemotherapy.</target>
       </trans-unit>
-      <trans-unit id="bda57244e02a7fb232ccd354b6fa148b">
-        <source><![CDATA[Nehmen Sie aktuell Cortison in Tablettenform ein?]]></source>
-        <target state="translated"><![CDATA[Nehmen Sie aktuell Cortison in Tablettenform ein?]]></target>
+      <trans-unit id="8e25d496d0918492d09eb4753732a37f">
+        <source>Have you been vaccinated against flu between August 2020 and today?</source>
+        <target state="needs-translation">Have you been vaccinated against flu between August 2020 and today?</target>
       </trans-unit>
-      <trans-unit id="0e34ed8e5f0f48c804af4cbbfd7a194a">
-        <source><![CDATA[Immunsuppressiva (bei Organtransplantation oder Autoimmunerkrankung)]]></source>
-        <target state="translated"><![CDATA[Immunsuppressiva (bei Organtransplantation oder Autoimmunerkrankung)]]></target>
+      <trans-unit id="1bfe67677141761cafc82735d732458b">
+        <source>Consent to the transmission of your postal code and recommended action?</source>
+        <target state="needs-translation">Consent to the transmission of your postal code and recommended action?</target>
       </trans-unit>
-      <trans-unit id="e9735d1f13c57db6ef4447be211c49d8">
-        <source><![CDATA[Chemotherapie]]></source>
-        <target state="translated"><![CDATA[Chemotherapie]]></target>
+      <trans-unit id="623de37137f713a8d8aee123a7731365">
+        <source>You can find more information in the data protection declaration.</source>
+        <target state="needs-translation">You can find more information in the data protection declaration.</target>
       </trans-unit>
-      <trans-unit id="01ba484b3fb2421838062388d95b836c">
-        <source><![CDATA[Strahlentherapie]]></source>
-        <target state="translated"><![CDATA[Strahlentherapie]]></target>
+      <trans-unit id="c9235106cab6d98add7d9cb07344734f">
+        <source>What's your postal code?</source>
+        <target state="needs-translation">What's your postal code?</target>
       </trans-unit>
-      <trans-unit id="225330ec3a62c2fe6d414646711e1627">
-        <source><![CDATA[Erhalten Sie aktuell eine oder mehrere der genannten Therapien?]]></source>
-        <target state="translated"><![CDATA[Erhalten Sie aktuell eine oder mehrere der genannten Therapien?]]></target>
+      <trans-unit id="eb38d513253813284e0eee77ec39e3c8">
+        <source>You can enter your postal code here. By specifying your postal code, you allow us to map the data you donated on a map of Germany. This enables us further understand the spread of the pandemic.</source>
+        <target state="needs-translation">You can enter your postal code here. By specifying your postal code, you allow us to map the data you donated on a map of Germany. This enables us further understand the spread of the pandemic.</target>
       </trans-unit>
-      <trans-unit id="bd98d382f93475a63bf662062c3e8fbf">
-        <source><![CDATA[Immunsuppressiva nehmen oder bekommen Sie nach einer Organtransplantation oder während der Therapie einer Autoimmunerkrankung. Eine Chemo und/oder Strahlentherapie wird zur Behandlung einer Krebserkrankung durchgeführt. Sollten Sie keine der Behandlungen erhalten, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></source>
-        <target state="translated"><![CDATA[Immunsuppressiva nehmen oder bekommen Sie nach einer Organtransplantation oder während der Therapie einer Autoimmunerkrankung. Eine Chemo und/oder Strahlentherapie wird zur Behandlung einer Krebserkrankung durchgeführt. Sollten Sie keine der Behandlungen erhalten, wählen Sie keinen Eintrag aus, und wählen Sie direkt „Weiter“.]]></target>
+      <trans-unit id="3177ea52ef79969392fa9605bc638090">
+        <source>Risk Assessment</source>
+        <target state="needs-translation">Risk Assessment</target>
       </trans-unit>
-      <trans-unit id="144b3f55b0099f938864de6896b752ea">
-        <source><![CDATA[Haben Sie sich im Zeitraum vom 1. August 2020 bis heute gegen Grippe impfen lassen?]]></source>
-        <target state="translated"><![CDATA[Haben Sie sich im Zeitraum vom 1. August 2020 bis heute gegen Grippe impfen lassen?]]></target>
+      <trans-unit id="6acfee300ab404be4aac6a7cfcc912c2">
+        <source>High Risk of SARS-Cov-2</source>
+        <target state="needs-translation">High Risk of SARS-Cov-2</target>
       </trans-unit>
-      <trans-unit id="11bd3bf92b51aefec6b1462e2aab4a73">
-        <source><![CDATA[Haben Sie eine Impfung gegen das neuartige Coronavirus erhalten?]]></source>
-        <target state="translated"><![CDATA[Haben Sie eine Impfung gegen das neuartige Coronavirus erhalten?]]></target>
+      <trans-unit id="4200028c03de792b3f22bcd6c950b9d8">
+        <source>Typical symptoms of SARS-Cov-2 without contact.</source>
+        <target state="needs-translation">Typical symptoms of SARS-Cov-2 without contact.</target>
       </trans-unit>
-      <trans-unit id="3bb0500008a803afbf41b0d16900e1e6">
-        <source><![CDATA[Haben Sie sämtliche vorgesehene Impfdosen des Coronavirus-Impfstoffes erhalten?]]></source>
-        <target state="translated"><![CDATA[Haben Sie sämtliche vorgesehene Impfdosen des Coronavirus-Impfstoffes erhalten?]]></target>
+      <trans-unit id="851e33a9b97da77fbdb70fba0776b8dd">
+        <source>No symptoms, but contact with case.</source>
+        <target state="needs-translation">No symptoms, but contact with case.</target>
       </trans-unit>
-      <trans-unit id="d3b22b0c833138ea8cb531e5708c8f59">
-        <source><![CDATA[Wann haben Sie die letzte Impfdosis erhalten?]]></source>
-        <target state="translated"><![CDATA[Wann haben Sie die letzte Impfdosis erhalten?]]></target>
+      <trans-unit id="4933953940ca7e58e4a9a0277d7a08cd">
+        <source>Symptoms indicate a cold.</source>
+        <target state="needs-translation">Symptoms indicate a cold.</target>
       </trans-unit>
-      <trans-unit id="59aa1d4bf9e7e572defdfd69daae2a88">
-        <source><![CDATA[Haben Sie in den letzten 7 Tagen selbst einen Antigen-Schnelltest durchgeführt?]]></source>
-        <target state="translated"><![CDATA[Haben Sie in den letzten 7 Tagen selbst einen Antigen-Schnelltest durchgeführt?]]></target>
+      <trans-unit id="512e1fecde26404204e6072b3a12dcda">
+        <source>No risk</source>
+        <target state="needs-translation">No risk</target>
       </trans-unit>
-      <trans-unit id="a7df39ea93cfdf215aaa2d263e8411c8">
-        <source><![CDATA[War dieser Test positiv?]]></source>
-        <target state="translated"><![CDATA[War dieser Test positiv?]]></target>
+      <trans-unit id="358eae264c6b3c0a1eecd946a0e6ce3e">
+        <source>Medical advisory</source>
+        <target state="needs-translation">Medical advisory</target>
       </trans-unit>
-      <trans-unit id="15e1f79b864402743d7093857f021326">
-        <source><![CDATA[Wurde der Test schon in einem Labor bestätigt?]]></source>
-        <target state="translated"><![CDATA[Wurde der Test schon in einem Labor bestätigt?]]></target>
+      <trans-unit id="2c48896b7d537f74d1e4dc39bc23bbfd">
+        <source>You work in the medical field.</source>
+        <target state="needs-translation">You work in the medical field.</target>
       </trans-unit>
-      <trans-unit id="a446ed99863bcd6b61af699ac1118c61">
-        <source><![CDATA[Symptome: %(v_symptoms_normalized)d<br>Exposition: %(v_exposition_normalized)d<br>Schwerer Verlauf: %(v_severity_normalized)d<br>Verbreitungspotential: %(v_dissemination_normalized)d]]></source>
-        <target state="translated"><![CDATA[Symptome: %(v_symptoms_normalized)d<br>Exposition: %(v_exposition_normalized)d<br>Schwerer Verlauf: %(v_severity_normalized)d<br>Verbreitungspotential: %(v_dissemination_normalized)d]]></target>
+      <trans-unit id="553992236b0d02724bde961693640f6d">
+        <source>Contact advisory</source>
+        <target state="needs-translation">Contact advisory</target>
       </trans-unit>
-      <trans-unit id="e26b44f77b78949783bae3ccf0d89caf">
-        <source><![CDATA[Ihr persönliches Risikoprofil (0 bis 100 Punkte):]]></source>
-        <target state="translated"><![CDATA[Ihr persönliches Risikoprofil (0 bis 100 Punkte):]]></target>
+      <trans-unit id="c8073d819bb267511b3ad29b80c0ce12">
+        <source>Contact was irrellevant.</source>
+        <target state="needs-translation">Contact was irrellevant.</target>
       </trans-unit>
-      <trans-unit id="a3139c28e08d76e577e573b12facac2f">
-        <source><![CDATA[Sie geben an, unter Atemnot zu leiden. Bitte melden Sie sich telefonisch bei Ihrem Hausarzt/Ihrer Hausärztin oder dem Ärztlichen Bereitschaftsdienst (+49 116 117). Bei stärker werden der Atemnot holen Sie sich bitte ärztliche Hilfe. Bitte tauschen Sie sich täglich mit einer nahestehenden Person über Ihr Befinden aus.]]></source>
-        <target state="translated"><![CDATA[Sie geben an, unter Atemnot zu leiden. Bitte melden Sie sich telefonisch bei Ihrem Hausarzt/Ihrer Hausärztin oder dem Ärztlichen Bereitschaftsdienst (+49 116 117). Bei stärker werden der Atemnot holen Sie sich bitte ärztliche Hilfe. Bitte tauschen Sie sich täglich mit einer nahestehenden Person über Ihr Befinden aus.]]></target>
+      <trans-unit id="25597dc4512807cc3f8f0464262d4c54">
+        <source>Risk group advisory</source>
+        <target state="needs-translation">Risk group advisory</target>
+      </trans-unit>
+      <trans-unit id="1e2e26a223d4087c8352a460ad1f8a07">
+        <source>You belong to the risk group</source>
+        <target state="needs-translation">You belong to the risk group</target>
       </trans-unit>
       <trans-unit id="7eaf97ca1f777a52189942cd314de1f3">
-        <source><![CDATA[Shortness of breath advisory]]></source>
-        <target state="translated"><![CDATA[Shortness of breath advisory]]></target>
+        <source>Shortness of breath advisory</source>
+        <target state="needs-translation">Shortness of breath advisory</target>
       </trans-unit>
-      <trans-unit id="9d14d1cc61b7b1f4d60fa66bf55a9d94">
-        <source><![CDATA[Priorität 1: Es liegen Symptome vor, die für eine Coronavirusinfektion sprechen. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.]]></source>
-        <target state="translated"><![CDATA[Priorität 1: Es liegen Symptome vor, die für eine Coronavirusinfektion sprechen. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.]]></target>
-      </trans-unit>
-      <trans-unit id="8afd2188b54bb9bb3005cdcc4698a29b">
-        <source><![CDATA[Priorität 2: Es liegt ein Risikokontakt vor oder Sie befinden sich in einer medizinischen Einrichtung, in der Infektionen aufgetreten sind. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.]]></source>
-        <target state="translated"><![CDATA[Priorität 2: Es liegt ein Risikokontakt vor oder Sie befinden sich in einer medizinischen Einrichtung, in der Infektionen aufgetreten sind. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann bei begrenzter Kapazität oder bei der Notwendigkeit eines schnellen Ergebnisses durchgeführt werden.]]></target>
-      </trans-unit>
-      <trans-unit id="97b2095742d6e20e2aa0e281c137019f">
-        <source><![CDATA[Priorität 3: In Ihrem Umfeld sind Infektionen aufgetreten. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann zur Kohorten-Isolation oder zur Entlastung von Laborkapazitäten durchgeführt werden.]]></source>
-        <target state="translated"><![CDATA[Priorität 3: In Ihrem Umfeld sind Infektionen aufgetreten. Es wird ein PCR Test empfohlen. Ein Antigen-Test kann zur Kohorten-Isolation oder zur Entlastung von Laborkapazitäten durchgeführt werden.]]></target>
-      </trans-unit>
-      <trans-unit id="de0be615ad3288a1f90604b4620f2136">
-        <source><![CDATA[Priorität 4: Ein Antigen-Test wird in Abstimmung mit der lokalen Gesundheitsbehörde oder bei einer erhöhten 7-Tages Inzidenz (> 50 Fälle/100.000 Einwohner) empfohlen. Eine PCR ist möglich ohne Kostenerstattung.]]></source>
-        <target state="translated"><![CDATA[Priorität 4: Ein Antigen-Test wird in Abstimmung mit der lokalen Gesundheitsbehörde oder bei einer erhöhten 7-Tages Inzidenz (> 50 Fälle/100.000 Einwohner) empfohlen. Eine PCR ist möglich ohne Kostenerstattung.]]></target>
-      </trans-unit>
-      <trans-unit id="0c8fc2c3f2c4297d71b559264010cb2c">
-        <source><![CDATA[Priorität 5: Ein Point-of-Care Antigen-Test in regelmäßigen Intervallen wird empfohlen, sofern die 7-Tages-Inzidenz oberhalb von 50 liegt. Eine PCR ist möglich ohne Kostenerstattung.]]></source>
-        <target state="translated"><![CDATA[Priorität 5: Ein Point-of-Care Antigen-Test in regelmäßigen Intervallen wird empfohlen, sofern die 7-Tages-Inzidenz oberhalb von 50 liegt. Eine PCR ist möglich ohne Kostenerstattung.]]></target>
-      </trans-unit>
-      <trans-unit id="59e49eb6fff391e7c3fc34832b438b2d">
-        <source><![CDATA[Keine Priorität: Keine Testung nach der nationalen Teststrategie empfohlen.]]></source>
-        <target state="translated"><![CDATA[Keine Priorität: Keine Testung nach der nationalen Teststrategie empfohlen.]]></target>
-      </trans-unit>
-      <trans-unit id="434c7946451b4324fe139bc120adef0b">
-        <source><![CDATA[Priorität nationale Teststrategie]]></source>
-        <target state="translated"><![CDATA[Priorität nationale Teststrategie]]></target>
-      </trans-unit>
-      <trans-unit id="05c5f1a0cb512445569d4fb75c1f75f1">
-        <source><![CDATA[Es liegen Symptome, die für eine Infektion mit dem Coronavirus sprechen, oder ein positiver Antigen-Schnelltest vor. Wir empfehlen die Durchführung eines PCR Bestätigungstests.]]></source>
-        <target state="translated"><![CDATA[Es liegen Symptome, die für eine Infektion mit dem Coronavirus sprechen, oder ein positiver Antigen-Schnelltest vor. Wir empfehlen die Durchführung eines PCR Bestätigungstests.]]></target>
-      </trans-unit>
-      <trans-unit id="3dca72227af746f2f7b0d716ce810ea9">
-        <source><![CDATA[Es liegen einige Symptome vor. Wir empfehlen die Durchführung eines Antigen-Schnelltest. Nach Durchführung des Schnelltests empfehlen wir die erneute Ausführung der CovApp.]]></source>
-        <target state="translated"><![CDATA[Es liegen einige Symptome vor. Wir empfehlen die Durchführung eines Antigen-Schnelltest. Nach Durchführung des Schnelltests empfehlen wir die erneute Ausführung der CovApp.]]></target>
-      </trans-unit>
-      <trans-unit id="265272b07d1f4549061678a348250ba6">
-        <source><![CDATA[Risikokategorie Symptome]]></source>
-        <target state="translated"><![CDATA[Risikokategorie Symptome]]></target>
-      </trans-unit>
-      <trans-unit id="2ed16471c6da3bdec01b012668190748">
-        <source><![CDATA[Sie geben keine Symptome an, es liegt jedoch ein Risikokontakt vor. Wir empfehlen die Durchführung einer PCR.]]></source>
-        <target state="translated"><![CDATA[Sie geben keine Symptome an, es liegt jedoch ein Risikokontakt vor. Wir empfehlen die Durchführung einer PCR.]]></target>
-      </trans-unit>
-      <trans-unit id="17d96e1efb05e48c707758682974eeec">
-        <source><![CDATA[Es liegen einige Risikofaktoren führ eine erhöhte Exposition vor. In Ihrem Fall könnte es sinnvoll sein, Antigen-Schnelltests in regelmäßigen Intervallen durchzuführen.]]></source>
-        <target state="translated"><![CDATA[Es liegen einige Risikofaktoren führ eine erhöhte Exposition vor. In Ihrem Fall könnte es sinnvoll sein, Antigen-Schnelltests in regelmäßigen Intervallen durchzuführen.]]></target>
-      </trans-unit>
-      <trans-unit id="1c903fea0b93d22a2e5b32c72c904a83">
-        <source><![CDATA[Risikokategorie Exposition]]></source>
-        <target state="translated"><![CDATA[Risikokategorie Exposition]]></target>
-      </trans-unit>
-      <trans-unit id="db62d69ea987926ce0fe381202e1c995">
-        <source><![CDATA[Bei Ihnen liegen Risikofaktoren bezüglich eines schweren Verlaufs einer Coronavirusinfektion vor und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte lassen Sie sich ärztlich beraten.]]></source>
-        <target state="translated"><![CDATA[Bei Ihnen liegen Risikofaktoren bezüglich eines schweren Verlaufs einer Coronavirusinfektion vor und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte lassen Sie sich ärztlich beraten.]]></target>
-      </trans-unit>
-      <trans-unit id="59063d8ab48e6edd0698fd93f5c783dd">
-        <source><![CDATA[Bei Ihnen ist die Wahrscheinlichkeit für einen schweren Verlaufs mäßig erhöht und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bei weiterer Verschlechterung der Symptome lassen Sie sich bitte ärztlich beraten.]]></source>
-        <target state="translated"><![CDATA[Bei Ihnen ist die Wahrscheinlichkeit für einen schweren Verlaufs mäßig erhöht und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bei weiterer Verschlechterung der Symptome lassen Sie sich bitte ärztlich beraten.]]></target>
-      </trans-unit>
-      <trans-unit id="73d1c58f8a9b8504c97aaf036138a2d7">
-        <source><![CDATA[Risikokategorie schwerer Verlauf]]></source>
-        <target state="translated"><![CDATA[Risikokategorie schwerer Verlauf]]></target>
-      </trans-unit>
-      <trans-unit id="c34c4fc6324dd54d3e526aa8dfde2583">
-        <source><![CDATA[Nach Ihren Angaben haben Sie beruflich und/oder privat soziale Kontakte und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte reduzieren Sie Ihre sozialen Kontakte, bis ein PCR Bestätigungstest durchgeführt wurde und dieser negativ ausgefallen ist.]]></source>
-        <target state="translated"><![CDATA[Nach Ihren Angaben haben Sie beruflich und/oder privat soziale Kontakte und Sie geben Symptome an oder es liegt ein positiver Antigen-Schnelltest vor. Bitte reduzieren Sie Ihre sozialen Kontakte, bis ein PCR Bestätigungstest durchgeführt wurde und dieser negativ ausgefallen ist.]]></target>
-      </trans-unit>
-      <trans-unit id="60c7524c1b1c3f3c5391b49d95a2ffb4">
-        <source><![CDATA[Risikokategorie Verbreitungspotential]]></source>
-        <target state="translated"><![CDATA[Risikokategorie Verbreitungspotential]]></target>
-      </trans-unit>
-      <trans-unit id="b13f2d42f0ce7813b5324e2626c72cc6">
-        <source><![CDATA[Patients with a high BMI (> 40) have a high risk of a severe covid-19 course]]></source>
-        <target state="translated"><![CDATA[Patients with a high BMI (> 40) have a high risk of a severe covid-19 course]]></target>
-      </trans-unit>
-      <trans-unit id="8c32c9874b647919dd996c7524a71670">
-        <source><![CDATA[Patients with multiple symptoms should get RKI priority 1]]></source>
-        <target state="translated"><![CDATA[Patients with multiple symptoms should get RKI priority 1]]></target>
+      <trans-unit id="b4a98c442f613dd85641af600b690199">
+        <source>You reported shortness of breath.</source>
+        <target state="needs-translation">You reported shortness of breath.</target>
       </trans-unit>
     </body>
   </file>
