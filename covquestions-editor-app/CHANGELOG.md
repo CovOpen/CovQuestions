@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.7.4...covquestions-editor-app@1.8.0) (2021-06-19)
+
+
+### Features
+
+* add log 10 logic ([#193](https://github.com/CovOpen/CovQuestions/issues/193)) ([184c924](https://github.com/CovOpen/CovQuestions/commit/184c924ff6ada9647a4d8446265cc0331d0b0f37))
+
+
+
+
+
 ## [1.7.4](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.7.3...covquestions-editor-app@1.7.4) (2021-06-13)
 
 **Note:** Version bump only for package covquestions-editor-app

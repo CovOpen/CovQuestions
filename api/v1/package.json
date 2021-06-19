@@ -1,6 +1,6 @@
 {
   "name": "cov-question-api-v1",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "private": true,
   "description": "",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "author": "",
   "dependencies": {
-    "@covopen/covquestions-js": "^1.4.3",
+    "@covopen/covquestions-js": "^1.5.0",
     "@types/fs-extra": "^8.1.0",
     "@types/node": "^13.11.1",
     "ajv": "^6.12.0",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.3.6...cov-question-api-v1@1.4.0) (2021-06-19)
+
+
+### Features
+
+* add log 10 logic ([#193](https://github.com/CovOpen/CovQuestions/issues/193)) ([184c924](https://github.com/CovOpen/CovQuestions/commit/184c924ff6ada9647a4d8446265cc0331d0b0f37))
+
+
+
+
+
 ## [1.3.6](https://github.com/CovOpen/CovQuestions/compare/cov-question-api-v1@1.3.5...cov-question-api-v1@1.3.6) (2021-05-14)
 
 **Note:** Version bump only for package cov-question-api-v1
