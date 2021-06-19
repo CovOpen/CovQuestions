@@ -10,9 +10,6 @@ describe("Date conversion", () => {
   });
 
   expectEx('q_contact_date + v_two_days convert_to_date_string "YYYY.MM.DD"', {
-    convert_to_date_string: [
-      { "+": [{ var: "q_contact_date" }, { var: "v_two_days" }] },
-      "YYYY.MM.DD",
-    ],
+    convert_to_date_string: [{ "+": [{ var: "q_contact_date" }, { var: "v_two_days" }] }, "YYYY.MM.DD"],
   });
 });

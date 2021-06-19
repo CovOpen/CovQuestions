@@ -236,8 +236,7 @@ describe("questionnaireEngine", () => {
               {
                 id: "rc1.1",
                 expression: true,
-                text:
-                  "some text with the number %(magic_number).1f in the middle",
+                text: "some text with the number %(magic_number).1f in the middle",
               },
             ],
           },
@@ -247,9 +246,7 @@ describe("questionnaireEngine", () => {
       const engine = new QuestionnaireEngine(testQuestionnaire);
       const result = engine.getResults();
 
-      expect(result.results[0]!.result.text).toEqual(
-        "some text with the number 42.0 in the middle"
-      );
+      expect(result.results[0]!.result.text).toEqual("some text with the number 42.0 in the middle");
     });
   });
 
@@ -395,6 +392,69 @@ describe("questionnaireEngine", () => {
       const result = engine.getVariables();
 
       expect(result["round_test"]).toEqual(3);
+    });
+  });
+
+  describe("log10 numbers", () => {
+    it("log10", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "log10_test",
+            expression: {
+              log10: [100000],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["log10_test"]).toEqual(5);
+    });
+
+    it("log10 1", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "log10_test",
+            expression: {
+              log10: [1],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["log10_test"]).toEqual(0);
+    });
+
+    it("log10 variable", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "number",
+            expression: 0,
+          },
+          {
+            id: "log10_test",
+            expression: {
+              log10: { var: "number" },
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["log10_test"]).toEqual(Number.NEGATIVE_INFINITY);
     });
   });
 });

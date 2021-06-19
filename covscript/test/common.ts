@@ -49,11 +49,7 @@ export function expectGen(logic: LogicExpression | any, text: string | null) {
  * parser is a bit flexible.
  * @param allowDifferentRepresentation Allows different JSON Logic representations, which can arise due to precedence rules. Does not check for equivalence.
  */
-export function expectE2E(
-  input: string,
-  text: string | null,
-  allowDifferentRepresentation: boolean = false
-) {
+export function expectE2E(input: string, text: string | null, allowDifferentRepresentation: boolean = false) {
   test(`Parse ${input} and render to ${text} consistently (end to end)`, () => {
     const parsed = parser.parse(input);
     const rendered = generator.generate(parsed);

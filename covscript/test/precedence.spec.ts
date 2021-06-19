@@ -43,9 +43,6 @@ describe("Paranteses Tests", () => {
 
 describe("Nested Operator precedence tests", () => {
   expectEx("5 < 2 AND (0 * 8 > 2 + 7 OR 1 < 2)", {
-    and: [
-      { "<": [5, 2] },
-      { or: [{ ">": [{ "*": [0, 8] }, { "+": [2, 7] }] }, { "<": [1, 2] }] },
-    ],
+    and: [{ "<": [5, 2] }, { or: [{ ">": [{ "*": [0, 8] }, { "+": [2, 7] }] }, { "<": [1, 2] }] }],
   });
 });

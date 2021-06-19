@@ -791,6 +791,30 @@
         "title": "LogicConvertToDateString",
         "type": "object"
       },
+      "Log10": {
+        "properties": {
+          "log10": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LogicExpression"
+              },
+              {
+                "items": {
+                  "$ref": "#/components/schemas/LogicExpression"
+                },
+                "maxItems": 1,
+                "minItems": 1,
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "required": [
+          "log10"
+        ],
+        "title": "Log10",
+        "type": "object"
+      },
       "Round": {
         "properties": {
           "round": {
@@ -867,6 +891,9 @@
           },
           {
             "$ref": "#/components/schemas/LogicConvertToDateString"
+          },
+          {
+            "$ref": "#/components/schemas/Log10"
           },
           {
             "$ref": "#/components/schemas/Round"
@@ -1890,6 +1917,9 @@
                 "$ref": "#/components/schemas/LogicConvertToDateString"
               },
               {
+                "$ref": "#/components/schemas/Log10"
+              },
+              {
                 "$ref": "#/components/schemas/Round"
               }
             ]
@@ -2018,6 +2048,30 @@
               "convert_to_date_string"
             ],
             "title": "LogicConvertToDateString",
+            "type": "object"
+          },
+          "Log10": {
+            "properties": {
+              "log10": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/LogicExpression"
+                  },
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/LogicExpression"
+                    },
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "type": "array"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "log10"
+            ],
+            "title": "Log10",
             "type": "object"
           },
           "Round": {

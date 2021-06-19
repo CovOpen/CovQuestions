@@ -118,7 +118,10 @@ export const App: React.FC = () => {
         changedValues.language = changedValues.availableLanguages[0];
       }
     }
-    setCurrentQuestionnaireSelection({ ...currentQuestionnaireSelection, ...changedValues });
+    setCurrentQuestionnaireSelection({
+      ...currentQuestionnaireSelection,
+      ...changedValues,
+    });
   };
 
   const downloadJson = () => {
@@ -127,7 +130,9 @@ export const App: React.FC = () => {
     }
     // after https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react/44661948
     const linkElement = document.createElement("a");
-    const jsonFile = new Blob([JSON.stringify(questionnaireJson, null, 2)], { type: "text/plain" });
+    const jsonFile = new Blob([JSON.stringify(questionnaireJson, null, 2)], {
+      type: "text/plain",
+    });
     linkElement.href = URL.createObjectURL(jsonFile);
     linkElement.download = questionnaireJson.id + ".json";
     document.body.appendChild(linkElement);
@@ -265,7 +270,13 @@ export const App: React.FC = () => {
                   setShowMenu(false);
                 }}
                 allQuestionnaires={allQuestionnaires}
-                selectedValue={currentQuestionnaireSelection ?? { id: "", version: 0, language: "de" }}
+                selectedValue={
+                  currentQuestionnaireSelection ?? {
+                    id: "",
+                    version: 0,
+                    language: "de",
+                  }
+                }
               />
             </Grid>
           ) : null}

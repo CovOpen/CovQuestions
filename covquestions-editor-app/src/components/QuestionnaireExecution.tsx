@@ -136,7 +136,9 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
                   <Grid item xs={12}>
                     <Typography
                       className={classes.questionDetails}
-                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(currentQuestion.details) }}
+                      dangerouslySetInnerHTML={{
+                        __html: sanitizeHtml(currentQuestion.details),
+                      }}
                     />
                   </Grid>
                 ) : undefined}

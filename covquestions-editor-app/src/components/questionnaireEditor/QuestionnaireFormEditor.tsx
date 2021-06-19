@@ -114,7 +114,10 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const classes = useStyles();
 
-  const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({ section: SectionTypeSingle.META, index: 0 });
+  const [activeItem, setActiveItem] = useState<ActiveItem | undefined>({
+    section: SectionTypeSingle.META,
+    index: 0,
+  });
 
   useEffect(() => {
     if (activeItem === undefined || isNonArraySection(activeItem.section)) {
@@ -137,14 +140,24 @@ export function QuestionnaireFormEditor(props: QuestionnaireFormEditorProps) {
 
   const handleMoveUp = () => {
     if (!isNonArraySection(activeItem.section)) {
-      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index - 1 }));
+      dispatch(
+        swapItemWithNextOne({
+          section: activeItem.section,
+          index: activeItem.index - 1,
+        })
+      );
       handleActiveItemChange(activeItem.section, activeItem.index - 1);
     }
   };
 
   const handleMoveDown = () => {
     if (!isNonArraySection(activeItem.section)) {
-      dispatch(swapItemWithNextOne({ section: activeItem.section, index: activeItem.index }));
+      dispatch(
+        swapItemWithNextOne({
+          section: activeItem.section,
+          index: activeItem.index,
+        })
+      );
       handleActiveItemChange(activeItem.section, activeItem.index + 1);
     }
   };

@@ -62,11 +62,7 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}/covquestions-js",
-      "runtimeArgs": [
-        "--inspect-brk",
-        "${workspaceRoot}/covquestions-js/node_modules/jest/bin/jest.js",
-        "--runInBand"
-      ],
+      "runtimeArgs": ["--inspect-brk", "${workspaceRoot}/covquestions-js/node_modules/jest/bin/jest.js", "--runInBand"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "port": 9229

@@ -16,6 +16,7 @@ describe("Covscript generator basic tests", () => {
     'q_contact_date convert_to_date_string "YYYY.MM.DD"'
   );
   expectGen({ round: { var: "v_number" } }, "round v_number");
+  expectGen({ log10: { var: "v_number" } }, "log10 v_number");
 });
 
 describe("Covscript generator brace insertion", () => {

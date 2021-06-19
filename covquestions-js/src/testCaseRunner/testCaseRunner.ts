@@ -19,22 +19,14 @@ export type TestResultError = {
 export type TestResult = TestResultSuccess | TestResultError;
 
 export function runTestCases(testQuestionnaire: Questionnaire): TestResult[] {
-  if (
-    testQuestionnaire.testCases === undefined ||
-    testQuestionnaire.testCases.length === 0
-  ) {
+  if (testQuestionnaire.testCases === undefined || testQuestionnaire.testCases.length === 0) {
     return [];
   }
 
-  return testQuestionnaire.testCases.map((testCase) =>
-    runOneTestCase(testQuestionnaire, testCase)
-  );
+  return testQuestionnaire.testCases.map((testCase) => runOneTestCase(testQuestionnaire, testCase));
 }
 
-export function runOneTestCase(
-  testQuestionnaire: Questionnaire,
-  testCase: TestCase
-): TestResult {
+export function runOneTestCase(testQuestionnaire: Questionnaire, testCase: TestCase): TestResult {
   const timeOfExecution =
     testCase.options !== undefined && testCase.options.fillInDate !== undefined
       ? dateInSecondsTimestamp(testCase.options.fillInDate)
@@ -54,27 +46,17 @@ function runOneTestCaseRandomly(
 ): TestResult {
   const results = [];
   const randomRuns =
-    testCase.options !== undefined && testCase.options.randomRuns !== undefined
-      ? testCase.options.randomRuns
-      : 1;
+    testCase.options !== undefined && testCase.options.randomRuns !== undefined ? testCase.options.randomRuns : 1;
   for (let i = 0; i < randomRuns; i++) {
-    const result = runOneTestCaseOnce(
-      testQuestionnaire,
-      testCase,
-      timeOfExecution
-    );
+    const result = runOneTestCaseOnce(testQuestionnaire, testCase, timeOfExecution);
     results.push(result);
   }
 
   if (results.every((result) => result.success === true)) {
     return { success: true, description: testCase.description };
   } else {
-    const numberOfFailures = results.filter(
-      (result) => result.success === false
-    ).length;
-    const firstFailure = results.find(
-      (result) => result.success === false
-    ) as TestResultError;
+    const numberOfFailures = results.filter((result) => result.success === false).length;
+    const firstFailure = results.find((result) => result.success === false) as TestResultError;
     return {
       success: false,
       description: testCase.description,
@@ -120,16 +102,11 @@ function runOneTestCaseOnce(
 
 function isRandomTestCase(testCase: TestCase) {
   return (
-    (testCase.options !== undefined && testCase.options.randomRuns !== undefined
-      ? testCase.options.randomRuns
-      : 0) > 0
+    (testCase.options !== undefined && testCase.options.randomRuns !== undefined ? testCase.options.randomRuns : 0) > 0
   );
 }
 
-function answerQuestions(
-  engine: QuestionnaireEngine,
-  testCase: TestCase
-): TestResultError | undefined {
+function answerQuestions(engine: QuestionnaireEngine, testCase: TestCase): TestResultError | undefined {
   const { description } = testCase;
 
   let question = engine.nextQuestion();
@@ -142,10 +119,7 @@ function answerQuestions(
       if (question.type !== "date") {
         engine.setAnswer(question.id, answerValue);
       } else {
-        engine.setAnswer(
-          question.id,
-          dateInSecondsTimestamp(answerValue as string)
-        );
+        engine.setAnswer(question.id, dateInSecondsTimestamp(answerValue as string));
       }
     } else {
       // answer was not provided in test case

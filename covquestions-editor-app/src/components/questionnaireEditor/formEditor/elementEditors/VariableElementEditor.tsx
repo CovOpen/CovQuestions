@@ -21,7 +21,10 @@ const uiSchema = {
 };
 
 function convertToStringRepresentation(formData: EditorVariable): VariableInStringRepresentation {
-  return { ...formData, expression: JSON.stringify(formData?.expression, null, 2) };
+  return {
+    ...formData,
+    expression: JSON.stringify(formData?.expression, null, 2),
+  };
 }
 
 export function VariableElementEditor(props: VariableElementEditorProps) {
@@ -31,7 +34,13 @@ export function VariableElementEditor(props: VariableElementEditorProps) {
   const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
   const onChange = (formData: VariableInStringRepresentation, hasErrors: boolean) => {
-    dispatch(editVariable({ index: props.index, changedVariable: formData, hasErrors: hasErrors }));
+    dispatch(
+      editVariable({
+        index: props.index,
+        changedVariable: formData,
+        hasErrors: hasErrors,
+      })
+    );
   };
 
   const onValidate = (formData: VariableInStringRepresentation, errors: any) => {

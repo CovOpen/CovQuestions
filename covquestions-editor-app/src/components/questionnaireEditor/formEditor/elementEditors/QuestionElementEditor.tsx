@@ -41,7 +41,13 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
   const onChange = (formData: QuestionInStringRepresentation, hasErrors: boolean) => {
-    dispatch(editQuestion({ index: props.index, changedQuestion: formData, hasErrors: hasErrors }));
+    dispatch(
+      editQuestion({
+        index: props.index,
+        changedQuestion: formData,
+        hasErrors: hasErrors,
+      })
+    );
   };
 
   const validate = (formData: QuestionInStringRepresentation, errors: any) => {
