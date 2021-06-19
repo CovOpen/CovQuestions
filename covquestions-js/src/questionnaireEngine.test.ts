@@ -397,4 +397,67 @@ describe("questionnaireEngine", () => {
       expect(result["round_test"]).toEqual(3);
     });
   });
+
+  describe("log10 numbers", () => {
+    it("log10", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "log10_test",
+            expression: {
+              log10: [100000],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["log10_test"]).toEqual(5);
+    });
+
+    it("log10 1", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "log10_test",
+            expression: {
+              log10: [1],
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["log10_test"]).toEqual(0);
+    });
+
+    it("log10 variable", () => {
+      const testQuestionnaire: Questionnaire = {
+        ...emptyTestQuestionnaire,
+        variables: [
+          {
+            id: "number",
+            expression: 0,
+          },
+          {
+            id: "log10_test",
+            expression: {
+              log10: { var: "number" },
+            },
+          },
+        ],
+      };
+
+      const engine = new QuestionnaireEngine(testQuestionnaire);
+      const result = engine.getVariables();
+
+      expect(result["log10_test"]).toEqual(Number.NEGATIVE_INFINITY);
+    });
+  });
 });

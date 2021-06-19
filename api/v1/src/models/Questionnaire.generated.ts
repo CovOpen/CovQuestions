@@ -229,6 +229,7 @@ export type LogicOperator =
   | LogicGreater
   | LogicLess
   | LogicConvertToDateString
+  | Log10
   | Round;
 export type LogicConstant = number | string | boolean;
 /**
@@ -393,6 +394,9 @@ export interface LogicLess {
 }
 export interface LogicConvertToDateString {
   convert_to_date_string: [LogicExpression, LogicExpression];
+}
+export interface Log10 {
+  log10: LogicExpression | [LogicExpression];
 }
 export interface Round {
   round: LogicExpression | [LogicExpression];

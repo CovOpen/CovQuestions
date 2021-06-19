@@ -57,4 +57,9 @@ describe("Generator/Parser End-To-End Tests", () => {
     "round (q_contact_date + v_two_days)",
     "round (q_contact_date + v_two_days)"
   );
+
+  expectE2E(
+    "log10 (q_contact_date + v_two_days)",
+    "log10 (q_contact_date + v_two_days)"
+  );
 });

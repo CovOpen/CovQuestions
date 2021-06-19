@@ -373,6 +373,7 @@ export class QuestionnaireEngine {
 
     jsonLogic.add_operation("convert_to_date_string", convertToDateString);
     jsonLogic.add_operation("round", Math.round);
+    jsonLogic.add_operation("log10", Math.log10);
   }
 }
 

@@ -616,6 +616,9 @@
           "$ref": "#/definitions/LogicConvertToDateString"
         },
         {
+          "$ref": "#/definitions/Log10"
+        },
+        {
           "$ref": "#/definitions/Round"
         }
       ]
@@ -728,6 +731,28 @@
       },
       "required": ["convert_to_date_string"],
       "title": "LogicConvertToDateString",
+      "type": "object"
+    },
+    "Log10": {
+      "properties": {
+        "log10": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/LogicExpression"
+            },
+            {
+              "items": {
+                "$ref": "#/definitions/LogicExpression"
+              },
+              "maxItems": 1,
+              "minItems": 1,
+              "type": "array"
+            }
+          ]
+        }
+      },
+      "required": ["log10"],
+      "title": "Log10",
       "type": "object"
     },
     "Round": {

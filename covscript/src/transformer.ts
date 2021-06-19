@@ -18,7 +18,7 @@ type BinaryOperator =
   | ">"
   | "%"
   | "convert_to_date_string";
-type UnaryOperator = "!" | "round";
+type UnaryOperator = "!" | "round" | "log10";
 
 function isAssoicative(op: BinaryOperator | UnaryOperator) {
   return op === "and" || op === "or" || op === "+" || op === "*";
@@ -195,6 +195,10 @@ export class ToJsonLogicTransformer {
     switch (op) {
       // Negation
       case "!":
+        expr[op] = child;
+        break;
+      // Log10
+      case "log10":
         expr[op] = child;
         break;
       // Round
