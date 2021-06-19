@@ -49,15 +49,15 @@ jobs:
         run: npm link ../covquestions-js
         working-directory: covquestions-editor-app/
 
-      - name: Check format
-        run: npm run lint
-        working-directory: covquestions-editor-app/
       - name: Run tests
         run: CI=true npm run test
         working-directory: covquestions-editor-app/
       - name: Build App
         run: npm run build
         working-directory: covquestions-editor-app/
+
+      - name: Check format
+        run: npm run lint
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:

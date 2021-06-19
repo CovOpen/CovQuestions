@@ -9,8 +9,6 @@
     "typescript.preferences.quoteStyle": "double",
     "javascript.referencesCodeLens.enabled": true,
     "typescript.referencesCodeLens.enabled": true,
-    "prettier.disableLanguages": [],
-    "prettier.printWidth": 80,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll.tslint": true

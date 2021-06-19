@@ -19,6 +19,7 @@
   "private": true,
   "scripts": {
     "format": "prettier --write **/*.{ts,tsx,json}",
+    "lint": "prettier --check **/*.{ts,tsx,json}",
     "start": "openapi preview-docs",
     "build": "openapi bundle -o dist/openapi.json --ext json && openapi bundle -o dist/openapi.yaml --ext yaml",
     "docs": "npm run build && redoc-cli bundle ./dist/openapi.yaml",
