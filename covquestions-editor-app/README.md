@@ -1,4 +1,6 @@
-### Quick Start
+## Quick Start
+
+Code in the Cloud: [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CovOpen/CovQuestions/tree/master/covquestions-editor-app)
 
 1. `npm install` (install dependecies)
 
