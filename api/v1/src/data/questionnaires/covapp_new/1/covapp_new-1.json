@@ -5,9 +5,7 @@
   "language": "de",
   "title": "CovApp@@9e7328e5d5c11038c69b727bc7efcd8d",
   "meta": {
-    "availableLanguages": [
-      "de"
-    ],
+    "availableLanguages": ["de"],
     "author": "Alexander Thieme",
     "creationDate": "2021-05-06"
   },
@@ -2279,9 +2277,7 @@
         "q_pcrtest": "no",
         "q_antigentestresult": "negative",
         "q_contact_tracing_risk_contacts": "yes_high_risk",
-        "q_immunosuppressants": [
-          "chemo"
-        ],
+        "q_immunosuppressants": ["chemo"],
         "q_antigentest": "yes",
         "q_vaccine": "yes",
         "q_vaccine_completed": "yes",
@@ -2492,9 +2488,7 @@
         "q_antigentestresult": "positive",
         "q_age": "yes",
         "q_pcrtest": "no",
-        "q_symptoms": [
-          "chills"
-        ],
+        "q_symptoms": ["chills"],
         "q_symptoms_date": 1620259200
       },
       "results": {
@@ -2512,9 +2506,7 @@
         "q_antigentest": "no",
         "q_age": "yes",
         "q_pcrtest": "no",
-        "q_symptoms": [
-          "chills"
-        ],
+        "q_symptoms": ["chills"],
         "q_symptoms_date": 1620259200
       },
       "results": {
