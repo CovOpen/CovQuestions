@@ -94,8 +94,7 @@ export class QuestionnaireEngine {
 
   public nextQuestion(): Question | undefined {
     const indexOfNextQuestion = this.questions.findIndex((question, index) => {
-      const isAfterCurrentQuestion =
-        index > this.getQuestionIndex(this.getCurrentQuestionId());
+      const isAfterCurrentQuestion = index > this.getQuestionIndex(this.getCurrentQuestionId());
       const isEnabled = isQuestionEnabled(question, this.data);
       return isAfterCurrentQuestion && isEnabled;
     });
@@ -107,9 +106,7 @@ export class QuestionnaireEngine {
     return undefined;
   }
 
-  public previousQuestion(
-    currentQuestionId: string
-  ): { question: Question; answer?: RawAnswer } {
+  public previousQuestion(currentQuestionId: string): { question: Question; answer?: RawAnswer } {
     this.removeAnswersStartingFrom(currentQuestionId);
     const previousAnswer = this.givenAnswers.pop();
     this.recreateDataObject();
@@ -134,9 +131,7 @@ export class QuestionnaireEngine {
   public setAnswer(questionId: string, rawAnswer: RawAnswer) {
     const question = this.getQuestionById(questionId);
     if (question === undefined) {
-      throw new Error(
-        `You cannot set the answer to a question that does not exist. QuestionId: ${questionId}`
-      );
+      throw new Error(`You cannot set the answer to a question that does not exist. QuestionId: ${questionId}`);
     }
 
     if (!question.optional && rawAnswer === undefined) {
@@ -154,9 +149,7 @@ export class QuestionnaireEngine {
   }
 
   private removeAnswersStartingFrom(questionId: string) {
-    const indexOfAnswer = this.givenAnswers.findIndex(
-      (answer) => answer.questionId === questionId
-    );
+    const indexOfAnswer = this.givenAnswers.findIndex((answer) => answer.questionId === questionId);
 
     if (indexOfAnswer > -1) {
       this.givenAnswers = this.givenAnswers.slice(0, indexOfAnswer);
@@ -177,9 +170,7 @@ export class QuestionnaireEngine {
   }
 
   getNextQuestion(currentQuestionId: string): Question | undefined {
-    const nextPossibleQuestion = this.questions[
-      this.getQuestionIndex(currentQuestionId) + 1
-    ];
+    const nextPossibleQuestion = this.questions[this.getQuestionIndex(currentQuestionId) + 1];
     if (nextPossibleQuestion != undefined) {
       if (isQuestionEnabled(nextPossibleQuestion, this.data)) {
         return nextPossibleQuestion;
@@ -199,10 +190,7 @@ export class QuestionnaireEngine {
     return lastAnswer?.questionId;
   }
 
-  private processAnswerWithOptions(
-    rawAnswer: RawAnswer,
-    question: QuestionWithOptions
-  ): AnswerFromOptions {
+  private processAnswerWithOptions(rawAnswer: RawAnswer, question: QuestionWithOptions): AnswerFromOptions {
     const valueAsArray = convertToPrimitiveArray(rawAnswer);
 
     const count = question.options !== undefined ? question.options.length : 0;
@@ -228,10 +216,7 @@ export class QuestionnaireEngine {
     };
   }
 
-  private mergeScores(
-    scores1?: ScoreResponse,
-    scores2?: ScoreResponse
-  ): ScoreResponse {
+  private mergeScores(scores1?: ScoreResponse, scores2?: ScoreResponse): ScoreResponse {
     const combinedScores = scores1 ?? {};
     Object.entries(scores2 ?? {}).forEach(([scoreId, score]) => {
       combinedScores[scoreId] = (combinedScores[scoreId] ?? 0) + score;
@@ -253,10 +238,7 @@ export class QuestionnaireEngine {
       const question = this.questions.find(({ id }) => id === questionId);
 
       if (question?.type === "multiselect" || question?.type === "select") {
-        const processedAnswer = this.processAnswerWithOptions(
-          rawAnswer,
-          question
-        );
+        const processedAnswer = this.processAnswerWithOptions(rawAnswer, question);
         answersFromOptionQuestions.push(processedAnswer);
         data[questionId] = processedAnswer;
       } else {
@@ -344,10 +326,7 @@ export class QuestionnaireEngine {
           id: "covapp_qr",
           mapping: this.variables.reduce((aggregator, variable) => {
             if (variable.id.startsWith("qr_")) {
-              aggregator[variable.id.substring(3)] = jsonLogic.apply(
-                variable.expression,
-                this.data
-              );
+              aggregator[variable.id.substring(3)] = jsonLogic.apply(variable.expression, this.data);
             }
             return aggregator;
           }, {} as { [key: string]: string }),
@@ -360,10 +339,7 @@ export class QuestionnaireEngine {
   }
 
   private setAdditionalJsonLogicOperators() {
-    function convertToDateString(
-      timestamp?: LogicExpression,
-      dateFormat?: LogicExpression
-    ): string | null {
+    function convertToDateString(timestamp?: LogicExpression, dateFormat?: LogicExpression): string | null {
       if (!timestamp || !dateFormat) {
         return null;
       }
@@ -382,8 +358,5 @@ function notUndefined<T>(x: T | undefined): x is T {
 }
 
 function isQuestionEnabled(question: Question, data: DataObject): boolean {
-  return (
-    question.enableWhenExpression === undefined ||
-    jsonLogic.apply(question.enableWhenExpression, data)
-  );
+  return question.enableWhenExpression === undefined || jsonLogic.apply(question.enableWhenExpression, data);
 }

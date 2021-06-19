@@ -31,19 +31,12 @@ describe("Compact representation of associative ops", () => {
       or: [true, { and: [true, false] }, { and: [false, true] }, false],
     });
     expectEx("true AND true OR false AND false OR true AND false", {
-      or: [
-        { and: [true, true] },
-        { and: [false, false] },
-        { and: [true, false] },
-      ],
+      or: [{ and: [true, true] }, { and: [false, false] }, { and: [true, false] }],
     });
   });
 
   describe("End-To-End", () => {
-    expectE2E(
-      "true OR true AND false OR false AND true OR false",
-      "true or true and false or false and true or false"
-    );
+    expectE2E("true OR true AND false OR false AND true OR false", "true or true and false or false and true or false");
     expectE2E(
       "true AND true OR false AND false OR true AND false",
       "true and true or false and false or true and false"

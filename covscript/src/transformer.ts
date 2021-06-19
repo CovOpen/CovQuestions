@@ -56,9 +56,7 @@ export class ToJsonLogicTransformer {
     const key = Object.keys(cst.children);
     const children = cst.children[key[0]];
     if (key.length > 1 || children.length > 1) {
-      throw new Error(
-        "CST node had more than one children. This is an internal error."
-      );
+      throw new Error("CST node had more than one children. This is an internal error.");
     }
 
     return this.parseTokenOrNode(children[0]);
@@ -127,9 +125,7 @@ export class ToJsonLogicTransformer {
     const rhs = cst.children["rhs"] as CstNode[];
 
     if (lhs.length !== 1) {
-      throw new Error(
-        "Left hand side of binary expression needs to have length one."
-      );
+      throw new Error("Left hand side of binary expression needs to have length one.");
     }
 
     if (rhs === undefined || rhs.length === 0) {
@@ -143,9 +139,7 @@ export class ToJsonLogicTransformer {
       }
 
       if (operator.length !== rhs.length + lhs.length - 1) {
-        throw new Error(
-          "Incorrect count of operators for binary expression list."
-        );
+        throw new Error("Incorrect count of operators for binary expression list.");
       }
 
       return this.packList([...lhs, ...rhs], operator);

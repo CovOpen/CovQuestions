@@ -93,8 +93,7 @@ const testQuestionnaire: Questionnaire = {
       results: { rc_contact: "NO_CONTACT" },
     },
     {
-      description:
-        "Contact, but longer than two weeks ago, should lead to CONTACT_NOT_RELEVANT result",
+      description: "Contact, but longer than two weeks ago, should lead to CONTACT_NOT_RELEVANT result",
       answers: {
         q1_contact: true,
         q2_contact_when: "2020-03-01",
@@ -105,8 +104,7 @@ const testQuestionnaire: Questionnaire = {
       },
     },
     {
-      description:
-        "Contact within the last two weeks should lead to CONTACT_RELEVANT result",
+      description: "Contact within the last two weeks should lead to CONTACT_RELEVANT result",
       answers: {
         q1_contact: true,
         q2_contact_when: "2020-03-14",

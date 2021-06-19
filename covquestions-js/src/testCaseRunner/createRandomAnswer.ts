@@ -3,10 +3,7 @@ import { dateInSecondsTimestamp } from "./testCaseRunner";
 
 export function createRandomAnswer(question: Question, testCase: TestCase) {
   const percentageOfOptionalQuestionsThatAreNotAnswered = 0.2;
-  if (
-    question.optional &&
-    Math.random() < percentageOfOptionalQuestionsThatAreNotAnswered
-  ) {
+  if (question.optional && Math.random() < percentageOfOptionalQuestionsThatAreNotAnswered) {
     return undefined;
   }
 
@@ -16,23 +13,18 @@ export function createRandomAnswer(question: Question, testCase: TestCase) {
     case "multiselect":
       return getRandomOptionValues(question.options!);
     case "date":
-      return getRandomDate(
-        testCase.options !== undefined ? testCase.options.fillInDate : undefined
-      );
+      return getRandomDate(testCase.options !== undefined ? testCase.options.fillInDate : undefined);
     case "boolean":
       return Math.random() < 0.5;
     case "number":
       return getRandomInRange(
-        question.numericOptions !== undefined &&
-          question.numericOptions.min !== undefined
+        question.numericOptions !== undefined && question.numericOptions.min !== undefined
           ? question.numericOptions.min
           : 0,
-        question.numericOptions !== undefined &&
-          question.numericOptions.max !== undefined
+        question.numericOptions !== undefined && question.numericOptions.max !== undefined
           ? question.numericOptions.max
           : 150,
-        question.numericOptions !== undefined &&
-          question.numericOptions.step !== undefined
+        question.numericOptions !== undefined && question.numericOptions.step !== undefined
           ? question.numericOptions.step
           : 1
       );
@@ -47,17 +39,13 @@ function getRandomElementFromArray(array: any[]): any {
 
 function getRandomOptionValues(options: Option[]) {
   return options.reduce(
-    (selectedValues: string[], option) =>
-      Math.random() < 0.5 ? [...selectedValues, option.value] : selectedValues,
+    (selectedValues: string[], option) => (Math.random() < 0.5 ? [...selectedValues, option.value] : selectedValues),
     []
   );
 }
 
 function getRandomDate(fillInDate?: string) {
-  const executionDate =
-    fillInDate !== undefined
-      ? dateInSecondsTimestamp(fillInDate)
-      : Date.now() / 1000;
+  const executionDate = fillInDate !== undefined ? dateInSecondsTimestamp(fillInDate) : Date.now() / 1000;
   const daysBeforeOrAfterExecution = getRandomInRange(-30, 30);
   return Math.round(executionDate + daysBeforeOrAfterExecution * 24 * 3600);
 }

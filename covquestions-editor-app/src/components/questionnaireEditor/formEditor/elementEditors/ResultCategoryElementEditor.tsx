@@ -12,7 +12,9 @@ import {
 } from "../../../../store/questionnaireInEditor";
 import { uiSchemaLogic, uiSchemaLogicReadOnly } from "../schemas/uiSchemaLogic";
 
-type ResultInStringRepresentation = Omit<EditorResult, "expression"> & { expression: string };
+type ResultInStringRepresentation = Omit<EditorResult, "expression"> & {
+  expression: string;
+};
 export type ResultCategoryInStringRepresentation = Omit<EditorResultCategory, "results"> & {
   results: ResultInStringRepresentation[];
 };
@@ -50,7 +52,13 @@ export function ResultCategoryElementEditor(props: ResultElementEditorProps) {
   const duplicatedIds = useSelector((state: RootState) => duplicatedIdsSelector(state));
 
   const onChange = (formData: ResultCategoryInStringRepresentation, hasErrors: boolean) => {
-    dispatch(editResultCategory({ index: props.index, changedResultCategory: formData, hasErrors: hasErrors }));
+    dispatch(
+      editResultCategory({
+        index: props.index,
+        changedResultCategory: formData,
+        hasErrors: hasErrors,
+      })
+    );
   };
 
   const validate = (formData: ResultCategoryInStringRepresentation, errors: any) => {

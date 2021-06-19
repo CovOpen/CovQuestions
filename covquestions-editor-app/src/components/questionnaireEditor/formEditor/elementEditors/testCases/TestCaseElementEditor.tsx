@@ -55,7 +55,10 @@ export const TestCaseElementEditor: React.FC<TestCaseElementEditorProps> = (prop
       id: category.id,
       type: "select",
       text: category.description,
-      options: category.results.map((result) => ({ value: result.id, text: result.text })),
+      options: category.results.map((result) => ({
+        value: result.id,
+        text: result.text,
+      })),
     })
   );
   const availableVariables: Question[] = questionnaireJson.variables.map((variable) => ({
@@ -89,7 +92,10 @@ export const TestCaseElementEditor: React.FC<TestCaseElementEditorProps> = (prop
   const onVariableItemChange: OnItemChange = ({ itemId, value }: { itemId: string; value: any }) => {
     const changedVariables = { ...testCase.variables, [itemId]: value };
     removeUndefined(changedVariables);
-    const changedTestCase: TestCase = { ...testCase, variables: changedVariables };
+    const changedTestCase: TestCase = {
+      ...testCase,
+      variables: changedVariables,
+    };
     dispatch(editTestCase({ index: props.index, changedTestCase, hasErrors: false }));
   };
 
@@ -101,7 +107,13 @@ export const TestCaseElementEditor: React.FC<TestCaseElementEditorProps> = (prop
   };
 
   const onTestCaseMetaChange = (formData: TestCaseMetaEditor, hasErrors: boolean) => {
-    dispatch(editTestCase({ index: props.index, changedTestCase: { ...testCase, ...formData }, hasErrors }));
+    dispatch(
+      editTestCase({
+        index: props.index,
+        changedTestCase: { ...testCase, ...formData },
+        hasErrors,
+      })
+    );
   };
 
   const getTestCaseMeta = ({ description, options }: TestCase): TestCaseMetaEditor => ({ description, options });

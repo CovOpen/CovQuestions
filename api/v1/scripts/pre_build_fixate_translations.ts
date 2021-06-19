@@ -14,9 +14,7 @@ import { i18n_extract, writeI18nFile } from "./pre_build_add_new_file";
 export function pre_build_fixate_translations(dataDir = "./src/data") {
   let allQuestionnaires = glob.sync(`${dataDir}/**/*.json`);
   allQuestionnaires.forEach((questionnairePath) => {
-    let questionnaire = JSON.parse(
-      fs.readFileSync(questionnairePath, { encoding: "utf-8" })
-    ) as Questionnaire;
+    let questionnaire = JSON.parse(fs.readFileSync(questionnairePath, { encoding: "utf-8" })) as Questionnaire;
     // Example "data/questionnaires/questionnaireId"
     let questionnaireDir = questionnairePath.split("/").slice(0, -2).join("/");
     // Example "data/questionnaires/questionnaireId/version/"
@@ -33,14 +31,8 @@ export function pre_build_fixate_translations(dataDir = "./src/data") {
         let filteredSourceMap = replaceTranslationMap(sourceMap, source);
         let filteredTargetMap = replaceTranslationMap(sourceMap, target);
 
-        if (
-          Object.keys(filteredSourceMap).every(
-            (t) => filteredSourceMap[t] == undefined
-          )
-        ) {
-          console.warn(
-            "WARNING: The created Translations are empty. Did you use the wrong source language?"
-          );
+        if (Object.keys(filteredSourceMap).every((t) => filteredSourceMap[t] == undefined)) {
+          console.warn("WARNING: The created Translations are empty. Did you use the wrong source language?");
         }
 
         writeI18nFile(

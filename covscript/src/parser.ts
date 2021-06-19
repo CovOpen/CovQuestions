@@ -71,16 +71,13 @@ export class CovscriptParser extends CstParser {
     this.SUBRULE(this.dateConversionExpression);
   });
 
-  private dateConversionExpression = this.RULE(
-    "dateConversionExpression",
-    () => {
-      this.SUBRULE(this.logicOrExpression, { LABEL: "lhs" });
-      this.MANY(() => {
-        this.CONSUME(T.DateConversionOperator, { LABEL: "operator" });
-        this.SUBRULE2(this.logicOrExpression, { LABEL: "rhs" });
-      });
-    }
-  );
+  private dateConversionExpression = this.RULE("dateConversionExpression", () => {
+    this.SUBRULE(this.logicOrExpression, { LABEL: "lhs" });
+    this.MANY(() => {
+      this.CONSUME(T.DateConversionOperator, { LABEL: "operator" });
+      this.SUBRULE2(this.logicOrExpression, { LABEL: "rhs" });
+    });
+  });
 
   //   private roundExpression = this.RULE("roundExpression", () => {
   //     this.CONSUME(T.RoundOperator, { LABEL: "operator" });
@@ -119,16 +116,13 @@ export class CovscriptParser extends CstParser {
     });
   });
 
-  private multiplicationExpression = this.RULE(
-    "multiplicationExpression",
-    () => {
-      this.SUBRULE(this.atomicExpression, { LABEL: "lhs" });
-      this.MANY(() => {
-        this.CONSUME(T.MultiplicationOperator, { LABEL: "operator" });
-        this.SUBRULE2(this.atomicExpression, { LABEL: "rhs" });
-      });
-    }
-  );
+  private multiplicationExpression = this.RULE("multiplicationExpression", () => {
+    this.SUBRULE(this.atomicExpression, { LABEL: "lhs" });
+    this.MANY(() => {
+      this.CONSUME(T.MultiplicationOperator, { LABEL: "operator" });
+      this.SUBRULE2(this.atomicExpression, { LABEL: "rhs" });
+    });
+  });
 
   // "Atomic" Expression. Avoids endless recursion.
   // This rule allows to break out from a precedence-based chain

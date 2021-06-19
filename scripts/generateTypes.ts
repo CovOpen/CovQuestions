@@ -24,16 +24,13 @@ function addAdditionalPropertiesRecursively(schema: object): object {
   const schemaWithAdditionalProps = addAdditionalProperties(schema);
 
   for (const key of Object.keys(schemaWithAdditionalProps)) {
-    schemaWithAdditionalProps[key] = addAdditionalPropertiesRecursively(
-      schemaWithAdditionalProps[key]
-    );
+    schemaWithAdditionalProps[key] = addAdditionalPropertiesRecursively(schemaWithAdditionalProps[key]);
   }
   return schemaWithAdditionalProps;
 }
 
 fs.mkdirSync("dist", { recursive: true });
 
-compile(
-  addAdditionalPropertiesRecursively(loadSchema()),
-  "Questionnaire"
-).then((ts: string) => fs.writeFileSync(generatedTypesOutputPath, ts));
+compile(addAdditionalPropertiesRecursively(loadSchema()), "Questionnaire").then((ts: string) =>
+  fs.writeFileSync(generatedTypesOutputPath, ts)
+);

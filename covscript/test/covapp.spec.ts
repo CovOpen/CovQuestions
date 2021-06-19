@@ -92,14 +92,8 @@ describe("Covapp example logic", () => {
     "v_symptoms.value and v_contact.value and v_symptoms_after_contact.value"
   );
 
-  expectE2E(
-    "v_contact_relevant.value and !v_symptoms.value",
-    "v_contact_relevant.value and !v_symptoms.value"
-  );
-  expectE2E(
-    "!v_symptoms.value and !v_contact.value",
-    "!v_symptoms.value and !v_contact.value"
-  );
+  expectE2E("v_contact_relevant.value and !v_symptoms.value", "v_contact_relevant.value and !v_symptoms.value");
+  expectE2E("!v_symptoms.value and !v_contact.value", "!v_symptoms.value and !v_contact.value");
   expectE2E('q4_work.value == "medical"', 'q4_work.value == "medical"');
   expectE2E(
     "q8_contact_date.value and !v_contact_relevant and !v_symptoms",

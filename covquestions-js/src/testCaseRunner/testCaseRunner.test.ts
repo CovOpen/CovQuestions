@@ -13,12 +13,10 @@ function runTestCasesFor(questionnaire: Questionnaire) {
     throw Error("No test cases provided");
   }
 
-  const expectEveryTestCaseToPass = questionnaire.testCases.map(
-    ({ description }) => ({
-      description,
-      success: true,
-    })
-  );
+  const expectEveryTestCaseToPass = questionnaire.testCases.map(({ description }) => ({
+    description,
+    success: true,
+  }));
 
   const results = runTestCases(questionnaire);
 
@@ -65,10 +63,7 @@ describe("testCaseRunner", () => {
     };
 
     it("should succeed to run in normal mode (default), if not all optional answers are provided", () => {
-      const result = runOneTestCase(
-        simpleTextQuestion,
-        testCaseWithMissingOptionalAnswers
-      );
+      const result = runOneTestCase(simpleTextQuestion, testCaseWithMissingOptionalAnswers);
 
       expect(result).toEqual({
         description: testCaseWithMissingOptionalAnswers.description,
@@ -89,10 +84,7 @@ describe("testCaseRunner", () => {
     });
 
     it("should succeed to run in normal mode, if too many answers are provided", () => {
-      const result = runOneTestCase(
-        simpleTextQuestion,
-        testCaseWithTooManyAnswer
-      );
+      const result = runOneTestCase(simpleTextQuestion, testCaseWithTooManyAnswer);
 
       expect(result).toEqual({
         description: testCaseWithTooManyAnswer.description,
@@ -131,18 +123,13 @@ describe("testCaseRunner", () => {
         {
           id: "additionalCategory",
           description: "something",
-          results: [
-            { id: "additionalResult", text: "some text", expression: true },
-          ],
+          results: [{ id: "additionalResult", text: "some text", expression: true }],
         },
       ],
     };
 
     it("should succeed to run in normal mode, if not all results are provided", () => {
-      const result = runOneTestCase(
-        questionnaireWithTwoResultCategories,
-        testCaseWithoutAllResults
-      );
+      const result = runOneTestCase(questionnaireWithTwoResultCategories, testCaseWithoutAllResults);
 
       expect(result).toEqual({
         description: testCaseWithoutAllResults.description,
@@ -217,10 +204,7 @@ describe("testCaseRunner", () => {
     it("should succeed variable checks, if correct values are provided", () => {
       const testCase = contactQuestionTestCaseWithDate("2020-03-14");
 
-      const result = runOneTestCase(
-        contactQuestionWithDateAndSkipping,
-        testCase
-      );
+      const result = runOneTestCase(contactQuestionWithDateAndSkipping, testCase);
 
       expect(result).toEqual({
         description: contactQuestionTestCaseDescription,
@@ -232,16 +216,12 @@ describe("testCaseRunner", () => {
     it("should fail variable checks, if wrong values are provided", () => {
       const testCase = contactQuestionTestCaseWithDate("2020-03-15");
 
-      const result = runOneTestCase(
-        contactQuestionWithDateAndSkipping,
-        testCase
-      );
+      const result = runOneTestCase(contactQuestionWithDateAndSkipping, testCase);
 
       expect(result).toEqual({
         description: contactQuestionTestCaseDescription,
         success: false,
-        errorMessage:
-          "Wrong variables: expected 'v_seconds_since_contact' to be '345600' but it is '259200'",
+        errorMessage: "Wrong variables: expected 'v_seconds_since_contact' to be '345600' but it is '259200'",
         answers: [
           {
             questionId: "q1_contact",

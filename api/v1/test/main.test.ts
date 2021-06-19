@@ -17,18 +17,14 @@ describe("Simple JSON API File Comparison", () => {
     });
   });
   test(`not to many files`, () => {
-    expect(glob.sync(`${testDir}/**`).length).toBe(
-      glob.sync(`${compareDir}/**`).length
-    );
+    expect(glob.sync(`${testDir}/**`).length).toBe(glob.sync(`${compareDir}/**`).length);
   });
 });
 
 describe("Validate JSON API Files to schema", () => {
   glob
     .sync(`${compareDir}/**/*.json`)
-    .filter(
-      (p) => !p.match("(translations|questionnaires.json|questions.json)")
-    )
+    .filter((p) => !p.match("(translations|questionnaires.json|questions.json)"))
     .forEach((path) => {
       test(`validate ${path}`, () => {
         var jsonValidator = new Ajv(); // options can be passed, e.g. {allErrors: true}
@@ -37,12 +33,7 @@ describe("Validate JSON API Files to schema", () => {
           "schema.json"
         );
 
-        expect(
-          jsonValidator.validate(
-            "schema.json",
-            JSON.parse(fs.readFileSync(path, "utf8"))
-          )
-        ).toBe(true);
+        expect(jsonValidator.validate("schema.json", JSON.parse(fs.readFileSync(path, "utf8")))).toBe(true);
       });
     });
 });

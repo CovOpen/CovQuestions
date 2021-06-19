@@ -35,7 +35,9 @@ export const ResultComponent: React.FC<{ results: Result[] }> = ({ results }) =>
         <Grid item>
           <Typography
             className={classes.resultText}
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(result.result.text) }}
+            dangerouslySetInnerHTML={{
+              __html: sanitizeHtml(result.result.text),
+            }}
           />
         </Grid>
       </Grid>

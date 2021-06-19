@@ -27,7 +27,10 @@ fileNames.forEach((fileName: string) => {
       title: questionnaire.title,
       path: `/questionnaires/${questionnaire.id}/${questionnaire.version}/${questionnaire.language}`,
       version: questionnaire.version,
-      meta: { author: questionnaire.meta.author, availableLanguages: questionnaire.meta.availableLanguages },
+      meta: {
+        author: questionnaire.meta.author,
+        availableLanguages: questionnaire.meta.availableLanguages,
+      },
     });
   }
 });

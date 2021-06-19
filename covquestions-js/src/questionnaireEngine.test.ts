@@ -236,8 +236,7 @@ describe("questionnaireEngine", () => {
               {
                 id: "rc1.1",
                 expression: true,
-                text:
-                  "some text with the number %(magic_number).1f in the middle",
+                text: "some text with the number %(magic_number).1f in the middle",
               },
             ],
           },
@@ -247,9 +246,7 @@ describe("questionnaireEngine", () => {
       const engine = new QuestionnaireEngine(testQuestionnaire);
       const result = engine.getResults();
 
-      expect(result.results[0]!.result.text).toEqual(
-        "some text with the number 42.0 in the middle"
-      );
+      expect(result.results[0]!.result.text).toEqual("some text with the number 42.0 in the middle");
     });
   });
 

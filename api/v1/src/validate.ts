@@ -14,14 +14,7 @@ export function validate(path: string) {
 
   console.log("Validating schema...");
   var valid = jsonValidator.validate("schema.json", questionnaire);
-  if (!valid)
-    throw Error(
-      `File ${path} does not match the JSON-Schema: \n${JSON.stringify(
-        validate.errors,
-        null,
-        2
-      )}`
-    );
+  if (!valid) throw Error(`File ${path} does not match the JSON-Schema: \n${JSON.stringify(validate.errors, null, 2)}`);
 
   console.log("Running embedded Tests...");
   validateWithTestCases(questionnaire);
@@ -30,8 +23,6 @@ export function validate(path: string) {
 function validateWithTestCases(questionnaire: Questionnaire) {
   const testResults = runTestCases(questionnaire);
   if (testResults.some((testResult) => testResult.success === false)) {
-    throw Error(
-      `TestCases in questionnaire ${questionnaire.id} did not succeed.`
-    );
+    throw Error(`TestCases in questionnaire ${questionnaire.id} did not succeed.`);
   }
 }

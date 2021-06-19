@@ -2,10 +2,7 @@ import { TestCase } from "../models/Questionnaire.generated";
 import { TestResultError } from "./testCaseRunner";
 import { Primitive } from "../primitive";
 
-function isEqualToStringRepresentation(
-  expected: string,
-  actual: Primitive | undefined
-): boolean {
+function isEqualToStringRepresentation(expected: string, actual: Primitive | undefined): boolean {
   if (actual === undefined) {
     return false;
   }
