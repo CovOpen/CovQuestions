@@ -46,7 +46,7 @@ export function VariableElementEditor(props: VariableElementEditorProps) {
   const onValidate = (formData: VariableInStringRepresentation, errors: any) => {
     try {
       convertStringToLogicExpression(formData?.expressionString);
-    } catch (error) {
+    } catch (error: any) {
       errors.expressionString.addError(error.message);
     }
 

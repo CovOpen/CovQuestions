@@ -36,7 +36,9 @@ export const ResultComponent: React.FC<{ results: Result[] }> = ({ results }) =>
           <Typography
             className={classes.resultText}
             dangerouslySetInnerHTML={{
-              __html: sanitizeHtml(result.result.text),
+              __html: sanitizeHtml(result.result.text, {
+                allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]) 
+              }),
             }}
           />
         </Grid>

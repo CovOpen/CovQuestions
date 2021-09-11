@@ -53,8 +53,8 @@ export function ElementEditorQuestion(props: QuestionElementEditorProps) {
   const validate = (formData: QuestionInStringRepresentation, errors: any) => {
     try {
       convertStringToLogicExpression(formData.enableWhenExpressionString);
-    } catch (error) {
-      errors.enableWhenExpressionString.addError(error.message);
+    } catch (error: any) {
+        errors.enableWhenExpressionString.addError(error.message);
     }
     if (duplicatedIds.indexOf(formData.id) > -1) {
       errors.id.addError("Value of ID is duplicated");

@@ -137,7 +137,9 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
                     <Typography
                       className={classes.questionDetails}
                       dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(currentQuestion.details),
+                        __html: sanitizeHtml(currentQuestion.details, {
+                          allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]) 
+                        }),
                       }}
                     />
                   </Grid>

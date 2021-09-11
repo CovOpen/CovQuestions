@@ -73,7 +73,7 @@ export function ResultCategoryElementEditor(props: ResultElementEditorProps) {
       const result = formData.results[i];
       try {
         convertStringToLogicExpression(result.expressionString);
-      } catch (error) {
+    } catch (error: any) {
         errors.results[i].expressionString.addError(error.message);
       }
 
