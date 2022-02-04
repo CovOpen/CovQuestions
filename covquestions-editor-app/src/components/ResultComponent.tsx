@@ -1,7 +1,7 @@
 import React from "react";
 import { Result } from "@covopen/covquestions-js";
 import { createStyles, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
-import sanitizeHtml from "sanitize-html";
+import DOMPurify from 'dompurify';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -36,9 +36,7 @@ export const ResultComponent: React.FC<{ results: Result[] }> = ({ results }) =>
           <Typography
             className={classes.resultText}
             dangerouslySetInnerHTML={{
-              __html: sanitizeHtml(result.result.text, {
-                allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]) 
-              }),
+              __html: DOMPurify.sanitize(result.result.text),
             }}
           />
         </Grid>

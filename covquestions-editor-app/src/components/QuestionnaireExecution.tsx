@@ -5,7 +5,7 @@ import { Primitive, Question, Questionnaire, QuestionnaireEngine } from "@covope
 import { ResultComponent } from "./ResultComponent";
 import "typeface-fira-sans";
 import { QuestionFormComponent } from "./questionComponents/QuestionFormComponent";
-import sanitizeHtml from "sanitize-html";
+import DOMPurify from 'dompurify';
 
 type QuestionnaireExecutionProps = {
   currentQuestionnaire: Questionnaire;
@@ -137,9 +137,7 @@ export const QuestionnaireExecution: React.FC<QuestionnaireExecutionProps> = ({
                     <Typography
                       className={classes.questionDetails}
                       dangerouslySetInnerHTML={{
-                        __html: sanitizeHtml(currentQuestion.details, {
-                          allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ]) 
-                        }),
+                        __html: DOMPurify.sanitize(currentQuestion.details),
                       }}
                     />
                   </Grid>
