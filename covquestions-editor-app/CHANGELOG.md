@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.4](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.8.3...covquestions-editor-app@1.8.4) (2022-02-04)
+
+
+### Bug Fixes
+
+* add types ([53224a2](https://github.com/CovOpen/CovQuestions/commit/53224a21356b9e3a26e00c05a7c0bbcd271ff7fd))
+* use same libary for dom sanitation as covapp ([a7492cd](https://github.com/CovOpen/CovQuestions/commit/a7492cd9f569e2e647ab932c1bb0cc85a216d129))
+
+
+
+
+
 ## [1.8.3](https://github.com/CovOpen/CovQuestions/compare/covquestions-editor-app@1.8.2...covquestions-editor-app@1.8.3) (2021-09-11)
 
 **Note:** Version bump only for package covquestions-editor-app
