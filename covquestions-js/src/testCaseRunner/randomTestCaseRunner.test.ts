@@ -204,4 +204,81 @@ describe("testCaseRunner", () => {
       });
     });
   });
+
+  describe("bug: convert_to_date_string is undefined cases", () => {
+    it("should succeed in random mode if there are no results given", () => {
+      const testQuestionnaire: Questionnaire = {
+        id: "testQuestionnaire",
+        schemaVersion: "1",
+        version: 1,
+        language: "en",
+        title: "All question types",
+        meta: {
+          author: "Someone",
+          availableLanguages: ["en"],
+          creationDate: "2020-04-13T13:48:48+0000",
+        },
+        questions: [
+          {
+            id: "q_contact",
+            text: "Select one Option",
+            type: "select",
+            options: [
+              {
+                text: "yes",
+                value: "yes",
+              },
+              {
+                text: "no",
+                value: "no",
+              },
+            ],
+          },
+          {
+            id: "dateQuestion",
+            text: "Select a date",
+            type: "date",
+            enableWhenExpression: {
+              var: "q_contact.option.yes",
+            },
+          },
+        ],
+        variables: [
+          {
+            id: "v_convert_date",
+            expression: {
+              convert_to_date_string: [
+                {
+                  var: "dateQuestion",
+                },
+                "YYYY.MM.DD",
+              ],
+            },
+          },
+        ],
+        resultCategories: [],
+        testCases: [],
+      };
+
+      const testCase: TestCase = {
+        description: "Test should randomly select values",
+        answers: {
+          dateQuestion: 1617926400,
+        },
+        results: {},
+        variables: {
+          v_convert_date: "2021.04.09",
+        },
+        options: {
+          randomRuns: 100,
+        },
+      };
+      const result = runOneTestCase(testQuestionnaire, testCase);
+
+      expect(result).toEqual({
+        description: testCase.description,
+        success: true,
+      });
+    });
+  });
 });
