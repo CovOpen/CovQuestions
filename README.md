@@ -1,3 +1,5 @@
+> ⚠️ Attention! This project will be continued here: https://github.com/OSPRS/QuestionnaireEngine
+
 Quicklinks: [Documents](https://drive.google.com/drive/folders/1YpAaD8_mvSkpHuIvbIJmsb08GLVQt8iE?usp=sharing) | [OpenAPI Spec](https://covopen.github.io/CovQuestions/swagger/index.html)
 
 # CovQuestions
